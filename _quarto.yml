@@ -18,60 +18,62 @@ website:
       - href: https://canvas.ku.edu/courses/182539
         icon: file-text
         text: "Syllabus"
-      - text: Unit A
+      - text: "Unit A"
         menu:
           - icon: compass
             text: "Week 01: Course Overview and Recap of R"
-            #href: A/01/index.html
+            href: A/01/index.html
           - icon: rocket-takeoff
             text: "Week 02: Recap of Linear Modeling"
-            #href: A/02/index.html
+            href: A/02/index.html
           - icon: code-square
             text: "Week 03: Clustering Issues and Approaches"
-            #href: A/03/index.html
+            href: A/03/index.html
           - icon: table
             text: "Week 04: Data Prep and Estimation"
-            #href: A/04/index.html
-      - text: Unit B
+            href: A/04/index.html
+      - text: "Unit B"
         menu:
           - icon: graph-up-arrow
             text: "Week 05: Random/Varying Intercepts"
-            #href: A/05/index.html
+            href: B/05/index.html
           - icon: chat-quote
             text: "Week 06: Random/Varying Slopes"
-            #href: A/06/index.html
+            href: B/06/index.html
           - icon: people
             text: "Week 07: Cross-level Interactions"
-            #href: A/07/index.html
+            href: B/07/index.html
           - icon: easel2
             text: "Week 08: Translation Activity"
-            #href: A/08/index.html
-      - text: Unit C
+            href: B/08/index.html
+      - text: "Unit C"
         menu:
           - icon: balloon
             text: "Week 09: Spring Break"
-            #href: B/09/index.html
+            href: C/09/index.html
           - icon: calculator
             text: "Week 10: Model Comparison"
-            #href: B/10/index.html
+            href: C/10/index.html
           - icon: shuffle
             text: "Week 11: Longitudinal Analyses"
-            #href: B/11/index.html
+            href: C/11/index.html
           - icon: body-text
             text: "Week 12: Diagnostics and Reporting"
-            #href: B/12/index.html
+            href: C/12/index.html
           - icon: brush
             text: "Week 13: Troubleshooting and Bayes"
-            #href: B/13/index.html
+            href: C/13/index.html
           - icon: arrow-repeat
             text: "Week 14: Advanced Previews"
-            #href: B/14/index.html
+            href: C/14/index.html
+      - text: "Unit D"
+        menu:
           - icon: people
             text: "Week 15: Project Work"
-            #href: B/15/index.html
+            href: D/15/index.html
           - icon: easel2
             text: "Week 16: Project Work"
-            #href: B/16/index.html
+            href: D/16/index.html
   page-footer: "Copyright 2026 &copy; Jeffrey Girard"
 
 format:
