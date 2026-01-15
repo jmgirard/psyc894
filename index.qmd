@@ -1,0 +1,61 @@
+---
+title: "Multilevel Modeling"
+toc: false
+email-obfuscation: javascript
+---
+
+Statistical methods for analyzing multilevel data (e.g., datasets with clustered, nested, or longitudinal structures) using a framework known variously as multilevel, mixed-effects, hierarchical linear, or random-coefficient modeling. The course reviews ordinary least squares regression and then introduces: the challenges posed by multilevel data, tools for processing multilevel data for analyses, and both maximum-likelihood and Bayesian estimation. Core topics include partial pooling, random intercepts, fixed and random slopes, cross-level interactions, model comparison, troubleshooting, applications to repeated-measures and longitudinal data, and thorough diagnostics and reporting. Emphasis is placed on conceptual understanding paired with hands-on analysis in statistical software (e.g., R). Students apply methods to real datasets and complete an independent project.
+
+### Learning Outcomes
+
+At the conclusion of this course, students will be able to:
+
+- Explain the issues that clustered data cause for the linear model
+- Contrast the pros and cons of different approaches for clustered data
+- Prepare a clustered dataset for multilevel analysis in R
+- Estimate various types of multilevel models in R
+- Flexibly specify different random effects structures
+- Interpret the fixed and random effects estimates
+- Explain the rationale and consequences of partial pooling
+- Identify the interpretation implied by each centering option
+- Detail and assess the assumptions made by a multilevel model
+- Decompose repeated and longitudinal measures into components
+- Discuss the idea of Bayesian estimation for multilevel models
+- Discuss the ideas of nested and cross-classified models
+
+### Instructor
+
+- [Dr. Jeffrey Girard](mailto:jmgirard@ku.edu), Instructor
+- [Dasha Yermol](mailto:dayermol@ku.edu), Teaching Assistant
+
+### Class Time and Location
+
+- M 11:00AM - 12:15PM in Wescoe 4035
+- F 02:00PM - 03:45PM in Wescoe 4035
+
+### Update Progress
+
+Below, I will track my progress updating this website week-by-week.
+
+:::{.columns}
+:::{.column width="50%"}
+- [x] Week 01
+- [ ] Week 02
+- [ ] Week 03
+- [ ] Week 04
+- [ ] Week 05
+- [ ] Week 06
+- [ ] Week 07
+- [ ] Week 08
+:::
+:::{.column width="50%"}
+- [ ] Week 09
+- [ ] Week 10
+- [ ] Week 11
+- [ ] Week 12
+- [ ] Week 13
+- [ ] Week 14
+- [ ] Week 15
+- [ ] Week 16
+:::
+:::
