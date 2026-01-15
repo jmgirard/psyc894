@@ -34,10 +34,10 @@ website:
             href: A/04/index.html
       - text: "Unit B"
         menu:
-          - icon: plus-slash-minus
+          - icon: arrow-down-up
             text: "Week 05: Random/Varying Intercepts"
             href: B/05/index.html
-          - icon: x
+          - icon: shuffle
             text: "Week 06: Random/Varying Slopes"
             href: B/06/index.html
           - icon: arrow-down-right
