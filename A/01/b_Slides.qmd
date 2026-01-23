@@ -24,7 +24,7 @@ format:
 
 ::: {.my-title}
 # [Multilevel Modeling]{.blue}
-Course Overview and Icebreakers
+Course Overview and Workflow Recap
 
 ::: {.my-grey}
 [{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
@@ -79,7 +79,7 @@ Fraser Hall 454
 ::: {}
 **Background**
 
--   [Assistant Professor]{.b .green}, *Department of Psychology*
+-   [Associate Professor]{.b .green}, *Department of Psychology*
 -   Brain, Behavior, and Quantitative Science
 -   Clinical Psychological Science
 -   Kansas Data Science Consortium
@@ -96,7 +96,7 @@ Fraser Hall 454
 :::
 
 ::: {.footer}
-Office Hours: TuTh 4:00–5:00pm
+Office Hours: T 3-4pm, F 12-1pm (odd weeks) or 1-2pm (even weeks)
 :::
 
 
@@ -111,57 +111,42 @@ Office Hours: TuTh 4:00–5:00pm
 ::: {.columns}
 ::: {.column width="50%"}
 
-**What you will learn here**
+**What you [will]{.blue} learn here**
 
 - When and why MLM is needed
 
-- Prepare a dataset for MLM
+- Data prep and model building
 
-- Estimate two-level models
-
-- Interpret random effects
+- Diagnostics and interpretation
 
 - Exposure to advanced topics
+
+- Exposure to alternatives
 
 :::
 
 ::: {.column width="50%"}
 
-**What you *won't* learn here**
+**What you [won't]{.red} learn here**
 
-- Advanced longitudinal models
+- Mastery of longitudinal models
 
-- Advanced nested (3+ level) models
+- Mastery of nested and crossed models
 
-- Advanced cross-classified models
+- Mastery of Bayesian estimation
 
-- Advanced Bayesian model estimation
+- Mastery of Extensions (GLMM, GAMM)
 
-- Extensions (e.g., GLMM, MSEM, GAMMs)
+- Mastery of Alternatives (WLS, GEE)
 
 :::
 :::
-
-
-## Course Format {.smaller}
-
-#### Lectures (1-2/week, 19 total)
-- Explaining concepts and demonstrating skills
-- Each is tied to one or more readings
-
-#### Computer Labs (0-1/week, 8 total)
-- Six multi-part questions to apply your new skills
-- Demonstrate your understanding in controlled conditions
-
-#### Final Project (1 week/semester, 2 total)
-- Apply your new skills to real-world data you care about
-- Challenge yourself to learn new things and specialize
 
 
 ## Course Materials {.smaller}
 
 #### Textbooks
-- **Introduction to Multilevel Modeling** \[SF\]\*<br />
+- **Introduction to Multilevel Modeling** \[S\&F\]\*<br />
   Shaw \& Flake (2021, 1E, [www.learn-mlms.com](https://www.learn-mlms.com), *free*)
 
 - **Multilevel analysis: Techniques and applications** \[HMV\]<br />
@@ -180,11 +165,11 @@ Office Hours: TuTh 4:00–5:00pm
 
 #### Graded Components
 
-- 80\% [Lab Reports]{.b .green} (10\% each $\times$ 8)
+- 66\% [Lab Reports]{.b .green} (6\% each $\times$ 11) - Practice skills and concepts from lecture
 
-- 10\% [Reflections]{.b .green} (2\% each $\times$ 5)
+- 22\% [Reflections]{.b .green} (2\% each $\times$ 11) - Summarize and consolidate learning from reading
 
-- 10\% [Final Project]{.b .green} (10\% each $\times$ 1)
+- 12\% [Final Project]{.b .green} (12\% each $\times$ 1) - Apply skills to real-world data
 
 #### Grading Scale
 
@@ -194,22 +179,6 @@ Office Hours: TuTh 4:00–5:00pm
 | Threshold | 93% | 90% | 87% | 83% | 80% | 77% | 73% | 70% | 67% | 63% | 60% |
 
 I don't round or curve grades, but will give points back if a question was poorly designed.
-
-## University Policies {.smaller}
-#### Accommodations
-- Please contact me and the [Student Access Center](https://access.ku.edu)
-
-#### Academic Misconduct
-- Disruption, threatening, cheating, plagiarism, falsification, etc.
-
-- May affect students' grades on specific work and/or overall
-
-#### Commercial Note-Taking
-- Not permitted in any course at University of Kansas
-
-#### Belonging and Inclusion
-- Treat others (and yourself) with respect at all times
-
 
 ## Course Policies {.smaller}
 #### Attendance
@@ -229,269 +198,60 @@ I don't round or curve grades, but will give points back if a question was poorl
 
 - You must use the skills and tools taught in class to solve the lab reports
 
+## Course Materials
+
+#### Canvas
+- Has assignments, grades, videos, and textbook PDFs
+- <https://canvas.ku.edu/courses/182539>
+
+#### Website
+- Has topics, ebook links, datasets, and slideshows
+- <https://jmgirard.github.io/psyc894>
+- Note this may be renamed `psyc892` next year
 
 <!-- Course Modules -->
 
 # Course Modules
 
-## Unit Overview
+## Unit A Overview
+- Week 01: Course Overview and Recap of R
+    + *No deadlines*
+- Week 02: Recap of Linear Modeling
+    + *Lab Report* only
+- Week 03: Clustering Issues and Approaches
+    + *Reflection* and *Lab Report*
+- Week 04: Data Prep and Estimation
+    + *Reflection* and *Lab Report*
+
+## Unit B Overview
+- Week 05: Random/Varying Intercepts
+    + *Reflection* and *Lab Report*
+- Week 06: Random/Varying Slopes
+    + *Reflection* and *Lab Report*
+- Week 07: Cross-level Interactions
+    + *Reflection* and *Lab Report*
+- Week 08: Translation Activity
+    + *Reflection* only
+
+## Unit C Overview
+- Week 09: Spring Break
+    + *No deadlines*
+- Week 10: Model Comparison
+    + *Reflection* and *Lab Report*
+- Week 11: Longitudinal Analyses
+    + *Reflection* and *Lab Report*
+- Week 12: Diagnostics and Reporting
+    + *Reflection* and *Lab Report*
+
+## Unit D Overview
+- Week 13: Troubleshooting and Bayes
+    + *Reflection* and *Lab Report*
+- Week 14: Advanced Previews
+    + *Reflection* and *Lab Report*
+- Week 15: Project Work
+    + *No deadlines*
+- Week 16: Project Work
+    + *Project Report*
 
-- Unit A: Getting Ready (4 weeks)
 
-- Unit B: Fundamentals (4 weeks)
 
-- Spring Break (1 week)
-
-- Unit C: Nuances (3 weeks)
-
-- Unit D: Previews (3 weeks)
-
-## Unit A: Weeks 1–2 {.smaller}
-
-#### Introductions and Software
-
-- \[01a\]: Course Overview and Icebreakers
-
-- \[01b\]: Software Install and Overview
-
-- Readings: Syllabus, SF ⸿1
-
-- Due: Week 01 Reflection
-
-#### Linear Model Review
-
-- \[02a\]: Simple and Multiple Regression
-
-- \[02b\]: Moderation and Diagnostics
-
-- Readings: SF ⸿2, Kelley \& Maxwell (2019)
-
-- Due: Week 02 Reflection
-
-
-## Unit A: Weeks 3–4 {.smaller}
-
-#### Issues and Approaches
-
-- \[03a\]: Issues with Clustered Data
-
-- \[03b\]: Approaches to Clustered Data
-
-- Readings: SF ⸿3, HMV ⸿1, McNeish (2016, 2023)
-
-- Due: Week 03 Reflection
-
-#### Getting Ready
-
-- \[04a\]: Long Format and Pivoting
-
-- \[04b\]: Estimation Strategies
-
-- Readings: Wickham et al. (2023), HMV §§3.1--3.3
-
-- Due: Week 04 Reflection
-
-
-## Unit B: Weeks 5–6 {.smaller}
-
-#### Random Intercepts
-
-- \[05a\]: Moving to Two Levels
-
-- \[05b\]: *Computer Lab*
-
-- Readings: SF ⸿4
-
-- Due: Week 05 Lab Report
-
-#### Fixed Slopes
-
-- \[06a\]: Adding Fixed Slopes
-
-- \[06b\]: *Computer Lab*
-
-- Readings: SF ⸿5
-
-- Due: Week 06 Lab Report
-
-
-## Unit B: Weeks 7–8 {.smaller}
-
-#### Random Slopes
-
-- \[07a\]: Adding Random Slopes
-
-- \[07b\]: *Computer Lab*
-
-- Readings: SF ⸿6, HMV §§2.1--2.2, Aguinis et al. (2013)
-
-- Due: Week 07 Lab Report
-
-#### Analysis Strategy
-
-- \[08a\]: Model Building and Comparison
-
-- \[08b\]: *Computer Lab*
-
-- Readings: HMV §§3.4+4.1, Brown (2021)
-
-- Due: Week 08 Lab Report
-
-
-## Unit C: Weeks 9–10 {.smaller}
-
-#### Spring Break
-
-- \[09a\]: No Class (Break)
-
-- \[09b\]: No Class (Break)
-
-- Readings: *NA*
-
-- Due: *NA*
-
-#### Troubleshooting
-
-- \[10a\]: Troubleshooting
-
-- \[10b\]: No Class (Travel)
-
-- Readings: SF ⸿7
-
-- Due: *NA*
-
-
-## Unit C: Weeks 11–12 {.smaller}
-
-#### Centering and Decomposing
-
-- \[11a\]: Within and Between Cluster Effects
-
-- \[11b\]: *Computer Lab*
-
-- Readings: SF ⸿8, HMV §4.2, Hamaker \& Muthén (2020)
-
-- Due: Week 11 Lab Report
-
-#### Longitudinal Data
-
-- \[12a\]: Longitudinal Data Considerations
-
-- \[12b\]: *Computer Lab*
-
-- Readings: SF ⸿⸿ 9--10, HMV ⸿5, Hox & Boom (2012)
-
-- Due: Week 12 Lab Report
-
-
-## Unit D: Weeks 13–14 {.smaller}
-
-#### Assumptions and Diagnostics
-
-- \[13a\]: Assumptions and Diagnostics
-
-- \[13b\]: *Computer Lab*
-
-- Readings: SF ⸿12, HMV ⸿13
-
-- Due: Week 13 Lab Report
-
-#### Power and Reporting
-
-- \[14a\]: Power and Reporting
-
-- \[14b\]: *Computer Lab*
-
-- Readings: HMV §§12.1--12.4, McCoach (2019)
-
-- Due: Week 14 Lab Report
-
-
-## Unit D: Weeks 15–16 {.smaller}
-
-#### Extensions and Previews
-
-- \[15a\]: Hierarchical Bayesian Models
-
-- \[15b\]: Nested and Crossed Models
-
-- Readings: HMV §§2.3--2.4 + ⸿9, Muth et al. (2018), Flores et al. (2021)
-
-- Due: Week 15 Reflection
-
-#### Final Project
-
-- \[16a\]: *Computer Lab*
-
-- \[16b\]: *Computer Lab*
-
-- Readings: *NA*
-
-- Due: Final Project Report
-
-
-<!-- Course Website -->
-
-# Course Website
-
-## Accessing Canvas
-
-#### Website
-
-- \[894\]: <https://canvas.ku.edu/courses/150399>
-
-#### Mobile App
-
-- iOS: [Canvas Student on the App Store](https://apps.apple.com/us/app/canvas-student/id480883488)
-
-- Android: [Canvas Student on the Google Play Store](https://play.google.com/store/apps/details?id=com.instructure.candroid)
-
-## Menu Options
-
-- [Simple Syllabus]{.b .blue} - View the course syllabus
-
-- [Modules]{.b .blue} - View the course materials by unit and week
-
-- [Grades]{.b .green} - See your grades in the gradebook
-
-- [Assignments]{.b .green} - See upcoming and completed assignments
-
-<!-- Activity -->
-
-# Activity
-
-## Icebreakers {.smaller}
-
-::: {.columns}
-
-::: {.column width="60%"}
-Break into small groups of 4–5...
-
-1. What is your **preferred name**?
-
-2. What is your **year** and **major** / department?
-
-3. What **academic topics** and questions excite you?
-
-4. What **career path(s)** are you considering?
-
-::: {.fragment}
-5. What was your **preferred name** again?
-
-6. Where did you grow up / what is your **home town**?
-
-7. What are your **non-academic interests** / hobbies?
-
-8. What is your **favorite plant or animal** and why?
-:::
-:::
-
-::: {.column .tc .pv4 width="40%"}
-{{< lif "../../icons/iceberg.json" trigger=loop delay=5000 colors=secondary:#2a76dd class=rc >}}
-:::
-
-:::
-
-::: {.footer}
-If there's time, shuffle the groups and repeat.
-:::

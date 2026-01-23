@@ -15,13 +15,13 @@ No Class due to MLK Day
 ### Readings
 
 #### Required
-- LMLM (1E) Chapter 1: [Introduction](https://www.learn-mlms.com/01-module-1.html){target="_blank"}
+- S\&F (1E) Chapter 1: [Introduction](https://www.learn-mlms.com/01-module-1.html){target="_blank"}
 
 #### Optional
-- R4DS (2E) Chapter 2: [Workflow: Basics](https://r4ds.hadley.nz/workflow-basics.html){target="_blank"}
-- R4DS (2E) Chapter 6: [Workflow: Scripts and Projects](https://r4ds.hadley.nz/workflow-scripts.html){target="_blank"}
-- R4DS (2E) Chapter 7: [Data import](https://r4ds.hadley.nz/data-import.html){target="_blank"}
-- R4DS (2E) Sections 28.1--28.5: [Quarto](https://r4ds.hadley.nz/quarto.html){target="_blank"}
+- WCG (2E) Chapter 2: [Workflow: Basics](https://r4ds.hadley.nz/workflow-basics.html){target="_blank"}
+- WCG (2E) Chapter 6: [Workflow: Scripts and Projects](https://r4ds.hadley.nz/workflow-scripts.html){target="_blank"}
+- WCG (2E) Chapter 7: [Data import](https://r4ds.hadley.nz/data-import.html){target="_blank"}
+- WCG (2E) Sections 28.1--28.5: [Quarto](https://r4ds.hadley.nz/quarto.html){target="_blank"}
 
 ### Slides
 ```{=html}
