@@ -1,5 +1,40 @@
 [
   {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Course Schedule",
+    "section": "",
+    "text": "Week 01: Course Overview and Recap of R\nWeek 02: Recap of Linear Modeling\nWeek 03: Clustering Issues and Approaches\nWeek 04: Data Prep and Estimation"
+  },
+  {
+    "objectID": "schedule.html#unit-a",
+    "href": "schedule.html#unit-a",
+    "title": "Course Schedule",
+    "section": "",
+    "text": "Week 01: Course Overview and Recap of R\nWeek 02: Recap of Linear Modeling\nWeek 03: Clustering Issues and Approaches\nWeek 04: Data Prep and Estimation"
+  },
+  {
+    "objectID": "schedule.html#unit-b",
+    "href": "schedule.html#unit-b",
+    "title": "Course Schedule",
+    "section": "Unit B",
+    "text": "Unit B\n\nWeek 05: Random/Varying Intercepts\nWeek 06: Random/Varying Slopes\nWeek 07: Cross-level Interactions\nWeek 08: Translation Activity"
+  },
+  {
+    "objectID": "schedule.html#unit-c",
+    "href": "schedule.html#unit-c",
+    "title": "Course Schedule",
+    "section": "Unit C",
+    "text": "Unit C\n\nWeek 09: Spring Break\nWeek 10: Model Comparison\nWeek 11: Longitudinal Analyses\nWeek 12: Diagnostics and Reporting"
+  },
+  {
+    "objectID": "schedule.html#unit-d",
+    "href": "schedule.html#unit-d",
+    "title": "Course Schedule",
+    "section": "Unit D",
+    "text": "Unit D\n\nWeek 13: Troubleshooting and Bayes\nWeek 14: Advanced Previews\nWeek 15: Project Work\nWeek 16: Project Work"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Multilevel Modeling",
