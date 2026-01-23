@@ -33,6 +33,10 @@ No Class due to MLK Day
 \*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
 :::
 
-::: {.text-center}
-<a href="../02/index.html" class="btn btn-primary mt-5" role="button" >Continue to Week 02&nbsp;&nbsp;&raquo;</a>
-:::
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Home</a>
+
+  <a href="../02/index.html" class="btn btn-primary" role="button">Continue to Week 02&nbsp;&nbsp;&raquo;</a>
+</div>
+```
