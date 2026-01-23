@@ -3,4 +3,30 @@ title: Page Not Found
 ---
 
 The page you requested cannot be found. It is likely still being developed! 
-See the [home page](index.qmd#update-progress) to view my progress on building this website.
+
+### Update Progress
+
+The following weeks are ready for viewing:
+
+:::{.columns}
+:::{.column width="50%"}
+- [x] Week 01
+- [ ] Week 02
+- [ ] Week 03
+- [ ] Week 04
+- [ ] Week 05
+- [ ] Week 06
+- [ ] Week 07
+- [ ] Week 08
+:::
+:::{.column width="50%"}
+- [ ] Week 09
+- [ ] Week 10
+- [ ] Week 11
+- [ ] Week 12
+- [ ] Week 13
+- [ ] Week 14
+- [ ] Week 15
+- [ ] Week 16
+:::
+:::
