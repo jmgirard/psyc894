@@ -1,0 +1,497 @@
+---
+format: 
+  revealjs:
+    css: ../../styles.css
+    slide-number: true
+    show-slide-number: all
+    preview-links: false
+    progress: true
+    history: true
+    hash-type: number
+    theme: default
+    code-block-background: true
+    highlight-style: zenburn
+    code-link: false
+    code-copy: true
+    code-line-numbers: false
+    controls: true
+    pagetitle: "Multilevel Modeling"
+    author-meta: "Jeffrey Girard"
+    semester: "Spring 2026"
+    course: "PSYC 894"
+    lecture: "01b"
+---
+
+::: {.my-title}
+# [Multilevel Modeling]{.blue}
+Course Overview and Icebreakers
+
+::: {.my-grey}
+[{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/city-girl.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+1. Syllabus Review
+  
+2. Course Modules
+
+3. Course Website
+
+4. Activity
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+
+# Syllabus Review
+
+## Instructor Information {.smaller}
+
+::: {.columns}
+::: {.column width="30%"}
+::: {.tc}
+![](../../img/Girard_500x500.jpg){.br-100}
+
+**Jeffrey Girard**, PhD<br /> 
+[affcom.ku.edu/girard](https://affcom.ku.edu/girard)<br /> 
+[jmgirard\@ku.edu](mailto:jmgirard@ku.edu)<br />
+Fraser Hall 454
+:::
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="60%"}
+::: {}
+**Background**
+
+-   [Assistant Professor]{.b .green}, *Department of Psychology*
+-   Brain, Behavior, and Quantitative Science
+-   Clinical Psychological Science
+-   Kansas Data Science Consortium
+:::
+::: { .mt1}
+**Research Areas**
+
+-   Affective Computing
+-   Mental and Social Health
+-   [Applied Statistics]{.b .green} and Machine Learning
+-   Data Science and Software Engineering
+:::
+:::
+:::
+
+::: {.footer}
+Office Hours: TuTh 4:00–5:00pm
+:::
+
+
+## Learning Outcomes {.smaller}
+
+1. Learn fundamental concepts underlying multilevel modeling
+
+2. Learn practical skills for implementing such models in R
+
+3. Instill a sense of mastery, curiosity, and fun
+
+::: {.columns}
+::: {.column width="50%"}
+
+**What you will learn here**
+
+- When and why MLM is needed
+
+- Prepare a dataset for MLM
+
+- Estimate two-level models
+
+- Interpret random effects
+
+- Exposure to advanced topics
+
+:::
+
+::: {.column width="50%"}
+
+**What you *won't* learn here**
+
+- Advanced longitudinal models
+
+- Advanced nested (3+ level) models
+
+- Advanced cross-classified models
+
+- Advanced Bayesian model estimation
+
+- Extensions (e.g., GLMM, MSEM, GAMMs)
+
+:::
+:::
+
+
+## Course Format {.smaller}
+
+#### Lectures (1-2/week, 19 total)
+- Explaining concepts and demonstrating skills
+- Each is tied to one or more readings
+
+#### Computer Labs (0-1/week, 8 total)
+- Six multi-part questions to apply your new skills
+- Demonstrate your understanding in controlled conditions
+
+#### Final Project (1 week/semester, 2 total)
+- Apply your new skills to real-world data you care about
+- Challenge yourself to learn new things and specialize
+
+
+## Course Materials {.smaller}
+
+#### Textbooks
+- **Introduction to Multilevel Modeling** \[SF\]\*<br />
+  Shaw \& Flake (2021, 1E, [www.learn-mlms.com](https://www.learn-mlms.com), *free*)
+
+- **Multilevel analysis: Techniques and applications** \[HMV\]<br />
+  Hox, Moerbeek, \& van de Schoot (2017, 3E, [www.taylorfrancis.com](https://doi.org/10.4324/9781315650982), *paid*)
+  
+- **R for Data Science: Import, tidy, transform, visualize, and model data** \[WCG\]<br />
+  Wickham, Çetinkaya-Rundel, \& Grolemund (2023, 2E, [r4ds.hadley.mz](https://r4ds.hadley.nz/), *free*)
+
+#### R Packages
+- Frequentist Model Fitting: [lme4](https://github.com/lme4/lme4/)\*, [glmmTMB](https://glmmtmb.github.io/glmmTMB)
+- Bayesian Model Fitting: [rstanarm](https://mc-stan.org/rstanarm/), [brms](https://paulbuerkner.com/brms/)
+- Utilities and Visualization: [easystats](https://easystats.github.io/easystats)\*, [ggeffects](https://strengejacke.github.io/ggeffects/)\*
+  
+
+## Grading Policies {.smaller}
+
+#### Graded Components
+
+- 80\% [Lab Reports]{.b .green} (10\% each $\times$ 8)
+
+- 10\% [Reflections]{.b .green} (2\% each $\times$ 5)
+
+- 10\% [Final Project]{.b .green} (10\% each $\times$ 1)
+
+#### Grading Scale
+
+| Letter    | A   | A−  | B+  | B   | B−  | C+  | C   | C−  | D+  | D   | D−  |
+|-----------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| G. Points | 4.0 | 3.7 | 3.3 | 3.0 | 2.7 | 2.3 | 2.0 | 1.7 | 1.3 | 1.0 | 0.7 |
+| Threshold | 93% | 90% | 87% | 83% | 80% | 77% | 73% | 70% | 67% | 63% | 60% |
+
+I don't round or curve grades, but will give points back if a question was poorly designed.
+
+## University Policies {.smaller}
+#### Accommodations
+- Please contact me and the [Student Access Center](https://access.ku.edu)
+
+#### Academic Misconduct
+- Disruption, threatening, cheating, plagiarism, falsification, etc.
+
+- May affect students' grades on specific work and/or overall
+
+#### Commercial Note-Taking
+- Not permitted in any course at University of Kansas
+
+#### Belonging and Inclusion
+- Treat others (and yourself) with respect at all times
+
+
+## Course Policies {.smaller}
+#### Attendance
+- In-person attendance is [strongly encouraged]{.b .green} but not required
+
+- Video recordings will be attempted but cannot be guaranteed
+
+#### Late Submissions
+- Detailed on each rubric, partial credit is possible for late submissions
+
+- However, no late submissions will be accepted after Stop Day (May 9)
+
+#### Academic Misconduct
+- [Acceptable:]{.blue} peers, tutors, technology used to explain or troubleshoot
+
+- [Unacceptable:]{.red} peers, tutors, technology used to complete assignments
+
+- You must use the skills and tools taught in class to solve the lab reports
+
+
+<!-- Course Modules -->
+
+# Course Modules
+
+## Unit Overview
+
+- Unit A: Getting Ready (4 weeks)
+
+- Unit B: Fundamentals (4 weeks)
+
+- Spring Break (1 week)
+
+- Unit C: Nuances (3 weeks)
+
+- Unit D: Previews (3 weeks)
+
+## Unit A: Weeks 1–2 {.smaller}
+
+#### Introductions and Software
+
+- \[01a\]: Course Overview and Icebreakers
+
+- \[01b\]: Software Install and Overview
+
+- Readings: Syllabus, SF ⸿1
+
+- Due: Week 01 Reflection
+
+#### Linear Model Review
+
+- \[02a\]: Simple and Multiple Regression
+
+- \[02b\]: Moderation and Diagnostics
+
+- Readings: SF ⸿2, Kelley \& Maxwell (2019)
+
+- Due: Week 02 Reflection
+
+
+## Unit A: Weeks 3–4 {.smaller}
+
+#### Issues and Approaches
+
+- \[03a\]: Issues with Clustered Data
+
+- \[03b\]: Approaches to Clustered Data
+
+- Readings: SF ⸿3, HMV ⸿1, McNeish (2016, 2023)
+
+- Due: Week 03 Reflection
+
+#### Getting Ready
+
+- \[04a\]: Long Format and Pivoting
+
+- \[04b\]: Estimation Strategies
+
+- Readings: Wickham et al. (2023), HMV §§3.1--3.3
+
+- Due: Week 04 Reflection
+
+
+## Unit B: Weeks 5–6 {.smaller}
+
+#### Random Intercepts
+
+- \[05a\]: Moving to Two Levels
+
+- \[05b\]: *Computer Lab*
+
+- Readings: SF ⸿4
+
+- Due: Week 05 Lab Report
+
+#### Fixed Slopes
+
+- \[06a\]: Adding Fixed Slopes
+
+- \[06b\]: *Computer Lab*
+
+- Readings: SF ⸿5
+
+- Due: Week 06 Lab Report
+
+
+## Unit B: Weeks 7–8 {.smaller}
+
+#### Random Slopes
+
+- \[07a\]: Adding Random Slopes
+
+- \[07b\]: *Computer Lab*
+
+- Readings: SF ⸿6, HMV §§2.1--2.2, Aguinis et al. (2013)
+
+- Due: Week 07 Lab Report
+
+#### Analysis Strategy
+
+- \[08a\]: Model Building and Comparison
+
+- \[08b\]: *Computer Lab*
+
+- Readings: HMV §§3.4+4.1, Brown (2021)
+
+- Due: Week 08 Lab Report
+
+
+## Unit C: Weeks 9–10 {.smaller}
+
+#### Spring Break
+
+- \[09a\]: No Class (Break)
+
+- \[09b\]: No Class (Break)
+
+- Readings: *NA*
+
+- Due: *NA*
+
+#### Troubleshooting
+
+- \[10a\]: Troubleshooting
+
+- \[10b\]: No Class (Travel)
+
+- Readings: SF ⸿7
+
+- Due: *NA*
+
+
+## Unit C: Weeks 11–12 {.smaller}
+
+#### Centering and Decomposing
+
+- \[11a\]: Within and Between Cluster Effects
+
+- \[11b\]: *Computer Lab*
+
+- Readings: SF ⸿8, HMV §4.2, Hamaker \& Muthén (2020)
+
+- Due: Week 11 Lab Report
+
+#### Longitudinal Data
+
+- \[12a\]: Longitudinal Data Considerations
+
+- \[12b\]: *Computer Lab*
+
+- Readings: SF ⸿⸿ 9--10, HMV ⸿5, Hox & Boom (2012)
+
+- Due: Week 12 Lab Report
+
+
+## Unit D: Weeks 13–14 {.smaller}
+
+#### Assumptions and Diagnostics
+
+- \[13a\]: Assumptions and Diagnostics
+
+- \[13b\]: *Computer Lab*
+
+- Readings: SF ⸿12, HMV ⸿13
+
+- Due: Week 13 Lab Report
+
+#### Power and Reporting
+
+- \[14a\]: Power and Reporting
+
+- \[14b\]: *Computer Lab*
+
+- Readings: HMV §§12.1--12.4, McCoach (2019)
+
+- Due: Week 14 Lab Report
+
+
+## Unit D: Weeks 15–16 {.smaller}
+
+#### Extensions and Previews
+
+- \[15a\]: Hierarchical Bayesian Models
+
+- \[15b\]: Nested and Crossed Models
+
+- Readings: HMV §§2.3--2.4 + ⸿9, Muth et al. (2018), Flores et al. (2021)
+
+- Due: Week 15 Reflection
+
+#### Final Project
+
+- \[16a\]: *Computer Lab*
+
+- \[16b\]: *Computer Lab*
+
+- Readings: *NA*
+
+- Due: Final Project Report
+
+
+<!-- Course Website -->
+
+# Course Website
+
+## Accessing Canvas
+
+#### Website
+
+- \[894\]: <https://canvas.ku.edu/courses/150399>
+
+#### Mobile App
+
+- iOS: [Canvas Student on the App Store](https://apps.apple.com/us/app/canvas-student/id480883488)
+
+- Android: [Canvas Student on the Google Play Store](https://play.google.com/store/apps/details?id=com.instructure.candroid)
+
+## Menu Options
+
+- [Simple Syllabus]{.b .blue} - View the course syllabus
+
+- [Modules]{.b .blue} - View the course materials by unit and week
+
+- [Grades]{.b .green} - See your grades in the gradebook
+
+- [Assignments]{.b .green} - See upcoming and completed assignments
+
+<!-- Activity -->
+
+# Activity
+
+## Icebreakers {.smaller}
+
+::: {.columns}
+
+::: {.column width="60%"}
+Break into small groups of 4–5...
+
+1. What is your **preferred name**?
+
+2. What is your **year** and **major** / department?
+
+3. What **academic topics** and questions excite you?
+
+4. What **career path(s)** are you considering?
+
+::: {.fragment}
+5. What was your **preferred name** again?
+
+6. Where did you grow up / what is your **home town**?
+
+7. What are your **non-academic interests** / hobbies?
+
+8. What is your **favorite plant or animal** and why?
+:::
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/iceberg.json" trigger=loop delay=5000 colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+::: {.footer}
+If there's time, shuffle the groups and repeat.
+:::

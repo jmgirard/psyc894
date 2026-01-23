@@ -1,0 +1,38 @@
+---
+title: "Week 01: Overview and Recap"
+---
+
+## [01a] Materials
+
+No Class due to MLK Day
+
+## [01b] Materials
+
+### Topics
+- Overview of Syllabus, Canvas, and Website
+- Recap of Basic Workflow in R and Quarto
+
+### Readings
+
+#### Required
+- LMLM (1E) Chapter 1: [Introduction](https://www.learn-mlms.com/01-module-1.html){target="_blank"}
+
+#### Optional
+- R4DS (2E) Chapter 2: [Workflow: Basics](https://r4ds.hadley.nz/workflow-basics.html){target="_blank"}
+- R4DS (2E) Chapter 6: [Workflow: Scripts and Projects](https://r4ds.hadley.nz/workflow-scripts.html){target="_blank"}
+- R4DS (2E) Chapter 7: [Data import](https://r4ds.hadley.nz/data-import.html){target="_blank"}
+- R4DS (2E) Sections 28.1--28.5: [Quarto](https://r4ds.hadley.nz/quarto.html){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[02b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+:::
+
+::: {.text-center}
+<a href="../02/index.html" class="btn btn-primary mt-5" role="button" >Continue to Week 02&nbsp;&nbsp;&raquo;</a>
+:::
