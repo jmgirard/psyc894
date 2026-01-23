@@ -1,0 +1,27 @@
+---
+title: "Course Schedule"
+---
+
+## Unit A
+- Week 01: Course Overview and Recap of R
+- Week 02: Recap of Linear Modeling
+- Week 03: Clustering Issues and Approaches
+- Week 04: Data Prep and Estimation
+
+## Unit B
+- Week 05: Random/Varying Intercepts
+- Week 06: Random/Varying Slopes
+- Week 07: Cross-level Interactions
+- Week 08: Translation Activity
+
+## Unit C
+- Week 09: *Spring Break*
+- Week 10: Model Comparison
+- Week 11: Longitudinal Analyses
+- Week 12: Diagnostics and Reporting
+
+## Unit D
+- Week 13: Troubleshooting and Bayes
+- Week 14: Advanced Previews
+- Week 15: Project Work
+- Week 16: Project Work

@@ -18,6 +18,9 @@ website:
       - href: https://canvas.ku.edu/courses/182539
         icon: file-text
         text: "Syllabus"
+      - href: schedule.qmd
+        icon: calendar
+        text: "Schedule"
       - text: "Unit A"
         menu:
           - icon: code-square
