@@ -20,6 +20,11 @@ format:
     semester: "Spring 2026"
     course: "PSYC 894"
     lecture: "01b"
+execute:
+  echo: true
+  eval: true
+  collapse: false
+  cache: false
 ---
 
 ::: {.my-title}
@@ -253,5 +258,77 @@ I don't round or curve grades, but will give points back if a question was poorl
 - Week 16: Project Work
     + *Project Report*
 
+<!-- Workflow Recap -->
 
+# Workflow Recap
+
+## The R Ecosystem {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+1.  Think of your [computer]{.b .blue} as the [engine]{.b .green} of a car
+    -   It provides raw power for computation
+
+::: {.fragment .mt1}
+2.  The [R language]{.b .blue} is like the [controls]{.b .green} for the car
+    -   It lets you apply and direct that power
+:::
+
+::: {.fragment .mt1}
+3.  [RStudio]{.b .blue} is like a fancy [dashboard]{.b .green} for the car
+    -   It adds extra information and convenience
+:::
+
+::: {.fragment .mt1}
+4.  An [R package]{.b .blue} is like an [add-on]{.b .green} for the car
+    -   It adds new features and capabilities
+:::
+:::
+
+::: {.column .tc .pv5 .relative width="40%"}
+{{< lif "../../icons/car.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+## Communicating with R {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+-   The [Console]{.b .blue} is like a [chat window]{.b .green} with R
+    -   You send a command to R and get a response
+    -   Neither side of the conversation is saved
+
+::: {.fragment .mt1}
+-   An [R Script]{.b .blue} is like an [email thread]{.b .green} with R
+    -   You send many commands to R all at once
+    -   Only your side of the conversation is saved
+:::
+
+::: {.fragment .mt1}
+-   A [Quarto Document]{.b .blue} is like a [scrapbook]{.b .green} with R
+    -   You can combine code and formatted text
+    -   Both sides of the conversation are saved
+:::
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/converse.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+## Simple Operations
+
+```{r simple}
+# Addition
+10 + 3
+
+# Subtraction
+10 - 3
+
+# Multiplication
+10 * 3
+
+# Division
+10 / 3
+```
 
