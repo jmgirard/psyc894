@@ -131,7 +131,7 @@
 
 <section class="title-slide slide level1 my-title center">
 <h1><span class="blue">Multilevel Modeling</span></h1>
-<p>Course Overview and Icebreakers</p>
+<p>Course Overview and Workflow Recap</p>
 <div class="my-grey">
 <p><span>Spring 2026 | CLAS | PSYC 894</span><br> <span>Jeffrey M. Girard | Lecture 01b</span></p>
 </div>
@@ -171,7 +171,7 @@
 <div>
 <p><strong>Background</strong></p>
 <ul>
-<li><span class="b green">Assistant Professor</span>, <em>Department of Psychology</em></li>
+<li><span class="b green">Associate Professor</span>, <em>Department of Psychology</em></li>
 <li>Brain, Behavior, and Quantitative Science</li>
 <li>Clinical Psychological Science</li>
 <li>Kansas Data Science Consortium</li>
@@ -188,7 +188,7 @@
 </div>
 </div></div>
 <div class="footer">
-<p>Office Hours: TuTh 4:00–5:00pm</p>
+<p>Office Hours: T 3-4pm, F 12-1pm (odd weeks) or 1-2pm (even weeks)</p>
 </div>
 </section>
 <section class="slide level2 smaller">
@@ -200,48 +200,30 @@
 </ol>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><strong>What you will learn here</strong></p>
+<p><strong>What you <span class="blue">will</span> learn here</strong></p>
 <ul>
 <li><p>When and why MLM is needed</p></li>
-<li><p>Prepare a dataset for MLM</p></li>
-<li><p>Estimate two-level models</p></li>
-<li><p>Interpret random effects</p></li>
+<li><p>Data prep and model building</p></li>
+<li><p>Diagnostics and interpretation</p></li>
 <li><p>Exposure to advanced topics</p></li>
+<li><p>Exposure to alternatives</p></li>
 </ul>
 </div><div class="column" style="width:50%;">
-<p><strong>What you <em>won’t</em> learn here</strong></p>
+<p><strong>What you <span class="red">won’t</span> learn here</strong></p>
 <ul>
-<li><p>Advanced longitudinal models</p></li>
-<li><p>Advanced nested (3+ level) models</p></li>
-<li><p>Advanced cross-classified models</p></li>
-<li><p>Advanced Bayesian model estimation</p></li>
-<li><p>Extensions (e.g., GLMM, MSEM, GAMMs)</p></li>
+<li><p>Mastery of longitudinal models</p></li>
+<li><p>Mastery of nested and crossed models</p></li>
+<li><p>Mastery of Bayesian estimation</p></li>
+<li><p>Mastery of Extensions (GLMM, GAMM)</p></li>
+<li><p>Mastery of Alternatives (WLS, GEE)</p></li>
 </ul>
 </div></div>
-</section>
-<section class="slide level2 smaller">
-<h2>Course Format</h2>
-<h4>Lectures (1-2/week, 19 total)</h4>
-<ul>
-<li>Explaining concepts and demonstrating skills</li>
-<li>Each is tied to one or more readings</li>
-</ul>
-<h4>Computer Labs (0-1/week, 8 total)</h4>
-<ul>
-<li>Six multi-part questions to apply your new skills</li>
-<li>Demonstrate your understanding in controlled conditions</li>
-</ul>
-<h4>Final Project (1 week/semester, 2 total)</h4>
-<ul>
-<li>Apply your new skills to real-world data you care about</li>
-<li>Challenge yourself to learn new things and specialize</li>
-</ul>
 </section>
 <section class="slide level2 smaller">
 <h2>Course Materials</h2>
 <h4>Textbooks</h4>
 <ul>
-<li><p><strong>Introduction to Multilevel Modeling</strong> [SF]*<br> Shaw &amp; Flake (2021, 1E, <a href="https://www.learn-mlms.com">www.learn-mlms.com</a>, <em>free</em>)</p></li>
+<li><p><strong>Introduction to Multilevel Modeling</strong> [S&amp;F]*<br> Shaw &amp; Flake (2021, 1E, <a href="https://www.learn-mlms.com">www.learn-mlms.com</a>, <em>free</em>)</p></li>
 <li><p><strong>Multilevel analysis: Techniques and applications</strong> [HMV]<br> Hox, Moerbeek, &amp; van de Schoot (2017, 3E, <a href="https://doi.org/10.4324/9781315650982">www.taylorfrancis.com</a>, <em>paid</em>)</p></li>
 <li><p><strong>R for Data Science: Import, tidy, transform, visualize, and model data</strong> [WCG]<br> Wickham, Çetinkaya-Rundel, &amp; Grolemund (2023, 2E, <a href="https://r4ds.hadley.nz/">r4ds.hadley.mz</a>, <em>free</em>)</p></li>
 </ul>
@@ -256,9 +238,9 @@
 <h2>Grading Policies</h2>
 <h4>Graded Components</h4>
 <ul>
-<li><p>80% <span class="b green">Lab Reports</span> (10% each <span class="math inline">\(\times\)</span> 8)</p></li>
-<li><p>10% <span class="b green">Reflections</span> (2% each <span class="math inline">\(\times\)</span> 5)</p></li>
-<li><p>10% <span class="b green">Final Project</span> (10% each <span class="math inline">\(\times\)</span> 1)</p></li>
+<li><p>66% <span class="b green">Lab Reports</span> (6% each <span class="math inline">\(\times\)</span> 11) - Practice skills and concepts from lecture</p></li>
+<li><p>22% <span class="b green">Reflections</span> (2% each <span class="math inline">\(\times\)</span> 11) - Summarize and consolidate learning from reading</p></li>
+<li><p>12% <span class="b green">Final Project</span> (12% each <span class="math inline">\(\times\)</span> 1) - Apply skills to real-world data</p></li>
 </ul>
 <h4>Grading Scale</h4>
 <table class="caption-top" style="width:100%;">
@@ -326,26 +308,6 @@
 <p>I don’t round or curve grades, but will give points back if a question was poorly designed.</p>
 </section>
 <section class="slide level2 smaller">
-<h2>University Policies</h2>
-<h4>Accommodations</h4>
-<ul>
-<li>Please contact me and the <a href="https://access.ku.edu">Student Access Center</a></li>
-</ul>
-<h4>Academic Misconduct</h4>
-<ul>
-<li><p>Disruption, threatening, cheating, plagiarism, falsification, etc.</p></li>
-<li><p>May affect students’ grades on specific work and/or overall</p></li>
-</ul>
-<h4>Commercial Note-Taking</h4>
-<ul>
-<li>Not permitted in any course at University of Kansas</li>
-</ul>
-<h4>Belonging and Inclusion</h4>
-<ul>
-<li>Treat others (and yourself) with respect at all times</li>
-</ul>
-</section>
-<section class="slide level2 smaller">
 <h2>Course Policies</h2>
 <h4>Attendance</h4>
 <ul>
@@ -363,6 +325,20 @@
 <li><p><span class="red">Unacceptable:</span> peers, tutors, technology used to complete assignments</p></li>
 <li><p>You must use the skills and tools taught in class to solve the lab reports</p></li>
 </ul>
+</section>
+<section class="slide level2">
+<h2>Course Materials</h2>
+<h4>Canvas</h4>
+<ul>
+<li>Has assignments, grades, videos, and textbook PDFs</li>
+<li><a href="https://canvas.ku.edu/courses/182539" class="uri">https://canvas.ku.edu/courses/182539</a></li>
+</ul>
+<h4>Website</h4>
+<ul>
+<li>Has topics, ebook links, datasets, and slideshows</li>
+<li><a href="https://jmgirard.github.io/psyc894" class="uri">https://jmgirard.github.io/psyc894</a></li>
+<li>Note this may be renamed <code>psyc892</code> next year</li>
+</ul>
 <!-- Course Modules -->
 </section></section>
 <section>
@@ -371,209 +347,88 @@
 
 </section>
 <section class="slide level2">
-<h2>Unit Overview</h2>
+<h2>Unit A Overview</h2>
 <ul>
-<li><p>Unit A: Getting Ready (4 weeks)</p></li>
-<li><p>Unit B: Fundamentals (4 weeks)</p></li>
-<li><p>Spring Break (1 week)</p></li>
-<li><p>Unit C: Nuances (3 weeks)</p></li>
-<li><p>Unit D: Previews (3 weeks)</p></li>
-</ul>
-</section>
-<section class="slide level2 smaller">
-<h2>Unit A: Weeks 1–2</h2>
-<h4>Introductions and Software</h4>
+<li>Week 01: Course Overview and Recap of R
 <ul>
-<li><p>[01a]: Course Overview and Icebreakers</p></li>
-<li><p>[01b]: Software Install and Overview</p></li>
-<li><p>Readings: Syllabus, SF ⸿1</p></li>
-<li><p>Due: Week 01 Reflection</p></li>
-</ul>
-<h4>Linear Model Review</h4>
+<li><em>No deadlines</em></li>
+</ul></li>
+<li>Week 02: Recap of Linear Modeling
 <ul>
-<li><p>[02a]: Simple and Multiple Regression</p></li>
-<li><p>[02b]: Moderation and Diagnostics</p></li>
-<li><p>Readings: SF ⸿2, Kelley &amp; Maxwell (2019)</p></li>
-<li><p>Due: Week 02 Reflection</p></li>
-</ul>
-</section>
-<section class="slide level2 smaller">
-<h2>Unit A: Weeks 3–4</h2>
-<h4>Issues and Approaches</h4>
+<li><em>Lab Report</em> only</li>
+</ul></li>
+<li>Week 03: Clustering Issues and Approaches
 <ul>
-<li><p>[03a]: Issues with Clustered Data</p></li>
-<li><p>[03b]: Approaches to Clustered Data</p></li>
-<li><p>Readings: SF ⸿3, HMV ⸿1, McNeish (2016, 2023)</p></li>
-<li><p>Due: Week 03 Reflection</p></li>
-</ul>
-<h4>Getting Ready</h4>
+<li><em>Reflection</em> and <em>Lab Report</em></li>
+</ul></li>
+<li>Week 04: Data Prep and Estimation
 <ul>
-<li><p>[04a]: Long Format and Pivoting</p></li>
-<li><p>[04b]: Estimation Strategies</p></li>
-<li><p>Readings: Wickham et al.&nbsp;(2023), HMV §§3.1–3.3</p></li>
-<li><p>Due: Week 04 Reflection</p></li>
-</ul>
-</section>
-<section class="slide level2 smaller">
-<h2>Unit B: Weeks 5–6</h2>
-<h4>Random Intercepts</h4>
-<ul>
-<li><p>[05a]: Moving to Two Levels</p></li>
-<li><p>[05b]: <em>Computer Lab</em></p></li>
-<li><p>Readings: SF ⸿4</p></li>
-<li><p>Due: Week 05 Lab Report</p></li>
-</ul>
-<h4>Fixed Slopes</h4>
-<ul>
-<li><p>[06a]: Adding Fixed Slopes</p></li>
-<li><p>[06b]: <em>Computer Lab</em></p></li>
-<li><p>Readings: SF ⸿5</p></li>
-<li><p>Due: Week 06 Lab Report</p></li>
-</ul>
-</section>
-<section class="slide level2 smaller">
-<h2>Unit B: Weeks 7–8</h2>
-<h4>Random Slopes</h4>
-<ul>
-<li><p>[07a]: Adding Random Slopes</p></li>
-<li><p>[07b]: <em>Computer Lab</em></p></li>
-<li><p>Readings: SF ⸿6, HMV §§2.1–2.2, Aguinis et al.&nbsp;(2013)</p></li>
-<li><p>Due: Week 07 Lab Report</p></li>
-</ul>
-<h4>Analysis Strategy</h4>
-<ul>
-<li><p>[08a]: Model Building and Comparison</p></li>
-<li><p>[08b]: <em>Computer Lab</em></p></li>
-<li><p>Readings: HMV §§3.4+4.1, Brown (2021)</p></li>
-<li><p>Due: Week 08 Lab Report</p></li>
-</ul>
-</section>
-<section class="slide level2 smaller">
-<h2>Unit C: Weeks 9–10</h2>
-<h4>Spring Break</h4>
-<ul>
-<li><p>[09a]: No Class (Break)</p></li>
-<li><p>[09b]: No Class (Break)</p></li>
-<li><p>Readings: <em>NA</em></p></li>
-<li><p>Due: <em>NA</em></p></li>
-</ul>
-<h4>Troubleshooting</h4>
-<ul>
-<li><p>[10a]: Troubleshooting</p></li>
-<li><p>[10b]: No Class (Travel)</p></li>
-<li><p>Readings: SF ⸿7</p></li>
-<li><p>Due: <em>NA</em></p></li>
-</ul>
-</section>
-<section class="slide level2 smaller">
-<h2>Unit C: Weeks 11–12</h2>
-<h4>Centering and Decomposing</h4>
-<ul>
-<li><p>[11a]: Within and Between Cluster Effects</p></li>
-<li><p>[11b]: <em>Computer Lab</em></p></li>
-<li><p>Readings: SF ⸿8, HMV §4.2, Hamaker &amp; Muthén (2020)</p></li>
-<li><p>Due: Week 11 Lab Report</p></li>
-</ul>
-<h4>Longitudinal Data</h4>
-<ul>
-<li><p>[12a]: Longitudinal Data Considerations</p></li>
-<li><p>[12b]: <em>Computer Lab</em></p></li>
-<li><p>Readings: SF ⸿⸿ 9–10, HMV ⸿5, Hox &amp; Boom (2012)</p></li>
-<li><p>Due: Week 12 Lab Report</p></li>
-</ul>
-</section>
-<section class="slide level2 smaller">
-<h2>Unit D: Weeks 13–14</h2>
-<h4>Assumptions and Diagnostics</h4>
-<ul>
-<li><p>[13a]: Assumptions and Diagnostics</p></li>
-<li><p>[13b]: <em>Computer Lab</em></p></li>
-<li><p>Readings: SF ⸿12, HMV ⸿13</p></li>
-<li><p>Due: Week 13 Lab Report</p></li>
-</ul>
-<h4>Power and Reporting</h4>
-<ul>
-<li><p>[14a]: Power and Reporting</p></li>
-<li><p>[14b]: <em>Computer Lab</em></p></li>
-<li><p>Readings: HMV §§12.1–12.4, McCoach (2019)</p></li>
-<li><p>Due: Week 14 Lab Report</p></li>
-</ul>
-</section>
-<section class="slide level2 smaller">
-<h2>Unit D: Weeks 15–16</h2>
-<h4>Extensions and Previews</h4>
-<ul>
-<li><p>[15a]: Hierarchical Bayesian Models</p></li>
-<li><p>[15b]: Nested and Crossed Models</p></li>
-<li><p>Readings: HMV §§2.3–2.4 + ⸿9, Muth et al.&nbsp;(2018), Flores et al.&nbsp;(2021)</p></li>
-<li><p>Due: Week 15 Reflection</p></li>
-</ul>
-<h4>Final Project</h4>
-<ul>
-<li><p>[16a]: <em>Computer Lab</em></p></li>
-<li><p>[16b]: <em>Computer Lab</em></p></li>
-<li><p>Readings: <em>NA</em></p></li>
-<li><p>Due: Final Project Report</p></li>
-</ul>
-<!-- Course Website -->
-</section></section>
-<section>
-<section class="title-slide slide level1 center">
-<h1>Course Website</h1>
-
-</section>
-<section class="slide level2">
-<h2>Accessing Canvas</h2>
-<h4>Website</h4>
-<ul>
-<li>[894]: <a href="https://canvas.ku.edu/courses/150399" class="uri">https://canvas.ku.edu/courses/150399</a></li>
-</ul>
-<h4>Mobile App</h4>
-<ul>
-<li><p>iOS: <a href="https://apps.apple.com/us/app/canvas-student/id480883488">Canvas Student on the App Store</a></p></li>
-<li><p>Android: <a href="https://play.google.com/store/apps/details?id=com.instructure.candroid">Canvas Student on the Google Play Store</a></p></li>
+<li><em>Reflection</em> and <em>Lab Report</em></li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level2">
-<h2>Menu Options</h2>
+<h2>Unit B Overview</h2>
 <ul>
-<li><p><span class="b blue">Simple Syllabus</span> - View the course syllabus</p></li>
-<li><p><span class="b blue">Modules</span> - View the course materials by unit and week</p></li>
-<li><p><span class="b green">Grades</span> - See your grades in the gradebook</p></li>
-<li><p><span class="b green">Assignments</span> - See upcoming and completed assignments</p></li>
+<li>Week 05: Random/Varying Intercepts
+<ul>
+<li><em>Reflection</em> and <em>Lab Report</em></li>
+</ul></li>
+<li>Week 06: Random/Varying Slopes
+<ul>
+<li><em>Reflection</em> and <em>Lab Report</em></li>
+</ul></li>
+<li>Week 07: Cross-level Interactions
+<ul>
+<li><em>Reflection</em> and <em>Lab Report</em></li>
+</ul></li>
+<li>Week 08: Translation Activity
+<ul>
+<li><em>Reflection</em> only</li>
+</ul></li>
 </ul>
-<!-- Activity -->
-</section></section>
-<section>
-<section class="title-slide slide level1 center">
-<h1>Activity</h1>
-
 </section>
-<section class="slide level2 smaller">
-<h2>Icebreakers</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<p>Break into small groups of 4–5…</p>
-<ol type="1">
-<li><p>What is your <strong>preferred name</strong>?</p></li>
-<li><p>What is your <strong>year</strong> and <strong>major</strong> / department?</p></li>
-<li><p>What <strong>academic topics</strong> and questions excite you?</p></li>
-<li><p>What <strong>career path(s)</strong> are you considering?</p></li>
-</ol>
-<div class="fragment">
-<ol start="5" type="1">
-<li><p>What was your <strong>preferred name</strong> again?</p></li>
-<li><p>Where did you grow up / what is your <strong>home town</strong>?</p></li>
-<li><p>What are your <strong>non-academic interests</strong> / hobbies?</p></li>
-<li><p>What is your <strong>favorite plant or animal</strong> and why?</p></li>
-</ol>
-</div>
-</div><div class="column tc pv4" style="width:40%;">
-<p><lord-icon src="../../icons/iceberg.json" colors="secondary:#2a76dd" trigger="loop" delay="5000" class="rc"></lord-icon></p>
-</div></div>
-<div class="footer">
-<p>If there’s time, shuffle the groups and repeat.</p>
-</div>
+<section class="slide level2">
+<h2>Unit C Overview</h2>
+<ul>
+<li>Week 09: Spring Break
+<ul>
+<li><em>No deadlines</em></li>
+</ul></li>
+<li>Week 10: Model Comparison
+<ul>
+<li><em>Reflection</em> and <em>Lab Report</em></li>
+</ul></li>
+<li>Week 11: Longitudinal Analyses
+<ul>
+<li><em>Reflection</em> and <em>Lab Report</em></li>
+</ul></li>
+<li>Week 12: Diagnostics and Reporting
+<ul>
+<li><em>Reflection</em> and <em>Lab Report</em></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Unit D Overview</h2>
+<ul>
+<li>Week 13: Troubleshooting and Bayes
+<ul>
+<li><em>Reflection</em> and <em>Lab Report</em></li>
+</ul></li>
+<li>Week 14: Advanced Previews
+<ul>
+<li><em>Reflection</em> and <em>Lab Report</em></li>
+</ul></li>
+<li>Week 15: Project Work
+<ul>
+<li><em>No deadlines</em></li>
+</ul></li>
+<li>Week 16: Project Work
+<ul>
+<li><em>Project Report</em></li>
+</ul></li>
+</ul>
 
 
 </section></section>
