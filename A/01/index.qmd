@@ -35,8 +35,8 @@ No Class due to MLK Day
 
 ```{=html}
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
-  <a href="../index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Home</a>
+  <a href="../../index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Home</a>
 
-  <a href="../02/index.html" class="btn btn-primary" role="button">Continue to Week 02&nbsp;&nbsp;&raquo;</a>
+  <a href="../02/index.html" class="btn btn-primary" role="button">Week 02&nbsp;&nbsp;&raquo;</a>
 </div>
 ```
