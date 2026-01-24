@@ -790,14 +790,13 @@ Predictors modulated: species</code></pre>
 <section class="slide level2">
 <h2>CSR Pairwise Contrasts</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compare each pair of species</span></span>
-<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
-<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> csr_sp, </span>
-<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>, </span>
-<span id="cb40-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"pairwise"</span>, <span class="co"># &lt;&lt;&lt;</span></span>
-<span id="cb40-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
-<span id="cb40-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
-<span id="cb40-8"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
+<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> csr_sp, </span>
+<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>, </span>
+<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"pairwise"</span>, <span class="co"># compare pairs of groups</span></span>
+<span id="cb40-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
+<span id="cb40-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
+<span id="cb40-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Averaged Contrasts Analysis
 
@@ -816,14 +815,13 @@ p-value adjustment method: Holm (1979)</code></pre>
 <section class="slide level2">
 <h2>CSR Deviation Contrasts</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compare each group to the mean of all groups</span></span>
-<span id="cb42-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
-<span id="cb42-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> csr_sp, </span>
-<span id="cb42-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>,</span>
-<span id="cb42-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"meandev"</span>, <span class="co"># &lt;&lt;&lt;</span></span>
-<span id="cb42-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
-<span id="cb42-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
-<span id="cb42-8"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
+<span id="cb42-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> csr_sp, </span>
+<span id="cb42-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>,</span>
+<span id="cb42-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"meandev"</span>, <span class="co"># compare groups to mean of all</span></span>
+<span id="cb42-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
+<span id="cb42-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
+<span id="cb42-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Averaged Contrasts Analysis
 
@@ -942,7 +940,7 @@ Predictors modulated: species</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
 <span id="cb51-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> cmr,</span>
 <span id="cb51-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>,</span>
-<span id="cb51-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"pairwise"</span>, <span class="co"># &lt;&lt;&lt;</span></span>
+<span id="cb51-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"pairwise"</span>, <span class="co"># compare pairs of groups</span></span>
 <span id="cb51-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
 <span id="cb51-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
 <span id="cb51-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -962,40 +960,15 @@ p-value adjustment method: Holm (1979)</code></pre>
 </div>
 </section>
 <section class="slide level2">
-<h2>CMR Pairwise Contrasts</h2>
+<h2>CMR Deviation Contrasts</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
 <span id="cb53-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> cmr,</span>
 <span id="cb53-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>,</span>
-<span id="cb53-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"pairwise"</span>, <span class="co"># &lt;&lt;&lt;</span></span>
+<span id="cb53-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"meandev"</span>, <span class="co"># compare groups to mean of all</span></span>
 <span id="cb53-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
 <span id="cb53-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
 <span id="cb53-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Averaged Contrasts Analysis
-
-Level1    | Level2    | Difference |    SE |             95% CI | t(328) |      p
----------------------------------------------------------------------------------
-Chinstrap | Adelie    |      26.92 | 43.39 | [ -58.44,  112.29] |   0.62 |  0.535
-Gentoo    | Adelie    |    1386.27 | 36.50 | [1314.46, 1458.08] |  37.98 | &lt; .001
-Gentoo    | Chinstrap |    1359.35 | 44.93 | [1270.96, 1447.74] |  30.25 | &lt; .001
-
-Variable predicted: body_mass
-Predictors contrasted: species
-p-value adjustment method: Holm (1979)</code></pre>
-</div>
-</div>
-</section>
-<section class="slide level2">
-<h2>CMR Deviation Contrasts</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
-<span id="cb55-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> cmr,</span>
-<span id="cb55-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>,</span>
-<span id="cb55-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"meandev"</span>, <span class="co"># &lt;&lt;&lt;</span></span>
-<span id="cb55-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
-<span id="cb55-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
-<span id="cb55-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Averaged Contrasts Analysis
 
