@@ -11,9 +11,6 @@ title: "Week 02: Linear Modeling Recap"
 - Multiple Regression
 - Categorical Predictors
 
-### Data Files
-{{< downloadthis "../../data/yearspubs.csv" label="yearspubs.csv" class=data-button type=primary >}}
-
 ### Readings
 - S\&F (1E) Chapter 2: [Multiple Regression Review](https://www.learn-mlms.com/02-multiple-regression.html){target="_blank"}
 
