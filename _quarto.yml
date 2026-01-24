@@ -24,10 +24,10 @@ website:
       - text: "Unit A"
         menu:
           - icon: code-square
-            text: "Week 01: Course Overview and Recap of R"
+            text: "Week 01: Overview and Workflow"
             href: A/01/index.html
           - icon: graph-up
-            text: "Week 02: Recap of Linear Modeling"
+            text: "Week 02: Linear Modeling Recap"
             href: A/02/index.html
           - icon: cone-striped
             text: "Week 03: Clustering Issues and Approaches"
@@ -38,10 +38,10 @@ website:
       - text: "Unit B"
         menu:
           - icon: arrow-down-up
-            text: "Week 05: Random/Varying Intercepts"
+            text: "Week 05: Random Intercept Models"
             href: B/05/index.html
           - icon: shuffle
-            text: "Week 06: Random/Varying Slopes"
+            text: "Week 06: Random Slope Models"
             href: B/06/index.html
           - icon: arrow-down-right
             text: "Week 07: Cross-level Interactions"

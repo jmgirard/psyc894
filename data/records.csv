@@ -1,0 +1,21 @@
+meters,group,seconds,athlete,nation,year
+100,men,9.58,Usain Bolt,Jamaica,2009
+100,women,10.49,Florence Joyner,United States,1988
+200,men,19.19,Usain Bolt,Jamaica,2009
+200,women,21.34,Florence Joyner,United States,1988
+400,men,43.03,Wayde van Niekerk,South Africa,2016
+400,women,47.6,Marita Koch,East Germany,1985
+800,men,100.91,David Rudisha,Kenya,2012
+800,women,113.28,Jarmila Kratochvilova,Czechoslovakia,1983
+1000,men,131.96,Noah Ngeny,Kenya,1999
+1000,women,148.98,Svetlana Masterkova,Russia,1996
+1500,men,206,Hicham El Guerrouj,Morocco,1998
+1500,women,230.07,Genzebe Dibaba,Ethiopia,2015
+2000,men,284.79,Hicham El Guerrouj,Morocco,1999
+2000,women,323.75,Genzebe Dibaba,Ethiopia,2017
+3000,men,440.67,Daniel Komen,Kenya,1996
+3000,women,486.11,Wang Junxia,China,1993
+5000,men,757.35,Kenenisa Bekele,Ethiopia,2004
+5000,women,851.15,Tirunesh Dibaba,Ethiopia,2008
+10000,men,1577.53,Kenenisa Bekele,Ethiopia,2005
+10000,women,1757.45,Almaz Ayana,Ethiopia,2016

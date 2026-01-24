@@ -4,14 +4,14 @@ toc: false
 ---
 
 ## Unit A
-- Week 01: Course Overview and Recap of R
-- Week 02: Recap of Linear Modeling
-- Week 03: Clustering Issues and Approaches
+- Week 01: Overview and Workflow
+- Week 02: Linear Modeling Recap
+- Week 03: Clustering Issues/Approaches
 - Week 04: Data Prep and Estimation
 
 ## Unit B
-- Week 05: Random/Varying Intercepts
-- Week 06: Random/Varying Slopes
+- Week 05: Random Intercept Models
+- Week 06: Random Slope Models
 - Week 07: Cross-level Interactions
 - Week 08: Translation Activity
 

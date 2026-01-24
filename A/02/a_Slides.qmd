@@ -19,7 +19,7 @@ format:
     author-meta: "Jeffrey Girard"
     semester: "Spring 2026"
     course: "PSYC 894"
-    lecture: "01b"
+    lecture: "02a"
 execute:
   echo: true
   eval: true
@@ -29,7 +29,7 @@ execute:
 
 ::: {.my-title}
 # [Multilevel Modeling]{.blue}
-Course Overview and Workflow Recap
+Linear Modeling Recap
 
 ::: {.my-grey}
 [{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
@@ -49,7 +49,9 @@ Course Overview and Workflow Recap
   
 2. Course Modules
 
-3. Workflow Recap
+3. Course Website
+
+4. Activity
 :::
 
 ::: {.column .tc .pv4 width="40%"}

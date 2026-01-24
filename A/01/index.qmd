@@ -25,7 +25,7 @@ No Class due to MLK Day
 
 ### Slides
 ```{=html}
-<iframe class="slide-deck" src="b_Slides.html" title="[02b] Slideshow">
+<iframe class="slide-deck" src="b_Slides.html" title="[01b] Slideshow">
 </iframe>
 ```
 

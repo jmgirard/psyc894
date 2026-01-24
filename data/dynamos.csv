@@ -1,0 +1,2214 @@
+Rater,Clip,Sex,Race,Age,Valence
+1,AkeelahBee,Female,White,23,3.2
+1,CatchMe,Female,White,23,0.95
+1,DaysSummer,Female,White,23,1.8
+1,Fences,Female,White,23,-0.7999999999999999
+1,ForrestGump,Female,White,23,1
+1,GreenMile,Female,White,23,-1.6
+1,GoodWill,Female,White,23,0.19999999999999996
+1,LadyBird,Female,White,23,2
+1,LegallyBlonde,Female,White,23,2.6
+1,LittleMiss,Female,White,23,1
+1,Moonlight,Female,White,23,3
+1,Miracle,Female,White,23,2.4
+1,MarriageStory,Female,White,23,-1.6
+1,PulpFiction,Female,White,23,0
+1,PursuitHappyness,Female,White,23,2.8
+1,ParentTrap,Female,White,23,1.2
+1,SilenceLambs,Female,White,23,0.8
+1,Zodiac,Female,White,23,-0.19999999999999996
+2,AkeelahBee,Female,Asian,25,2.35
+2,BealeStreet,Female,Asian,25,0.5
+2,CatchMe,Female,Asian,25,0.4
+2,DaysSummer,Female,Asian,25,0.19999999999999996
+2,Fences,Female,Asian,25,-0.4
+2,ForrestGump,Female,Asian,25,0.4
+2,GreenMile,Female,Asian,25,-1.6
+2,GoodWill,Female,Asian,25,-0.09999999999999998
+2,KingsSpeech,Female,Asian,25,0
+2,LadyBird,Female,Asian,25,1
+2,LegallyBlonde,Female,Asian,25,1.2
+2,LittleMiss,Female,Asian,25,0.6000000000000001
+2,Moonlight,Female,Asian,25,0.8
+2,Miracle,Female,Asian,25,0.4
+2,MarriageStory,Female,Asian,25,-0.4
+2,NoCountry,Female,Asian,25,-0.7999999999999999
+2,PulpFiction,Female,Asian,25,0.6
+2,PursuitHappyness,Female,Asian,25,1
+2,ParentTrap,Female,Asian,25,0.6000000000000001
+2,SocialNetwork,Female,Asian,25,0
+2,SilenceLambs,Female,Asian,25,-1
+2,Zodiac,Female,Asian,25,-0.3999999999999999
+3,AkeelahBee,NA,NA,32,3
+3,CatchMe,NA,NA,32,0.9999999999999999
+3,DaysSummer,NA,NA,32,1.4000000000000001
+3,ForrestGump,NA,NA,32,0.7999999999999999
+3,Moonlight,NA,NA,32,1.6
+3,PulpFiction,NA,NA,32,0.6
+3,PursuitHappyness,NA,NA,32,2
+3,ParentTrap,NA,NA,32,2.4
+3,SilenceLambs,NA,NA,32,-0.3999999999999999
+4,AkeelahBee,Female,White,44,0.6
+4,BealeStreet,Female,White,44,-0.19999999999999996
+4,CatchMe,Female,White,44,0.8
+4,DaysSummer,Female,White,44,1
+4,Fences,Female,White,44,-2.85
+4,ForrestGump,Female,White,44,0.4
+4,GreenMile,Female,White,44,-3.4
+4,GoodWill,Female,White,44,-1.2000000000000002
+4,KingsSpeech,Female,White,44,-1.5
+4,LadyBird,Female,White,44,1
+4,LegallyBlonde,Female,White,44,3.6
+4,LittleMiss,Female,White,44,0.7999999999999999
+4,Moonlight,Female,White,44,0.39999999999999997
+4,Miracle,Female,White,44,3
+4,MarriageStory,Female,White,44,-2.4
+4,NoCountry,Female,White,44,0.2
+4,PulpFiction,Female,White,44,0.39999999999999997
+4,PursuitHappyness,Female,White,44,0.39999999999999997
+4,ParentTrap,Female,White,44,1.2
+4,SocialNetwork,Female,White,44,0
+4,SilenceLambs,Female,White,44,0.19999999999999996
+4,Zodiac,Female,White,44,-3
+6,AkeelahBee,Male,Black/African American,32,1.4000000000000001
+6,CatchMe,Male,Black/African American,32,-0.9999999999999998
+6,DaysSummer,Male,Black/African American,32,1.4000000000000001
+6,ForrestGump,Male,Black/African American,32,1.2
+6,Moonlight,Male,Black/African American,32,1.2000000000000002
+6,PulpFiction,Male,Black/African American,32,0.6000000000000001
+6,PursuitHappyness,Male,Black/African American,32,2.2
+6,ParentTrap,Male,Black/African American,32,2.4
+6,SilenceLambs,Male,Black/African American,32,-0.7999999999999998
+7,AkeelahBee,Male,Multiple,46,1.4000000000000001
+7,BealeStreet,Male,Multiple,46,1.35
+7,CatchMe,Male,Multiple,46,1.2000000000000002
+7,DaysSummer,Male,Multiple,46,1.65
+7,Fences,Male,Multiple,46,0.8000000000000003
+7,ForrestGump,Male,Multiple,46,1
+7,GreenMile,Male,Multiple,46,0.6000000000000001
+7,GoodWill,Male,Multiple,46,1
+7,LadyBird,Male,Multiple,46,0.8
+7,LegallyBlonde,Male,Multiple,46,1.15
+7,LittleMiss,Male,Multiple,46,1
+7,Moonlight,Male,Multiple,46,0.3999999999999999
+7,Miracle,Male,Multiple,46,1.2000000000000002
+7,MarriageStory,Male,Multiple,46,0.30000000000000004
+7,PulpFiction,Male,Multiple,46,0.8000000000000003
+7,PursuitHappyness,Male,Multiple,46,1.4000000000000001
+7,ParentTrap,Male,Multiple,46,1.6
+7,SocialNetwork,Male,Multiple,46,1
+7,SilenceLambs,Male,Multiple,46,1.4
+7,Zodiac,Male,Multiple,46,0.40000000000000013
+8,AkeelahBee,Female,White,24,-0.20000000000000007
+8,BealeStreet,Female,White,24,-0.19999999999999996
+8,CatchMe,Female,White,24,-0.2
+8,DaysSummer,Female,White,24,0
+8,Fences,Female,White,24,-1.4
+8,ForrestGump,Female,White,24,0.4
+8,GreenMile,Female,White,24,-1
+8,GoodWill,Female,White,24,1
+8,KingsSpeech,Female,White,24,-0.4
+8,LadyBird,Female,White,24,0.19999999999999996
+8,LittleMiss,Female,White,24,0.2
+8,Moonlight,Female,White,24,0.8
+8,Miracle,Female,White,24,0.6
+8,MarriageStory,Female,White,24,-0.6
+8,NoCountry,Female,White,24,0
+8,PulpFiction,Female,White,24,-0.6
+8,PursuitHappyness,Female,White,24,0.4
+8,ParentTrap,Female,White,24,-0.19999999999999996
+8,SocialNetwork,Female,White,24,0.6
+8,SilenceLambs,Female,White,24,-0.20000000000000007
+8,Zodiac,Female,White,24,0
+9,AkeelahBee,Male,Black/African American,24,3
+9,BealeStreet,Male,Black/African American,24,2.8
+9,CatchMe,Male,Black/African American,24,2.6
+9,DaysSummer,Male,Black/African American,24,1.35
+9,Fences,Male,Black/African American,24,-1.2
+9,ForrestGump,Male,Black/African American,24,2.5
+9,GreenMile,Male,Black/African American,24,-2.8
+9,GoodWill,Male,Black/African American,24,-1.4
+9,KingsSpeech,Male,Black/African American,24,-0.40000000000000013
+9,LadyBird,Male,Black/African American,24,1.2000000000000002
+9,LegallyBlonde,Male,Black/African American,24,2.1999999999999997
+9,LittleMiss,Male,Black/African American,24,1.2000000000000002
+9,Moonlight,Male,Black/African American,24,2.2
+9,Miracle,Male,Black/African American,24,3.1999999999999997
+9,MarriageStory,Male,Black/African American,24,-0.9999999999999999
+9,NoCountry,Male,Black/African American,24,-1.6
+9,PulpFiction,Male,Black/African American,24,1.4
+9,PursuitHappyness,Male,Black/African American,24,2.4
+9,ParentTrap,Male,Black/African American,24,1.8
+9,SocialNetwork,Male,Black/African American,24,-0.19999999999999996
+9,SilenceLambs,Male,Black/African American,24,-2.6
+9,Zodiac,Male,Black/African American,24,1.4
+10,AkeelahBee,Male,Asian,23,1.8
+10,BealeStreet,Male,Asian,23,1.5999999999999999
+10,CatchMe,Male,Asian,23,0.15000000000000002
+10,DaysSummer,Male,Asian,23,0.09999999999999998
+10,Fences,Male,Asian,23,-0.6000000000000001
+10,ForrestGump,Male,Asian,23,1.6
+10,GreenMile,Male,Asian,23,-1.2000000000000002
+10,GoodWill,Male,Asian,23,0.5999999999999999
+10,KingsSpeech,Male,Asian,23,2
+10,LadyBird,Male,Asian,23,2.2
+10,LegallyBlonde,Male,Asian,23,1.6
+10,LittleMiss,Male,Asian,23,0.8
+10,Moonlight,Male,Asian,23,2
+10,Miracle,Male,Asian,23,2.4
+10,MarriageStory,Male,Asian,23,-0.8
+10,NoCountry,Male,Asian,23,2.2
+10,PulpFiction,Male,Asian,23,0.4
+10,PursuitHappyness,Male,Asian,23,2.35
+10,ParentTrap,Male,Asian,23,1.6
+10,SocialNetwork,Male,Asian,23,0.6000000000000001
+10,SilenceLambs,Male,Asian,23,-0.20000000000000007
+10,Zodiac,Male,Asian,23,-1.4
+11,AkeelahBee,Female,White,20,1.8
+11,ForrestGump,Female,White,20,0.20000000000000007
+11,GreenMile,Female,White,20,-0.9999999999999999
+11,KingsSpeech,Female,White,20,1.2
+11,LittleMiss,Female,White,20,1.4000000000000001
+11,MarriageStory,Female,White,20,-0.6000000000000001
+11,PulpFiction,Female,White,20,-0.9999999999999999
+12,AkeelahBee,Male,White,22,3.5999999999999996
+12,BealeStreet,Male,White,22,0.39999999999999997
+12,CatchMe,Male,White,22,1.8
+12,DaysSummer,Male,White,22,-0.8
+12,Fences,Male,White,22,-1.6
+12,ForrestGump,Male,White,22,0.8
+12,GreenMile,Male,White,22,-1.8
+12,GoodWill,Male,White,22,-0.4
+12,KingsSpeech,Male,White,22,1.4
+12,LadyBird,Male,White,22,0.4
+12,LegallyBlonde,Male,White,22,1.4
+12,LittleMiss,Male,White,22,0
+12,Moonlight,Male,White,22,3.1999999999999997
+12,Miracle,Male,White,22,2.8
+12,MarriageStory,Male,White,22,-0.9999999999999999
+12,NoCountry,Male,White,22,-1.2000000000000002
+12,PulpFiction,Male,White,22,-0.19999999999999996
+12,PursuitHappyness,Male,White,22,1.6
+12,ParentTrap,Male,White,22,1
+12,SocialNetwork,Male,White,22,0.39999999999999997
+12,SilenceLambs,Male,White,22,-2
+12,Zodiac,Male,White,22,-1.5999999999999999
+14,AkeelahBee,Female,White,19,1.6
+14,BealeStreet,Female,White,19,0.6
+14,CatchMe,Female,White,19,0.2
+14,DaysSummer,Female,White,19,0.55
+14,Fences,Female,White,19,-0.9999999999999999
+14,ForrestGump,Female,White,19,0.19999999999999996
+14,GreenMile,Female,White,19,-2.4
+14,GoodWill,Female,White,19,0
+14,KingsSpeech,Female,White,19,0.4
+14,LadyBird,Female,White,19,0
+14,LegallyBlonde,Female,White,19,2
+14,LittleMiss,Female,White,19,-0.6000000000000001
+14,Moonlight,Female,White,19,1
+14,Miracle,Female,White,19,1.8000000000000003
+14,MarriageStory,Female,White,19,-0.20000000000000007
+14,NoCountry,Female,White,19,-0.6
+14,PulpFiction,Female,White,19,-0.6
+14,PursuitHappyness,Female,White,19,1
+14,ParentTrap,Female,White,19,1.2
+14,SocialNetwork,Female,White,19,-0.2
+14,SilenceLambs,Female,White,19,-1.2000000000000002
+14,Zodiac,Female,White,19,-2.1999999999999997
+15,AkeelahBee,Female,Asian,24,2.8
+15,BealeStreet,Female,Asian,24,0.8
+15,CatchMe,Female,Asian,24,2
+15,DaysSummer,Female,Asian,24,-0.8
+15,Fences,Female,Asian,24,-1.4
+15,ForrestGump,Female,Asian,24,-1
+15,GreenMile,Female,Asian,24,-2.4
+15,GoodWill,Female,Asian,24,2
+15,KingsSpeech,Female,Asian,24,0.39999999999999997
+15,LadyBird,Female,Asian,24,0.6
+15,LegallyBlonde,Female,Asian,24,2.4
+15,LittleMiss,Female,Asian,24,0.39999999999999997
+15,Moonlight,Female,Asian,24,1.2
+15,Miracle,Female,Asian,24,2.1999999999999997
+15,MarriageStory,Female,Asian,24,-0.19999999999999996
+15,NoCountry,Female,Asian,24,1.2
+15,PulpFiction,Female,Asian,24,0.2
+15,PursuitHappyness,Female,Asian,24,1.4000000000000001
+15,ParentTrap,Female,Asian,24,1.4000000000000001
+15,SocialNetwork,Female,Asian,24,1.6
+15,SilenceLambs,Female,Asian,24,0.4
+15,Zodiac,Female,Asian,24,0.6000000000000001
+16,AkeelahBee,Female,White,37,3
+16,BealeStreet,Female,White,37,1.6
+16,CatchMe,Female,White,37,-0.19999999999999996
+16,DaysSummer,Female,White,37,-0.4
+16,Fences,Female,White,37,-2.8
+16,ForrestGump,Female,White,37,-0.6000000000000001
+16,GreenMile,Female,White,37,-3.5999999999999996
+16,GoodWill,Female,White,37,-1.4
+16,KingsSpeech,Female,White,37,1.8
+16,LadyBird,Female,White,37,0.39999999999999997
+16,LegallyBlonde,Female,White,37,3
+16,LittleMiss,Female,White,37,-0.4
+16,Moonlight,Female,White,37,1.8
+16,Miracle,Female,White,37,3.2
+16,MarriageStory,Female,White,37,-1.8
+16,NoCountry,Female,White,37,-1.2000000000000002
+16,PulpFiction,Female,White,37,-0.20000000000000007
+16,PursuitHappyness,Female,White,37,2.6
+16,ParentTrap,Female,White,37,0.2
+16,SocialNetwork,Female,White,37,-0.6000000000000001
+16,SilenceLambs,Female,White,37,0
+16,Zodiac,Female,White,37,-1.2
+17,AkeelahBee,Male,White,26,3
+17,BealeStreet,Male,White,26,-0.3999999999999999
+17,CatchMe,Male,White,26,-1.2000000000000002
+17,DaysSummer,Male,White,26,-1.3
+17,Fences,Male,White,26,-0.7999999999999998
+17,ForrestGump,Male,White,26,1.2
+17,GreenMile,Male,White,26,-2.2
+17,GoodWill,Male,White,26,2.1999999999999997
+17,KingsSpeech,Male,White,26,0.6000000000000001
+17,LadyBird,Male,White,26,1.6
+17,LegallyBlonde,Male,White,26,2.8
+17,LittleMiss,Male,White,26,1.7000000000000002
+17,Moonlight,Male,White,26,2.8
+17,Miracle,Male,White,26,3.2
+17,MarriageStory,Male,White,26,2.2
+17,NoCountry,Male,White,26,1.2000000000000002
+17,PulpFiction,Male,White,26,2.4000000000000004
+17,PursuitHappyness,Male,White,26,0.5999999999999999
+17,ParentTrap,Male,White,26,1.4000000000000001
+17,SocialNetwork,Male,White,26,1.4
+17,SilenceLambs,Male,White,26,-0.3999999999999999
+17,Zodiac,Male,White,26,0.19999999999999973
+18,AkeelahBee,Female,Black/African American,39,2.8
+18,BealeStreet,Female,Black/African American,39,0.5999999999999999
+18,DaysSummer,Female,Black/African American,39,0.8
+18,Fences,Female,Black/African American,39,0.19999999999999996
+18,ForrestGump,Female,Black/African American,39,0.6
+18,KingsSpeech,Female,Black/African American,39,2.8
+18,LadyBird,Female,Black/African American,39,0.5
+18,LegallyBlonde,Female,Black/African American,39,2
+18,LittleMiss,Female,Black/African American,39,1.2
+18,Moonlight,Female,Black/African American,39,0.8
+18,Miracle,Female,Black/African American,39,2
+18,NoCountry,Female,Black/African American,39,0
+18,PulpFiction,Female,Black/African American,39,0.6000000000000001
+18,PursuitHappyness,Female,Black/African American,39,2.8
+18,ParentTrap,Female,Black/African American,39,1.8
+18,SilenceLambs,Female,Black/African American,39,-0.7999999999999999
+19,AkeelahBee,Female,White,24,2
+19,BealeStreet,Female,White,24,-0.19999999999999996
+19,CatchMe,Female,White,24,0
+19,DaysSummer,Female,White,24,0.55
+19,Fences,Female,White,24,-0.6
+19,ForrestGump,Female,White,24,-1.2
+19,GreenMile,Female,White,24,-2
+19,GoodWill,Female,White,24,-0.2
+19,KingsSpeech,Female,White,24,-1
+19,LadyBird,Female,White,24,-0.4
+19,LegallyBlonde,Female,White,24,2.5999999999999996
+19,LittleMiss,Female,White,24,-1
+19,Moonlight,Female,White,24,0.19999999999999996
+19,Miracle,Female,White,24,1.2
+19,MarriageStory,Female,White,24,-1
+19,NoCountry,Female,White,24,-1.2
+19,PulpFiction,Female,White,24,-0.2
+19,PursuitHappyness,Female,White,24,0.8
+19,ParentTrap,Female,White,24,1.8
+19,SocialNetwork,Female,White,24,-0.6000000000000001
+19,SilenceLambs,Female,White,24,-2.6
+19,Zodiac,Female,White,24,-2
+21,AkeelahBee,Female,White,26,2.6
+21,BealeStreet,Female,White,26,0
+21,CatchMe,Female,White,26,0.2
+21,DaysSummer,Female,White,26,-0.4
+21,Fences,Female,White,26,-0.6
+21,ForrestGump,Female,White,26,-0.2
+21,GreenMile,Female,White,26,-2
+21,GoodWill,Female,White,26,-0.2
+21,KingsSpeech,Female,White,26,1.2000000000000002
+21,LadyBird,Female,White,26,0
+21,LegallyBlonde,Female,White,26,0.39999999999999997
+21,LittleMiss,Female,White,26,0
+21,Moonlight,Female,White,26,0
+21,Miracle,Female,White,26,2.2
+21,MarriageStory,Female,White,26,-0.39999999999999997
+21,NoCountry,Female,White,26,0
+21,PulpFiction,Female,White,26,0.4
+21,PursuitHappyness,Female,White,26,0.19999999999999996
+21,ParentTrap,Female,White,26,0.4
+21,SocialNetwork,Female,White,26,0
+21,SilenceLambs,Female,White,26,-0.6
+21,Zodiac,Female,White,26,-0.6
+23,AkeelahBee,Female,Asian,22,3.1999999999999997
+23,BealeStreet,Female,Asian,22,2.6
+23,CatchMe,Female,Asian,22,2.2
+23,DaysSummer,Female,Asian,22,1.1
+23,Fences,Female,Asian,22,-2.2
+23,ForrestGump,Female,Asian,22,2.5999999999999996
+23,GreenMile,Female,Asian,22,-2.8
+23,GoodWill,Female,Asian,22,-1.8000000000000003
+23,KingsSpeech,Female,Asian,22,3.1999999999999997
+23,LadyBird,Female,Asian,22,1.8
+23,LegallyBlonde,Female,Asian,22,2.2
+23,LittleMiss,Female,Asian,22,1.2
+23,Moonlight,Female,Asian,22,2.6
+23,Miracle,Female,Asian,22,3.1999999999999997
+23,MarriageStory,Female,Asian,22,-2.8
+23,NoCountry,Female,Asian,22,-1.4
+23,PulpFiction,Female,Asian,22,-0.20000000000000018
+23,PursuitHappyness,Female,Asian,22,3.1999999999999997
+23,ParentTrap,Female,Asian,22,2.6
+23,SocialNetwork,Female,Asian,22,0.19999999999999996
+23,SilenceLambs,Female,Asian,22,-1.5999999999999999
+23,Zodiac,Female,Asian,22,-2.4
+24,AkeelahBee,Female,Asian,28,1.6
+24,BealeStreet,Female,Asian,28,0.7999999999999999
+24,CatchMe,Female,Asian,28,0.8
+24,DaysSummer,Female,Asian,28,0.25
+24,Fences,Female,Asian,28,0
+24,ForrestGump,Female,Asian,28,-0.19999999999999996
+24,GreenMile,Female,Asian,28,-0.55
+24,GoodWill,Female,Asian,28,0.2
+24,KingsSpeech,Female,Asian,28,0.6000000000000001
+24,LadyBird,Female,Asian,28,-0.2
+24,LegallyBlonde,Female,Asian,28,1.4
+24,LittleMiss,Female,Asian,28,0.2
+24,Moonlight,Female,Asian,28,0.2
+24,Miracle,Female,Asian,28,0.2
+24,MarriageStory,Female,Asian,28,0.19999999999999996
+24,NoCountry,Female,Asian,28,0
+24,PulpFiction,Female,Asian,28,0.2
+24,PursuitHappyness,Female,Asian,28,1
+24,ParentTrap,Female,Asian,28,0.6
+24,SocialNetwork,Female,Asian,28,0.2
+24,SilenceLambs,Female,Asian,28,0.2
+24,Zodiac,Female,Asian,28,-1.7999999999999998
+26,AkeelahBee,Male,Latino,21,3
+26,BealeStreet,Male,Latino,21,0
+26,CatchMe,Male,Latino,21,0.4
+26,DaysSummer,Male,Latino,21,1
+26,Fences,Male,Latino,21,-0.9999999999999999
+26,ForrestGump,Male,Latino,21,1.5
+26,GreenMile,Male,Latino,21,0.19999999999999996
+26,GoodWill,Male,Latino,21,0.8
+26,KingsSpeech,Male,Latino,21,2.4
+26,LadyBird,Male,Latino,21,0.19999999999999996
+26,LegallyBlonde,Male,Latino,21,2.8
+26,LittleMiss,Male,Latino,21,0.6
+26,Moonlight,Male,Latino,21,2.6
+26,Miracle,Male,Latino,21,3.2
+26,MarriageStory,Male,Latino,21,0
+26,NoCountry,Male,Latino,21,-0.20000000000000007
+26,PulpFiction,Male,Latino,21,0.8
+26,PursuitHappyness,Male,Latino,21,3
+26,ParentTrap,Male,Latino,21,1.4
+26,SocialNetwork,Male,Latino,21,1
+26,SilenceLambs,Male,Latino,21,-0.7999999999999999
+26,Zodiac,Male,Latino,21,0.19999999999999996
+28,AkeelahBee,Female,Asian,33,2
+28,BealeStreet,Female,Asian,33,0.4
+28,CatchMe,Female,Asian,33,-0.8
+28,DaysSummer,Female,Asian,33,-0.2
+28,Fences,Female,Asian,33,-2.2
+28,ForrestGump,Female,Asian,33,0.5999999999999999
+28,GreenMile,Female,Asian,33,-1.8
+28,GoodWill,Female,Asian,33,0
+28,KingsSpeech,Female,Asian,33,1.4
+28,LadyBird,Female,Asian,33,0.6000000000000001
+28,LegallyBlonde,Female,Asian,33,2.2
+28,LittleMiss,Female,Asian,33,0.39999999999999997
+28,Moonlight,Female,Asian,33,1
+28,Miracle,Female,Asian,33,1
+28,NoCountry,Female,Asian,33,-0.20000000000000007
+28,PulpFiction,Female,Asian,33,0.7999999999999999
+28,PursuitHappyness,Female,Asian,33,1.4000000000000001
+28,ParentTrap,Female,Asian,33,2
+28,SocialNetwork,Female,Asian,33,0.4
+28,SilenceLambs,Female,Asian,33,-1.4
+28,Zodiac,Female,Asian,33,-0.5999999999999999
+29,AkeelahBee,Female,White,29,2.1999999999999997
+29,BealeStreet,Female,White,29,0.3999999999999999
+29,CatchMe,Female,White,29,0.20000000000000018
+29,DaysSummer,Female,White,29,1.5
+29,Fences,Female,White,29,-2.8
+29,ForrestGump,Female,White,29,1
+29,GreenMile,Female,White,29,-2.6
+29,GoodWill,Female,White,29,-1.4000000000000001
+29,KingsSpeech,Female,White,29,-1.2000000000000002
+29,LadyBird,Female,White,29,1
+29,LegallyBlonde,Female,White,29,2.1999999999999997
+29,LittleMiss,Female,White,29,0.4
+29,Moonlight,Female,White,29,-0.40000000000000013
+29,Miracle,Female,White,29,1
+29,MarriageStory,Female,White,29,-1.9999999999999998
+29,NoCountry,Female,White,29,-1.2
+29,PulpFiction,Female,White,29,-1.4000000000000001
+29,PursuitHappyness,Female,White,29,1.6
+29,ParentTrap,Female,White,29,0.5999999999999999
+29,SocialNetwork,Female,White,29,-0.19999999999999996
+29,SilenceLambs,Female,White,29,-1.7999999999999998
+29,Zodiac,Female,White,29,-1.6
+30,AkeelahBee,Female,Asian,22,1.6
+30,BealeStreet,Female,Asian,22,0
+30,CatchMe,Female,Asian,22,-0.2
+30,DaysSummer,Female,Asian,22,0
+30,Fences,Female,Asian,22,0.20000000000000018
+30,ForrestGump,Female,Asian,22,-0.7999999999999999
+30,GoodWill,Female,Asian,22,0.2
+30,KingsSpeech,Female,Asian,22,-0.2
+30,LadyBird,Female,Asian,22,0.2
+30,LegallyBlonde,Female,Asian,22,2.4
+30,LittleMiss,Female,Asian,22,0.2
+30,Moonlight,Female,Asian,22,0.19999999999999996
+30,Miracle,Female,Asian,22,0.4
+30,MarriageStory,Female,Asian,22,-0.6000000000000001
+30,NoCountry,Female,Asian,22,-0.19999999999999996
+30,PulpFiction,Female,Asian,22,-0.2
+30,PursuitHappyness,Female,Asian,22,2.6
+30,ParentTrap,Female,Asian,22,2.4
+30,SocialNetwork,Female,Asian,22,1.2
+30,SilenceLambs,Female,Asian,22,-1.4
+30,Zodiac,Female,Asian,22,-2
+31,AkeelahBee,Male,White,25,1.4000000000000001
+31,BealeStreet,Male,White,25,-2
+31,CatchMe,Male,White,25,0.20000000000000007
+31,DaysSummer,Male,White,25,-2.1999999999999997
+31,Fences,Male,White,25,-1.6
+31,ForrestGump,Male,White,25,-2
+31,GreenMile,Male,White,25,-2.1999999999999997
+31,GoodWill,Male,White,25,-2
+31,KingsSpeech,Male,White,25,1.7999999999999998
+31,LadyBird,Male,White,25,3
+31,LegallyBlonde,Male,White,25,2
+31,LittleMiss,Male,White,25,-1.4000000000000001
+31,Moonlight,Male,White,25,2.4
+31,Miracle,Male,White,25,2.4000000000000004
+31,MarriageStory,Male,White,25,-1.9999999999999998
+31,NoCountry,Male,White,25,-1.2000000000000002
+31,PulpFiction,Male,White,25,-2.4
+31,PursuitHappyness,Male,White,25,2
+31,SocialNetwork,Male,White,25,-1
+31,SilenceLambs,Male,White,25,-0.19999999999999996
+31,Zodiac,Male,White,25,-0.8
+32,AkeelahBee,Male,Brazilian,37,2.4
+32,BealeStreet,Male,Brazilian,37,1.2000000000000002
+32,CatchMe,Male,Brazilian,37,1
+32,DaysSummer,Male,Brazilian,37,0.7999999999999999
+32,Fences,Male,Brazilian,37,-2.4
+32,ForrestGump,Male,Brazilian,37,0.8
+32,GreenMile,Male,Brazilian,37,-2.4000000000000004
+32,GoodWill,Male,Brazilian,37,1
+32,KingsSpeech,Male,Brazilian,37,2.4
+32,LadyBird,Male,Brazilian,37,1.8000000000000003
+32,LegallyBlonde,Male,Brazilian,37,0.6
+32,LittleMiss,Male,Brazilian,37,0.8
+32,Moonlight,Male,Brazilian,37,2.8
+32,Miracle,Male,Brazilian,37,2.1999999999999997
+32,MarriageStory,Male,Brazilian,37,-2
+32,NoCountry,Male,Brazilian,37,-1.6
+32,PulpFiction,Male,Brazilian,37,0
+32,PursuitHappyness,Male,Brazilian,37,2.6
+32,ParentTrap,Male,Brazilian,37,2.4
+32,SocialNetwork,Male,Brazilian,37,1.2
+32,SilenceLambs,Male,Brazilian,37,-1.4000000000000001
+32,Zodiac,Male,Brazilian,37,-1.8
+33,AkeelahBee,Female,Asian,22,0.6000000000000001
+33,BealeStreet,Female,Asian,22,-0.6000000000000001
+33,CatchMe,Female,Asian,22,1
+33,DaysSummer,Female,Asian,22,0.4
+33,Fences,Female,Asian,22,-1.6
+33,ForrestGump,Female,Asian,22,0.6
+33,GreenMile,Female,Asian,22,-1.8000000000000003
+33,GoodWill,Female,Asian,22,-0.6
+33,KingsSpeech,Female,Asian,22,0.4
+33,LadyBird,Female,Asian,22,0.2
+33,LegallyBlonde,Female,Asian,22,0.7999999999999999
+33,LittleMiss,Female,Asian,22,-0.8
+33,Miracle,Female,Asian,22,0.9999999999999999
+33,MarriageStory,Female,Asian,22,-1
+33,PulpFiction,Female,Asian,22,-0.2
+33,PursuitHappyness,Female,Asian,22,0.6
+33,ParentTrap,Female,Asian,22,0.6000000000000001
+33,SocialNetwork,Female,Asian,22,0
+33,SilenceLambs,Female,Asian,22,-1.8000000000000003
+33,Zodiac,Female,Asian,22,-0.9999999999999999
+34,AkeelahBee,Female,Brazilian,35,2
+34,BealeStreet,Female,Brazilian,35,-0.3999999999999999
+34,CatchMe,Female,Brazilian,35,0.8
+34,DaysSummer,Female,Brazilian,35,-1.15
+34,Fences,Female,Brazilian,35,-2.6
+34,ForrestGump,Female,Brazilian,35,-0.39999999999999997
+34,GreenMile,Female,Brazilian,35,-2.6
+34,GoodWill,Female,Brazilian,35,-0.6
+34,KingsSpeech,Female,Brazilian,35,-0.3999999999999999
+34,LadyBird,Female,Brazilian,35,1.4000000000000001
+34,LegallyBlonde,Female,Brazilian,35,2
+34,LittleMiss,Female,Brazilian,35,0.75
+34,Moonlight,Female,Brazilian,35,0.6000000000000001
+34,Miracle,Female,Brazilian,35,1.8000000000000003
+34,MarriageStory,Female,Brazilian,35,-2
+34,NoCountry,Female,Brazilian,35,-1.5999999999999999
+34,PulpFiction,Female,Brazilian,35,-1.5999999999999999
+34,PursuitHappyness,Female,Brazilian,35,0
+34,ParentTrap,Female,Brazilian,35,2.4
+34,SocialNetwork,Female,Brazilian,35,-1.2000000000000002
+34,SilenceLambs,Female,Brazilian,35,-2.4000000000000004
+34,Zodiac,Female,Brazilian,35,-2
+35,AkeelahBee,Female,Asian,19,2.8
+35,CatchMe,Female,Asian,19,1.8
+35,DaysSummer,Female,Asian,19,-0.2
+35,Fences,Female,Asian,19,-3.1999999999999997
+35,KingsSpeech,Female,Asian,19,0.3999999999999999
+35,LadyBird,Female,Asian,19,-1.1999999999999997
+35,Miracle,Female,Asian,19,3
+35,PursuitHappyness,Female,Asian,19,2.8
+35,ParentTrap,Female,Asian,19,2.5999999999999996
+35,SilenceLambs,Female,Asian,19,-2.2
+35,Zodiac,Female,Asian,19,-2.2
+36,AkeelahBee,Female,Asian,22,2
+36,BealeStreet,Female,Asian,22,-0.6
+36,CatchMe,Female,Asian,22,0
+36,DaysSummer,Female,Asian,22,0
+36,Fences,Female,Asian,22,-1.4
+36,ForrestGump,Female,Asian,22,-0.2
+36,GreenMile,Female,Asian,22,-2
+36,GoodWill,Female,Asian,22,-0.6000000000000001
+36,KingsSpeech,Female,Asian,22,1
+36,LadyBird,Female,Asian,22,1.2
+36,LegallyBlonde,Female,Asian,22,2.2
+36,LittleMiss,Female,Asian,22,-0.6
+36,Moonlight,Female,Asian,22,1
+36,Miracle,Female,Asian,22,2
+36,MarriageStory,Female,Asian,22,-0.6
+36,NoCountry,Female,Asian,22,-0.39999999999999997
+36,PulpFiction,Female,Asian,22,-0.4
+36,PursuitHappyness,Female,Asian,22,0.8
+36,ParentTrap,Female,Asian,22,0.6000000000000001
+36,SocialNetwork,Female,Asian,22,-0.39999999999999997
+36,SilenceLambs,Female,Asian,22,-1.6
+36,Zodiac,Female,Asian,22,-1.2000000000000002
+37,AkeelahBee,Female,Asian,22,2.6
+37,BealeStreet,Female,Asian,22,0
+37,CatchMe,Female,Asian,22,1.8
+37,DaysSummer,Female,Asian,22,-0.15000000000000002
+37,Fences,Female,Asian,22,-0.4
+37,ForrestGump,Female,Asian,22,-0.04999999999999999
+37,GreenMile,Female,Asian,22,-1.4
+37,GoodWill,Female,Asian,22,-0.39999999999999997
+37,KingsSpeech,Female,Asian,22,-0.6
+37,LadyBird,Female,Asian,22,-0.2
+37,LegallyBlonde,Female,Asian,22,2.4
+37,LittleMiss,Female,Asian,22,0
+37,Moonlight,Female,Asian,22,0.8
+37,Miracle,Female,Asian,22,0.7999999999999999
+37,MarriageStory,Female,Asian,22,-0.39999999999999997
+37,NoCountry,Female,Asian,22,-0.2
+37,PulpFiction,Female,Asian,22,1
+37,PursuitHappyness,Female,Asian,22,0.6000000000000001
+37,ParentTrap,Female,Asian,22,1.4
+37,SocialNetwork,Female,Asian,22,-0.7999999999999999
+37,SilenceLambs,Female,Asian,22,0
+37,Zodiac,Female,Asian,22,-0.9999999999999999
+39,AkeelahBee,Female,White,39,2.2
+39,BealeStreet,Female,White,39,-1.7999999999999998
+39,CatchMe,Female,White,39,0.3999999999999999
+39,DaysSummer,Female,White,39,0.39999999999999997
+39,Fences,Female,White,39,-1.9999999999999998
+39,ForrestGump,Female,White,39,0.19999999999999996
+39,GreenMile,Female,White,39,-2.8
+39,GoodWill,Female,White,39,-1
+39,KingsSpeech,Female,White,39,1.8
+39,LadyBird,Female,White,39,-0.3999999999999999
+39,LegallyBlonde,Female,White,39,2.4
+39,LittleMiss,Female,White,39,-0.4
+39,Moonlight,Female,White,39,2.2
+39,Miracle,Female,White,39,2.1999999999999997
+39,MarriageStory,Female,White,39,-2
+39,NoCountry,Female,White,39,-1.7999999999999998
+39,PulpFiction,Female,White,39,1.4
+39,PursuitHappyness,Female,White,39,1.6
+39,ParentTrap,Female,White,39,0
+39,SocialNetwork,Female,White,39,-1.2
+39,SilenceLambs,Female,White,39,0.19999999999999996
+39,Zodiac,Female,White,39,-1.7999999999999998
+40,AkeelahBee,Male,White,59,1.2000000000000002
+40,BealeStreet,Male,White,59,0.6000000000000001
+40,CatchMe,Male,White,59,1
+40,DaysSummer,Male,White,59,0.25
+40,Fences,Male,White,59,-0.40000000000000013
+40,ForrestGump,Male,White,59,1
+40,GreenMile,Male,White,59,0
+40,GoodWill,Male,White,59,0
+40,KingsSpeech,Male,White,59,1
+40,LadyBird,Male,White,59,0.20000000000000007
+40,LegallyBlonde,Male,White,59,0.25
+40,LittleMiss,Male,White,59,1.2
+40,Miracle,Male,White,59,0.8
+40,MarriageStory,Male,White,59,-0.39999999999999997
+40,NoCountry,Male,White,59,-0.6000000000000001
+40,PulpFiction,Male,White,59,0.7999999999999999
+40,PursuitHappyness,Male,White,59,0.6000000000000001
+40,ParentTrap,Male,White,59,0.6
+40,SocialNetwork,Male,White,59,1.4000000000000001
+40,SilenceLambs,Male,White,59,0.7999999999999999
+40,Zodiac,Male,White,59,0.8
+41,AkeelahBee,Female,Latino,30,3.8
+41,BealeStreet,Female,Latino,30,-0.4
+41,CatchMe,Female,Latino,30,1.6
+41,DaysSummer,Female,Latino,30,0.4
+41,Fences,Female,Latino,30,-1.7999999999999998
+41,ForrestGump,Female,Latino,30,-0.19999999999999996
+41,GreenMile,Female,Latino,30,-2.2
+41,GoodWill,Female,Latino,30,-0.40000000000000013
+41,KingsSpeech,Female,Latino,30,3
+41,LadyBird,Female,Latino,30,1.8
+41,LegallyBlonde,Female,Latino,30,4
+41,LittleMiss,Female,Latino,30,-1.55
+41,Moonlight,Female,Latino,30,-0.20000000000000018
+41,Miracle,Female,Latino,30,3.8
+41,MarriageStory,Female,Latino,30,-1.7999999999999998
+41,NoCountry,Female,Latino,30,-0.6
+41,PulpFiction,Female,Latino,30,-0.4
+41,PursuitHappyness,Female,Latino,30,3.4
+41,ParentTrap,Female,Latino,30,2.2
+41,SocialNetwork,Female,Latino,30,-0.4
+41,SilenceLambs,Female,Latino,30,-1.8
+41,Zodiac,Female,Latino,30,-2.6
+43,AkeelahBee,Male,Asian,32,2
+43,BealeStreet,Male,Asian,32,1
+43,CatchMe,Male,Asian,32,1
+43,DaysSummer,Male,Asian,32,-0.19999999999999996
+43,Fences,Male,Asian,32,-0.19999999999999996
+43,ForrestGump,Male,Asian,32,1.4
+43,GreenMile,Male,Asian,32,0.19999999999999996
+43,GoodWill,Male,Asian,32,1.3
+43,KingsSpeech,Male,Asian,32,2.2
+43,LadyBird,Male,Asian,32,1.4
+43,LegallyBlonde,Male,Asian,32,1.6
+43,LittleMiss,Male,Asian,32,0.30000000000000004
+43,Moonlight,Male,Asian,32,1.4
+43,Miracle,Male,Asian,32,2.6
+43,MarriageStory,Male,Asian,32,1.1
+43,NoCountry,Male,Asian,32,0.5999999999999999
+43,PulpFiction,Male,Asian,32,1.4000000000000001
+43,PursuitHappyness,Male,Asian,32,2.2
+43,ParentTrap,Male,Asian,32,2.6
+43,SocialNetwork,Male,Asian,32,0.3999999999999999
+43,SilenceLambs,Male,Asian,32,0.7999999999999999
+43,Zodiac,Male,Asian,32,1
+44,AkeelahBee,Female,White,22,1.8000000000000003
+44,BealeStreet,Female,White,22,-0.85
+44,CatchMe,Female,White,22,-0.2
+44,DaysSummer,Female,White,22,-0.2
+44,Fences,Female,White,22,-1.8
+44,ForrestGump,Female,White,22,-0.4
+44,GreenMile,Female,White,22,-3
+44,GoodWill,Female,White,22,-1.6
+44,KingsSpeech,Female,White,22,0.6
+44,LadyBird,Female,White,22,-0.8
+44,LegallyBlonde,Female,White,22,2.4
+44,LittleMiss,Female,White,22,1
+44,Moonlight,Female,White,22,-0.19999999999999996
+44,Miracle,Female,White,22,1.4
+44,MarriageStory,Female,White,22,-1.8
+44,NoCountry,Female,White,22,-0.6
+44,PulpFiction,Female,White,22,-0.6
+44,PursuitHappyness,Female,White,22,1.2000000000000002
+44,ParentTrap,Female,White,22,0.4
+44,SocialNetwork,Female,White,22,1.2
+44,SilenceLambs,Female,White,22,-0.19999999999999996
+44,Zodiac,Female,White,22,-1.4000000000000001
+46,AkeelahBee,Male,Other,34,2.6
+46,BealeStreet,Male,Other,34,-0.2
+46,CatchMe,Male,Other,34,0.8
+46,DaysSummer,Male,Other,34,0.39999999999999997
+46,Fences,Male,Other,34,0
+46,ForrestGump,Male,Other,34,-0.19999999999999996
+46,GreenMile,Male,Other,34,-0.3999999999999999
+46,GoodWill,Male,Other,34,-0.3999999999999999
+46,KingsSpeech,Male,Other,34,2.4000000000000004
+46,LadyBird,Male,Other,34,0.4
+46,LegallyBlonde,Male,Other,34,1
+46,LittleMiss,Male,Other,34,0
+46,Moonlight,Male,Other,34,1.4
+46,Miracle,Male,Other,34,2.4
+46,MarriageStory,Male,Other,34,-0.6
+46,NoCountry,Male,Other,34,0.19999999999999996
+46,PulpFiction,Male,Other,34,0.4
+46,PursuitHappyness,Male,Other,34,2.4
+46,ParentTrap,Male,Other,34,0.6
+46,SocialNetwork,Male,Other,34,0
+46,SilenceLambs,Male,Other,34,-2.2
+46,Zodiac,Male,Other,34,-1.8
+47,AkeelahBee,Female,White,51,2.4
+47,BealeStreet,Female,White,51,1.4
+47,CatchMe,Female,White,51,1.8
+47,DaysSummer,Female,White,51,0.9999999999999999
+47,Fences,Female,White,51,-0.3999999999999999
+47,ForrestGump,Female,White,51,-0.3999999999999999
+47,GreenMile,Female,White,51,-1.2000000000000002
+47,GoodWill,Female,White,51,-0.3999999999999999
+47,KingsSpeech,Female,White,51,2
+47,LadyBird,Female,White,51,0
+47,LegallyBlonde,Female,White,51,2.5999999999999996
+47,LittleMiss,Female,White,51,-0.20000000000000007
+47,Moonlight,Female,White,51,0.2
+47,Miracle,Female,White,51,2.4
+47,MarriageStory,Female,White,51,-0.7999999999999999
+47,NoCountry,Female,White,51,-0.40000000000000013
+47,PulpFiction,Female,White,51,0.5999999999999999
+47,PursuitHappyness,Female,White,51,1.4
+47,ParentTrap,Female,White,51,2.2
+47,SocialNetwork,Female,White,51,-0.4
+47,SilenceLambs,Female,White,51,-0.8
+47,Zodiac,Female,White,51,-1.2000000000000002
+49,AkeelahBee,Male,White,22,1
+49,BealeStreet,Male,White,22,1
+49,CatchMe,Male,White,22,1.6
+49,DaysSummer,Male,White,22,0.4
+49,Fences,Male,White,22,-1.6
+49,ForrestGump,Male,White,22,0.8
+49,GreenMile,Male,White,22,-0.6
+49,GoodWill,Male,White,22,-0.2
+49,KingsSpeech,Male,White,22,0.4
+49,LadyBird,Male,White,22,0
+49,LegallyBlonde,Male,White,22,1
+49,LittleMiss,Male,White,22,-0.8
+49,Moonlight,Male,White,22,0.6
+49,Miracle,Male,White,22,0.19999999999999996
+49,MarriageStory,Male,White,22,-2
+49,NoCountry,Male,White,22,-0.4
+49,PulpFiction,Male,White,22,1.2
+49,PursuitHappyness,Male,White,22,1.4000000000000001
+49,ParentTrap,Male,White,22,0.20000000000000007
+49,SocialNetwork,Male,White,22,0.8
+49,SilenceLambs,Male,White,22,-0.2
+49,Zodiac,Male,White,22,-1
+50,AkeelahBee,Male,White,22,1.8
+50,BealeStreet,Male,White,22,1.4
+50,CatchMe,Male,White,22,0.8
+50,DaysSummer,Male,White,22,-1
+50,Fences,Male,White,22,-0.19999999999999996
+50,ForrestGump,Male,White,22,-0.6
+50,GreenMile,Male,White,22,-1.9999999999999998
+50,GoodWill,Male,White,22,0.20000000000000007
+50,KingsSpeech,Male,White,22,0.2
+50,LadyBird,Male,White,22,1.6
+50,LegallyBlonde,Male,White,22,1.8
+50,LittleMiss,Male,White,22,0.4
+50,Moonlight,Male,White,22,1.8
+50,Miracle,Male,White,22,1
+50,MarriageStory,Male,White,22,-0.40000000000000013
+50,NoCountry,Male,White,22,-0.9999999999999999
+50,PulpFiction,Male,White,22,0.8
+50,PursuitHappyness,Male,White,22,1.4
+50,ParentTrap,Male,White,22,0.4
+50,SocialNetwork,Male,White,22,1
+50,SilenceLambs,Male,White,22,-1.5999999999999999
+50,Zodiac,Male,White,22,-0.6
+51,AkeelahBee,Female,White,18,1.4
+51,BealeStreet,Female,White,18,0
+51,CatchMe,Female,White,18,0
+51,DaysSummer,Female,White,18,0
+51,Fences,Female,White,18,-0.19999999999999996
+51,ForrestGump,Female,White,18,-0.2
+51,GreenMile,Female,White,18,-2.8
+51,GoodWill,Female,White,18,-0.19999999999999996
+51,KingsSpeech,Female,White,18,0.2
+51,LadyBird,Female,White,18,0.39999999999999997
+51,LegallyBlonde,Female,White,18,0.8
+51,LittleMiss,Female,White,18,0.2
+51,Moonlight,Female,White,18,0
+51,Miracle,Female,White,18,0.8
+51,MarriageStory,Female,White,18,-1.2
+51,NoCountry,Female,White,18,-0.4
+51,PulpFiction,Female,White,18,0.4
+51,PursuitHappyness,Female,White,18,0.6
+51,ParentTrap,Female,White,18,0.2
+51,SocialNetwork,Female,White,18,1.2
+51,SilenceLambs,Female,White,18,-0.6
+51,Zodiac,Female,White,18,-1.4
+53,AkeelahBee,Female,White,43,3.4
+53,BealeStreet,Female,White,43,0
+53,CatchMe,Female,White,43,0.4
+53,DaysSummer,Female,White,43,0
+53,Fences,Female,White,43,-2.8
+53,ForrestGump,Female,White,43,-0.3999999999999999
+53,GreenMile,Female,White,43,-1.8
+53,GoodWill,Female,White,43,-0.20000000000000007
+53,KingsSpeech,Female,White,43,2.6
+53,LadyBird,Female,White,43,0
+53,LegallyBlonde,Female,White,43,2.1999999999999997
+53,LittleMiss,Female,White,43,0
+53,Moonlight,Female,White,43,0.6
+53,Miracle,Female,White,43,2.4
+53,MarriageStory,Female,White,43,-2.5999999999999996
+53,NoCountry,Female,White,43,0
+53,PulpFiction,Female,White,43,0.19999999999999996
+53,PursuitHappyness,Female,White,43,2
+53,ParentTrap,Female,White,43,2
+53,SilenceLambs,Female,White,43,-1.2000000000000002
+53,Zodiac,Female,White,43,-1
+54,AkeelahBee,Female,Asian,23,2.4
+54,BealeStreet,Female,Asian,23,0.2
+54,CatchMe,Female,Asian,23,0
+54,DaysSummer,Female,Asian,23,-0.2
+54,Fences,Female,Asian,23,-0.7999999999999999
+54,ForrestGump,Female,Asian,23,-0.39999999999999997
+54,GreenMile,Female,Asian,23,-1
+54,GoodWill,Female,Asian,23,-0.4
+54,KingsSpeech,Female,Asian,23,0.8
+54,LadyBird,Female,Asian,23,-0.2
+54,LegallyBlonde,Female,Asian,23,1.6
+54,LittleMiss,Female,Asian,23,0.19999999999999996
+54,Moonlight,Female,Asian,23,0.39999999999999997
+54,Miracle,Female,Asian,23,2
+54,MarriageStory,Female,Asian,23,-0.6
+54,NoCountry,Female,Asian,23,0
+54,PulpFiction,Female,Asian,23,-0.2
+54,PursuitHappyness,Female,Asian,23,0.8
+54,ParentTrap,Female,Asian,23,1.2
+54,SilenceLambs,Female,Asian,23,-1.2000000000000002
+54,Zodiac,Female,Asian,23,-1.2
+55,AkeelahBee,Male,Asian,21,0.8
+55,BealeStreet,Male,Asian,21,0.8
+55,CatchMe,Male,Asian,21,1.2
+55,DaysSummer,Male,Asian,21,0
+55,Fences,Male,Asian,21,-0.7999999999999999
+55,ForrestGump,Male,Asian,21,-0.39999999999999997
+55,GreenMile,Male,Asian,21,-0.8
+55,GoodWill,Male,Asian,21,0
+55,KingsSpeech,Male,Asian,21,1.8
+55,LadyBird,Male,Asian,21,0.8
+55,LegallyBlonde,Male,Asian,21,1.4000000000000001
+55,LittleMiss,Male,Asian,21,-0.39999999999999997
+55,Moonlight,Male,Asian,21,1
+55,Miracle,Male,Asian,21,2.1999999999999997
+55,MarriageStory,Male,Asian,21,-1.4000000000000001
+55,NoCountry,Male,Asian,21,0.2
+55,PulpFiction,Male,Asian,21,0.6
+55,PursuitHappyness,Male,Asian,21,1.2
+55,ParentTrap,Male,Asian,21,0.8
+55,SocialNetwork,Male,Asian,21,0.19999999999999996
+55,SilenceLambs,Male,Asian,21,0.19999999999999996
+55,Zodiac,Male,Asian,21,0.6
+56,AkeelahBee,Male,White,33,2.6
+56,BealeStreet,Male,White,33,0.9999999999999999
+56,CatchMe,Male,White,33,0.4
+56,DaysSummer,Male,White,33,0.4
+56,Fences,Male,White,33,-0.7999999999999999
+56,ForrestGump,Male,White,33,1.2
+56,GreenMile,Male,White,33,-1.2000000000000002
+56,GoodWill,Male,White,33,0.6
+56,KingsSpeech,Male,White,33,0.8
+56,LadyBird,Male,White,33,0.6
+56,LegallyBlonde,Male,White,33,1
+56,LittleMiss,Male,White,33,0.4
+56,Moonlight,Male,White,33,1.8
+56,Miracle,Male,White,33,1.6
+56,MarriageStory,Male,White,33,-1.4000000000000001
+56,NoCountry,Male,White,33,-0.3999999999999999
+56,PulpFiction,Male,White,33,0.39999999999999997
+56,PursuitHappyness,Male,White,33,1.2
+56,ParentTrap,Male,White,33,0.4
+56,SocialNetwork,Male,White,33,1.2
+56,SilenceLambs,Male,White,33,-0.7999999999999999
+56,Zodiac,Male,White,33,-0.6
+57,AkeelahBee,Female,White,22,2.8000000000000003
+57,BealeStreet,Female,White,22,0.6000000000000001
+57,CatchMe,Female,White,22,-1.4000000000000001
+57,DaysSummer,Female,White,22,0.8
+57,Fences,Female,White,22,-2.4
+57,ForrestGump,Female,White,22,-0.8
+57,GreenMile,Female,White,22,-3
+57,GoodWill,Female,White,22,-0.8
+57,KingsSpeech,Female,White,22,-0.8
+57,LadyBird,Female,White,22,1.2000000000000002
+57,LegallyBlonde,Female,White,22,2.2
+57,LittleMiss,Female,White,22,0.6
+57,Moonlight,Female,White,22,0.8000000000000003
+57,Miracle,Female,White,22,1.2
+57,MarriageStory,Female,White,22,-1.5999999999999999
+57,NoCountry,Female,White,22,-1.5999999999999999
+57,PulpFiction,Female,White,22,-2.4000000000000004
+57,PursuitHappyness,Female,White,22,2.8
+57,ParentTrap,Female,White,22,2.4000000000000004
+57,SocialNetwork,Female,White,22,0.40000000000000013
+57,SilenceLambs,Female,White,22,-1
+57,Zodiac,Female,White,22,-2.4000000000000004
+58,AkeelahBee,Male,Black/African American,42,2.2
+58,BealeStreet,Male,Black/African American,42,2.2
+58,CatchMe,Male,Black/African American,42,2.2
+58,DaysSummer,Male,Black/African American,42,2.2
+58,Fences,Male,Black/African American,42,2
+58,ForrestGump,Male,Black/African American,42,2
+58,GreenMile,Male,Black/African American,42,2
+58,GoodWill,Male,Black/African American,42,2.8
+58,KingsSpeech,Male,Black/African American,42,2
+58,LadyBird,Male,Black/African American,42,1.8
+58,LegallyBlonde,Male,Black/African American,42,2.4
+58,LittleMiss,Male,Black/African American,42,1.8
+58,Moonlight,Male,Black/African American,42,2.2
+58,Miracle,Male,Black/African American,42,2.6
+58,MarriageStory,Male,Black/African American,42,1.6
+58,NoCountry,Male,Black/African American,42,1.7999999999999998
+58,PulpFiction,Male,Black/African American,42,2
+58,PursuitHappyness,Male,Black/African American,42,3
+58,ParentTrap,Male,Black/African American,42,2.2
+58,SocialNetwork,Male,Black/African American,42,2.2
+58,SilenceLambs,Male,Black/African American,42,2
+58,Zodiac,Male,Black/African American,42,1.6
+59,AkeelahBee,Female,Black/African American,22,3.2
+59,BealeStreet,Female,Black/African American,22,1.2
+59,CatchMe,Female,Black/African American,22,0.2
+59,DaysSummer,Female,Black/African American,22,1
+59,Fences,Female,Black/African American,22,-0.6
+59,ForrestGump,Female,Black/African American,22,0.6000000000000001
+59,GreenMile,Female,Black/African American,22,-1.2000000000000002
+59,GoodWill,Female,Black/African American,22,1.8
+59,LadyBird,Female,Black/African American,22,0.2
+59,LegallyBlonde,Female,Black/African American,22,2.2
+59,LittleMiss,Female,Black/African American,22,1.2
+59,Miracle,Female,Black/African American,22,1.2
+59,MarriageStory,Female,Black/African American,22,0.8
+59,NoCountry,Female,Black/African American,22,0.4
+59,PulpFiction,Female,Black/African American,22,1
+59,PursuitHappyness,Female,Black/African American,22,1
+59,ParentTrap,Female,Black/African American,22,0.4
+59,SocialNetwork,Female,Black/African American,22,0.2
+59,SilenceLambs,Female,Black/African American,22,1.2
+59,Zodiac,Female,Black/African American,22,0.2
+60,AkeelahBee,Male,Asian,27,2.5999999999999996
+60,BealeStreet,Male,Asian,27,1.2000000000000002
+60,CatchMe,Male,Asian,27,1.4
+60,DaysSummer,Male,Asian,27,0.8
+60,Fences,Male,Asian,27,-0.19999999999999996
+60,ForrestGump,Male,Asian,27,0.8
+60,GreenMile,Male,Asian,27,-1.8
+60,GoodWill,Male,Asian,27,-2.4000000000000004
+60,KingsSpeech,Male,Asian,27,2.2
+60,LadyBird,Male,Asian,27,0.4
+60,LegallyBlonde,Male,Asian,27,3
+60,LittleMiss,Male,Asian,27,0
+60,Moonlight,Male,Asian,27,-0.19999999999999996
+60,Miracle,Male,Asian,27,1.6
+60,MarriageStory,Male,Asian,27,0
+60,NoCountry,Male,Asian,27,-1.4
+60,PulpFiction,Male,Asian,27,-0.3999999999999999
+60,PursuitHappyness,Male,Asian,27,3
+60,ParentTrap,Male,Asian,27,1
+60,SocialNetwork,Male,Asian,27,0
+60,SilenceLambs,Male,Asian,27,-0.19999999999999996
+60,Zodiac,Male,Asian,27,-2.5999999999999996
+61,BealeStreet,Male,White,22,2.2
+61,CatchMe,Male,White,22,1.4000000000000001
+61,DaysSummer,Male,White,22,0.8
+61,Fences,Male,White,22,-2.6
+61,ForrestGump,Male,White,22,2
+61,GreenMile,Male,White,22,-2.6
+61,GoodWill,Male,White,22,-0.8
+61,KingsSpeech,Male,White,22,1.8
+61,LadyBird,Male,White,22,-0.2
+61,LittleMiss,Male,White,22,-2
+61,Moonlight,Male,White,22,3
+61,Miracle,Male,White,22,1.8
+61,MarriageStory,Male,White,22,-2.6
+61,NoCountry,Male,White,22,-1.6
+61,ParentTrap,Male,White,22,0.19999999999999996
+61,SocialNetwork,Male,White,22,0.20000000000000007
+61,SilenceLambs,Male,White,22,-2.4000000000000004
+62,AkeelahBee,Male,White,22,1.2
+62,BealeStreet,Male,White,22,0.4
+62,CatchMe,Male,White,22,0.8
+62,DaysSummer,Male,White,22,0.2
+62,Fences,Male,White,22,-0.4
+62,ForrestGump,Male,White,22,-0.19999999999999996
+62,GreenMile,Male,White,22,-2
+62,GoodWill,Male,White,22,1.4000000000000001
+62,KingsSpeech,Male,White,22,1.2
+62,LadyBird,Male,White,22,0
+62,LegallyBlonde,Male,White,22,0.4
+62,LittleMiss,Male,White,22,-0.8
+62,Moonlight,Male,White,22,0.8
+62,Miracle,Male,White,22,2
+62,MarriageStory,Male,White,22,-1.8
+62,NoCountry,Male,White,22,0
+62,PulpFiction,Male,White,22,2
+62,PursuitHappyness,Male,White,22,1.4
+62,ParentTrap,Male,White,22,1.2
+62,SocialNetwork,Male,White,22,0
+62,SilenceLambs,Male,White,22,-0.20000000000000007
+62,Zodiac,Male,White,22,-0.19999999999999996
+63,AkeelahBee,Female,Asian,19,2.8
+63,CatchMe,Female,Asian,19,0.7999999999999999
+63,DaysSummer,Female,Asian,19,-0.2
+63,Fences,Female,Asian,19,-0.6
+63,GreenMile,Female,Asian,19,-2.2
+63,LegallyBlonde,Female,Asian,19,2.8
+63,Miracle,Female,Asian,19,1.4
+63,MarriageStory,Female,Asian,19,0.6000000000000001
+63,PursuitHappyness,Female,Asian,19,2.4
+63,ParentTrap,Female,Asian,19,2.2
+63,SocialNetwork,Female,Asian,19,1.4000000000000001
+63,Zodiac,Female,Asian,19,-1.2000000000000002
+64,AkeelahBee,Female,White,25,2.2
+64,BealeStreet,Female,White,25,0
+64,CatchMe,Female,White,25,1.6
+64,DaysSummer,Female,White,25,-0.6
+64,Fences,Female,White,25,-2
+64,ForrestGump,Female,White,25,-0.6000000000000001
+64,GreenMile,Female,White,25,-2.8000000000000003
+64,GoodWill,Female,White,25,-0.6000000000000001
+64,KingsSpeech,Female,White,25,1.0000000000000002
+64,LadyBird,Female,White,25,-0.20000000000000007
+64,LegallyBlonde,Female,White,25,1.9999999999999998
+64,LittleMiss,Female,White,25,-1.6
+64,Moonlight,Female,White,25,-0.4
+64,Miracle,Female,White,25,1.2
+64,MarriageStory,Female,White,25,-2.8
+64,NoCountry,Female,White,25,-1.8
+64,PulpFiction,Female,White,25,-1.4
+64,ParentTrap,Female,White,25,0.9999999999999999
+64,SocialNetwork,Female,White,25,0
+64,SilenceLambs,Female,White,25,-1.8
+64,Zodiac,Female,White,25,-1.2
+65,AkeelahBee,Female,Black/African American,24,1.8
+65,BealeStreet,Female,Black/African American,24,0.6
+65,CatchMe,Female,Black/African American,24,1.8
+65,DaysSummer,Female,Black/African American,24,0
+65,Fences,Female,Black/African American,24,0
+65,ForrestGump,Female,Black/African American,24,0.6000000000000001
+65,GreenMile,Female,Black/African American,24,-1.4
+65,GoodWill,Female,Black/African American,24,0.8
+65,KingsSpeech,Female,Black/African American,24,1
+65,LadyBird,Female,Black/African American,24,0.6
+65,LegallyBlonde,Female,Black/African American,24,3
+65,LittleMiss,Female,Black/African American,24,0.8
+65,Moonlight,Female,Black/African American,24,2
+65,Miracle,Female,Black/African American,24,0.6
+65,MarriageStory,Female,Black/African American,24,0.4
+65,NoCountry,Female,Black/African American,24,-0.4
+65,PulpFiction,Female,Black/African American,24,0.4
+65,PursuitHappyness,Female,Black/African American,24,2.1999999999999997
+65,ParentTrap,Female,Black/African American,24,1
+65,SocialNetwork,Female,Black/African American,24,0.19999999999999996
+65,SilenceLambs,Female,Black/African American,24,0.6
+65,Zodiac,Female,Black/African American,24,-0.19999999999999996
+66,AkeelahBee,Female,Asian,21,3
+66,BealeStreet,Female,Asian,21,2.2
+66,CatchMe,Female,Asian,21,2.6
+66,DaysSummer,Female,Asian,21,2.1999999999999997
+66,Fences,Female,Asian,21,-1.6
+66,ForrestGump,Female,Asian,21,1.2
+66,GoodWill,Female,Asian,21,0.7999999999999999
+66,KingsSpeech,Female,Asian,21,0.6000000000000001
+66,LadyBird,Female,Asian,21,3.2
+66,LegallyBlonde,Female,Asian,21,1.6
+66,LittleMiss,Female,Asian,21,1.4
+66,Moonlight,Female,Asian,21,1
+66,Miracle,Female,Asian,21,1.8
+66,MarriageStory,Female,Asian,21,-0.8000000000000003
+66,NoCountry,Female,Asian,21,2.4
+66,PulpFiction,Female,Asian,21,-0.19999999999999996
+66,PursuitHappyness,Female,Asian,21,1.6
+66,ParentTrap,Female,Asian,21,2.1999999999999997
+66,SocialNetwork,Female,Asian,21,1.4
+66,SilenceLambs,Female,Asian,21,-1.6
+66,Zodiac,Female,Asian,21,-2
+67,AkeelahBee,Female,White,38,3.1999999999999997
+67,BealeStreet,Female,White,38,2.6
+67,DaysSummer,Female,White,38,2.2
+67,Fences,Female,White,38,-1.7999999999999998
+67,ForrestGump,Female,White,38,0.25
+67,GreenMile,Female,White,38,3.1999999999999997
+67,GoodWill,Female,White,38,1.6
+67,KingsSpeech,Female,White,38,0.3999999999999999
+67,LadyBird,Female,White,38,2.2
+67,LegallyBlonde,Female,White,38,3.2
+67,LittleMiss,Female,White,38,-0.30000000000000004
+67,Moonlight,Female,White,38,1.7999999999999998
+67,Miracle,Female,White,38,3.4
+67,MarriageStory,Female,White,38,1.4
+67,NoCountry,Female,White,38,-1
+67,PulpFiction,Female,White,38,1.1999999999999997
+67,PursuitHappyness,Female,White,38,3.4
+67,ParentTrap,Female,White,38,3.4
+67,SocialNetwork,Female,White,38,0.6
+67,SilenceLambs,Female,White,38,0.19999999999999996
+67,Zodiac,Female,White,38,1.2000000000000002
+68,AkeelahBee,Female,White,25,2.1999999999999997
+68,BealeStreet,Female,White,25,2.4
+68,CatchMe,Female,White,25,1
+68,DaysSummer,Female,White,25,1.6
+68,Fences,Female,White,25,-1.9999999999999998
+68,ForrestGump,Female,White,25,0.4
+68,GreenMile,Female,White,25,-2.8000000000000003
+68,GoodWill,Female,White,25,-1.2000000000000002
+68,KingsSpeech,Female,White,25,2.6
+68,LadyBird,Female,White,25,-0.19999999999999996
+68,LegallyBlonde,Female,White,25,1.2000000000000002
+68,LittleMiss,Female,White,25,-0.19999999999999996
+68,Moonlight,Female,White,25,0.8
+68,Miracle,Female,White,25,3
+68,MarriageStory,Female,White,25,-0.9999999999999999
+68,NoCountry,Female,White,25,-0.8
+68,PulpFiction,Female,White,25,-0.6
+68,PursuitHappyness,Female,White,25,1.9999999999999998
+68,ParentTrap,Female,White,25,2.5999999999999996
+68,SocialNetwork,Female,White,25,0.4
+68,SilenceLambs,Female,White,25,0.19999999999999996
+68,Zodiac,Female,White,25,-1.2000000000000002
+69,AkeelahBee,Female,White,27,2.8000000000000003
+69,BealeStreet,Female,White,27,-0.6
+69,CatchMe,Female,White,27,1
+69,DaysSummer,Female,White,27,-0.8
+69,Fences,Female,White,27,-1
+69,ForrestGump,Female,White,27,-0.19999999999999996
+69,GreenMile,Female,White,27,-3
+69,GoodWill,Female,White,27,0.19999999999999996
+69,KingsSpeech,Female,White,27,0
+69,LadyBird,Female,White,27,-0.2
+69,LegallyBlonde,Female,White,27,3
+69,LittleMiss,Female,White,27,0
+69,Moonlight,Female,White,27,0.19999999999999996
+69,Miracle,Female,White,27,2.4
+69,MarriageStory,Female,White,27,-0.6
+69,NoCountry,Female,White,27,-1.2000000000000002
+69,PulpFiction,Female,White,27,-0.2
+69,PursuitHappyness,Female,White,27,2.5999999999999996
+69,ParentTrap,Female,White,27,0.7999999999999999
+69,SocialNetwork,Female,White,27,0.4
+69,SilenceLambs,Female,White,27,-1.4
+69,Zodiac,Female,White,27,-1.8
+70,AkeelahBee,Female,White,21,2.6
+70,BealeStreet,Female,White,21,1
+70,CatchMe,Female,White,21,0.8000000000000003
+70,DaysSummer,Female,White,21,1
+70,Fences,Female,White,21,1
+70,ForrestGump,Female,White,21,0.19999999999999973
+70,GreenMile,Female,White,21,2.4
+70,GoodWill,Female,White,21,-0.5999999999999999
+70,KingsSpeech,Female,White,21,2.5999999999999996
+70,LadyBird,Female,White,21,1.4000000000000001
+70,LegallyBlonde,Female,White,21,1.6
+70,LittleMiss,Female,White,21,0.3999999999999999
+70,Moonlight,Female,White,21,1.8
+70,Miracle,Female,White,21,0.7999999999999998
+70,MarriageStory,Female,White,21,-0.5999999999999996
+70,NoCountry,Female,White,21,0
+70,PulpFiction,Female,White,21,-0.19999999999999973
+70,PursuitHappyness,Female,White,21,1.9500000000000002
+70,ParentTrap,Female,White,21,1.6
+70,SocialNetwork,Female,White,21,1.4
+70,SilenceLambs,Female,White,21,-2
+70,Zodiac,Female,White,21,-0.3999999999999999
+71,AkeelahBee,Female,Asian,30,2.5
+71,BealeStreet,Female,Asian,30,0.2
+71,CatchMe,Female,Asian,30,-0.2
+71,DaysSummer,Female,Asian,30,-0.2
+71,Fences,Female,Asian,30,-0.2
+71,ForrestGump,Female,Asian,30,-0.2
+71,GreenMile,Female,Asian,30,-1.25
+71,GoodWill,Female,Asian,30,-0.2
+71,KingsSpeech,Female,Asian,30,-0.2
+71,LadyBird,Female,Asian,30,-0.2
+71,LegallyBlonde,Female,Asian,30,0.6
+71,LittleMiss,Female,Asian,30,0
+71,Moonlight,Female,Asian,30,0
+71,Miracle,Female,Asian,30,2
+71,MarriageStory,Female,Asian,30,-0.8
+71,NoCountry,Female,Asian,30,-0.2
+71,PulpFiction,Female,Asian,30,-0.2
+71,PursuitHappyness,Female,Asian,30,0.4
+71,ParentTrap,Female,Asian,30,0
+71,SocialNetwork,Female,Asian,30,-0.4
+71,SilenceLambs,Female,Asian,30,-1.8000000000000003
+71,Zodiac,Female,Asian,30,-0.09999999999999998
+72,AkeelahBee,Male,White,53,2
+72,BealeStreet,Male,White,53,1.8
+72,CatchMe,Male,White,53,0.3999999999999999
+72,DaysSummer,Male,White,53,1.8
+72,Fences,Male,White,53,-1.1999999999999997
+72,GreenMile,Male,White,53,-0.6000000000000001
+72,GoodWill,Male,White,53,-0.55
+72,KingsSpeech,Male,White,53,0.7999999999999998
+72,LadyBird,Male,White,53,1.4000000000000001
+72,LegallyBlonde,Male,White,53,2.2
+72,LittleMiss,Male,White,53,0.6
+72,Moonlight,Male,White,53,2.4
+72,Miracle,Male,White,53,2.8
+72,MarriageStory,Male,White,53,-1.2000000000000002
+72,NoCountry,Male,White,53,-0.8
+72,PulpFiction,Male,White,53,-0.19999999999999996
+72,PursuitHappyness,Male,White,53,1.4
+72,ParentTrap,Male,White,53,0.6000000000000001
+72,SocialNetwork,Male,White,53,0.39999999999999997
+72,SilenceLambs,Male,White,53,0.4
+72,Zodiac,Male,White,53,-0.6000000000000001
+73,AkeelahBee,Female,Asian,23,2.1999999999999997
+73,BealeStreet,Female,Asian,23,0.6
+73,CatchMe,Female,Asian,23,1.2000000000000002
+73,DaysSummer,Female,Asian,23,0.6
+73,Fences,Female,Asian,23,-0.8
+73,ForrestGump,Female,Asian,23,-0.6000000000000001
+73,GreenMile,Female,Asian,23,-1.6
+73,GoodWill,Female,Asian,23,0.19999999999999996
+73,KingsSpeech,Female,Asian,23,1.4000000000000001
+73,LadyBird,Female,Asian,23,0.8
+73,LegallyBlonde,Female,Asian,23,1.8
+73,LittleMiss,Female,Asian,23,0.6
+73,Moonlight,Female,Asian,23,1
+73,Miracle,Female,Asian,23,1.2
+73,MarriageStory,Female,Asian,23,-0.6
+73,NoCountry,Female,Asian,23,-0.8
+73,PulpFiction,Female,Asian,23,0.3999999999999999
+73,PursuitHappyness,Female,Asian,23,1.8000000000000003
+73,ParentTrap,Female,Asian,23,1.8
+73,SocialNetwork,Female,Asian,23,0
+73,SilenceLambs,Female,Asian,23,-1.8
+73,Zodiac,Female,Asian,23,-0.8
+74,AkeelahBee,Female,White,29,2.8
+74,BealeStreet,Female,White,29,1
+74,CatchMe,Female,White,29,0.8
+74,DaysSummer,Female,White,29,0.6
+74,Fences,Female,White,29,-0.3999999999999999
+74,ForrestGump,Female,White,29,0.7999999999999999
+74,GreenMile,Female,White,29,-1.6
+74,GoodWill,Female,White,29,0.39999999999999997
+74,KingsSpeech,Female,White,29,2.4
+74,LadyBird,Female,White,29,1
+74,LegallyBlonde,Female,White,29,1.8
+74,LittleMiss,Female,White,29,0.2
+74,Moonlight,Female,White,29,2.4
+74,Miracle,Female,White,29,3.1999999999999997
+74,MarriageStory,Female,White,29,-0.6
+74,NoCountry,Female,White,29,0.20000000000000007
+74,PulpFiction,Female,White,29,0.2
+74,PursuitHappyness,Female,White,29,2
+74,ParentTrap,Female,White,29,2.4
+74,SocialNetwork,Female,White,29,0.8
+74,SilenceLambs,Female,White,29,-0.8
+74,Zodiac,Female,White,29,-0.20000000000000007
+75,AkeelahBee,Female,White,23,0.6000000000000001
+75,BealeStreet,Female,White,23,0.7999999999999999
+75,CatchMe,Female,White,23,1.2
+75,DaysSummer,Female,White,23,-0.39999999999999997
+75,Fences,Female,White,23,-1.4
+75,ForrestGump,Female,White,23,0.19999999999999996
+75,GreenMile,Female,White,23,-1
+75,GoodWill,Female,White,23,-0.20000000000000007
+75,KingsSpeech,Female,White,23,2.1999999999999997
+75,LadyBird,Female,White,23,0.6000000000000001
+75,LegallyBlonde,Female,White,23,2
+75,LittleMiss,Female,White,23,0.4
+75,Moonlight,Female,White,23,1.4
+75,Miracle,Female,White,23,0.2
+75,NoCountry,Female,White,23,-0.19999999999999996
+75,PulpFiction,Female,White,23,-0.6000000000000001
+75,PursuitHappyness,Female,White,23,0.6
+75,ParentTrap,Female,White,23,2.2
+75,SilenceLambs,Female,White,23,0.6
+75,Zodiac,Female,White,23,-1
+77,AkeelahBee,Female,Asian,23,2.5999999999999996
+77,BealeStreet,Female,Asian,23,1.4
+77,CatchMe,Female,Asian,23,1.2
+77,DaysSummer,Female,Asian,23,0
+77,Fences,Female,Asian,23,-0.6000000000000001
+77,ForrestGump,Female,Asian,23,0.9999999999999999
+77,GreenMile,Female,Asian,23,-1.4000000000000001
+77,GoodWill,Female,Asian,23,0
+77,KingsSpeech,Female,Asian,23,0.7999999999999999
+77,LadyBird,Female,Asian,23,1.4
+77,LegallyBlonde,Female,Asian,23,1.4
+77,LittleMiss,Female,Asian,23,0.6
+77,Moonlight,Female,Asian,23,1.8
+77,Miracle,Female,Asian,23,2.4
+77,MarriageStory,Female,Asian,23,-1
+77,NoCountry,Female,Asian,23,0.2
+77,PulpFiction,Female,Asian,23,1
+77,PursuitHappyness,Female,Asian,23,1.8
+77,ParentTrap,Female,Asian,23,1.2
+77,SocialNetwork,Female,Asian,23,0.19999999999999996
+77,SilenceLambs,Female,Asian,23,-1.2000000000000002
+77,Zodiac,Female,Asian,23,-1
+78,AkeelahBee,Male,Afro-Caribbean,24,3.2
+78,BealeStreet,Male,Afro-Caribbean,24,-0.6
+78,CatchMe,Male,Afro-Caribbean,24,1.8
+78,DaysSummer,Male,Afro-Caribbean,24,0.8
+78,Fences,Male,Afro-Caribbean,24,-0.19999999999999996
+78,ForrestGump,Male,Afro-Caribbean,24,0.2
+78,GreenMile,Male,Afro-Caribbean,24,-0.8
+78,GoodWill,Male,Afro-Caribbean,24,2.4
+78,KingsSpeech,Male,Afro-Caribbean,24,0
+78,LadyBird,Male,Afro-Caribbean,24,0.6
+78,LegallyBlonde,Male,Afro-Caribbean,24,3.8
+78,LittleMiss,Male,Afro-Caribbean,24,0.8
+78,Moonlight,Male,Afro-Caribbean,24,2.1999999999999997
+78,Miracle,Male,Afro-Caribbean,24,3.2
+78,MarriageStory,Male,Afro-Caribbean,24,-1.4
+78,NoCountry,Male,Afro-Caribbean,24,0
+78,PulpFiction,Male,Afro-Caribbean,24,0.8
+78,PursuitHappyness,Male,Afro-Caribbean,24,4
+78,ParentTrap,Male,Afro-Caribbean,24,0.8
+78,SocialNetwork,Male,Afro-Caribbean,24,1.2
+78,SilenceLambs,Male,Afro-Caribbean,24,0.4
+79,AkeelahBee,Female,White,24,2.5999999999999996
+79,BealeStreet,Female,White,24,0
+79,CatchMe,Female,White,24,0.3999999999999999
+79,Fences,Female,White,24,-0.44999999999999996
+79,GreenMile,Female,White,24,-3
+79,KingsSpeech,Female,White,24,-0.8
+79,LadyBird,Female,White,24,-0.19999999999999996
+79,LegallyBlonde,Female,White,24,1.6
+79,LittleMiss,Female,White,24,-0.19999999999999996
+79,Moonlight,Female,White,24,0.6000000000000001
+79,Miracle,Female,White,24,1.7999999999999998
+79,MarriageStory,Female,White,24,-1.8
+79,NoCountry,Female,White,24,-1.2000000000000002
+79,PulpFiction,Female,White,24,-0.7999999999999999
+79,PursuitHappyness,Female,White,24,1.4000000000000001
+79,SocialNetwork,Female,White,24,-0.19999999999999996
+79,SilenceLambs,Female,White,24,-2.1999999999999997
+79,Zodiac,Female,White,24,-1
+80,AkeelahBee,Male,White,24,2.8
+80,BealeStreet,Male,White,24,1.5999999999999999
+80,CatchMe,Male,White,24,0
+80,DaysSummer,Male,White,24,0.6000000000000001
+80,Fences,Male,White,24,-0.3999999999999999
+80,ForrestGump,Male,White,24,0.7999999999999999
+80,GreenMile,Male,White,24,-2.4
+80,GoodWill,Male,White,24,2.4
+80,KingsSpeech,Male,White,24,-0.4
+80,LadyBird,Male,White,24,0.6000000000000001
+80,LegallyBlonde,Male,White,24,2.5999999999999996
+80,LittleMiss,Male,White,24,1.6
+80,Moonlight,Male,White,24,0.7999999999999998
+80,Miracle,Male,White,24,1.8000000000000003
+80,MarriageStory,Male,White,24,2.4000000000000004
+80,NoCountry,Male,White,24,0
+80,PulpFiction,Male,White,24,3
+80,PursuitHappyness,Male,White,24,2
+80,ParentTrap,Male,White,24,1.2000000000000002
+80,SocialNetwork,Male,White,24,2.4
+80,SilenceLambs,Male,White,24,-1.1999999999999997
+80,Zodiac,Male,White,24,-1.4
+81,GoodWill,Female,White,26,-1.4
+81,KingsSpeech,Female,White,26,-2.4000000000000004
+83,AkeelahBee,Female,White,24,2.2
+83,BealeStreet,Female,White,24,-0.3999999999999999
+83,CatchMe,Female,White,24,0.40000000000000013
+83,DaysSummer,Female,White,24,0
+83,Fences,Female,White,24,-2.4000000000000004
+83,ForrestGump,Female,White,24,1
+83,GreenMile,Female,White,24,-1.9999999999999998
+83,GoodWill,Female,White,24,-1
+83,KingsSpeech,Female,White,24,-0.19999999999999996
+83,LadyBird,Female,White,24,0.6
+83,LittleMiss,Female,White,24,-0.9999999999999999
+83,Moonlight,Female,White,24,1
+83,Miracle,Female,White,24,1.5999999999999999
+83,MarriageStory,Female,White,24,-1
+83,NoCountry,Female,White,24,-2
+83,PulpFiction,Female,White,24,-1.4
+83,PursuitHappyness,Female,White,24,2
+83,ParentTrap,Female,White,24,1.4000000000000001
+83,SocialNetwork,Female,White,24,-1.2000000000000002
+83,SilenceLambs,Female,White,24,-1.2000000000000002
+83,Zodiac,Female,White,24,-2
+84,AkeelahBee,Female,White,27,2.1999999999999997
+84,BealeStreet,Female,White,27,0.6
+84,CatchMe,Female,White,27,0.8
+84,DaysSummer,Female,White,27,0.8
+84,Fences,Female,White,27,-0.19999999999999996
+84,ForrestGump,Female,White,27,1
+84,GreenMile,Female,White,27,-2.1999999999999997
+84,GoodWill,Female,White,27,-0.20000000000000007
+84,KingsSpeech,Female,White,27,1.4
+84,LadyBird,Female,White,27,1.4
+84,LegallyBlonde,Female,White,27,1.6
+84,LittleMiss,Female,White,27,0
+84,Moonlight,Female,White,27,0.6
+84,Miracle,Female,White,27,1.6
+84,MarriageStory,Female,White,27,-0.4
+84,NoCountry,Female,White,27,0
+84,PulpFiction,Female,White,27,0.6000000000000001
+84,PursuitHappyness,Female,White,27,2.4
+84,ParentTrap,Female,White,27,1
+84,SocialNetwork,Female,White,27,0.2
+84,SilenceLambs,Female,White,27,-0.4
+84,Zodiac,Female,White,27,0
+85,AkeelahBee,Female,Black/African American,26,0
+85,BealeStreet,Female,Black/African American,26,0
+85,CatchMe,Female,Black/African American,26,1
+85,DaysSummer,Female,Black/African American,26,0
+85,Fences,Female,Black/African American,26,0.2
+85,ForrestGump,Female,Black/African American,26,-0.19999999999999996
+85,GreenMile,Female,Black/African American,26,0
+85,GoodWill,Female,Black/African American,26,-0.19999999999999996
+85,KingsSpeech,Female,Black/African American,26,0
+85,LadyBird,Female,Black/African American,26,0
+85,LegallyBlonde,Female,Black/African American,26,1.8
+85,LittleMiss,Female,Black/African American,26,0
+85,Moonlight,Female,Black/African American,26,1.4
+85,Miracle,Female,Black/African American,26,1.2
+85,MarriageStory,Female,Black/African American,26,0
+85,NoCountry,Female,Black/African American,26,1.2000000000000002
+85,PulpFiction,Female,Black/African American,26,1
+85,PursuitHappyness,Female,Black/African American,26,4
+85,ParentTrap,Female,Black/African American,26,1.2
+85,SocialNetwork,Female,Black/African American,26,0
+85,SilenceLambs,Female,Black/African American,26,0
+85,Zodiac,Female,Black/African American,26,0
+86,AkeelahBee,Female,Black/African American,55,1.6
+86,BealeStreet,Female,Black/African American,55,0.9999999999999999
+86,CatchMe,Female,Black/African American,55,1
+86,DaysSummer,Female,Black/African American,55,0.39999999999999997
+86,Fences,Female,Black/African American,55,-1.6
+86,ForrestGump,Female,Black/African American,55,0.6
+86,GreenMile,Female,Black/African American,55,-0.6000000000000001
+86,GoodWill,Female,Black/African American,55,-0.95
+86,KingsSpeech,Female,Black/African American,55,2
+86,LadyBird,Female,Black/African American,55,0.2
+86,LegallyBlonde,Female,Black/African American,55,2
+86,LittleMiss,Female,Black/African American,55,0.6000000000000001
+86,Moonlight,Female,Black/African American,55,1.8
+86,Miracle,Female,Black/African American,55,2.4
+86,MarriageStory,Female,Black/African American,55,-1.4
+86,NoCountry,Female,Black/African American,55,0.4
+86,PulpFiction,Female,Black/African American,55,-0.19999999999999996
+86,PursuitHappyness,Female,Black/African American,55,2.2
+86,ParentTrap,Female,Black/African American,55,1.2
+86,SocialNetwork,Female,Black/African American,55,0.2
+86,SilenceLambs,Female,Black/African American,55,-1.4
+86,Zodiac,Female,Black/African American,55,-0.20000000000000018
+88,AkeelahBee,Male,Asian,54,2.6
+88,BealeStreet,Male,Asian,54,1.4000000000000001
+88,CatchMe,Male,Asian,54,0.95
+88,DaysSummer,Male,Asian,54,0.4
+88,Fences,Male,Asian,54,-0.6000000000000001
+88,ForrestGump,Male,Asian,54,0.2
+88,GreenMile,Male,Asian,54,-0.4
+88,GoodWill,Male,Asian,54,0.3999999999999999
+88,KingsSpeech,Male,Asian,54,1.2000000000000002
+88,LadyBird,Male,Asian,54,0.2
+88,LegallyBlonde,Male,Asian,54,1.55
+88,LittleMiss,Male,Asian,54,0
+88,Miracle,Male,Asian,54,2.4
+88,MarriageStory,Male,Asian,54,0
+88,NoCountry,Male,Asian,54,-1
+88,PulpFiction,Male,Asian,54,-1.4000000000000001
+88,PursuitHappyness,Male,Asian,54,1.4000000000000001
+88,ParentTrap,Male,Asian,54,0.6
+88,SocialNetwork,Male,Asian,54,0.2
+88,SilenceLambs,Male,Asian,54,-0.6000000000000001
+88,Zodiac,Male,Asian,54,-0.6
+89,AkeelahBee,Female,White,28,1
+89,BealeStreet,Female,White,28,-0.19999999999999996
+89,CatchMe,Female,White,28,0.2
+89,DaysSummer,Female,White,28,0.6
+89,Fences,Female,White,28,-0.20000000000000007
+89,ForrestGump,Female,White,28,0.4
+89,GreenMile,Female,White,28,-0.7999999999999999
+89,GoodWill,Female,White,28,0.39999999999999997
+89,KingsSpeech,Female,White,28,-0.20000000000000007
+89,LadyBird,Female,White,28,-0.4
+89,LegallyBlonde,Female,White,28,1.4
+89,LittleMiss,Female,White,28,0.2
+89,Moonlight,Female,White,28,0.8
+89,Miracle,Female,White,28,3.2
+89,MarriageStory,Female,White,28,-0.9999999999999999
+89,NoCountry,Female,White,28,-0.7999999999999999
+89,PulpFiction,Female,White,28,-0.4
+89,PursuitHappyness,Female,White,28,0.8
+89,ParentTrap,Female,White,28,0.8
+89,SocialNetwork,Female,White,28,1
+89,SilenceLambs,Female,White,28,-0.5999999999999999
+89,Zodiac,Female,White,28,-1.2000000000000002
+90,AkeelahBee,Female,Black/African American,21,2.4
+90,BealeStreet,Female,Black/African American,21,0.19999999999999996
+90,CatchMe,Female,Black/African American,21,0.4
+90,DaysSummer,Female,Black/African American,21,0.6000000000000001
+90,Fences,Female,Black/African American,21,-1.2000000000000002
+90,ForrestGump,Female,Black/African American,21,0.55
+90,GreenMile,Female,Black/African American,21,-2.4000000000000004
+90,GoodWill,Female,Black/African American,21,0.2
+90,KingsSpeech,Female,Black/African American,21,1.4000000000000001
+90,LadyBird,Female,Black/African American,21,0.4
+90,LegallyBlonde,Female,Black/African American,21,2.6
+90,LittleMiss,Female,Black/African American,21,0
+90,Moonlight,Female,Black/African American,21,1.4
+90,Miracle,Female,Black/African American,21,2.6
+90,MarriageStory,Female,Black/African American,21,-1.2
+90,NoCountry,Female,Black/African American,21,-1
+90,PulpFiction,Female,Black/African American,21,0.4
+90,PursuitHappyness,Female,Black/African American,21,1.4
+90,ParentTrap,Female,Black/African American,21,1.2
+90,SocialNetwork,Female,Black/African American,21,-0.5999999999999999
+90,SilenceLambs,Female,Black/African American,21,-0.6000000000000001
+90,Zodiac,Female,Black/African American,21,-1.4
+92,AkeelahBee,Female,White,24,2.1999999999999997
+92,BealeStreet,Female,White,24,0.7999999999999999
+92,CatchMe,Female,White,24,-0.20000000000000007
+92,DaysSummer,Female,White,24,0.9999999999999999
+92,Fences,Female,White,24,-1.2
+92,ForrestGump,Female,White,24,0.4
+92,GreenMile,Female,White,24,-2.6
+92,GoodWill,Female,White,24,0.19999999999999996
+92,KingsSpeech,Female,White,24,1.8
+92,LadyBird,Female,White,24,0.7999999999999999
+92,LegallyBlonde,Female,White,24,1.2
+92,LittleMiss,Female,White,24,-0.4
+92,Moonlight,Female,White,24,1.6
+92,Miracle,Female,White,24,2
+92,MarriageStory,Female,White,24,-1.7999999999999998
+92,PulpFiction,Female,White,24,-1
+92,PursuitHappyness,Female,White,24,1.6
+92,ParentTrap,Female,White,24,1
+92,SocialNetwork,Female,White,24,0.6
+92,SilenceLambs,Female,White,24,-1.5999999999999999
+92,Zodiac,Female,White,24,-1
+95,AkeelahBee,Female,Black/African American,18,1.2
+95,BealeStreet,Female,Black/African American,18,-2.1999999999999997
+95,CatchMe,Female,Black/African American,18,0.7999999999999999
+95,DaysSummer,Female,Black/African American,18,0.2
+95,Fences,Female,Black/African American,18,-1.2000000000000002
+95,ForrestGump,Female,Black/African American,18,-0.6
+95,GreenMile,Female,Black/African American,18,-2
+95,GoodWill,Female,Black/African American,18,-0.6
+95,KingsSpeech,Female,Black/African American,18,-0.19999999999999996
+95,LadyBird,Female,Black/African American,18,0.19999999999999996
+95,LegallyBlonde,Female,Black/African American,18,2
+95,LittleMiss,Female,Black/African American,18,-0.2
+95,Moonlight,Female,Black/African American,18,-0.8999999999999999
+95,Miracle,Female,Black/African American,18,1.8
+95,MarriageStory,Female,Black/African American,18,-0.8
+95,NoCountry,Female,Black/African American,18,-1.4
+95,PulpFiction,Female,Black/African American,18,-2.2
+95,PursuitHappyness,Female,Black/African American,18,1.2000000000000002
+95,ParentTrap,Female,Black/African American,18,0.4
+95,SocialNetwork,Female,Black/African American,18,-0.75
+95,SilenceLambs,Female,Black/African American,18,-1.2000000000000002
+95,Zodiac,Female,Black/African American,18,-1.7999999999999998
+96,AkeelahBee,Female,Black/African American,36,2.6
+96,BealeStreet,Female,Black/African American,36,-0.8
+96,CatchMe,Female,Black/African American,36,0
+96,DaysSummer,Female,Black/African American,36,1.2
+96,Fences,Female,Black/African American,36,-2.1999999999999997
+96,ForrestGump,Female,Black/African American,36,0.4
+96,GreenMile,Female,Black/African American,36,-2.8
+96,GoodWill,Female,Black/African American,36,-0.8
+96,KingsSpeech,Female,Black/African American,36,2.2
+96,LadyBird,Female,Black/African American,36,0.6
+96,LegallyBlonde,Female,Black/African American,36,1.2000000000000002
+96,LittleMiss,Female,Black/African American,36,0.19999999999999996
+96,Moonlight,Female,Black/African American,36,1.2000000000000002
+96,Miracle,Female,Black/African American,36,0.8
+96,MarriageStory,Female,Black/African American,36,-1.7999999999999998
+96,NoCountry,Female,Black/African American,36,-3
+96,PulpFiction,Female,Black/African American,36,0.19999999999999996
+96,PursuitHappyness,Female,Black/African American,36,1.2000000000000002
+96,ParentTrap,Female,Black/African American,36,2
+96,SocialNetwork,Female,Black/African American,36,-0.3999999999999999
+96,SilenceLambs,Female,Black/African American,36,-0.3999999999999999
+96,Zodiac,Female,Black/African American,36,-2.8
+97,AkeelahBee,Female,White,59,1.4
+97,BealeStreet,Female,White,59,0.8
+97,CatchMe,Female,White,59,0.6000000000000001
+97,DaysSummer,Female,White,59,0.6000000000000001
+97,Fences,Female,White,59,0
+97,ForrestGump,Female,White,59,0.55
+97,GreenMile,Female,White,59,-0.19999999999999996
+97,GoodWill,Female,White,59,0.5999999999999999
+97,KingsSpeech,Female,White,59,1
+97,LadyBird,Female,White,59,0.6
+97,LegallyBlonde,Female,White,59,2.4
+97,LittleMiss,Female,White,59,1
+97,Moonlight,Female,White,59,1
+97,Miracle,Female,White,59,1.8
+97,MarriageStory,Female,White,59,-0.6000000000000001
+97,NoCountry,Female,White,59,0.30000000000000004
+97,PulpFiction,Female,White,59,0.4
+97,PursuitHappyness,Female,White,59,0.39999999999999997
+97,ParentTrap,Female,White,59,0.39999999999999997
+97,SocialNetwork,Female,White,59,0.20000000000000007
+97,SilenceLambs,Female,White,59,0.4
+97,Zodiac,Female,White,59,0
+98,AkeelahBee,Female,White,41,1.2
+98,BealeStreet,Female,White,41,0.8
+98,CatchMe,Female,White,41,0
+98,DaysSummer,Female,White,41,0.8
+98,Fences,Female,White,41,-1.4000000000000001
+98,ForrestGump,Female,White,41,0.6
+98,GreenMile,Female,White,41,0
+98,GoodWill,Female,White,41,0.19999999999999996
+98,KingsSpeech,Female,White,41,1.2000000000000002
+98,LadyBird,Female,White,41,0.39999999999999997
+98,LegallyBlonde,Female,White,41,2
+98,LittleMiss,Female,White,41,0.2
+98,Moonlight,Female,White,41,0.6000000000000001
+98,Miracle,Female,White,41,2.1999999999999997
+98,MarriageStory,Female,White,41,0.19999999999999996
+98,NoCountry,Female,White,41,0.19999999999999996
+98,PulpFiction,Female,White,41,0
+98,PursuitHappyness,Female,White,41,1.4
+98,ParentTrap,Female,White,41,0.2
+98,SocialNetwork,Female,White,41,0.19999999999999996
+98,SilenceLambs,Female,White,41,0.19999999999999996
+98,Zodiac,Female,White,41,0
+99,AkeelahBee,Male,White,29,0.4
+99,BealeStreet,Male,White,29,-0.7999999999999999
+99,CatchMe,Male,White,29,0.19999999999999996
+99,DaysSummer,Male,White,29,-0.8
+99,Fences,Male,White,29,-0.4
+99,ForrestGump,Male,White,29,-0.8
+99,GreenMile,Male,White,29,-1.2000000000000002
+99,GoodWill,Male,White,29,0.4
+99,KingsSpeech,Male,White,29,-0.4
+99,LadyBird,Male,White,29,0
+99,LegallyBlonde,Male,White,29,0.8
+99,LittleMiss,Male,White,29,1.2
+99,Moonlight,Male,White,29,-1.4000000000000001
+99,Miracle,Male,White,29,0.2
+99,MarriageStory,Male,White,29,-0.20000000000000007
+99,NoCountry,Male,White,29,0.8
+99,PulpFiction,Male,White,29,0.9999999999999999
+99,PursuitHappyness,Male,White,29,0.39999999999999997
+99,ParentTrap,Male,White,29,0
+99,SocialNetwork,Male,White,29,0.39999999999999997
+99,SilenceLambs,Male,White,29,-0.6000000000000001
+99,Zodiac,Male,White,29,0.6000000000000001
+100,AkeelahBee,Male,Asian,18,2
+100,BealeStreet,Male,Asian,18,0.8
+100,CatchMe,Male,Asian,18,0.6
+100,DaysSummer,Male,Asian,18,0.6
+100,Fences,Male,Asian,18,0.6000000000000001
+100,ForrestGump,Male,Asian,18,2.1999999999999997
+100,GreenMile,Male,Asian,18,-0.7999999999999999
+100,GoodWill,Male,Asian,18,0.4
+100,KingsSpeech,Male,Asian,18,0
+100,LadyBird,Male,Asian,18,0.4
+100,LegallyBlonde,Male,Asian,18,4
+100,LittleMiss,Male,Asian,18,0.8
+100,Moonlight,Male,Asian,18,0.2
+100,Miracle,Male,Asian,18,1
+100,MarriageStory,Male,Asian,18,2.8
+100,NoCountry,Male,Asian,18,0
+100,PulpFiction,Male,Asian,18,0.4
+100,PursuitHappyness,Male,Asian,18,1.8
+100,ParentTrap,Male,Asian,18,3.6
+100,SocialNetwork,Male,Asian,18,3.4
+100,SilenceLambs,Male,Asian,18,-0.19999999999999996
+100,Zodiac,Male,Asian,18,0
+101,AkeelahBee,Male,Asian,23,2.1999999999999997
+101,BealeStreet,Male,Asian,23,0.8000000000000003
+101,CatchMe,Male,Asian,23,-0.9999999999999999
+101,DaysSummer,Male,Asian,23,-0.39999999999999997
+101,Fences,Male,Asian,23,-1.8
+101,ForrestGump,Male,Asian,23,0.4
+101,GreenMile,Male,Asian,23,-2.6
+101,GoodWill,Male,Asian,23,1.4
+101,KingsSpeech,Male,Asian,23,2.4
+101,LadyBird,Male,Asian,23,0
+101,LegallyBlonde,Male,Asian,23,2
+101,LittleMiss,Male,Asian,23,-0.4
+101,Moonlight,Male,Asian,23,2.2
+101,Miracle,Male,Asian,23,3
+101,MarriageStory,Male,Asian,23,-2.4
+101,NoCountry,Male,Asian,23,0.6000000000000001
+101,PulpFiction,Male,Asian,23,1
+101,PursuitHappyness,Male,Asian,23,0.7999999999999999
+101,ParentTrap,Male,Asian,23,0
+101,SocialNetwork,Male,Asian,23,-0.6000000000000001
+101,SilenceLambs,Male,Asian,23,-0.5999999999999999
+101,Zodiac,Male,Asian,23,-2.2
+104,AkeelahBee,Male,White,48,2.8
+104,BealeStreet,Male,White,48,0.3999999999999999
+104,CatchMe,Male,White,48,0.19999999999999996
+104,DaysSummer,Male,White,48,0.7999999999999999
+104,Fences,Male,White,48,-2
+104,ForrestGump,Male,White,48,0.4
+104,GreenMile,Male,White,48,-1.5999999999999999
+104,GoodWill,Male,White,48,-0.19999999999999996
+104,KingsSpeech,Male,White,48,1
+104,LadyBird,Male,White,48,-0.15000000000000002
+104,LegallyBlonde,Male,White,48,0.6
+104,LittleMiss,Male,White,48,0
+104,Moonlight,Male,White,48,-0.19999999999999996
+104,Miracle,Male,White,48,2.8
+104,MarriageStory,Male,White,48,-1.4
+104,NoCountry,Male,White,48,-0.40000000000000013
+104,PulpFiction,Male,White,48,0.6000000000000001
+104,PursuitHappyness,Male,White,48,1.4
+104,ParentTrap,Male,White,48,-0.20000000000000007
+104,SocialNetwork,Male,White,48,0.19999999999999996
+104,SilenceLambs,Male,White,48,-1
+104,Zodiac,Male,White,48,-0.7999999999999998
+105,AkeelahBee,Male,White,22,1.6
+105,BealeStreet,Male,White,22,1.2
+105,CatchMe,Male,White,22,1.2000000000000002
+105,DaysSummer,Male,White,22,1.2
+105,Fences,Male,White,22,-1.4
+105,ForrestGump,Male,White,22,-1.2
+105,GreenMile,Male,White,22,-0.4
+105,GoodWill,Male,White,22,-0.19999999999999996
+105,LadyBird,Male,White,22,-0.8
+105,LittleMiss,Male,White,22,-1
+105,Moonlight,Male,White,22,0.6
+105,Miracle,Male,White,22,1.8
+105,MarriageStory,Male,White,22,-1.4000000000000001
+105,NoCountry,Male,White,22,-1
+105,PulpFiction,Male,White,22,0.4
+105,PursuitHappyness,Male,White,22,0.19999999999999996
+105,ParentTrap,Male,White,22,0.8
+105,SocialNetwork,Male,White,22,0.8
+105,SilenceLambs,Male,White,22,0
+106,AkeelahBee,Male,White,60,0.8
+106,BealeStreet,Male,White,60,0.19999999999999996
+106,CatchMe,Male,White,60,0
+106,DaysSummer,Male,White,60,0.2
+106,Fences,Male,White,60,0.40000000000000013
+106,ForrestGump,Male,White,60,-0.4
+106,GreenMile,Male,White,60,0
+106,GoodWill,Male,White,60,-1.0000000000000002
+106,KingsSpeech,Male,White,60,1.2000000000000002
+106,LadyBird,Male,White,60,0.4
+106,LegallyBlonde,Male,White,60,0
+106,LittleMiss,Male,White,60,-0.8
+106,Moonlight,Male,White,60,2
+106,Miracle,Male,White,60,3
+106,MarriageStory,Male,White,60,-0.40000000000000013
+106,NoCountry,Male,White,60,-1.2000000000000002
+106,PulpFiction,Male,White,60,-0.8
+106,PursuitHappyness,Male,White,60,2.4
+106,ParentTrap,Male,White,60,0
+106,SocialNetwork,Male,White,60,0.3999999999999999
+106,SilenceLambs,Male,White,60,-0.5
+106,Zodiac,Male,White,60,-1.4
+107,AkeelahBee,Male,Black/African American,37,3.15
+107,BealeStreet,Male,Black/African American,37,0.20000000000000018
+107,CatchMe,Male,Black/African American,37,2.6
+107,DaysSummer,Male,Black/African American,37,0.6000000000000001
+107,Fences,Male,Black/African American,37,-2.6
+107,ForrestGump,Male,Black/African American,37,-1.2000000000000002
+107,GreenMile,Male,Black/African American,37,-0.5999999999999999
+107,GoodWill,Male,Black/African American,37,-0.6000000000000001
+107,KingsSpeech,Male,Black/African American,37,1.4000000000000001
+107,LadyBird,Male,Black/African American,37,0.7999999999999998
+107,LegallyBlonde,Male,Black/African American,37,2.4
+107,LittleMiss,Male,Black/African American,37,-0.19999999999999996
+107,Moonlight,Male,Black/African American,37,2.25
+107,Miracle,Male,Black/African American,37,2.8000000000000003
+107,MarriageStory,Male,Black/African American,37,-1.4
+107,NoCountry,Male,Black/African American,37,-1.8000000000000003
+107,PulpFiction,Male,Black/African American,37,1.8000000000000003
+107,PursuitHappyness,Male,Black/African American,37,3.4
+107,ParentTrap,Male,Black/African American,37,2.4
+107,SocialNetwork,Male,Black/African American,37,0.19999999999999996
+107,SilenceLambs,Male,Black/African American,37,-1
+107,Zodiac,Male,Black/African American,37,0.40000000000000013
+108,AkeelahBee,Male,Black/African American,38,1.2000000000000002
+108,BealeStreet,Male,Black/African American,38,0
+108,CatchMe,Male,Black/African American,38,1.5999999999999999
+108,DaysSummer,Male,Black/African American,38,0.6000000000000001
+108,Fences,Male,Black/African American,38,0.3999999999999999
+108,ForrestGump,Male,Black/African American,38,0.19999999999999996
+108,GreenMile,Male,Black/African American,38,-2.35
+108,GoodWill,Male,Black/African American,38,1.4000000000000001
+108,KingsSpeech,Male,Black/African American,38,1.4
+108,LadyBird,Male,Black/African American,38,1.0000000000000002
+108,LegallyBlonde,Male,Black/African American,38,1.6
+108,LittleMiss,Male,Black/African American,38,-0.20000000000000018
+108,Moonlight,Male,Black/African American,38,0.6000000000000001
+108,Miracle,Male,Black/African American,38,1.5999999999999999
+108,MarriageStory,Male,Black/African American,38,-1
+108,NoCountry,Male,Black/African American,38,-0.3999999999999999
+108,PulpFiction,Male,Black/African American,38,0.6000000000000001
+108,PursuitHappyness,Male,Black/African American,38,0.19999999999999996
+108,ParentTrap,Male,Black/African American,38,1.35
+108,SocialNetwork,Male,Black/African American,38,-0.75
+108,SilenceLambs,Male,Black/African American,38,-1
+108,Zodiac,Male,Black/African American,38,0.6499999999999999
+109,AkeelahBee,Male,White,37,1.2
+109,BealeStreet,Male,White,37,0.6
+109,CatchMe,Male,White,37,0
+109,DaysSummer,Male,White,37,-0.2
+109,Fences,Male,White,37,-0.6000000000000001
+109,ForrestGump,Male,White,37,-0.2
+109,GoodWill,Male,White,37,-0.2
+109,KingsSpeech,Male,White,37,0.8
+109,LadyBird,Male,White,37,0
+109,LegallyBlonde,Male,White,37,0.6000000000000001
+109,LittleMiss,Male,White,37,-0.2
+109,Moonlight,Male,White,37,0.6
+109,Miracle,Male,White,37,1
+109,MarriageStory,Male,White,37,-0.4
+109,NoCountry,Male,White,37,-0.8
+109,PulpFiction,Male,White,37,-0.2
+109,PursuitHappyness,Male,White,37,0.6
+109,ParentTrap,Male,White,37,0.2
+109,SocialNetwork,Male,White,37,-0.4
+109,SilenceLambs,Male,White,37,-0.2
+109,Zodiac,Male,White,37,-0.8
+110,AkeelahBee,Male,Black/African American,59,2
+110,BealeStreet,Male,Black/African American,59,1
+110,CatchMe,Male,Black/African American,59,1
+110,DaysSummer,Male,Black/African American,59,1.4
+110,Fences,Male,Black/African American,59,1
+110,ForrestGump,Male,Black/African American,59,2
+110,GreenMile,Male,Black/African American,59,0.2
+110,GoodWill,Male,Black/African American,59,1.8
+110,KingsSpeech,Male,Black/African American,59,2.4
+110,LadyBird,Male,Black/African American,59,0.8
+110,LegallyBlonde,Male,Black/African American,59,2.2
+110,LittleMiss,Male,Black/African American,59,1
+110,Moonlight,Male,Black/African American,59,1
+110,Miracle,Male,Black/African American,59,2
+110,MarriageStory,Male,Black/African American,59,2
+110,NoCountry,Male,Black/African American,59,1.4
+110,PulpFiction,Male,Black/African American,59,2
+110,PursuitHappyness,Male,Black/African American,59,2
+110,ParentTrap,Male,Black/African American,59,1.4
+110,SocialNetwork,Male,Black/African American,59,1
+110,SilenceLambs,Male,Black/African American,59,0.4
+110,Zodiac,Male,Black/African American,59,1.2
+113,AkeelahBee,Male,White,21,2.7
+113,BealeStreet,Male,White,21,0.40000000000000013
+113,CatchMe,Male,White,21,0.6
+113,DaysSummer,Male,White,21,0.7999999999999999
+113,Fences,Male,White,21,-2.1999999999999997
+113,ForrestGump,Male,White,21,-0.3999999999999999
+113,GreenMile,Male,White,21,-2.5999999999999996
+113,GoodWill,Male,White,21,-1.2
+113,KingsSpeech,Male,White,21,1
+113,LadyBird,Male,White,21,1.8
+113,LegallyBlonde,Male,White,21,2.6
+113,LittleMiss,Male,White,21,-3
+113,Moonlight,Male,White,21,2.4
+113,MarriageStory,Male,White,21,-2.6
+113,NoCountry,Male,White,21,-1.1999999999999997
+113,PulpFiction,Male,White,21,-1
+113,ParentTrap,Male,White,21,0
+113,SocialNetwork,Male,White,21,-0.6000000000000001
+113,SilenceLambs,Male,White,21,-2.1999999999999997
+113,Zodiac,Male,White,21,-1.8000000000000003
+114,AkeelahBee,Male,White,21,0.6
+114,BealeStreet,Male,White,21,0.19999999999999996
+114,CatchMe,Male,White,21,0.20000000000000007
+114,DaysSummer,Male,White,21,0.8
+114,Fences,Male,White,21,0
+114,ForrestGump,Male,White,21,0.4
+114,GreenMile,Male,White,21,-1.2
+114,GoodWill,Male,White,21,-0.40000000000000013
+114,KingsSpeech,Male,White,21,0.4
+114,LadyBird,Male,White,21,0.19999999999999996
+114,LegallyBlonde,Male,White,21,0.6
+114,LittleMiss,Male,White,21,-0.4
+114,Moonlight,Male,White,21,0.6
+114,Miracle,Male,White,21,0.4
+114,MarriageStory,Male,White,21,0
+114,NoCountry,Male,White,21,0
+114,PulpFiction,Male,White,21,-0.19999999999999996
+114,PursuitHappyness,Male,White,21,0.8
+114,ParentTrap,Male,White,21,0
+114,SocialNetwork,Male,White,21,-0.6
+114,SilenceLambs,Male,White,21,-0.8
+114,Zodiac,Male,White,21,-1.2000000000000002
+115,AkeelahBee,Male,Black/African American,33,-1.8
+115,BealeStreet,Male,Black/African American,33,4
+115,CatchMe,Male,Black/African American,33,1.6
+115,DaysSummer,Male,Black/African American,33,1.2
+115,Fences,Male,Black/African American,33,0.8
+115,ForrestGump,Male,Black/African American,33,2
+115,GreenMile,Male,Black/African American,33,0
+115,GoodWill,Male,Black/African American,33,1.6
+115,KingsSpeech,Male,Black/African American,33,2.6
+115,LadyBird,Male,Black/African American,33,1.8
+115,LegallyBlonde,Male,Black/African American,33,2.4
+115,LittleMiss,Male,Black/African American,33,0
+115,Moonlight,Male,Black/African American,33,3.8
+115,Miracle,Male,Black/African American,33,4
+115,MarriageStory,Male,Black/African American,33,1.4000000000000001
+115,NoCountry,Male,Black/African American,33,2.2
+115,PulpFiction,Male,Black/African American,33,4
+115,PursuitHappyness,Male,Black/African American,33,4
+115,ParentTrap,Male,Black/African American,33,-4
+115,SocialNetwork,Male,Black/African American,33,1.6
+115,SilenceLambs,Male,Black/African American,33,1.8
+115,Zodiac,Male,Black/African American,33,1
+117,BealeStreet,Male,Asian,21,0.4
+117,Fences,Male,Asian,21,0
+117,GreenMile,Male,Asian,21,-0.4
+117,KingsSpeech,Male,Asian,21,0.8
+117,LadyBird,Male,Asian,21,0.2
+117,LittleMiss,Male,Asian,21,0.6
+117,Moonlight,Male,Asian,21,0.4
+117,MarriageStory,Male,Asian,21,-0.6
+117,NoCountry,Male,Asian,21,0
+117,PulpFiction,Male,Asian,21,0.39999999999999997
+117,SilenceLambs,Male,Asian,21,0
+119,AkeelahBee,Male,White,56,2.8
+119,BealeStreet,Male,White,56,0.19999999999999996
+119,CatchMe,Male,White,56,1.2000000000000002
+119,DaysSummer,Male,White,56,1.6
+119,Fences,Male,White,56,-1.85
+119,ForrestGump,Male,White,56,1.6
+119,GreenMile,Male,White,56,-1.6
+119,GoodWill,Male,White,56,0
+119,KingsSpeech,Male,White,56,2.6
+119,LadyBird,Male,White,56,0.6000000000000001
+119,LegallyBlonde,Male,White,56,1.8
+119,LittleMiss,Male,White,56,0
+119,Moonlight,Male,White,56,0.3999999999999999
+119,Miracle,Male,White,56,4
+119,MarriageStory,Male,White,56,-0.20000000000000007
+119,NoCountry,Male,White,56,-1.6
+119,PulpFiction,Male,White,56,0
+119,PursuitHappyness,Male,White,56,3
+119,ParentTrap,Male,White,56,2.4
+119,SocialNetwork,Male,White,56,-0.6000000000000001
+119,SilenceLambs,Male,White,56,-0.6
+119,Zodiac,Male,White,56,-0.7999999999999999
+120,AkeelahBee,Male,White,32,1
+120,BealeStreet,Male,White,32,0.4
+120,CatchMe,Male,White,32,0
+120,DaysSummer,Male,White,32,0.4
+120,Fences,Male,White,32,-1.6
+120,ForrestGump,Male,White,32,-0.2
+120,GreenMile,Male,White,32,-1.6
+120,GoodWill,Male,White,32,0
+120,KingsSpeech,Male,White,32,0.2
+120,LadyBird,Male,White,32,0.4
+120,LegallyBlonde,Male,White,32,0.4
+120,LittleMiss,Male,White,32,0.2
+120,Moonlight,Male,White,32,0.2
+120,Miracle,Male,White,32,0.8
+120,MarriageStory,Male,White,32,-0.8
+120,NoCountry,Male,White,32,0
+120,PulpFiction,Male,White,32,0.2
+120,PursuitHappyness,Male,White,32,1
+120,ParentTrap,Male,White,32,2.4
+120,SocialNetwork,Male,White,32,0
+120,SilenceLambs,Male,White,32,-1.6
+120,Zodiac,Male,White,32,-0.39999999999999997
+121,AkeelahBee,Male,White,20,1.8
+121,BealeStreet,Male,White,20,1.2000000000000002
+121,CatchMe,Male,White,20,-0.4
+121,DaysSummer,Male,White,20,0.19999999999999996
+121,Fences,Male,White,20,-0.7999999999999999
+121,ForrestGump,Male,White,20,-0.6000000000000001
+121,GreenMile,Male,White,20,-1.8000000000000003
+121,GoodWill,Male,White,20,-0.6
+121,KingsSpeech,Male,White,20,0.3999999999999999
+121,LadyBird,Male,White,20,1.2
+121,LegallyBlonde,Male,White,20,1.8000000000000003
+121,LittleMiss,Male,White,20,0.2
+121,Moonlight,Male,White,20,1.2
+121,Miracle,Male,White,20,1.6
+121,MarriageStory,Male,White,20,0.6
+121,NoCountry,Male,White,20,-0.4
+121,PulpFiction,Male,White,20,-0.4
+121,PursuitHappyness,Male,White,20,1.2
+121,ParentTrap,Male,White,20,1.2
+121,SocialNetwork,Male,White,20,-0.39999999999999997
+121,SilenceLambs,Male,White,20,-2.2
+121,Zodiac,Male,White,20,-2.4
+122,AkeelahBee,Male,White,23,1.5999999999999999
+122,BealeStreet,Male,White,23,-0.13333333333333341
+122,CatchMe,Male,White,23,-0.20000000000000007
+122,DaysSummer,Male,White,23,-0.8
+122,Fences,Male,White,23,-2.4000000000000004
+122,ForrestGump,Male,White,23,0.2
+122,GreenMile,Male,White,23,-2.4
+122,GoodWill,Male,White,23,-0.8
+122,KingsSpeech,Male,White,23,1.4000000000000001
+122,LittleMiss,Male,White,23,-0.9999999999999999
+122,Moonlight,Male,White,23,0.7999999999999999
+122,Miracle,Male,White,23,1.4
+122,MarriageStory,Male,White,23,-1.4
+122,NoCountry,Male,White,23,-1.8000000000000003
+122,PulpFiction,Male,White,23,-0.40000000000000013
+122,PursuitHappyness,Male,White,23,1.6
+122,ParentTrap,Male,White,23,0.6
+122,SocialNetwork,Male,White,23,-1
+122,SilenceLambs,Male,White,23,-1.2000000000000002
+122,Zodiac,Male,White,23,-1.6
+124,AkeelahBee,Male,White,18,2
+124,BealeStreet,Male,White,18,0.7999999999999999
+124,CatchMe,Male,White,18,0
+124,DaysSummer,Male,White,18,-0.39999999999999997
+124,Fences,Male,White,18,-1
+124,ForrestGump,Male,White,18,-0.4
+124,GreenMile,Male,White,18,-1.4
+124,GoodWill,Male,White,18,0.8
+124,KingsSpeech,Male,White,18,0
+124,LadyBird,Male,White,18,0.6000000000000001
+124,LegallyBlonde,Male,White,18,1.2000000000000002
+124,LittleMiss,Male,White,18,-0.39999999999999997
+124,Moonlight,Male,White,18,0.6000000000000001
+124,Miracle,Male,White,18,2.4
+124,MarriageStory,Male,White,18,-0.5999999999999999
+124,NoCountry,Male,White,18,-1.2
+124,PulpFiction,Male,White,18,1
+124,PursuitHappyness,Male,White,18,1.4
+124,ParentTrap,Male,White,18,1
+124,SocialNetwork,Male,White,18,-0.19999999999999996
+124,SilenceLambs,Male,White,18,-1.0000000000000002
+124,Zodiac,Male,White,18,-0.8
+125,AkeelahBee,Male,White,60,2.2
+125,BealeStreet,Male,White,60,0.8
+125,CatchMe,Male,White,60,0.6
+125,DaysSummer,Male,White,60,0.6
+125,Fences,Male,White,60,-1.4
+125,ForrestGump,Male,White,60,-0.20000000000000007
+125,GreenMile,Male,White,60,-1.7999999999999998
+125,GoodWill,Male,White,60,-0.19999999999999996
+125,KingsSpeech,Male,White,60,1.6
+125,LadyBird,Male,White,60,0
+125,LegallyBlonde,Male,White,60,2.1999999999999997
+125,LittleMiss,Male,White,60,-0.39999999999999997
+125,Moonlight,Male,White,60,2.2
+125,MarriageStory,Male,White,60,-1
+125,NoCountry,Male,White,60,-2.1999999999999997
+125,PulpFiction,Male,White,60,-0.8
+125,ParentTrap,Male,White,60,0.4
+125,SocialNetwork,Male,White,60,0.4
+125,SilenceLambs,Male,White,60,-2
+125,Zodiac,Male,White,60,-0.6
+126,BealeStreet,Male,Multiple,54,-0.2
+126,GreenMile,Male,Multiple,54,-0.3999999999999999
+126,Miracle,Male,Multiple,54,1.6
+126,NoCountry,Male,Multiple,54,-0.2
+126,PulpFiction,Male,Multiple,54,0.4
+126,ParentTrap,Male,Multiple,54,1.4
+126,Zodiac,Male,Multiple,54,1
+128,AkeelahBee,Male,Asian,26,2.5999999999999996
+128,BealeStreet,Male,Asian,26,1.8
+128,CatchMe,Male,Asian,26,1.2
+128,DaysSummer,Male,Asian,26,1.8
+128,Fences,Male,Asian,26,-0.3999999999999999
+128,ForrestGump,Male,Asian,26,0.9999999999999999
+128,GreenMile,Male,Asian,26,-0.6000000000000001
+128,GoodWill,Male,Asian,26,-0.40000000000000013
+128,KingsSpeech,Male,Asian,26,2.4000000000000004
+128,LadyBird,Male,Asian,26,2.4
+128,LegallyBlonde,Male,Asian,26,3
+128,LittleMiss,Male,Asian,26,-0.19999999999999996
+128,Moonlight,Male,Asian,26,2.2
+128,Miracle,Male,Asian,26,3.8
+128,MarriageStory,Male,Asian,26,0
+128,NoCountry,Male,Asian,26,-1
+128,PulpFiction,Male,Asian,26,-1
+128,PursuitHappyness,Male,Asian,26,2.6
+128,ParentTrap,Male,Asian,26,1.6
+128,SocialNetwork,Male,Asian,26,1.8
+128,SilenceLambs,Male,Asian,26,0.7999999999999998
+128,Zodiac,Male,Asian,26,-0.3999999999999999
+129,AkeelahBee,Male,White,24,2.6
+129,BealeStreet,Male,White,24,-2.6
+129,CatchMe,Male,White,24,2.4
+129,DaysSummer,Male,White,24,-0.8
+129,Fences,Male,White,24,-3
+129,ForrestGump,Male,White,24,-1.0000000000000002
+129,GreenMile,Male,White,24,-2
+129,GoodWill,Male,White,24,-0.19999999999999996
+129,KingsSpeech,Male,White,24,2.4
+129,LadyBird,Male,White,24,-0.19999999999999996
+129,LegallyBlonde,Male,White,24,2.5999999999999996
+129,LittleMiss,Male,White,24,-1
+129,Moonlight,Male,White,24,-0.3999999999999999
+129,Miracle,Male,White,24,1
+129,MarriageStory,Male,White,24,-1.0499999999999998
+129,NoCountry,Male,White,24,0
+129,PulpFiction,Male,White,24,-1.4000000000000001
+129,PursuitHappyness,Male,White,24,1.4
+129,ParentTrap,Male,White,24,0
+129,SocialNetwork,Male,White,24,-0.4
+129,SilenceLambs,Male,White,24,-1.8000000000000003
+129,Zodiac,Male,White,24,-2.6
+130,AkeelahBee,Male,Multiple,23,1.6
+130,BealeStreet,Male,Multiple,23,0.7999999999999999
+130,CatchMe,Male,Multiple,23,1.4
+130,DaysSummer,Male,Multiple,23,-0.19999999999999996
+130,Fences,Male,Multiple,23,-2.6
+130,ForrestGump,Male,Multiple,23,-1
+130,GreenMile,Male,Multiple,23,-2.6
+130,GoodWill,Male,Multiple,23,-1.6
+130,KingsSpeech,Male,Multiple,23,0.6
+130,LadyBird,Male,Multiple,23,-1
+130,LegallyBlonde,Male,Multiple,23,2.4
+130,LittleMiss,Male,Multiple,23,-1.5999999999999999
+130,Moonlight,Male,Multiple,23,0.19999999999999996
+130,Miracle,Male,Multiple,23,2.8000000000000003
+130,MarriageStory,Male,Multiple,23,-2.4
+130,NoCountry,Male,Multiple,23,-1.4000000000000001
+130,PulpFiction,Male,Multiple,23,-2
+130,PursuitHappyness,Male,Multiple,23,1.6
+130,ParentTrap,Male,Multiple,23,2.6
+130,SocialNetwork,Male,Multiple,23,-0.6
+130,SilenceLambs,Male,Multiple,23,-1.6
+130,Zodiac,Male,Multiple,23,-2.8
+132,AkeelahBee,Male,Black/African American,26,1.8
+132,BealeStreet,Male,Black/African American,26,-0.20000000000000007
+132,CatchMe,Male,Black/African American,26,1.2
+132,DaysSummer,Male,Black/African American,26,-0.4
+132,Fences,Male,Black/African American,26,-0.8
+132,ForrestGump,Male,Black/African American,26,1.2
+132,GoodWill,Male,Black/African American,26,-0.2
+132,KingsSpeech,Male,Black/African American,26,1
+132,LadyBird,Male,Black/African American,26,-0.4
+132,LegallyBlonde,Male,Black/African American,26,0.3999999999999999
+132,LittleMiss,Male,Black/African American,26,-0.6000000000000001
+132,Moonlight,Male,Black/African American,26,1.8
+132,MarriageStory,Male,Black/African American,26,-0.9999999999999999
+132,NoCountry,Male,Black/African American,26,-0.7999999999999999
+132,PulpFiction,Male,Black/African American,26,-0.3999999999999999
+132,PursuitHappyness,Male,Black/African American,26,0.8
+132,ParentTrap,Male,Black/African American,26,0
+132,SocialNetwork,Male,Black/African American,26,0.39999999999999997
+132,SilenceLambs,Male,Black/African American,26,-1.4
+132,Zodiac,Male,Black/African American,26,-2
+134,AkeelahBee,Male,White,28,3
+134,BealeStreet,Male,White,28,0
+134,CatchMe,Male,White,28,-0.19999999999999996
+134,DaysSummer,Male,White,28,-0.6000000000000001
+134,Fences,Male,White,28,-1.5999999999999999
+134,ForrestGump,Male,White,28,0
+134,GoodWill,Male,White,28,-1.2000000000000002
+134,KingsSpeech,Male,White,28,1.5999999999999999
+134,LadyBird,Male,White,28,0.6
+134,LegallyBlonde,Male,White,28,2.2
+134,LittleMiss,Male,White,28,-0.9999999999999999
+134,Moonlight,Male,White,28,0.6
+134,Miracle,Male,White,28,2.4
+134,MarriageStory,Male,White,28,-1.5999999999999999
+134,NoCountry,Male,White,28,-1.5999999999999999
+134,PulpFiction,Male,White,28,-0.35
+134,PursuitHappyness,Male,White,28,1.2000000000000002
+134,ParentTrap,Male,White,28,1.2
+134,SocialNetwork,Male,White,28,0.20000000000000007
+134,SilenceLambs,Male,White,28,-1.2000000000000002
+134,Zodiac,Male,White,28,-1.2
+135,AkeelahBee,Male,White,24,1.4
+135,BealeStreet,Male,White,24,0
+135,CatchMe,Male,White,24,0.5
+135,DaysSummer,Male,White,24,0.4
+135,Fences,Male,White,24,0
+135,ForrestGump,Male,White,24,1.6
+135,GreenMile,Male,White,24,0
+135,GoodWill,Male,White,24,0.8
+135,KingsSpeech,Male,White,24,1
+135,LadyBird,Male,White,24,0.2
+135,LegallyBlonde,Male,White,24,2.8
+135,LittleMiss,Male,White,24,0.4
+135,Moonlight,Male,White,24,0.19999999999999996
+135,Miracle,Male,White,24,1.8000000000000003
+135,MarriageStory,Male,White,24,-0.4
+135,NoCountry,Male,White,24,-0.9999999999999999
+135,PulpFiction,Male,White,24,0.8
+135,PursuitHappyness,Male,White,24,0.7999999999999999
+135,ParentTrap,Male,White,24,1
+135,SocialNetwork,Male,White,24,-0.39999999999999997
+135,SilenceLambs,Male,White,24,-0.2
+135,Zodiac,Male,White,24,-1.55
