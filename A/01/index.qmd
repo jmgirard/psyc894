@@ -2,9 +2,13 @@
 title: "Week 01: Overview and Recap"
 ---
 
+<!-- 01a -->
+
 ## [01a] Materials
 
 No Class due to MLK Day
+
+<!-- 01b -->
 
 ## [01b] Materials
 
@@ -30,7 +34,7 @@ No Class due to MLK Day
 ```
 
 ::: {.fsmaller}
-\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press 'F' on your keyboard to view the slides full screen.
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu.
 :::
 
 ```{=html}
