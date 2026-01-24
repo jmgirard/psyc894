@@ -4,21 +4,21 @@
     "href": "schedule.html",
     "title": "Course Schedule",
     "section": "",
-    "text": "Week 01: Course Overview and Recap of R\nWeek 02: Recap of Linear Modeling\nWeek 03: Clustering Issues and Approaches\nWeek 04: Data Prep and Estimation"
+    "text": "Week 01: Overview and Workflow\nWeek 02: Linear Modeling Recap\nWeek 03: Clustering Issues/Approaches\nWeek 04: Data Prep and Estimation"
   },
   {
     "objectID": "schedule.html#unit-a",
     "href": "schedule.html#unit-a",
     "title": "Course Schedule",
     "section": "",
-    "text": "Week 01: Course Overview and Recap of R\nWeek 02: Recap of Linear Modeling\nWeek 03: Clustering Issues and Approaches\nWeek 04: Data Prep and Estimation"
+    "text": "Week 01: Overview and Workflow\nWeek 02: Linear Modeling Recap\nWeek 03: Clustering Issues/Approaches\nWeek 04: Data Prep and Estimation"
   },
   {
     "objectID": "schedule.html#unit-b",
     "href": "schedule.html#unit-b",
     "title": "Course Schedule",
     "section": "Unit B",
-    "text": "Unit B\n\nWeek 05: Random/Varying Intercepts\nWeek 06: Random/Varying Slopes\nWeek 07: Cross-level Interactions\nWeek 08: Translation Activity"
+    "text": "Unit B\n\nWeek 05: Random Intercept Models\nWeek 06: Random Slope Models\nWeek 07: Cross-level Interactions\nWeek 08: Translation Activity"
   },
   {
     "objectID": "schedule.html#unit-c",
@@ -33,6 +33,27 @@
     "title": "Course Schedule",
     "section": "Unit D",
     "text": "Unit D\n\nWeek 13: Troubleshooting and Bayes\nWeek 14: Advanced Previews\nWeek 15: Project Work\nWeek 16: Project Work"
+  },
+  {
+    "objectID": "A/02/index.html",
+    "href": "A/02/index.html",
+    "title": "Week 02: Linear Modeling Recap",
+    "section": "",
+    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n yearspubs.csv \n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press ‘F’ on your keyboard to view the slides full screen."
+  },
+  {
+    "objectID": "A/02/index.html#a-materials",
+    "href": "A/02/index.html#a-materials",
+    "title": "Week 02: Linear Modeling Recap",
+    "section": "",
+    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n yearspubs.csv \n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press ‘F’ on your keyboard to view the slides full screen."
+  },
+  {
+    "objectID": "A/02/index.html#b-materials",
+    "href": "A/02/index.html#b-materials",
+    "title": "Week 02: Linear Modeling Recap",
+    "section": "[02b] Materials",
+    "text": "[02b] Materials\n\nTopics\n\nModeration\nAssumptions\nDiagnostics\n\n\n\nReadings\n\nKelley & Maxwell (2019)\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press ‘F’ on your keyboard to view the slides full screen.\n\n\n\n  «  Week 01\n\n  Week 03  »"
   },
   {
     "objectID": "A/01/index.html",

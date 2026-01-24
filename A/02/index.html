@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Multilevel Modeling – PSYC894</title>
+<title>Week 02: Linear Modeling Recap – PSYC894</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +23,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-029b10fc0dc652dab2ec1ac156c1a037.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-029b10fc0dc652dab2ec1ac156c1a037.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/downloadthis-1.9.1/downloadthis.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,17 +71,17 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">PSYC894</span>
     </a>
   </div>
@@ -101,7 +102,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Syllabus</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./schedule.html"> <i class="bi bi-calendar" role="img">
+    <a class="nav-link" href="../../schedule.html"> <i class="bi bi-calendar" role="img">
 </i> 
 <span class="menu-text">Schedule</span></a>
   </li>  
@@ -111,22 +112,22 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-unit-a">    
         <li>
-    <a class="dropdown-item" href="./A/01/index.html"><i class="bi bi-code-square" role="img">
+    <a class="dropdown-item" href="../../A/01/index.html"><i class="bi bi-code-square" role="img">
 </i> 
  <span class="dropdown-text">Week 01: Overview and Workflow</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./A/02/index.html"><i class="bi bi-graph-up" role="img">
+    <a class="dropdown-item" href="../../A/02/index.html"><i class="bi bi-graph-up" role="img">
 </i> 
  <span class="dropdown-text">Week 02: Linear Modeling Recap</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./A/03/index.html"><i class="bi bi-cone-striped" role="img">
+    <a class="dropdown-item" href="../../A/03/index.html"><i class="bi bi-cone-striped" role="img">
 </i> 
  <span class="dropdown-text">Week 03: Clustering Issues and Approaches</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./A/04/index.html"><i class="bi bi-tools" role="img">
+    <a class="dropdown-item" href="../../A/04/index.html"><i class="bi bi-tools" role="img">
 </i> 
  <span class="dropdown-text">Week 04: Data Prep and Estimation</span></a>
   </li>  
@@ -138,22 +139,22 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-unit-b">    
         <li>
-    <a class="dropdown-item" href="./B/05/index.html"><i class="bi bi-arrow-down-up" role="img">
+    <a class="dropdown-item" href="../../B/05/index.html"><i class="bi bi-arrow-down-up" role="img">
 </i> 
  <span class="dropdown-text">Week 05: Random Intercept Models</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./B/06/index.html"><i class="bi bi-shuffle" role="img">
+    <a class="dropdown-item" href="../../B/06/index.html"><i class="bi bi-shuffle" role="img">
 </i> 
  <span class="dropdown-text">Week 06: Random Slope Models</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./B/07/index.html"><i class="bi bi-arrow-down-right" role="img">
+    <a class="dropdown-item" href="../../B/07/index.html"><i class="bi bi-arrow-down-right" role="img">
 </i> 
  <span class="dropdown-text">Week 07: Cross-level Interactions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./B/08/index.html"><i class="bi bi-translate" role="img">
+    <a class="dropdown-item" href="../../B/08/index.html"><i class="bi bi-translate" role="img">
 </i> 
  <span class="dropdown-text">Week 08: Translation Activity</span></a>
   </li>  
@@ -165,22 +166,22 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-unit-c">    
         <li>
-    <a class="dropdown-item" href="./C/09/index.html"><i class="bi bi-balloon" role="img">
+    <a class="dropdown-item" href="../../C/09/index.html"><i class="bi bi-balloon" role="img">
 </i> 
  <span class="dropdown-text">Week 09: Spring Break</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./C/10/index.html"><i class="bi bi-chevron-right" role="img">
+    <a class="dropdown-item" href="../../C/10/index.html"><i class="bi bi-chevron-right" role="img">
 </i> 
  <span class="dropdown-text">Week 10: Model Comparison</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./C/11/index.html"><i class="bi bi-alarm" role="img">
+    <a class="dropdown-item" href="../../C/11/index.html"><i class="bi bi-alarm" role="img">
 </i> 
  <span class="dropdown-text">Week 11: Longitudinal Analyses</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./C/12/index.html"><i class="bi bi-journal-medical" role="img">
+    <a class="dropdown-item" href="../../C/12/index.html"><i class="bi bi-journal-medical" role="img">
 </i> 
  <span class="dropdown-text">Week 12: Diagnostics and Reporting</span></a>
   </li>  
@@ -192,22 +193,22 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-unit-d">    
         <li>
-    <a class="dropdown-item" href="./D/13/index.html"><i class="bi bi-gear" role="img">
+    <a class="dropdown-item" href="../../D/13/index.html"><i class="bi bi-gear" role="img">
 </i> 
  <span class="dropdown-text">Week 13: Troubleshooting and Bayes</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./D/14/index.html"><i class="bi bi-building-up" role="img">
+    <a class="dropdown-item" href="../../D/14/index.html"><i class="bi bi-building-up" role="img">
 </i> 
  <span class="dropdown-text">Week 14: Advanced Previews</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./D/15/index.html"><i class="bi bi-briefcase" role="img">
+    <a class="dropdown-item" href="../../D/15/index.html"><i class="bi bi-briefcase" role="img">
 </i> 
  <span class="dropdown-text">Week 15: Project Work</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./D/16/index.html"><i class="bi bi-briefcase" role="img">
+    <a class="dropdown-item" href="../../D/16/index.html"><i class="bi bi-briefcase" role="img">
 </i> 
  <span class="dropdown-text">Week 16: Project Work</span></a>
   </li>  
@@ -224,13 +225,33 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#a-materials" id="toc-a-materials" class="nav-link active" data-scroll-target="#a-materials">[02a] Materials</a>
+  <ul class="collapse">
+  <li><a href="#topics" id="toc-topics" class="nav-link" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#data-files" id="toc-data-files" class="nav-link" data-scroll-target="#data-files">Data Files</a></li>
+  <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
+  </ul></li>
+  <li><a href="#b-materials" id="toc-b-materials" class="nav-link" data-scroll-target="#b-materials">[02b] Materials</a>
+  <ul class="collapse">
+  <li><a href="#topics-1" id="toc-topics-1" class="nav-link" data-scroll-target="#topics-1">Topics</a></li>
+  <li><a href="#readings-1" id="toc-readings-1" class="nav-link" data-scroll-target="#readings-1">Readings</a></li>
+  <li><a href="#slides-1" id="toc-slides-1" class="nav-link" data-scroll-target="#slides-1">Slides</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Multilevel Modeling</h1>
+<h1 class="title">Week 02: Linear Modeling Recap</h1>
 </div>
 
 
@@ -247,60 +268,77 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Statistical methods for analyzing multilevel data (e.g., datasets with clustered, nested, or longitudinal structures) using a framework known variously as multilevel, mixed-effects, hierarchical linear, or random-coefficient modeling. The course reviews ordinary least squares regression and then introduces: the challenges posed by multilevel data, tools for processing multilevel data for analyses, and both maximum-likelihood and Bayesian estimation. Core topics include partial pooling, random intercepts, fixed and random slopes, cross-level interactions, model comparison, troubleshooting, applications to repeated-measures and longitudinal data, and thorough diagnostics and reporting. Emphasis is placed on conceptual understanding paired with hands-on analysis in statistical software (e.g., R). Students apply methods to real datasets and complete an independent project.</p>
-<section id="learning-outcomes" class="level3">
-<h3 class="anchored" data-anchor-id="learning-outcomes">Learning Outcomes</h3>
-<p>At the conclusion of this course, students will be able to:</p>
+<!-- 02a -->
+<section id="a-materials" class="level2">
+<h2 class="anchored" data-anchor-id="a-materials">[02a] Materials</h2>
+<section id="topics" class="level3">
+<h3 class="anchored" data-anchor-id="topics">Topics</h3>
 <ul>
-<li>Explain the issues that clustered data cause for the linear model</li>
-<li>Contrast the pros and cons of different approaches for clustered data</li>
-<li>Prepare a clustered dataset for multilevel analysis in R</li>
-<li>Estimate various types of multilevel models in R</li>
-<li>Flexibly specify different random effects structures</li>
-<li>Interpret the fixed and random effects estimates</li>
-<li>Explain the rationale and consequences of partial pooling</li>
-<li>Identify the interpretation implied by each centering option</li>
-<li>Detail and assess the assumptions made by a multilevel model</li>
-<li>Decompose repeated and longitudinal measures into components</li>
-<li>Discuss the idea of Bayesian estimation for multilevel models</li>
-<li>Discuss the ideas of nested and cross-classified models</li>
+<li>Simple Regression</li>
+<li>Multiple Regression</li>
+<li>Categorical Predictors</li>
 </ul>
 </section>
-<section id="instructor" class="level3">
-<h3 class="anchored" data-anchor-id="instructor">Instructor</h3>
+<section id="data-files" class="level3">
+<h3 class="anchored" data-anchor-id="data-files">Data Files</h3>
+<p><a href="#dnldts32708" onclick="fetch('data:text/csv;base64,eWVhcnNfc2luY2VfcGhkLG5fcHVicyxzZXgsbl9jaXRlcyxzYWxhcnkNCjMsMTgsZmVtYWxlLDUwLDIxLjg3Ng0KNiwzLGZlbWFsZSwyNiw1NC41MTENCjMsMixmZW1hbGUsNTAsNTMuNDI1DQo4LDE3LG1hbGUsMzQsNjEuODYzDQo5LDExLGZlbWFsZSw0MSw1Mi45MjYNCjYsNixtYWxlLDM3LDQ3LjAzNA0KMTYsMzgsbWFsZSw0OCw2Ni40MzINCjEwLDQ4LG1hbGUsNTYsNjEuMQ0KMiw5LG1hbGUsMTksNDEuOTM0DQo1LDIyLG1hbGUsMjksOTcuNDU0DQo1LDMwLGZlbWFsZSwyOCw0OS44MzINCjYsMjEsbWFsZSwzMSw0Ny4wNDcNCjcsMTAsZmVtYWxlLDI1LDM5LjExNQ0KMTEsMjcsbWFsZSw0MCw1OS42NzcNCjE4LDM3LG1hbGUsNjEsNjEuNDU4DQo2LDgsbWFsZSwzMiw1NC41MjgNCjksMTMsZmVtYWxlLDM2LDYwLjMyNw0KNyw2LG1hbGUsNjksNTYuNg0KNywxMixmZW1hbGUsNDcsNTIuNTQyDQozLDI5LGZlbWFsZSwyOSw1MC40NTUNCjcsMjksZmVtYWxlLDM1LDUxLjY0Nw0KNSw3LG1hbGUsMzUsNjIuODk1DQo3LDYsbWFsZSwxOCw1My43NA0KMTMsNjksbWFsZSw5MCw3NS44MjINCjUsMTEsbWFsZSw2MCw1Ni41OTYNCjgsOSxmZW1hbGUsMzAsNTUuNjgyDQo4LDIwLGZlbWFsZSwyNyw2Mi4wOTENCjcsNDEsZmVtYWxlLDM1LDQyLjE2Mg0KMiwzLGZlbWFsZSwxNCw1Mi42NDYNCjEzLDI3LG1hbGUsNTYsNzQuMTk5DQo1LDE0LG1hbGUsNTAsNTAuNzI5DQozLDIzLG1hbGUsMjUsNzAuMDExDQoxLDEsbWFsZSwzNSwzNy45MzkNCjMsNyxtYWxlLDEsMzkuNjUyDQo5LDE5LG1hbGUsNjksNjguOTg3DQozLDExLG1hbGUsNjksNTUuNTc5DQo5LDMxLG1hbGUsMjcsNTQuNjcxDQozLDksbWFsZSw1MCw1Ny43MDQNCjQsMTIsZmVtYWxlLDMyLDQ0LjA0NQ0KMTAsMzIsbWFsZSwzMyw1MS4xMjINCjEsMjYsbWFsZSw0NSw0Ny4wODINCjExLDEyLG1hbGUsNTQsNjAuMDA5DQo1LDksbWFsZSw0Nyw1OC42MzINCjEsNixtYWxlLDI5LDM4LjM0DQoyMSwzOSxtYWxlLDY5LDcxLjIxOQ0KNywxNixmZW1hbGUsNDcsNTMuNzEyDQo1LDEyLGZlbWFsZSw0Myw1NC43ODINCjE2LDUwLG1hbGUsNTUsODMuNTAzDQo1LDE4LG1hbGUsMzMsNDcuMjEyDQo0LDYsZmVtYWxlLDI4LDUyLjg0DQo1LDUsbWFsZSw0Miw1My42NQ0KMTEsMjAsbWFsZSwyNCw1MC45MzENCjE2LDUwLGZlbWFsZSwzMSw2Ni43ODQNCjMsNixmZW1hbGUsMjcsNDkuNzUxDQo0LDE5LGZlbWFsZSw4Myw3NC4zNDMNCjQsMTEsZmVtYWxlLDQ5LDU3LjcxDQo1LDEzLG1hbGUsMTQsNTIuNjc2DQo2LDMsZmVtYWxlLDM2LDQxLjE5NQ0KNCw4LGZlbWFsZSwzNCw0NS42NjINCjgsMTEsZmVtYWxlLDcwLDQ3LjYwNg0KMywyNSxmZW1hbGUsMjcsNDQuMzAxDQo0LDQsZmVtYWxlLDI4LDU4LjU4Mg0K').then(res => res.blob()).then(blob => {
+      const downloadURL = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.href = downloadURL;
+      a.download = 'file.csv'; a.click();
+      window.URL.revokeObjectURL(downloadURL);
+      document.body.removeChild(a);
+        });"><button class="btn btn-primary downloadthis  data-button" id="dnldts32708"><i class="bi bi-download"></i> yearspubs.csv </button></a></p>
+</section>
+<section id="readings" class="level3">
+<h3 class="anchored" data-anchor-id="readings">Readings</h3>
 <ul>
-<li><script type="text/javascript">
-<!--
-h='&#x6b;&#x75;&#46;&#x65;&#100;&#x75;';a='&#64;';n='&#106;&#x6d;&#x67;&#x69;&#114;&#x61;&#114;&#100;';e=n+a+h;
-document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+'&#68;&#114;&#46;&#160;&#74;&#x65;&#102;&#102;&#114;&#x65;&#x79;&#32;&#x47;&#x69;&#114;&#x61;&#114;&#100;'+'<\/'+'a'+'>');
-// -->
-</script><noscript>Dr.&nbsp;Jeffrey Girard (jmgirard at ku dot edu)</noscript>, Instructor</li>
-<li><script type="text/javascript">
-<!--
-h='&#x6b;&#x75;&#46;&#x65;&#100;&#x75;';a='&#64;';n='&#100;&#x61;&#x79;&#x65;&#114;&#x6d;&#x6f;&#108;';e=n+a+h;
-document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+'&#68;&#x61;&#x73;&#104;&#x61;&#32;&#x59;&#x65;&#114;&#x6d;&#x6f;&#108;'+'<\/'+'a'+'>');
-// -->
-</script><noscript>Dasha Yermol (dayermol at ku dot edu)</noscript>, Teaching Assistant</li>
+<li>S&amp;F (1E) Chapter 2: <a href="https://www.learn-mlms.com/02-multiple-regression.html" target="_blank">Multiple Regression Review</a></li>
 </ul>
 </section>
-<section id="class-time-and-location" class="level3">
-<h3 class="anchored" data-anchor-id="class-time-and-location">Class Time and Location</h3>
+<section id="slides" class="level3">
+<h3 class="anchored" data-anchor-id="slides">Slides</h3>
+<iframe class="slide-deck" src="a_Slides.html" title="[02a] Slideshow">
+</iframe>
+<div class="fsmaller">
+<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press ‘F’ on your keyboard to view the slides full screen.</p>
+</div>
+<!-- 02b -->
+</section>
+</section>
+<section id="b-materials" class="level2">
+<h2 class="anchored" data-anchor-id="b-materials">[02b] Materials</h2>
+<section id="topics-1" class="level3">
+<h3 class="anchored" data-anchor-id="topics-1">Topics</h3>
 <ul>
-<li>M 11:00AM - 12:15PM in Wescoe 4035</li>
-<li>F 02:00PM - 03:45PM in Wescoe 4035</li>
+<li>Moderation</li>
+<li>Assumptions</li>
+<li>Diagnostics</li>
 </ul>
 </section>
-<section id="office-hours" class="level3">
-<h3 class="anchored" data-anchor-id="office-hours">Office Hours</h3>
+<section id="readings-1" class="level3">
+<h3 class="anchored" data-anchor-id="readings-1">Readings</h3>
 <ul>
-<li>T 11:00AM - 12:00PM (Dasha, FR 528)</li>
-<li>T 03:00PM - 04:00PM (Jeff, FR 454)</li>
-<li>R 10:00AM - 11:00AM (Dasha, FR 528)</li>
-<li>F 12:00PM - 01:00PM (Jeff, FR 454, odd weeks)</li>
-<li>F 01:00PM - 02:00PM (Jeff, FR 454, even weeks)</li>
+<li><a href="https://canvas.ku.edu/courses/182539/pages/meeting-02b-moderation-and-diagnostics?module_item_id=4317551" target="_blank">Kelley &amp; Maxwell (2019)</a></li>
 </ul>
+</section>
+<section id="slides-1" class="level3">
+<h3 class="anchored" data-anchor-id="slides-1">Slides</h3>
+<iframe class="slide-deck" src="b_Slides.html" title="[02b] Slideshow">
+</iframe>
+<div class="fsmaller">
+<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and then press ‘F’ on your keyboard to view the slides full screen.</p>
+</div>
+<!-- Bottom Nav -->
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../01/index.html" class="btn btn-outline-primary" role="button">«&nbsp;&nbsp;Week 01</a>
+
+  <a href="../03/index.html" class="btn btn-primary" role="button">Week 03&nbsp;&nbsp;»</a>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
