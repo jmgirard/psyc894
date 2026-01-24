@@ -39,19 +39,16 @@ Linear Modeling Recap
 ![](../../img/city-girl.svg){.absolute bottom=30 right=0 width="400"}
 :::
 
-
 ## Roadmap
 
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-1. Syllabus Review
+1. Simple Regression
   
-2. Course Modules
+2. Multiple Regression
 
-3. Course Website
-
-4. Activity
+3. Categorical Predictors
 :::
 
 ::: {.column .tc .pv4 width="40%"}
@@ -60,478 +57,638 @@ Linear Modeling Recap
 
 :::
 
+# R Setup
 
-# Syllabus Review
+## Load Packages
 
-## Instructor Information {.smaller}
+```{r}
+#| message: false
 
-::: {.columns}
-::: {.column width="30%"}
-::: {.tc}
-![](../../img/Girard_500x500.jpg){.br-100}
+# install.packages(c("easystats", "marginaleffects", "ggplot2"))
+library(easystats)
+library(marginaleffects)
+library(ggplot2)
+```
 
-**Jeffrey Girard**, PhD<br /> 
-[affcom.ku.edu/girard](https://affcom.ku.edu/girard)<br /> 
-[jmgirard\@ku.edu](mailto:jmgirard@ku.edu)<br />
-Fraser Hall 454
-:::
-:::
+## Example Dataset
 
-::: {.column width="10%"}
-:::
+```{r}
+data_codebook(penguins)
+```
 
-::: {.column width="60%"}
-::: {}
-**Background**
-
--   [Associate Professor]{.b .green}, *Department of Psychology*
--   Brain, Behavior, and Quantitative Science
--   Clinical Psychological Science
--   Kansas Data Science Consortium
-:::
-::: { .mt1}
-**Research Areas**
-
--   Affective Computing
--   Mental and Social Health
--   [Applied Statistics]{.b .green} and Machine Learning
--   Data Science and Software Engineering
-:::
-:::
+::: {.fsmaller}
+*Note that this dataset is already included with recent versions of R.*
 :::
 
-::: {.footer}
-Office Hours: T 3-4pm, F 12-1pm (odd weeks) or 1-2pm (even weeks)
-:::
+# Simple Regression
 
-
-## Learning Outcomes {.smaller}
-
-1. Learn fundamental concepts underlying multilevel modeling
-
-2. Learn practical skills for implementing such models in R
-
-3. Instill a sense of mastery, curiosity, and fun
-
-::: {.columns}
-::: {.column width="50%"}
-
-**What you [will]{.blue} learn here**
-
-- When and why MLM is needed
-
-- Data prep and model building
-
-- Diagnostics and interpretation
-
-- Exposure to advanced topics
-
-- Exposure to alternatives
-
-:::
-
-::: {.column width="50%"}
-
-**What you [won't]{.red} learn here**
-
-- Mastery of longitudinal models
-
-- Mastery of nested and crossed models
-
-- Mastery of Bayesian estimation
-
-- Mastery of Extensions (GLMM, GAMM)
-
-- Mastery of Alternatives (WLS, GEE)
-
-:::
-:::
-
-
-## Course Materials {.smaller}
-
-#### Textbooks
-- **Introduction to Multilevel Modeling** \[S\&F\]\*<br />
-  Shaw \& Flake (2021, 1E, [www.learn-mlms.com](https://www.learn-mlms.com), *free*)
-
-- **Multilevel analysis: Techniques and applications** \[HMV\]<br />
-  Hox, Moerbeek, \& van de Schoot (2017, 3E, [www.taylorfrancis.com](https://doi.org/10.4324/9781315650982), *paid*)
-  
-- **R for Data Science: Import, tidy, transform, visualize, and model data** \[WCG\]<br />
-  Wickham, Çetinkaya-Rundel, \& Grolemund (2023, 2E, [r4ds.hadley.mz](https://r4ds.hadley.nz/), *free*)
-
-#### R Packages
-- Frequentist Model Fitting: [lme4](https://github.com/lme4/lme4/)\*, [glmmTMB](https://glmmtmb.github.io/glmmTMB)
-- Bayesian Model Fitting: [rstanarm](https://mc-stan.org/rstanarm/), [brms](https://paulbuerkner.com/brms/)
-- Utilities and Visualization: [easystats](https://easystats.github.io/easystats)\*, [ggeffects](https://strengejacke.github.io/ggeffects/)\*
-  
-
-## Grading Policies {.smaller}
-
-#### Graded Components
-
-- 66\% [Lab Reports]{.b .green} (6\% each $\times$ 11) - Practice skills and concepts from lecture
-
-- 22\% [Reflections]{.b .green} (2\% each $\times$ 11) - Summarize and consolidate learning from reading
-
-- 12\% [Final Project]{.b .green} (12\% each $\times$ 1) - Apply skills to real-world data
-
-#### Grading Scale
-
-| Letter    | A   | A−  | B+  | B   | B−  | C+  | C   | C−  | D+  | D   | D−  |
-|-----------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
-| G. Points | 4.0 | 3.7 | 3.3 | 3.0 | 2.7 | 2.3 | 2.0 | 1.7 | 1.3 | 1.0 | 0.7 |
-| Threshold | 93% | 90% | 87% | 83% | 80% | 77% | 73% | 70% | 67% | 63% | 60% |
-
-I don't round or curve grades, but will give points back if a question was poorly designed.
-
-## Course Policies {.smaller}
-#### Attendance
-- In-person attendance is [strongly encouraged]{.b .green} but not required
-
-- Video recordings will be attempted but cannot be guaranteed
-
-#### Late Submissions
-- Detailed on each rubric, partial credit is possible for late submissions
-
-- However, no late submissions will be accepted after Stop Day (May 9)
-
-#### Academic Misconduct
-- [Acceptable:]{.blue} peers, tutors, technology used to explain or troubleshoot
-
-- [Unacceptable:]{.red} peers, tutors, technology used to complete assignments
-
-- You must use the skills and tools taught in class to solve the lab reports
-
-## Course Materials
-
-#### Canvas
-- Has assignments, grades, videos, and textbook PDFs
-- <https://canvas.ku.edu/courses/182539>
-
-#### Website
-- Has topics, ebook links, datasets, and slideshows
-- <https://jmgirard.github.io/psyc894>
-- Note this may be renamed `psyc892` next year
-
-<!-- Course Modules -->
-
-# Course Modules
-
-## Unit A Overview
-- Week 01: Course Overview and Recap of R
-    + *No deadlines*
-- Week 02: Recap of Linear Modeling
-    + *Lab Report* only
-- Week 03: Clustering Issues and Approaches
-    + *Reflection* and *Lab Report*
-- Week 04: Data Prep and Estimation
-    + *Reflection* and *Lab Report*
-
-## Unit B Overview
-- Week 05: Random/Varying Intercepts
-    + *Reflection* and *Lab Report*
-- Week 06: Random/Varying Slopes
-    + *Reflection* and *Lab Report*
-- Week 07: Cross-level Interactions
-    + *Reflection* and *Lab Report*
-- Week 08: Translation Activity
-    + *Reflection* only
-
-## Unit C Overview
-- Week 09: Spring Break
-    + *No deadlines*
-- Week 10: Model Comparison
-    + *Reflection* and *Lab Report*
-- Week 11: Longitudinal Analyses
-    + *Reflection* and *Lab Report*
-- Week 12: Diagnostics and Reporting
-    + *Reflection* and *Lab Report*
-
-## Unit D Overview
-- Week 13: Troubleshooting and Bayes
-    + *Reflection* and *Lab Report*
-- Week 14: Advanced Previews
-    + *Reflection* and *Lab Report*
-- Week 15: Project Work
-    + *No deadlines*
-- Week 16: Project Work
-    + *Project Report*
-
-<!-- Workflow Recap -->
-
-# Workflow Recap
-
-## The R Ecosystem {.smaller}
+## Simple Regression {.smaller}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
-1.  Think of your [computer]{.b .blue} as the [engine]{.b .green} of a car
-    -   It provides raw power for computation
+-   [Simple regression]{.b .blue} predicts one variable $y$ from another variable $x$ using a straight line
 
 ::: {.fragment .mt1}
-2.  The [R language]{.b .blue} is like the [controls]{.b .green} for the car
-    -   It lets you apply and direct that power
-:::
-
-::: {.fragment .mt1}
-3.  [RStudio]{.b .blue} is like a fancy [dashboard]{.b .green} for the car
-    -   It adds extra information and convenience
+-   This line is defined by two parameters
+    -   The [intercept]{.b .green} is the value of $y$ when $x=0$
+    -   The [slope]{.b .green} is the change in $y$ expected for a change of 1 in $x$ (from $x=0$ to $x=1$)
 :::
 
 ::: {.fragment .mt1}
-4.  An [R package]{.b .blue} is like an [add-on]{.b .green} for the car
-    -   It adds new features and capabilities
-:::
-:::
-
-::: {.column .tc .pv5 .relative width="40%"}
-{{< lif "../../icons/car.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
-:::
-:::
-
-## Communicating with R {.smaller}
-
-::: {.columns .pv4}
-::: {.column width="60%"}
--   The [Console]{.b .blue} is like a [chat window]{.b .green} with R
-    -   You send a command to R and get a response
-    -   Neither side of the conversation is saved
-
-::: {.fragment .mt1}
--   An [R Script]{.b .blue} is like an [email thread]{.b .green} with R
-    -   You send many commands to R all at once
-    -   Only your side of the conversation is saved
-:::
-
-::: {.fragment .mt1}
--   A [Quarto Document]{.b .blue} is like a [scrapbook]{.b .green} with R
-    -   You can combine code and formatted text
-    -   Both sides of the conversation are saved
+-   We will use `lm()` to fit regression models
+    -   This will solve using ordinary least squares
+    -   We need to give it the [data]{.b .green} and a [formula]{.b .green}
 :::
 :::
 
 ::: {.column .tc .pv5 width="40%"}
-{{< lif "../../icons/converse.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/scatter.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 :::
 
+## SR Equation Notation
 
-# Projects
+#### Generic
 
-## File Management {.smaller}
+$$y_i = \beta_0 + \beta_1 x_{i} + \varepsilon_{i}$$
+
+:::{.tc}
+where $y_i$ is the continuous response value for observation $i$,<br>
+$x_i$ is the continuous predictor value for observation $i$,<br>
+$\beta_0$ and $\beta_1$ are the estimated intercept and slope, and<br>
+$\varepsilon_i$ is the estimated residual (error) for observation $i$
+:::
+
+#### Example
+
+$$\text{MASS}_i = \beta_0 + \beta_1 \text{FLEN}_{i} + \varepsilon_i$$
+
+## SR Formula Notation
+
+#### Generic
+:::{.tc}
+`y ~ 1 + x`
+
+where *y* is the response variable name,<br>
+*1* tells R to estimate the intercept,<br>
+and *x* is the continuous predictor variable name
+:::
+
+#### Example
+:::{.tc}
+`body_mass ~ 1 + flipper_len`
+:::
+
+## SR Path Diagram {.nostretch}
+
+![](../../diagrams/simple_regression_full.png){width="75%"}
+
+## SR Estimation
+
+```{r}
+sr_f <- lm(
+  formula = body_mass ~ 1 + flipper_len,
+  data = penguins
+)
+```
+
+:::{.pv4 .fragment}
+```{r}
+model_parameters(sr_f)
+```
+:::{.fsmaller}
+Intercept: Predict a penguin with 0mm flipper length has --5781g body mass.<br />
+Slope: Predict increase of 1mm flipper length increases body mass by 49.7g.<br />
+*Conclude: Flipper length is significantly (and positively) related to body mass.*
+:::
+:::
+
+## SR Centering
+
+```{r}
+penguins_c <- center(penguins, select = "flipper_len")
+sr_f_c <- lm(formula = body_mass ~ 1 + flipper_len, data = penguins_c)
+```
+
+:::{.pv4 .fragment}
+```{r}
+compare_parameters(sr_f, sr_f_c, select = "{estimate}{stars}")
+```
+:::{.fsmaller}
+The slope doesn't change, but the intercept does and is now the predicted body mass for a penguin with *average* flipper length (rather than 0mm).
+:::
+:::
+
+## SR Standardizing
+
+```{r}
+penguins_z <- standardize(penguins, select = c("body_mass", "flipper_len"))
+sr_f_z <- lm(formula = body_mass ~ 1 + flipper_len, data = penguins_z)
+```
+
+:::{.pv4 .fragment}
+```{r}
+compare_parameters(sr_f, sr_f_z, select = "{estimate}{stars}")
+```
+:::{.fsmaller}
+The intercept is now zero and the slope is now the change in body mass in SD units (rather than grams) associated with a change of 1 SD in flipper length.
+:::
+:::
+
+## SR Visualization
+
+```{r}
+#| fig-asp: 0.75
+
+pred_srf <- estimate_relation(sr_f, by = "flipper_len")
+plot(pred_srf)
+```
+
+## Visualization Customization
+
+```{r}
+#| fig-asp: 0.75
+
+plot(pred_srf, show_data = TRUE, dot_size = 5, line_size = 1.5) +
+  scale_y_continuous(limits = c(2500, 6500)) +
+  labs(x = "Flipper length (mm)", y = "Body mass (g)") +
+  theme_bw(base_size = 30)
+```
+
+# Multiple Regression
+
+## Multiple Regression {.smaller}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
--   [Projects]{.b .blue} are [special folders]{.b .green} on your computer
-    -   They contain all files related to a task
-    -   They keep everything together and organized
+-   We can also include [multiple predictors]{.b .blue} to assess the [partial effect]{.b .green} of each predictor
+    -   This allows us to account for the variance shared by the predictors and the outcome
 
 ::: {.fragment .mt1}
--   Projects make it easy to [find and use your files]{.b .green}
-    -   No need to specify long, annoying file paths
-    -   No need to worry about working directories
-:::
-
-::: {.fragment .mt1}
--   Projects make it easy to [switch between tasks]{.b .green}
-    -   They will remember exactly where you left off
-    -   You can even open multiple projects at once
+-   This changes the slopes' interpretations
+    -   The slope of $x_1$ is no longer just the change in $y$ expected for a change of 1 in $x_1$
+    -   It is now the change in $y$ expected for a change of 1 in $x_1$ **when controlling for $x_2$**
+    -   The slope of $x_2$ similarly controls for $x_1$
 :::
 :::
 
 ::: {.column .tc .pv5 width="40%"}
-{{< lif "../../icons/box.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/venn.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 :::
 
-::: {.aside}
-*Note.* Save your project in a cloud service folder (e.g., Box, Dropbox, Google Drive, OneDrive) to backup and sync it.
+## MR Equation Notation
+
+#### Generic
+$$y_i = \beta_0 + \sum_{p=1}^P \beta_p x_{pi} + \varepsilon_{i}$$
+
+:::{.tc}
+where $P$ is the number of predictors
 :::
 
+#### Example
+$$\text{MASS}_i = \beta_0 + \beta_1 \text{FLEN}_{i} + \beta_2 \text{BDEP}_{i} + \varepsilon_i$$
 
-## Create a new Project {.fsmaller}
+## MR Formula Notation
 
-- Open the "File" menu in RStudio
-- Select the "New Project..." option
-- Select the "New Directory" option
-- Select the "New Project" option
-- Name the directory "PSYC 894" or "MLM" (or whatever)
-- Browse to where to create your Project folder
+#### Generic
+:::{.tc}
+`y ~ 1 + x1 + ... + xP`
 
-## Create a new File {.fsmaller}
+where $\text{x1},\ldots,\text{xP}$ are the predictor variable names
+:::
 
-- Explore the Files tab in the Extras pane
-- Create a New File (e.g., a script) as an example
-- RStudio will automatically create it in your project folder
-- Add some text to the example file (e.g., "# Hello World")
-- Save the file and note that it defaults to your project folder
-- Close the script with the "x" icon
-- Reopen the script from the Files tab
+#### Example
+:::{.tc}
+`body_mass ~ 1 + flipper_len + bill_dep`
+:::
 
-## Close and Open Projects {.fsmaller}
+## MR Path Diagram {.nostretch}
+![](../../diagrams/multiple_regression_full.png){width="70%"}
 
-- Open the "File" menu in RStudio
-- Select the "Close Project" option
-- Notice that your work is now gone
-- Open the "File" menu in RStudio
-- Select the "Open Project" option
-- Browse to your project folder
-- Open the .Rproj file (e.g., PSYC 399.Rproj)
-- Notice that your work is now back!
+## MR Estimation
 
-## Quarto {.smaller}
+```{r}
+#| echo: true
+
+mr_fb <- lm(
+  formula = body_mass ~ 1 + flipper_len + bill_dep,
+  data = penguins
+)
+```
+
+:::{.pv4 .fragment}
+```{r}
+#| echo: true
+
+model_parameters(mr_fb)
+```
+
+::: {.fsmaller}
+The intercept is body mass when all predictors equal 0. Flipper length was significantly related to body mass while controlling for bill depth. Bill depth was not significantly related to body mass while controlling for flipper length.
+:::
+:::
+
+## SR vs. MR Estimates
+
+```{r}
+#| echo: true
+
+sr_b <- lm(body_mass ~ 1 + bill_dep, data = penguins)
+```
+
+:::{.pv4 .fragment}
+```{r}
+#| echo: true
+compare_parameters(sr_f, sr_b, mr_fb, select = "{estimate}{stars}")
+```
+
+:::
+
+:::{.f1 .fragment}
+- The slopes from SR are called "zero-order" (total) effects.
+- The slopes from MR are called "partial" (unique) effects.
+:::
+
+## SR vs. MR Visualization (FLEN)
+
+:::{.columns}
+
+:::{.column width="50%"}
+```{r}
+#| fig-asp: 0.75
+
+pred_srf <- estimate_relation(
+  sr_f, by = "flipper_len"
+)
+plot(pred_srf) + theme_bw(30)
+```
+:::
+
+:::{.column width="50%"}
+```{r}
+#| fig-asp: 0.75
+
+pred_mrf <- estimate_relation(
+  mr_fb, by = "flipper_len"
+)
+plot(pred_mrf) + theme_bw(30)
+```
+:::
+:::
+
+## SR vs. MR Visualization (BDEP)
+
+:::{.columns}
+
+:::{.column width="50%"}
+```{r}
+#| fig-asp: 0.75
+
+pred_srb <- estimate_relation(
+  sr_b, by = "bill_dep"
+)
+plot(pred_srb) + theme_bw(30)
+```
+:::
+
+:::{.column width="50%"}
+```{r}
+#| fig-asp: 0.75
+
+pred_mrb <- estimate_relation(
+  mr_fb, by = "bill_dep"
+)
+plot(pred_mrb) + theme_bw(30)
+```
+
+:::
+:::
+
+# Categorical Predictors
+
+## Categorical Predictors {.smaller}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
--   [Quarto](https://www.quarto.org) is a scientific/technical publishing system
+-   To include categorical predictors in regression models, we can use [dummy coding]{.b .blue}
+    -   This creates binary predictor variables
 
 ::: {.fragment .mt1}
--   Create dynamic content (e.g., code, output, and markdown) with R, Python, Julia, and Observable
+-   One [reference group]{.b .green} does not get a slope
+    -   Instead, it controls the model intercept
+    -   All other groups' slopes are just deviations from the intercept
 :::
 
 ::: {.fragment .mt1}
--   Articles, reports, slideshows, websites, blogs, and books in HTML, PDF, MS Word, and ePub formats
-:::
-
-::: {.fragment .mt1}
--   Include equations, citations, crossrefs, figure panels, callouts, advanced layouts, etc.
+-   There is no need to create dummy codes in R
+    -   Just include a [factor]{.b .green} as a predictor variable
+    -   The **first level** will be the reference group
 :::
 :::
 
 ::: {.column .tc .pv5 width="40%"}
-{{< lif "../../icons/poetry.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+{{< lif "../../icons/theater.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
 :::
 
-## Create an Quarto Document {.smaller}
-  - Open the "File" menu in RStudio
-  - Select the "New File" option
-  - Select the "Quarto Document..." option
-  - Keep the defaults (HTML) and hit "Create"
-  - Open the "File" menu
-  - Select the "Save" option
-  - Note that it defaults to the project folder
-  - Give it a name like "Lecture 02c" (or whatever)
-  - Note that the file extension is .qmd
+# Categorical SR
 
-## Render the boilerplate content {.smaller}
-  - To see how it works, read the boilerplate content
-  - Now click the "Render" button to create the output file
-  - A preview of the output will appear in the Viewer tab
-  - In the File tab, we see a new .html file was created
-  - We can share this .html file with others
-  - It includes all the formatted text, code, and R results
+## CSR Equation Notation {.smaller}
 
-## Remove the boilerplate content {.smaller}
-  - The top part of the document is called the "Header"
-  - You can change the title but keep it in quotes
-  - Highlight and delete everything below the header
-  - In the future, you can click "Create Empty Document"
-  - Add `embed-resources: true` to the Header for assignments!
-    
-## Add an R Chunk {.smaller}
-  - Option 1: Click the green box with C and a plus sign icon (top-right)
-  - Option 2: Ctrl+Alt+I (Win) or Cmd+Option+I (Mac)
-  - Option 3: Type out \`\`\`\{r\} then new line and \`\`\` yourself
-    
-## Adding code to the chunk {.smaller}
-  - Anything you put inside the "fences" (i.e., \`\`\`) will be treated as R code
-  - The chunk operates like a mini console
-  - Try doing some calculations in the chunk and hit the green arrow
-  - The answer appears right below the chunk!
-  - If we save and render the document, it appears in the output too
-  - We can add options to the chunk but we will return to this later
+#### Generic
+$$y_i = \beta_0 + \sum_{c=1}^{C-1} \beta_c d_{ci} + \varepsilon_{i}$$
 
-
-# Markdown
-
-## Markdown
-
-::: {.columns .pv4}
-::: {.column width="60%"}
--   [Markdown](https://quarto.org/docs/authoring/markdown-basics.html) is a simple text-to-HTML conversion language used by Quarto, GitHub, Obsidian, etc.
-
-::: {.fragment .mt1}
--   It will allow us to add formatted text, images, links, lists, etc. to our Quarto documents
+:::{.tc}
+where $C$ is the number of levels in the categorical predictor and<br>
+$d_{ci}$ represents whether observation $i$ has level $c$ ($0$: no, $1$: yes)
 :::
 
-::: {.fragment .mt1}
--   Quarto will treat all text that is not in a code chunk as markdown
+#### Example 1
+$$\text{MASS}_i = \beta_0 + \beta_1 \text{MALE}_{i} + \varepsilon_i$$
+
+#### Example 2
+$$\text{MASS}_i = \beta_0 + \beta_1 \text{CHIN}_i + \beta_2 \text{GENT}_i + \varepsilon_i$$
+
+## CSR Formula Notation
+
+#### Generic
+:::{.tc}
+`y ~ 1 + f`
+
+where *f* is an unordered factor and<br>
+the first level is the reference group
 :::
 
+#### Example 1
+:::{.tc}
+`body_mass ~ 1 + sex`
 :::
 
-::: {.column .tc .pv5 width="40%"}
-{{< lif "../../icons/text_box.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+#### Example 2
+:::{.tc}
+`body_mass ~ 1 + species`
 :::
-:::
 
-## Formatting {.fsmaller}
+## CSR Path Diagram (2 Levels) {.nostretch}
 
-+-----------------------------------------+-----------------------------------------+
-| Markdown                                | Output                                  |
-+=========================================+=========================================+
-| ``` markdown                            | *italics*, **bold**, ***bold italics*** |
-| *italics*, **bold**, ***bold italics*** |                                         |
-| ```                                     |                                         |
-+-----------------------------------------+-----------------------------------------+
-| ``` markdown                            | superscript^2^ / subscript~2~           |
-| superscript^2^ / subscript~2~           |                                         |
-| ```                                     |                                         |
-+-----------------------------------------+-----------------------------------------+
-| ``` markdown                            | ~~strikethrough~~                       |
-| ~~strikethrough~~                       |                                         |
-| ```                                     |                                         |
-+-----------------------------------------+-----------------------------------------+
-| ``` markdown                            | `verbatim code`                         |
-| `verbatim code`                         |                                         |
-| ```                                     |                                         |
-+-----------------------------------------+-----------------------------------------+
+![](../../diagrams/categorical_regression_full2.png){width="70%"}
 
-## Headings {.fsmaller}
+## CSR Path Diagram (3 Levels) {.nostretch}
 
-+------------------+-----------------------------------+
-| Markdown         | Output                            |
-+==================+===================================+
-| ``` markdown     | # Heading 1 {.heading-output}     |
-| # Heading 1      |                                   |
-| ```              |                                   |
-+------------------+-----------------------------------+
-| ``` markdown     | ## Heading 2 {.heading-output}    |
-| ## Heading 2     |                                   |
-| ```              |                                   |
-+------------------+-----------------------------------+
-| ``` markdown     | ### Heading 3 {.heading-output}   |
-| ### Heading 3    |                                   |
-| ```              |                                   |
-+------------------+-----------------------------------+
-| ``` markdown     | #### Heading 4 {.heading-output}  |
-| #### Heading 4   |                                   |
-| ```              |                                   |
-+------------------+-----------------------------------+
+![](../../diagrams/categorical_regression_full3.png){width="70%"}
 
-: {tbl-colwidths="[50, 50]"}
+## Data Prep
 
-```{=html}
-<style type="text/css">
-.heading-output {
-  border-bottom: none;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-.vtop td {
-  vertical-align: top !important;
-}
-</style>
+The `sex` and `species` variables are already factors!
+
+
+```{r}
+xtabs(formula = ~ sex + species, data = penguins)
 ```
 
 
-## R Refresher {.smaller}
-1. Mathematical Operations: `+ - * / ^ ( )`
-1. Assignment and Naming: `<-`
-1. Storing Text in Strings: `"text data"`
-1. Using Built-in Functions: `sqrt(64)`
-1. Creating and Using Vectors: `c(1, 2, 3)`
-1. Installing New Packages: `install.packages("lme4")`
-1. Importing Data from Files: `df <- read.csv("file.csv")`
+But if they weren't, we would need to convert them:
+
+```{r}
+#| eval: false
+
+penguins$sex <- factor(penguins$sex)
+penguins$species <- factor(penguins$species)
+```
+
+## CSR Estimation (2 levels)
+
+```{r}
+csr_sx <- lm(
+  formula = body_mass ~ 1 + sex,
+  data = penguins
+)
+```
+
+:::{.pv4 .fragment}
+```{r}
+model_parameters(csr_sx)
+```
+
+:::{.fsmaller}
+Intercept: The predicted body mass of the reference group (female).<br />
+Slope: The difference between the named (male) and reference groups.<br />
+*On average, males had significantly higher body mass than females.*
+:::
+:::
+
+## CSR Means (2 levels)
+
+```{r}
+pred_sx <- estimate_means(csr_sx, by = "sex", estimate = "average")
+pred_sx
+```
+
+:::{.fsmaller}
+The average body mass was approx. 3862 for females and 4546 for males.
+:::
+
+## CSR Visualization (2 levels)
+
+```{r}
+#| fig-asp: 0.75
+
+plot(pred_sx, dot_size = 5, line_size = 1.5) + 
+  scale_y_continuous(limits = c(3500, 5000)) +
+  labs(x = "Sex", y = "Body Mass (g)") +
+  theme_bw(base_size = 30)
+```
+
+## CSR Estimation (3 levels)
+
+```{r}
+csr_sp <- lm(
+  formula = body_mass ~ 1 + species,
+  data = penguins
+)
+```
+
+:::{.pv4 .fragment}
+```{r}
+#| echo: true
+
+model_parameters(csr_sp)
+```
+
+:::{.fsmaller}
+Intercept: Estimated body mass for reference group (Adelie)<br />
+Slopes: Difference between named group and reference group<br />
+*Note: This table *does not* compare the Chinstrap and Gentoo groups!*
+:::
+:::
+
+## CSR Means (3 levels)
+```{r}
+pred_sp <- estimate_means(csr_sp, by = "species")
+pred_sp
+```
+
+
+## CSR Visualization (3 levels)
+
+```{r}
+#| fig-asp: 0.75
+
+plot(pred_sp, dot_size = 5, line_size = 1.5) +
+  labs(x = "Species", y = "Body Mass (g)") +
+  theme_bw(base_size = 30)
+```
+
+## CSR Pairwise Contrasts
+
+```{r}
+# Compare each pair of species
+estimate_contrasts(
+  model = csr_sp, 
+  contrast = "species", 
+  comparison = "pairwise", # <<<
+  estimate = "average",
+  p_adjust = "holm"
+)
+```
+
+## CSR Deviation Contrasts
+
+```{r}
+# Compare each group to the mean of all groups
+estimate_contrasts(
+  model = csr_sp, 
+  contrast = "species",
+  comparison = "meandev", # <<<
+  estimate = "average",
+  p_adjust = "holm"
+)
+```
+
+# Categorical MR
+
+## CMR Equation Notation {.smaller}
+
+#### Generic
+$$y_i = \beta_0 + \sum_{p=1}^P \beta_p x_{pi} + 
+\sum_{k=1}^K \sum_{c=1}^{C_k-1} \beta_{kc} d_{kci}+ 
+\varepsilon_{i}$$
+
+:::{.tc}
+where $P$ is the number of continuous predictors,<br>
+$K$ is the number of categorical predictors (each with $C_k$ levels),<br>
+and $d_{kci}$ is a dummy code for obs. $i$ in level $c$ of predictor $k$
+:::
+
+#### Example
+$$\text{MASS}_i = \beta_0 + \beta_1 \text{FLEN}_i + \beta_2 \text{MALE}_{i} + \\
+\beta_3 \text{CHIN}_i + \beta_4 \text{GENT}_i + \varepsilon_i$$
+
+## CMR Formula Notation
+
+#### Generic
+:::{.tc}
+`y ~ 1 + (x1 + ... + xP) + (f1 + ... + fK)`
+
+where $\text{x1},\ldots,\text{xP}$ are continuous predictors,<br>
+$\text{f1},\ldots,\text{fK}$ are unordered factor predictors, and<br>
+the parentheses are optional (for clarity only)
+:::
+
+#### Example
+:::{.tc}
+`body_mass ~ 1 + flipper_len + sex + species`
+:::
+
+
+## CMR Path Diagram
+
+![](../../diagrams/complex_regression_full.png)
+
+## CMR Estimation
+
+```{r}
+#| echo: true
+
+cmr <- lm(
+  formula = body_mass ~ 1 + flipper_len + sex + species,
+  data = penguins
+)
+```
+
+:::{.pv4 .fragment}
+```{r}
+#| echo: true
+
+model_parameters(cmr)
+```
+
+:::
+
+## CMR Visualization: Continuous
+
+```{r}
+#| fig-asp: 0.75
+
+pred_cmrf <- estimate_relation(cmr, by = "flipper_len", estimate = "average")
+plot(pred_cmrf, dot_size = 5, line_size = 1.5) +
+  labs(x = "Flipper Length (mm)", y = "Body Mass (g)", 
+       subtitle = "Controlling for Sex and Species") + 
+  theme_bw(base_size = 30)
+```
+
+## CMR Means
+
+```{r}
+pred_cmrs <- estimate_means(cmr, by = "species", estimate = "average")
+pred_cmrs
+```
+
+## CMR Visualization: Categorical
+
+```{r}
+#| fig-asp: 0.75
+
+plot(pred_cmrs, dot_size = 5, line_size = 1.5) +
+  labs(x = "Species", y = "Body Mass (g)", 
+       subtitle = "Controlling for Sex and Flipper Length") + 
+  theme_bw(base_size = 30)
+```
+
+## CMR Pairwise Contrasts
+
+```{r}
+estimate_contrasts(
+  model = cmr,
+  contrast = "species",
+  comparison = "pairwise", # <<<
+  estimate = "average",
+  p_adjust = "holm"
+)
+```
+
+## CMR Pairwise Contrasts
+
+```{r}
+estimate_contrasts(
+  model = cmr,
+  contrast = "species",
+  comparison = "pairwise", # <<<
+  estimate = "average",
+  p_adjust = "holm"
+)
+```
+
+## CMR Deviation Contrasts
+
+```{r}
+estimate_contrasts(
+  model = cmr,
+  contrast = "species",
+  comparison = "meandev", # <<<
+  estimate = "average",
+  p_adjust = "holm"
+)
+```
+
