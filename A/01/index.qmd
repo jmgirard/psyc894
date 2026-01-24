@@ -34,7 +34,7 @@ No Class due to MLK Day
 ```
 
 ::: {.fsmaller}
-\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu.
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.
 :::
 
 ```{=html}

@@ -1,5 +1,5 @@
 ---
-title: "Week 02: Linear Modeling Recap"
+title: "Week 02: Linear Modeling Review"
 ---
 
 <!-- 02a -->
@@ -22,7 +22,7 @@ title: "Week 02: Linear Modeling Recap"
 ```
 
 ::: {.fsmaller}
-\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu.
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.
 :::
 
 
@@ -45,7 +45,7 @@ title: "Week 02: Linear Modeling Recap"
 ```
 
 ::: {.fsmaller}
-\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu.
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.
 :::
 
 <!-- Bottom Nav -->

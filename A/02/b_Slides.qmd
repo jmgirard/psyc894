@@ -29,7 +29,7 @@ execute:
 
 ::: {.my-title}
 # [Multilevel Modeling]{.blue}
-Linear Modeling Review 2
+Linear Modeling Review (2/2)
 
 ::: {.my-grey}
 [{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
