@@ -69,7 +69,8 @@ library(marginaleffects)
 library(qqplotr)
 library(sandwich)
 
-# Set up default plot theme
+data("penguins", "mtcars", "cars", "airquality")
+
 theme_set(theme_bw(base_size = 30))
 ```
 
@@ -724,7 +725,7 @@ plot(pred_ozone, show_data = TRUE)
 #| fig-height: 6
 
 # Distributions look fair - minor violation
-check_model(fit_ozone, check = c("normality", "qq"), base_size = 18)
+check_model(fit_ozone, check = c("qq", "normality"), base_size = 18)
 ```
 
 

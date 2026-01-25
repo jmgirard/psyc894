@@ -1,0 +1,189 @@
+---
+title: "Week 02 Lab: Linear Modeling"
+name: "Enter your name here"
+format: html
+embed-resources: true
+editor: source
+---
+
+## Instructions
+
+
+In this lab, we will apply the linear modeling techniques reviewed in Lectures 02a and 02b. We will use the **easystats** ecosystem to fit models, interpret parameters, visualize interactions, and diagnose assumption violations.
+
+### How to complete this lab:
+
+1.  **Code:** Look for code chunks marked with `FIXME`. Replace `FIXME` with the correct code to make the chunk run.
+2.  **Interpretation:** Look for the sections marked **ANSWER:**. Type your written interpretation inside that block.
+3.  **Submit:** When you are finished, click **Render** and submit the resulting HTML file on Canvas. If Quarto will not render and gives you an error (e.g., about missing files), you very likely have an R error in one of your code chunks. Fix all errors and remove all "scratch work" and then try rendering again.
+
+## Introduction
+
+We will use the `swiss` dataset, built into R. This dataset contains standardized fertility measures and socio-economic indicators for each of the 47 French-speaking provinces of Switzerland around 1888.
+
+### 1. Setup & Data Preparation
+
+First, load the necessary packages and the data. We will also create a categorical variable to practice our discrete predictor skills.
+
+*Run this chunk as-is to prepare your environment.* If you get an error that it can't find a library, then make sure you have installed all five packages listed below.
+
+```{r setup}
+#| message: false
+
+# Load packages
+library(easystats)
+library(ggplot2)
+library(marginaleffects)
+library(qqplotr)
+library(sandwich)
+
+# Set random seed so bootstrapping is reproducible
+set.seed(333)
+
+# Load data
+data("swiss")
+
+# Create a binary categorical variable for Religion
+# If 'Catholic' > 50%, label as "Catholic", otherwise "Protestant"
+swiss$Religion <- factor(
+  ifelse(
+    test = swiss$Catholic > 50, 
+    yes = "Catholic", 
+    no = "Protestant"
+  )
+)
+
+# Preview the data
+data_codebook(swiss)
+```
+
+## Part 2: Simple & Multiple Regression
+
+### Question 1: Continuous Simple Regression (CSR)
+
+We hypothesize that higher education levels are associated with lower fertility rates.
+
+**Task:** Run the code below to fit a simple linear model predicting `Fertility` from `Education`.
+
+```{r}
+# 1. Fit the model
+m1_simple <- lm(
+  formula = Fertility ~ Education, 
+  data = swiss
+)
+
+# 2. Parameters
+model_parameters(m1_simple)
+
+# 3. Visualization
+pred_m1 <- estimate_relation(
+  model = m1_simple, 
+  by = "Education",
+  estimate = "average"
+)
+
+plot(pred_m1, show_data = TRUE)
+```
+
+> **ANSWER:**
+>
+> [Type your interpretation here. Is the slope significant? What does the coefficient -0.86 mean in the context of these variables?]
+
+### Question 2: Mixed Multiple Regression (MMR)
+
+We suspect that religion might be a confounder. Catholic provinces might have both lower education and higher fertility. Let's control for our new `Religion` variable.
+
+**Task:** Update the code below by replacing `FIXME` with the correct variable name to control for Religion.
+
+```{r}
+# 1. Fit the model (Additive)
+# We want to predict Fertility from Education AND Religion
+m2_multiple <- lm(Fertility ~ Education + FIXME, data = swiss)
+
+# 2. Parameters
+model_parameters(m2_multiple)
+
+# 3. Estimated Means
+# Calculate the expected mean Fertility for Catholic vs. Protestant
+estimate_means(
+  model = m2_multiple, 
+  by = "FIXME", 
+  estimate = "average"
+)
+```
+
+> **ANSWER:**
+>
+> [Type your interpretation here. Compare the Education slope in `m1_simple` vs `m2_multiple`. Did controlling for Religion change the effect of Education? Why or why not?]
+
+# Part 3: Moderation
+
+## Question 3: Continuous-by-Discrete Moderation (CDM)
+
+In Question 2, we controlled for Religion. Now, let's test for **moderation**. We want to know if the relationship between `Education` and `Fertility` is *different* for Catholic vs. Protestant provinces.
+
+**Task:** Replace `FIXME` below to create an **interaction** term between `Education` and `Religion`.
+
+```{r}
+# 1. Fit the interaction model
+# Use the asterisk (*) to request the interaction and main effects
+m3_interaction <- lm(Fertility ~ Education * FIXME, data = swiss)
+
+# 2. Parameters
+model_parameters(m3_interaction)
+
+# 3. Visualization (Simple Slopes Plot)
+# We want to visualize the Education slope split by Religion
+# Replace FIXME with "Religion" to split the lines by group
+pred_m3 <- estimate_relation(
+  m3_interaction, 
+  by = c("Education", "FIXME"),
+  estimate = "average"
+)
+
+plot(pred_m3, show_data = TRUE) +
+  labs(title = "Moderation of Education Effect by Religion")
+```
+
+> **ANSWER:**
+>
+> [Type your interpretation here. Look at the interaction term (`Education:ReligionProtestant`). Is it significant? Looking at the plot, is the Education slope steeper for one group than the other?]
+
+# Part 4: Assumptions & Diagnostics
+
+## Question 4: Checking Assumptions
+
+Now that we have fitted our interaction model (`m3_interaction`), we must verify that it meets the assumptions of linear modeling.
+
+**Task:** Use `check_model()` to inspect Linearity, Homogeneity, and Normality for the interaction model. Replace `FIXME` with the name of the interaction model object you created in Question 3.
+
+```{r}
+#| fig-height: 8
+#| fig-width: 10
+
+# Pass the correct model object to the function
+check_model(
+  model = FIXME, 
+  check = c("linearity", "homogeneity", "qq", "normality")
+)
+```
+
+## Question 5: Bootstrapping
+
+You likely noticed that the **Normality** assumption (Q-Q plot) looks suspect, which is common in small datasets like this one ($N=47$). To address this without relying on the assumption that errors are perfectly normal, we can use **bootstrapping** to generate empirical confidence intervals and p-values.
+
+**Task:** Re-estimate the parameters for the interaction model using bootstrapping.
+
+```{r}
+# Standard parameters (for comparison)
+model_parameters(m3_interaction)
+
+# Bootstrapped parameters
+# Replace FIXME with TRUE to enable bootstrapping
+# We will use 2000 iterations as recommended in lecture
+model_parameters(m3_interaction, bootstrap = FIXME, iterations = 2000)
+```
+
+> **ANSWER:**
+>
+> [Type your conclusion here. Compare the Confidence Intervals (CI) in the Standard vs. Bootstrapped output. Did the interaction term remaining significant (i.e., does the CI exclude zero)?]

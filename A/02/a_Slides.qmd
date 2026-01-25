@@ -57,17 +57,16 @@ Linear Modeling Review (1/2)
 
 :::
 
-# R Setup
-
-## Load Packages
+##  R Setup
 
 ```{r}
 #| message: false
 
-# install.packages(c("easystats", "ggplot2", "marginaleffects"))
 library(easystats)
 library(ggplot2)
 library(marginaleffects)
+
+data("penguins")
 ```
 
 :::{.fsmaller}
