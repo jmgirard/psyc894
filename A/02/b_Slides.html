@@ -224,8 +224,9 @@
 <span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qqplotr)</span>
 <span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
 <span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Set up default plot theme</span></span>
-<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"penguins"</span>, <span class="st">"mtcars"</span>, <span class="st">"cars"</span>, <span class="st">"airquality"</span>)</span>
+<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fsmaller">
 <p><strong>New Packages:</strong></p>
@@ -1053,7 +1054,7 @@ speed       |        3.93 | 0.43 | [  3.07,  4.79] |  9.20 | &lt; .001</code></p
 <h2>Diagnostic</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Distributions look fair - minor violation</span></span>
-<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(fit_ozone, <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"normality"</span>, <span class="st">"qq"</span>), <span class="at">base_size =</span> <span class="dv">18</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(fit_ozone, <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"qq"</span>, <span class="st">"normality"</span>), <span class="at">base_size =</span> <span class="dv">18</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-20-1.png" width="1152" class="r-stretch"></section>
@@ -1091,8 +1092,8 @@ Wind        |       -5.55 | 0.69 | [-6.92,  -4.18] |  -8.04 | &lt; .001</code></
 <div class="cell-output cell-output-stdout">
 <pre><code>Parameter   | Coefficient |          95% CI |      p
 ----------------------------------------------------
-(Intercept) |       96.71 | [78.41, 115.03] | &lt; .001
-Wind        |       -5.54 | [-7.25,  -3.96] | &lt; .001</code></pre>
+(Intercept) |       97.00 | [79.13, 115.05] | &lt; .001
+Wind        |       -5.56 | [-7.24,  -4.03] | &lt; .001</code></pre>
 </div>
 </div>
 <div class="fsmaller">
