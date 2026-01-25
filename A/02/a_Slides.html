@@ -223,10 +223,21 @@
 <section class="slide level2">
 <h2>Load Packages</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("easystats", "marginaleffects", "ggplot2"))</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("easystats", "ggplot2", "marginaleffects"))</span></span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
-<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
-<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fsmaller">
+<h4>Needs to be loaded</h4>
+<ul>
+<li><span class="b blue">easystats</span> will provide most of our statistical functions</li>
+<li><span class="b blue">ggplot2</span> will provide the ability to customize our plots</li>
+</ul>
+<h4>Needs to be installed</h4>
+<ul>
+<li><span class="b green">marginaleffects</span> is called by easystats for estimation</li>
+</ul>
 </div>
 </section>
 <section class="slide level2">
@@ -269,11 +280,11 @@ ID | Name        | Type        |  Missings |       Values |           N
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Simple Regression</h1>
-
+<h1>CSR</h1>
+<p>Continuous Simple Regression</p>
 </section>
 <section class="slide level2 smaller">
-<h2>Simple Regression</h2>
+<h2>CSR Overview</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ul>
@@ -302,21 +313,17 @@ ID | Name        | Type        |  Missings |       Values |           N
 </div></div>
 </section>
 <section class="slide level2">
-<h2>SR Equation Notation</h2>
+<h2>CSR Equation</h2>
 <h4>Generic</h4>
 <p><span class="math display">\[y_i = \beta_0 + \beta_1 x_{i} + \varepsilon_{i}\]</span></p>
-<div class="tc">
-<p>where <span class="math inline">\(y_i\)</span> is the continuous response value for observation <span class="math inline">\(i\)</span>,<br> <span class="math inline">\(x_i\)</span> is the continuous predictor value for observation <span class="math inline">\(i\)</span>,<br> <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are the estimated intercept and slope, and<br> <span class="math inline">\(\varepsilon_i\)</span> is the estimated residual (error) for observation <span class="math inline">\(i\)</span></p>
-</div>
 <h4>Example</h4>
 <p><span class="math display">\[\text{MASS}_i = \beta_0 + \beta_1 \text{FLEN}_{i} + \varepsilon_i\]</span></p>
 </section>
 <section class="slide level2">
-<h2>SR Formula Notation</h2>
+<h2>CSR Formula</h2>
 <h4>Generic</h4>
 <div class="tc">
 <p><code>y ~ 1 + x</code></p>
-<p>where <em>y</em> is the response variable name,<br> <em>1</em> tells R to estimate the intercept,<br> and <em>x</em> is the continuous predictor variable name</p>
 </div>
 <h4>Example</h4>
 <div class="tc">
@@ -324,20 +331,20 @@ ID | Name        | Type        |  Missings |       Values |           N
 </div>
 </section>
 <section class="slide level2 nostretch">
-<h2>SR Path Diagram</h2>
+<h2>CSR Diagram</h2>
 <p><img data-src="../../diagrams/simple_regression_full.png" style="width:75.0%"></p>
 </section>
 <section class="slide level2">
-<h2>SR Estimation</h2>
+<h2>CSR Estimation</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>sr_f <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>csr_f <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len,</span>
 <span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins</span>
 <span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="pv4 fragment">
+<div class="pv4">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(sr_f)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(csr_f)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Parameter   | Coefficient |     SE |               95% CI | t(340) |      p
 ---------------------------------------------------------------------------
@@ -345,22 +352,27 @@ ID | Name        | Type        |  Missings |       Values |           N
 flipper len |       49.69 |   1.52 | [   46.70,    52.67] |  32.72 | &lt; .001</code></pre>
 </div>
 </div>
-<div class="fsmaller">
-<p>Intercept: Predict a penguin with 0mm flipper length has –5781g body mass.<br> Slope: Predict increase of 1mm flipper length increases body mass by 49.7g.<br> <em>Conclude: Flipper length is significantly (and positively) related to body mass.</em></p>
-</div>
 </div>
 </section>
+<section class="slide level2 smaller">
+<h2>CSR Interpretation</h2>
+<ul>
+<li><p><strong>Intercept</strong> <span class="math inline">\((\beta_0 = -5780.8\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The body mass (g) expected for a penguin with a flipper length of 0mm.<br> <em>This is biologically impossible, suggesting we should center our predictor.</em></p></li>
+<li><p><strong>Flipper Length Slope</strong> <span class="math inline">\((\beta_1 = 49.7\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The expected change in body mass (g) for every 1mm increase in flipper length.</p></li>
+<li><p><strong>Conclusion</strong><br> Flipper length is significantly and positively related to body mass.</p></li>
+</ul>
+</section>
 <section class="slide level2">
-<h2>SR Centering</h2>
+<h2>CSR Centering</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>penguins_c <span class="ot">&lt;-</span> <span class="fu">center</span>(penguins, <span class="at">select =</span> <span class="st">"flipper_len"</span>)</span>
-<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>sr_f_c <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len, <span class="at">data =</span> penguins_c)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>csr_f_c <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len, <span class="at">data =</span> penguins_c)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="pv4 fragment">
+<div class="pv4">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">compare_parameters</span>(sr_f, sr_f_c, <span class="at">select =</span> <span class="st">"{estimate}{stars}"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">compare_parameters</span>(csr_f, csr_f_c, <span class="at">select =</span> <span class="st">"{estimate}{stars}"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Parameter    |        sr_f |     sr_f_c
+<pre><code>Parameter    |       csr_f |    csr_f_c
 ---------------------------------------
 (Intercept)  | -5780.83*** | 4201.75***
 flipper len  |    49.69*** |   49.69***
@@ -369,21 +381,21 @@ Observations |         342 |        342</code></pre>
 </div>
 </div>
 <div class="fsmaller">
-<p>The slope doesn’t change, but the intercept does and is now the predicted body mass for a penguin with <em>average</em> flipper length (rather than 0mm).</p>
+<p><strong>Note:</strong> The slope <span class="math inline">\((\beta_1)\)</span> does not change. However, the intercept <span class="math inline">\((\beta_0)\)</span> is now the expected body mass for a penguin with <strong><em>average</em></strong> flipper length.</p>
 </div>
 </div>
 </section>
 <section class="slide level2">
-<h2>SR Standardizing</h2>
+<h2>CSR Standardizing</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>penguins_z <span class="ot">&lt;-</span> <span class="fu">standardize</span>(penguins, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"body_mass"</span>, <span class="st">"flipper_len"</span>))</span>
-<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>sr_f_z <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len, <span class="at">data =</span> penguins_z)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>csr_f_z <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len, <span class="at">data =</span> penguins_z)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="pv4 fragment">
+<div class="pv4">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">compare_parameters</span>(sr_f, sr_f_z, <span class="at">select =</span> <span class="st">"{estimate}{stars}"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">compare_parameters</span>(csr_f, csr_f_z, <span class="at">select =</span> <span class="st">"{estimate}{stars}"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Parameter    |        sr_f |      sr_f_z
+<pre><code>Parameter    |       csr_f |     csr_f_z
 ----------------------------------------
 (Intercept)  | -5780.83*** |    1.02e-15
 flipper len  |    49.69*** |     0.87***
@@ -392,50 +404,89 @@ Observations |         342 |         342</code></pre>
 </div>
 </div>
 <div class="fsmaller">
-<p>The intercept is now zero and the slope is now the change in body mass in SD units (rather than grams) associated with a change of 1 SD in flipper length.</p>
+<p><strong>Note:</strong> The intercept is now zero. The slope is now the change in body mass in <strong>Standard Deviations (SDs)</strong> for a 1 SD increase in flipper length.</p>
 </div>
 </div>
 </section>
 <section class="slide level2">
-<h2>SR Visualization</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>pred_srf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(sr_f, <span class="at">by =</span> <span class="st">"flipper_len"</span>)</span>
-<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_srf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
+<h2>CSR Visualization</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>pred_csrf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> csr_f, </span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"flipper_len"</span></span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_csrf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="576"></p>
+</figure>
 </div>
-<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
+</div>
+</div></div>
+</section>
 <section class="slide level2">
-<h2>Visualization Customization</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_srf, <span class="at">show_data =</span> <span class="cn">TRUE</span>, <span class="at">dot_size =</span> <span class="dv">5</span>, <span class="at">line_size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">2500</span>, <span class="dv">6500</span>)) <span class="sc">+</span></span>
-<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>, <span class="at">y =</span> <span class="st">"Body mass (g)"</span>) <span class="sc">+</span></span>
-<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
+<h2>Plot Customization</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Use the black-and-white theme and</span></span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># use 30pt font for all future plots</span></span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>))</span>
+<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb14-6"><a aria-hidden="true" tabindex="-1"></a>  pred_csrf, </span>
+<span id="cb14-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">show_data =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">point =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"salmon"</span>),</span>
+<span id="cb14-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">line =</span> <span class="fu">list</span>(<span class="at">linewidth =</span> <span class="fl">1.5</span>)</span>
+<span id="cb14-10"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb14-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">scale_y_continuous</span>(</span>
+<span id="cb14-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">2500</span>, <span class="dv">6500</span>)</span>
+<span id="cb14-13"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb14-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb14-15"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>, </span>
+<span id="cb14-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">"Body mass (g)"</span></span>
+<span id="cb14-17"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="624"></p>
+</figure>
 </div>
-<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section></section>
+</div>
+</div></div>
+</section></section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Multiple Regression</h1>
-
+<h1>CMR</h1>
+<p>Continuous Multiple Regression</p>
 </section>
 <section class="slide level2 smaller">
-<h2>Multiple Regression</h2>
+<h2>CMR Overview</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ul>
-<li>We can also include <span class="b blue">multiple predictors</span> to assess the <span class="b green">partial effect</span> of each predictor
+<li>We can include <span class="b blue">multiple predictors</span> to assess the <span class="b green">unique effect</span> of each predictor
 <ul>
-<li>This allows us to account for the variance shared by the predictors and the outcome</li>
+<li>This controls for the variance shared between predictors (collinearity)</li>
 </ul></li>
 </ul>
 <div class="fragment mt1">
 <ul>
-<li>This changes the slopes’ interpretations
+<li>This changes the interpretation of slopes
 <ul>
-<li>The slope of <span class="math inline">\(x_1\)</span> is no longer just the change in <span class="math inline">\(y\)</span> expected for a change of 1 in <span class="math inline">\(x_1\)</span></li>
-<li>It is now the change in <span class="math inline">\(y\)</span> expected for a change of 1 in <span class="math inline">\(x_1\)</span> <strong>when controlling for <span class="math inline">\(x_2\)</span></strong></li>
-<li>The slope of <span class="math inline">\(x_2\)</span> similarly controls for <span class="math inline">\(x_1\)</span></li>
+<li><strong>Simple Regression:</strong> “zero-order” or Total Effect</li>
+<li><strong>Multiple Regression:</strong> “partial” or Unique Effect</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li>Interpretation:
+<ul>
+<li>The partial effect of a predictor is the change in <span class="math inline">\(y\)</span> expected for a change of 1 in that predictor, <strong>while holding all other predictors constant</strong></li>
 </ul></li>
 </ul>
 </div>
@@ -444,42 +495,38 @@ Observations |         342 |         342</code></pre>
 </div></div>
 </section>
 <section class="slide level2">
-<h2>MR Equation Notation</h2>
+<h2>CMR Equation</h2>
 <h4>Generic</h4>
-<p><span class="math display">\[y_i = \beta_0 + \sum_{p=1}^P \beta_p x_{pi} + \varepsilon_{i}\]</span></p>
-<div class="tc">
-<p>where <span class="math inline">\(P\)</span> is the number of predictors</p>
-</div>
-<h4>Example</h4>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \dots + \varepsilon_{i}\]</span></p>
+<h4>Example (with 2 predictors)</h4>
 <p><span class="math display">\[\text{MASS}_i = \beta_0 + \beta_1 \text{FLEN}_{i} + \beta_2 \text{BDEP}_{i} + \varepsilon_i\]</span></p>
 </section>
 <section class="slide level2">
-<h2>MR Formula Notation</h2>
+<h2>CMR Formula</h2>
 <h4>Generic</h4>
 <div class="tc">
-<p><code>y ~ 1 + x1 + ... + xP</code></p>
-<p>where <span class="math inline">\(\text{x1},\ldots,\text{xP}\)</span> are the predictor variable names</p>
+<p><code>y ~ 1 + x1 + x2 + ...</code></p>
 </div>
-<h4>Example</h4>
+<h4>Example (with 2 predictors)</h4>
 <div class="tc">
 <p><code>body_mass ~ 1 + flipper_len + bill_dep</code></p>
 </div>
 </section>
 <section class="slide level2 nostretch">
-<h2>MR Path Diagram</h2>
+<h2>CMR Diagram</h2>
 <p><img data-src="../../diagrams/multiple_regression_full.png" style="width:70.0%"></p>
 </section>
 <section class="slide level2">
-<h2>MR Estimation</h2>
+<h2>CMR Estimation</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>mr_fb <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>cmr_fb <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
 <span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len <span class="sc">+</span> bill_dep,</span>
 <span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins</span>
 <span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="pv4 fragment">
+<div class="pv4">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(mr_fb)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(cmr_fb)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Parameter   | Coefficient |     SE |               95% CI | t(339) |      p
 ---------------------------------------------------------------------------
@@ -488,21 +535,27 @@ flipper len |       51.54 |   1.87 | [   47.87,    55.21] |  27.64 | &lt; .001
 bill dep    |       22.63 |  13.28 | [   -3.49,    48.76] |   1.70 | 0.089 </code></pre>
 </div>
 </div>
-<div class="fsmaller">
-<p>The intercept is body mass when all predictors equal 0. Flipper length was significantly related to body mass while controlling for bill depth. Bill depth was not significantly related to body mass while controlling for flipper length.</p>
-</div>
 </div>
 </section>
+<section class="slide level2 smaller">
+<h2>CMR Interpretation</h2>
+<ul>
+<li><p><strong>Intercept</strong> <span class="math inline">\((\beta_0 = -6541.9\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The body mass (g) expected when both Flipper Length and Bill Depth are 0mm.</p></li>
+<li><p><strong>Flipper Length Partial Effect</strong> <span class="math inline">\((\beta_1 = 51.5\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The expected change in body mass (g) for every 1mm increase in Flipper Length,<br> <em>holding Bill Depth constant</em>.</p></li>
+<li><p><strong>Bill Depth Partial Effect</strong> <span class="math inline">\((\beta_2 = 22.6\)</span>, <span class="math inline">\(p=.089)\)</span><br> The expected change in body mass (g) for every 1mm increase in Bill Depth,<br> <em>holding Flipper Length constant</em>.</p></li>
+<li><p><strong>Conclusion</strong><br> Flipper length is uniquely predictive of Body Mass, whereas Bill Depth is not.</p></li>
+</ul>
+</section>
 <section class="slide level2">
-<h2>SR vs.&nbsp;MR Estimates</h2>
+<h2>Comparing Estimates</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>sr_b <span class="ot">&lt;-</span> <span class="fu">lm</span>(body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> bill_dep, <span class="at">data =</span> penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>csr_b <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> bill_dep, <span class="at">data =</span> penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="pv4 fragment">
+<div class="pv4">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">compare_parameters</span>(sr_f, sr_b, mr_fb, <span class="at">select =</span> <span class="st">"{estimate}{stars}"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">compare_parameters</span>(csr_f, csr_b, cmr_fb, <span class="at">select =</span> <span class="st">"{estimate}{stars}"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Parameter    |        sr_f |       sr_b |       mr_fb
+<pre><code>Parameter    |       csr_f |      csr_b |      cmr_fb
 -----------------------------------------------------
 (Intercept)  | -5780.83*** | 7488.65*** | -6541.91***
 flipper len  |    49.69*** |            |    51.54***
@@ -512,22 +565,19 @@ Observations |         342 |        342 |         342</code></pre>
 </div>
 </div>
 </div>
-<div class="f1 fragment">
-<ul>
-<li>The slopes from SR are called “zero-order” (total) effects.</li>
-<li>The slopes from MR are called “partial” (unique) effects.</li>
-</ul>
+<div class="fsmaller">
+<p>Notice that Bill Depth was significant on its own (<code>csr_b</code>), but loses significance when Flipper Length is added (<code>cmr_fb</code>). This is because Flipper Length “explains away” the variance.</p>
 </div>
 </section>
 <section class="slide level2">
-<h2>SR vs.&nbsp;MR Visualization (FLEN)</h2>
+<h2>Comparing Plots 1</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>pred_srf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
-<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>  sr_f, <span class="at">by =</span> <span class="st">"flipper_len"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a>pred_csrf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> csr_f, <span class="at">by =</span> <span class="st">"flipper_len"</span></span>
 <span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_srf) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_csrf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -538,10 +588,10 @@ Observations |         342 |        342 |         342</code></pre>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>pred_mrf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
-<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>  mr_fb, <span class="at">by =</span> <span class="st">"flipper_len"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>pred_cmrf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> cmr_fb, <span class="at">by =</span> <span class="st">"flipper_len"</span></span>
 <span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_mrf) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_cmrf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -553,14 +603,14 @@ Observations |         342 |        342 |         342</code></pre>
 </div></div>
 </section>
 <section class="slide level2">
-<h2>SR vs.&nbsp;MR Visualization (BDEP)</h2>
+<h2>Comparing Plots 2</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>pred_srb <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
-<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  sr_b, <span class="at">by =</span> <span class="st">"bill_dep"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>pred_csrb <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> csr_b, <span class="at">by =</span> <span class="st">"bill_dep"</span></span>
 <span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_srb) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_csrb)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -571,10 +621,10 @@ Observations |         342 |        342 |         342</code></pre>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>pred_mrb <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
-<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>  mr_fb, <span class="at">by =</span> <span class="st">"bill_dep"</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>pred_cmrb <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> cmr_fb, <span class="at">by =</span> <span class="st">"bill_dep"</span></span>
 <span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_mrb) <span class="sc">+</span> <span class="fu">theme_bw</span>(<span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_cmrb)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -587,165 +637,89 @@ Observations |         342 |        342 |         342</code></pre>
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Categorical Predictors</h1>
-
+<h1>DSR</h1>
+<p>Discrete Simple Regression</p>
 </section>
 <section class="slide level2 smaller">
-<h2>Categorical Predictors</h2>
+<h2>DSR Overview</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ul>
-<li>To include categorical predictors in regression models, we can use <span class="b blue">dummy coding</span>
+<li>To include a discrete predictor, the model will automatically use <span class="b blue">dummy coding</span>
 <ul>
-<li>This creates binary predictor variables</li>
+<li>This creates binary <span class="math inline">\((0/1)\)</span> “switches”</li>
 </ul></li>
 </ul>
 <div class="fragment mt1">
 <ul>
-<li>One <span class="b green">reference group</span> does not get a slope
+<li>One group is chosen as the <span class="b green">Reference Group</span>
 <ul>
-<li>Instead, it controls the model intercept</li>
-<li>All other groups’ slopes are just deviations from the intercept</li>
+<li>This group is represented by the <em>Intercept</em></li>
+<li>The slopes for other groups represent differences from the reference</li>
 </ul></li>
 </ul>
 </div>
 <div class="fragment mt1">
 <ul>
-<li>There is no need to create dummy codes in R
+<li>In R, simply include a <span class="b green">factor</span> in the formula
 <ul>
-<li>Just include a <span class="b green">factor</span> as a predictor variable</li>
-<li>The <strong>first level</strong> will be the reference group</li>
+<li>R treats the first level as the Reference group</li>
+<li>You can create a factor if needed using <code>factor()</code></li>
 </ul></li>
 </ul>
 </div>
 </div><div class="column tc pv5" style="width:40%;">
 <p><lord-icon src="../../icons/theater.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-</section></section>
-<section>
-<section class="title-slide slide level1 center">
-<h1>Categorical SR</h1>
-
 </section>
 <section class="slide level2 smaller">
-<h2>CSR Equation Notation</h2>
+<h2>DSR Equation</h2>
 <h4>Generic</h4>
-<p><span class="math display">\[y_i = \beta_0 + \sum_{c=1}^{C-1} \beta_c d_{ci} + \varepsilon_{i}\]</span></p>
-<div class="tc">
-<p>where <span class="math inline">\(C\)</span> is the number of levels in the categorical predictor and<br> <span class="math inline">\(d_{ci}\)</span> represents whether observation <span class="math inline">\(i\)</span> has level <span class="math inline">\(c\)</span> (<span class="math inline">\(0\)</span>: no, <span class="math inline">\(1\)</span>: yes)</p>
-</div>
-<h4>Example 1</h4>
-<p><span class="math display">\[\text{MASS}_i = \beta_0 + \beta_1 \text{MALE}_{i} + \varepsilon_i\]</span></p>
-<h4>Example 2</h4>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 D_{1i} + \dots + \varepsilon_{i}\]</span></p>
+<h4>Example (with 3 Groups)</h4>
 <p><span class="math display">\[\text{MASS}_i = \beta_0 + \beta_1 \text{CHIN}_i + \beta_2 \text{GENT}_i + \varepsilon_i\]</span></p>
 </section>
 <section class="slide level2">
-<h2>CSR Formula Notation</h2>
+<h2>DSR Formula</h2>
 <h4>Generic</h4>
 <div class="tc">
 <p><code>y ~ 1 + f</code></p>
-<p>where <em>f</em> is an unordered factor and<br> the first level is the reference group</p>
 </div>
-<h4>Example 1</h4>
-<div class="tc">
-<p><code>body_mass ~ 1 + sex</code></p>
-</div>
-<h4>Example 2</h4>
+<h4>Example (with 3 Groups)</h4>
 <div class="tc">
 <p><code>body_mass ~ 1 + species</code></p>
 </div>
 </section>
 <section class="slide level2 nostretch">
-<h2>CSR Path Diagram (2 Levels)</h2>
-<p><img data-src="../../diagrams/categorical_regression_full2.png" style="width:70.0%"></p>
-</section>
-<section class="slide level2 nostretch">
-<h2>CSR Path Diagram (3 Levels)</h2>
+<h2>DSR Diagram</h2>
 <p><img data-src="../../diagrams/categorical_regression_full3.png" style="width:70.0%"></p>
 </section>
 <section class="slide level2">
-<h2>Data Prep</h2>
-<p>The <code>sex</code> and <code>species</code> variables are already factors!</p>
+<h2>DSR Data Prep</h2>
+<p>The <code>species</code> variable is already a factor!</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">xtabs</span>(<span class="at">formula =</span> <span class="sc">~</span> sex <span class="sc">+</span> species, <span class="at">data =</span> penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(penguins<span class="sc">$</span>species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        species
-sex      Adelie Chinstrap Gentoo
-  female     73        34     58
-  male       73        34     61</code></pre>
+<pre><code>   Adelie Chinstrap    Gentoo 
+      152        68       124 </code></pre>
 </div>
 </div>
-<p>But if they weren’t, we would need to convert them:</p>
+<p>But if it wasn’t, we would need to convert it:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>penguins<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(penguins<span class="sc">$</span>sex)</span>
-<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>penguins<span class="sc">$</span>species <span class="ot">&lt;-</span> <span class="fu">factor</span>(penguins<span class="sc">$</span>species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>penguins<span class="sc">$</span>species <span class="ot">&lt;-</span> <span class="fu">factor</span>(penguins<span class="sc">$</span>species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section class="slide level2">
-<h2>CSR Estimation (2 levels)</h2>
+<h2>DSR Estimation</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>csr_sx <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> sex,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>dsr_s <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> species,</span>
 <span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins</span>
 <span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="pv4 fragment">
+<div class="pv4">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(csr_sx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Parameter   | Coefficient |    SE |             95% CI | t(331) |      p
-------------------------------------------------------------------------
-(Intercept) |     3862.27 | 56.83 | [3750.48, 3974.06] |  67.96 | &lt; .001
-sex [male]  |      683.41 | 80.01 | [ 526.02,  840.80] |   8.54 | &lt; .001</code></pre>
-</div>
-</div>
-<div class="fsmaller">
-<p>Intercept: The predicted body mass of the reference group (female).<br> Slope: The difference between the named (male) and reference groups.<br> <em>On average, males had significantly higher body mass than females.</em></p>
-</div>
-</div>
-</section>
-<section class="slide level2">
-<h2>CSR Means (2 levels)</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a>pred_sx <span class="ot">&lt;-</span> <span class="fu">estimate_means</span>(csr_sx, <span class="at">by =</span> <span class="st">"sex"</span>, <span class="at">estimate =</span> <span class="st">"average"</span>)</span>
-<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a>pred_sx</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Average Predictions
-
-sex    |    Mean |    SE |             95% CI | t(331)
-------------------------------------------------------
-female | 3862.27 | 56.83 | [3750.48, 3974.06] |  67.96
-male   | 4545.68 | 56.32 | [4434.90, 4656.47] |  80.71
-
-Variable predicted: body_mass
-Predictors modulated: sex</code></pre>
-</div>
-</div>
-<div class="fsmaller">
-<p>The average body mass was approx. 3862 for females and 4546 for males.</p>
-</div>
-</section>
-<section class="slide level2">
-<h2>CSR Visualization (2 levels)</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_sx, <span class="at">dot_size =</span> <span class="dv">5</span>, <span class="at">line_size =</span> <span class="fl">1.5</span>) <span class="sc">+</span> </span>
-<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">3500</span>, <span class="dv">5000</span>)) <span class="sc">+</span></span>
-<span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sex"</span>, <span class="at">y =</span> <span class="st">"Body Mass (g)"</span>) <span class="sc">+</span></span>
-<span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
-</div>
-<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-24-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2">
-<h2>CSR Estimation (3 levels)</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a>csr_sp <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> species,</span>
-<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins</span>
-<span id="cb34-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="pv4 fragment">
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(csr_sp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(dsr_s)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Parameter           | Coefficient |    SE |             95% CI | t(339) |      p
 --------------------------------------------------------------------------------
@@ -754,49 +728,27 @@ species [Chinstrap] |       32.43 | 67.51 | [-100.37,  165.22] |   0.48 | 0.631
 species [Gentoo]    |     1375.35 | 56.15 | [1264.91, 1485.80] |  24.50 | &lt; .001</code></pre>
 </div>
 </div>
-<div class="fsmaller">
-<p>Intercept: Estimated body mass for reference group (Adelie)<br> Slopes: Difference between named group and reference group<br> <em>Note: This table </em>does not* compare the Chinstrap and Gentoo groups!*</p>
-</div>
 </div>
 </section>
-<section class="slide level2">
-<h2>CSR Means (3 levels)</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a>pred_sp <span class="ot">&lt;-</span> <span class="fu">estimate_means</span>(csr_sp, <span class="at">by =</span> <span class="st">"species"</span>)</span>
-<span id="cb37-2"><a aria-hidden="true" tabindex="-1"></a>pred_sp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Estimated Marginal Means
-
-species   |    Mean |    SE |             95% CI | t(339)
----------------------------------------------------------
-Adelie    | 3700.66 | 37.62 | [3626.67, 3774.66] |  98.37
-Chinstrap | 3733.09 | 56.06 | [3622.82, 3843.36] |  66.59
-Gentoo    | 5076.02 | 41.68 | [4994.03, 5158.00] | 121.78
-
-Variable predicted: body_mass
-Predictors modulated: species</code></pre>
-</div>
-</div>
+<section class="slide level2 smaller">
+<h2>DSR Interpretation</h2>
+<ul>
+<li><p><strong>Intercept</strong> <span class="math inline">\((\beta_0 = 3700.7\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The predicted body mass (g) for the Reference Group (Adelie).</p></li>
+<li><p><strong>Species [Chinstrap] Total Effect</strong> <span class="math inline">\((\beta_1 = 32.4\)</span>, <span class="math inline">\(p=.631)\)</span><br> The body mass difference between Chinstrap and Adelie.<br> <em>Result:</em> Not significant. Chinstraps are roughly the same size as Adelies.</p></li>
+<li><p><strong>Species [Gentoo] Total Effect</strong> <span class="math inline">\((\beta_2 = 1375.4\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The body mass difference between Gentoo and Adelie.<br> <em>Result:</em> Significant. Gentoos are much larger than Adelies.</p></li>
+<li><p><strong>What’s Missing?</strong><br> We know how all groups compare to Adelie, but do Chinstraps differ from Gentoos?<br> Standard regression output doesn’t tell us. We need contrasts…</p></li>
+</ul>
 </section>
 <section class="slide level2">
-<h2>CSR Visualization (3 levels)</h2>
+<h2>DSR Pairwise Contrasts</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_sp, <span class="at">dot_size =</span> <span class="dv">5</span>, <span class="at">line_size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Species"</span>, <span class="at">y =</span> <span class="st">"Body Mass (g)"</span>) <span class="sc">+</span></span>
-<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
-</div>
-<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-28-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2">
-<h2>CSR Pairwise Contrasts</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
-<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> csr_sp, </span>
-<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>, </span>
-<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"pairwise"</span>, <span class="co"># compare pairs of groups</span></span>
-<span id="cb40-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
-<span id="cb40-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
-<span id="cb40-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
+<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> dsr_s, </span>
+<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>, </span>
+<span id="cb31-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"pairwise"</span>, <span class="co"># compare pairs of groups</span></span>
+<span id="cb31-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
+<span id="cb31-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
+<span id="cb31-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Averaged Contrasts Analysis
 
@@ -815,13 +767,13 @@ p-value adjustment method: Holm (1979)</code></pre>
 <section class="slide level2">
 <h2>CSR Deviation Contrasts</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
-<span id="cb42-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> csr_sp, </span>
-<span id="cb42-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>,</span>
-<span id="cb42-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"meandev"</span>, <span class="co"># compare groups to mean of all</span></span>
-<span id="cb42-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
-<span id="cb42-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
-<span id="cb42-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
+<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> dsr_s, </span>
+<span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>,</span>
+<span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"meandev"</span>, <span class="co"># compare groups to mean of all</span></span>
+<span id="cb33-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
+<span id="cb33-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
+<span id="cb33-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Averaged Contrasts Analysis
 
@@ -836,88 +788,20 @@ Predictors contrasted: species
 p-value adjustment method: Holm (1979)</code></pre>
 </div>
 </div>
-</section></section>
-<section>
-<section class="title-slide slide level1 center">
-<h1>Categorical MR</h1>
-
-</section>
-<section class="slide level2 smaller">
-<h2>CMR Equation Notation</h2>
-<h4>Generic</h4>
-<p><span class="math display">\[y_i = \beta_0 + \sum_{p=1}^P \beta_p x_{pi} +
-\sum_{k=1}^K \sum_{c=1}^{C_k-1} \beta_{kc} d_{kci}+
-\varepsilon_{i}\]</span></p>
-<div class="tc">
-<p>where <span class="math inline">\(P\)</span> is the number of continuous predictors,<br> <span class="math inline">\(K\)</span> is the number of categorical predictors (each with <span class="math inline">\(C_k\)</span> levels),<br> and <span class="math inline">\(d_{kci}\)</span> is a dummy code for obs. <span class="math inline">\(i\)</span> in level <span class="math inline">\(c\)</span> of predictor <span class="math inline">\(k\)</span></p>
-</div>
-<h4>Example</h4>
-<p><span class="math display">\[\text{MASS}_i = \beta_0 + \beta_1 \text{FLEN}_i + \beta_2 \text{MALE}_{i} + \\
-\beta_3 \text{CHIN}_i + \beta_4 \text{GENT}_i + \varepsilon_i\]</span></p>
 </section>
 <section class="slide level2">
-<h2>CMR Formula Notation</h2>
-<h4>Generic</h4>
-<div class="tc">
-<p><code>y ~ 1 + (x1 + ... + xP) + (f1 + ... + fK)</code></p>
-<p>where <span class="math inline">\(\text{x1},\ldots,\text{xP}\)</span> are continuous predictors,<br> <span class="math inline">\(\text{f1},\ldots,\text{fK}\)</span> are unordered factor predictors, and<br> the parentheses are optional (for clarity only)</p>
-</div>
-<h4>Example</h4>
-<div class="tc">
-<p><code>body_mass ~ 1 + flipper_len + sex + species</code></p>
-</div>
-</section>
-<section class="slide level2">
-<h2>CMR Path Diagram</h2>
-
-<img data-src="../../diagrams/complex_regression_full.png" class="r-stretch"></section>
-<section class="slide level2">
-<h2>CMR Estimation</h2>
+<h2>DSR Means</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a aria-hidden="true" tabindex="-1"></a>cmr <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb44-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len <span class="sc">+</span> sex <span class="sc">+</span> species,</span>
-<span id="cb44-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins</span>
-<span id="cb44-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="pv4 fragment">
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(cmr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a>pred_dsrs <span class="ot">&lt;-</span> <span class="fu">estimate_means</span>(dsr_s, <span class="at">by =</span> <span class="st">"species"</span>)</span>
+<span id="cb35-2"><a aria-hidden="true" tabindex="-1"></a>pred_dsrs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Parameter           | Coefficient |     SE |              95% CI | t(328) |      p
-----------------------------------------------------------------------------------
-(Intercept)         |     -365.82 | 532.05 | [-1412.48,  680.84] |  -0.69 | 0.492 
-flipper len         |       20.02 |   2.85 | [   14.43,   25.62] |   7.04 | &lt; .001
-sex [male]          |      530.38 |  37.81 | [  456.00,  604.76] |  14.03 | &lt; .001
-species [Chinstrap] |      -87.63 |  46.35 | [ -178.81,    3.54] |  -1.89 | 0.060 
-species [Gentoo]    |      836.26 |  85.19 | [  668.68, 1003.84] |   9.82 | &lt; .001</code></pre>
-</div>
-</div>
-</div>
-</section>
-<section class="slide level2">
-<h2>CMR Visualization: Continuous</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a>pred_cmrf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(cmr, <span class="at">by =</span> <span class="st">"flipper_len"</span>, <span class="at">estimate =</span> <span class="st">"average"</span>)</span>
-<span id="cb47-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_cmrf, <span class="at">dot_size =</span> <span class="dv">5</span>, <span class="at">line_size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb47-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Flipper Length (mm)"</span>, <span class="at">y =</span> <span class="st">"Body Mass (g)"</span>, </span>
-<span id="cb47-4"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Controlling for Sex and Species"</span>) <span class="sc">+</span> </span>
-<span id="cb47-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>Estimated Marginal Means
 
-</div>
-<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-33-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2">
-<h2>CMR Means</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a aria-hidden="true" tabindex="-1"></a>pred_cmrs <span class="ot">&lt;-</span> <span class="fu">estimate_means</span>(cmr, <span class="at">by =</span> <span class="st">"species"</span>, <span class="at">estimate =</span> <span class="st">"average"</span>)</span>
-<span id="cb48-2"><a aria-hidden="true" tabindex="-1"></a>pred_cmrs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Average Predictions
-
-species   |    Mean |    SE |             95% CI | t(328)
+species   |    Mean |    SE |             95% CI | t(339)
 ---------------------------------------------------------
-Adelie    | 3706.16 | 24.46 | [3658.04, 3754.28] | 151.51
-Chinstrap | 3733.09 | 35.84 | [3662.58, 3803.60] | 104.15
-Gentoo    | 5092.44 | 27.09 | [5039.14, 5145.74] | 187.95
+Adelie    | 3700.66 | 37.62 | [3626.67, 3774.66] |  98.37
+Chinstrap | 3733.09 | 56.06 | [3622.82, 3843.36] |  66.59
+Gentoo    | 5076.02 | 41.68 | [4994.03, 5158.00] | 121.78
 
 Variable predicted: body_mass
 Predictors modulated: species</code></pre>
@@ -925,33 +809,155 @@ Predictors modulated: species</code></pre>
 </div>
 </section>
 <section class="slide level2">
-<h2>CMR Visualization: Categorical</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_cmrs, <span class="at">dot_size =</span> <span class="dv">5</span>, <span class="at">line_size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb50-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Species"</span>, <span class="at">y =</span> <span class="st">"Body Mass (g)"</span>, </span>
-<span id="cb50-3"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Controlling for Sex and Flipper Length"</span>) <span class="sc">+</span> </span>
-<span id="cb50-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
+<h2>DSR Visualization</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_dsrs) <span class="sc">+</span></span>
+<span id="cb37-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb37-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Species"</span>,</span>
+<span id="cb37-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body Mass (g)"</span></span>
+<span id="cb37-5"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-26-1.png" width="624"></p>
+</figure>
 </div>
-<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-35-1.png" width="960" class="r-stretch"></section>
+</div>
+</div></div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>MMR</h1>
+<p>Mixed Multiple Regression</p>
+</section>
+<section class="slide level2 smaller">
+<h2>MMR Equation</h2>
+<h4>Generic</h4>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 x_{1i} + \dots +\beta_2 D_{1i} + \dots + \varepsilon_{i}\]</span></p>
+<h4>Example (with 1 continuous predictor and 3 groups)</h4>
+<p><span class="math display">\[\text{MASS}_i = \beta_0 + \beta_1 \text{FLEN}_i + \beta_2 \text{CHIN}_i + \beta_3 \text{GENT}_i + \varepsilon_i\]</span></p>
+</section>
 <section class="slide level2">
-<h2>CMR Pairwise Contrasts</h2>
+<h2>MMR Formula</h2>
+<h4>Generic</h4>
+<div class="tc">
+<p><code>y ~ 1 + x1 + ... + f1 + ...</code></p>
+</div>
+<h4>Example (with 1 continuous and 3 groups)</h4>
+<div class="tc">
+<p><code>body_mass ~ 1 + flipper_len + species</code></p>
+</div>
+</section>
+<section class="slide level2">
+<h2>MMR Diagram</h2>
+
+<img data-src="../../diagrams/complex_regression_full.png" class="r-stretch"></section>
+<section class="slide level2">
+<h2>MMR Estimation</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
-<span id="cb51-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> cmr,</span>
-<span id="cb51-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>,</span>
-<span id="cb51-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"pairwise"</span>, <span class="co"># compare pairs of groups</span></span>
-<span id="cb51-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
-<span id="cb51-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
-<span id="cb51-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a>mmr_fs <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb38-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len <span class="sc">+</span> species,</span>
+<span id="cb38-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins</span>
+<span id="cb38-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="pv4">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(mmr_fs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter           | Coefficient |     SE |               95% CI | t(338) |      p
+-----------------------------------------------------------------------------------
+(Intercept)         |    -4031.48 | 584.15 | [-5180.51, -2882.45] |  -6.90 | &lt; .001
+flipper len         |       40.71 |   3.07 | [   34.66,    46.75] |  13.25 | &lt; .001
+species [Chinstrap] |     -206.51 |  57.73 | [ -320.07,   -92.95] |  -3.58 | &lt; .001
+species [Gentoo]    |      266.81 |  95.26 | [   79.43,   454.19] |   2.80 | 0.005 </code></pre>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>MMR Slope Visualization</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a>pred_mmrf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb41-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> mmr_fs, </span>
+<span id="cb41-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"flipper_len"</span>, </span>
+<span id="cb41-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span></span>
+<span id="cb41-5"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_mmrf) <span class="sc">+</span></span>
+<span id="cb41-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb41-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Flipper Length (mm)"</span>, </span>
+<span id="cb41-9"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body Mass (g)"</span>, </span>
+<span id="cb41-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Controlling for Species"</span></span>
+<span id="cb41-11"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-29-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>MMR Means</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a aria-hidden="true" tabindex="-1"></a>pred_mmrs <span class="ot">&lt;-</span> <span class="fu">estimate_means</span>(mmr_fs, <span class="at">by =</span> <span class="st">"species"</span>, <span class="at">estimate =</span> <span class="st">"average"</span>)</span>
+<span id="cb42-2"><a aria-hidden="true" tabindex="-1"></a>pred_mmrs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Average Predictions
+
+species   |    Mean |    SE |             95% CI | t(338)
+---------------------------------------------------------
+Adelie    | 3700.66 | 30.56 | [3640.55, 3760.78] | 121.09
+Chinstrap | 3733.09 | 45.54 | [3643.51, 3822.67] |  81.97
+Gentoo    | 5076.02 | 33.86 | [5009.41, 5142.62] | 149.91
+
+Variable predicted: body_mass
+Predictors modulated: species</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>MMR Means Visualization</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_mmrs) <span class="sc">+</span></span>
+<span id="cb44-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb44-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Species"</span>, </span>
+<span id="cb44-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body Mass (g)"</span>, </span>
+<span id="cb44-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Controlling for Flipper Length"</span></span>
+<span id="cb44-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-31-1.png" width="624"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>MMR Pairwise Contrasts</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
+<span id="cb45-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> mmr_fs,</span>
+<span id="cb45-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>,</span>
+<span id="cb45-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"pairwise"</span>, <span class="co"># compare each group to each other group</span></span>
+<span id="cb45-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
+<span id="cb45-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
+<span id="cb45-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Averaged Contrasts Analysis
 
-Level1    | Level2    | Difference |    SE |             95% CI | t(328) |      p
+Level1    | Level2    | Difference |    SE |             95% CI | t(338) |      p
 ---------------------------------------------------------------------------------
-Chinstrap | Adelie    |      26.92 | 43.39 | [ -58.44,  112.29] |   0.62 |  0.535
-Gentoo    | Adelie    |    1386.27 | 36.50 | [1314.46, 1458.08] |  37.98 | &lt; .001
-Gentoo    | Chinstrap |    1359.35 | 44.93 | [1270.96, 1447.74] |  30.25 | &lt; .001
+Chinstrap | Adelie    |      32.43 | 54.84 | [ -75.45,  140.30] |   0.59 |  0.555
+Gentoo    | Adelie    |    1375.35 | 45.61 | [1285.63, 1465.07] |  30.15 | &lt; .001
+Gentoo    | Chinstrap |    1342.93 | 56.75 | [1231.30, 1454.55] |  23.66 | &lt; .001
 
 Variable predicted: body_mass
 Predictors contrasted: species
@@ -960,23 +966,23 @@ p-value adjustment method: Holm (1979)</code></pre>
 </div>
 </section>
 <section class="slide level2">
-<h2>CMR Deviation Contrasts</h2>
+<h2>MMR Deviation Contrasts</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
-<span id="cb53-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> cmr,</span>
-<span id="cb53-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>,</span>
-<span id="cb53-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"meandev"</span>, <span class="co"># compare groups to mean of all</span></span>
-<span id="cb53-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
-<span id="cb53-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
-<span id="cb53-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(</span>
+<span id="cb47-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> mmr_fs,</span>
+<span id="cb47-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="st">"species"</span>,</span>
+<span id="cb47-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">comparison =</span> <span class="st">"meandev"</span>, <span class="co"># compare each group to the mean of all groups</span></span>
+<span id="cb47-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span>,</span>
+<span id="cb47-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">p_adjust =</span> <span class="st">"holm"</span></span>
+<span id="cb47-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Averaged Contrasts Analysis
 
-Level1    | Level2 | Difference |    SE |             95% CI | t(328) |      p
+Level1    | Level2 | Difference |    SE |             95% CI | t(338) |      p
 ------------------------------------------------------------------------------
-Adelie    | Mean   |    -471.07 | 22.14 | [-514.62, -427.51] | -21.28 | &lt; .001
-Chinstrap | Mean   |    -444.14 | 26.81 | [-496.89, -391.39] | -16.56 | &lt; .001
-Gentoo    | Mean   |     915.21 | 23.14 | [ 869.68,  960.73] |  39.55 | &lt; .001
+Adelie    | Mean   |    -469.26 | 27.80 | [-523.95, -414.57] | -16.88 | &lt; .001
+Chinstrap | Mean   |    -436.83 | 33.95 | [-503.62, -370.05] | -12.87 | &lt; .001
+Gentoo    | Mean   |     906.09 | 29.05 | [ 848.96,  963.23] |  31.19 | &lt; .001
 
 Variable predicted: body_mass
 Predictors contrasted: species

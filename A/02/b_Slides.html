@@ -29,6 +29,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-0b5db92d115c8c04db4ce50e7f546384.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -150,9 +214,419 @@
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>R Setup</h1>
 
 </section>
+<section class="slide level2">
+<h2>Load Packages</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("easystats", "marginaleffects", "ggplot2", "qqplotr"))</span></span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qqplotr)</span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Set up default plot theme</span></span>
+<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fsmaller">
+<h4>Needs to be loaded</h4>
+<ul>
+<li><span class="b blue">easystats</span> will provide most of our statistical functions</li>
+<li><span class="b blue">ggplot2</span> will provide the ability to customize our plots</li>
+</ul>
+<h4>Needs to be installed</h4>
+<ul>
+<li><span class="b green">marginaleffects</span> is called by easystats for estimation</li>
+<li><span class="b green">qqplotr</span> is called by easystats for certain diagnostics</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Example Dataset</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data_codebook</span>(penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>penguins (344 rows and 8 variables, 8 shown)
+
+ID | Name        | Type        |  Missings |       Values |           N
+---+-------------+-------------+-----------+--------------+------------
+1  | species     | categorical |  0 (0.0%) |       Adelie | 152 (44.2%)
+   |             |             |           |    Chinstrap |  68 (19.8%)
+   |             |             |           |       Gentoo | 124 (36.0%)
+---+-------------+-------------+-----------+--------------+------------
+2  | island      | categorical |  0 (0.0%) |       Biscoe | 168 (48.8%)
+   |             |             |           |        Dream | 124 (36.0%)
+   |             |             |           |    Torgersen |  52 (15.1%)
+---+-------------+-------------+-----------+--------------+------------
+3  | bill_len    | numeric     |  2 (0.6%) | [32.1, 59.6] |         342
+---+-------------+-------------+-----------+--------------+------------
+4  | bill_dep    | numeric     |  2 (0.6%) | [13.1, 21.5] |         342
+---+-------------+-------------+-----------+--------------+------------
+5  | flipper_len | integer     |  2 (0.6%) |   [172, 231] |         342
+---+-------------+-------------+-----------+--------------+------------
+6  | body_mass   | integer     |  2 (0.6%) | [2700, 6300] |         342
+---+-------------+-------------+-----------+--------------+------------
+7  | sex         | categorical | 11 (3.2%) |       female | 165 (49.5%)
+   |             |             |           |         male | 168 (50.5%)
+---+-------------+-------------+-----------+--------------+------------
+8  | year        | integer     |  0 (0.0%) |         2007 | 110 (32.0%)
+   |             |             |           |         2008 | 114 (33.1%)
+   |             |             |           |         2009 | 120 (34.9%)
+-----------------------------------------------------------------------</code></pre>
+</div>
+</div>
+<div class="fsmaller">
+<p><em>Note that this dataset is already included with recent versions of R.</em></p>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Moderation</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Moderation</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ul>
+<li>We may want to know if the effect of one predictor <span class="b green">depends on</span> the value on another predictor</li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>To answer these, we can test <span class="b blue">interaction effects</span>
+<ul>
+<li>Interaction effects are just slopes for the <span class="b green">product</span> of two or more predictors</li>
+<li>Centering continous predictors is helpful</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment mt1">
+<ul>
+<li>Types of bivariate moderation
+<ul>
+<li>Continuous-by-Continuous Moderation (CCM)</li>
+<li>Continuous-by-Discrete Moderation (CDM)</li>
+<li>Discrete-by-Discrete Moderation (DDM)</li>
+<li>Higher-order (e.g., three-way) Moderation</li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column tc pv5" style="width:40%;">
+<p><lord-icon src="../../icons/signpost.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>CCM</h1>
+<p>Continuous-by-Continuous Moderation</p>
+</section>
+<section class="slide level2">
+<h2>CCM Equation</h2>
+<h4>Generic</h4>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 (x_{1i} x_{2i}) + \varepsilon_{i}\]</span></p>
+<h4>Example</h4>
+<p><span class="math display">\[\text{MASS}_i = \beta_0 + \beta_1 \text{FLEN}_{i} + \beta_2 \text{BDEP}_{i} + \\
+\beta_3 \text{FLEN}_i \text{BDEP}_i + \varepsilon_i\]</span></p>
+</section>
+<section class="slide level2">
+<h2>CCM Formula</h2>
+<h4>Generic</h4>
+<div class="tc">
+<p><code>y ~ 1 + x1 * x2</code></p>
+</div>
+<h4>Example</h4>
+<div class="tc">
+<p><code>body_mass ~ 1 + flipper_len * bill_dep</code></p>
+</div>
+</section>
+<section class="slide level2 nostretch">
+<h2>CCM Diagram</h2>
+<p><img data-src="../../diagrams/cc_moderation_full.png" style="width:50.0%"></p>
+</section>
+<section class="slide level2">
+<h2>CCM Estimation</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>penguins_c <span class="ot">&lt;-</span> <span class="fu">center</span>(penguins, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"flipper_len"</span>, <span class="st">"bill_dep"</span>))</span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>ccm_fb <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len <span class="sc">*</span> bill_dep,</span>
+<span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins_c</span>
+<span id="cb4-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="pv4">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(ccm_fb)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter              | Coefficient |    SE |             95% CI | t(338) |      p
+-----------------------------------------------------------------------------------
+(Intercept)            |     4062.79 | 29.56 | [4004.65, 4120.93] | 137.46 | &lt; .001
+flipper len            |       48.63 |  1.82 | [  45.05,   52.22] |  26.71 | &lt; .001
+bill dep               |       44.64 | 13.02 | [  19.04,   70.25] |   3.43 | &lt; .001
+flipper len × bill dep |       -8.60 |  1.34 | [ -11.23,   -5.96] |  -6.41 | &lt; .001</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>CCM Interpretation</h2>
+<p>After centering the flipper length and bill depth predictors, …</p>
+<ul>
+<li><p><strong>Intercept</strong> <span class="math inline">\((\beta_0=4063.8\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The expected body mass for a penguin with average flipper length and bill depth.</p></li>
+<li><p><strong>Flipper Length Simple Effect</strong> <span class="math inline">\((\beta_1=48.6\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The expected change in body mass associated with an increase of 1mm flipper length,<br><em>specifically for a penguin with average bill depth</em>.</p></li>
+<li><p><strong>Bill Depth Simple Effect</strong> <span class="math inline">\((\beta_2=44.6\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The expected change in body mass associated with an increase of 1mm bill depth,<br><em>specifically for a penguin with average flipper length</em>.</p></li>
+<li><p><strong>Flipper-Length-by-Bill-Depth Interaction Effect</strong> <span class="math inline">\((\beta_3=-8.6\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The expected change in the slope of one predictor for an increase of 1 in the other.<br> <em>The negative sign here means the flipper length effect gets weaker as bills get deeper.</em></p></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>CCM Visualization 1</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>pred_ccmf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> ccm_fb, </span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(</span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"flipper_len"</span>, </span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"bill_dep = [quartiles]"</span></span>
+<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>  ), </span>
+<span id="cb7-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span></span>
+<span id="cb7-8"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_ccmf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="624"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Flipper Length"</span>, </span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body Mass"</span>, </span>
+<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Bill Depth"</span>, </span>
+<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Bill Depth"</span></span>
+<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NULL</code></pre>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>CCM Visualization 2</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>pred_ccmb <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> ccm_fb, </span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(</span>
+<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"bill_dep"</span>, </span>
+<span id="cb10-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"flipper_len = [quartiles]"</span></span>
+<span id="cb10-6"><a aria-hidden="true" tabindex="-1"></a>  ), </span>
+<span id="cb10-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span></span>
+<span id="cb10-8"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_ccmb) <span class="sc">+</span></span>
+<span id="cb10-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-12"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Bill Depth"</span>, </span>
+<span id="cb10-13"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body Mass"</span>, </span>
+<span id="cb10-14"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Flipper Length"</span>, </span>
+<span id="cb10-15"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Flipper Length"</span></span>
+<span id="cb10-16"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>CCM Simple Slopes 1</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(</span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> ccm_fb, </span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">trend =</span> <span class="st">"flipper_len"</span>, </span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"bill_dep = [quartiles]"</span></span>
+<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated Marginal Effects
+
+bill_dep | Slope |   SE |         95% CI | t(338) |      p
+----------------------------------------------------------
+-1.55    | 61.97 | 2.40 | [57.25, 66.69] |  25.84 | &lt; .001
+0.15     | 47.35 | 1.88 | [43.65, 51.05] |  25.18 | &lt; .001
+1.55     | 35.32 | 3.08 | [29.25, 41.38] |  11.45 | &lt; .001
+
+Marginal effects estimated for flipper_len
+Type of slope was dY/dX</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>CCM Simple Slopes 2</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(</span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> ccm_fb, </span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">trend =</span> <span class="st">"bill_dep"</span>, </span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"flipper_len = [quartiles]"</span></span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated Marginal Effects
+
+flipper_len |  Slope |    SE |           95% CI | t(338) |      p
+-----------------------------------------------------------------
+-10.91      | 138.47 | 22.01 | [ 95.17, 181.77] |   6.29 | &lt; .001
+-3.92       |  78.30 | 15.28 | [ 48.25, 108.34] |   5.13 | &lt; .001
+12.09       | -59.25 | 17.90 | [-94.46, -24.03] |  -3.31 |  0.001
+
+Marginal effects estimated for bill_dep
+Type of slope was dY/dX</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>CDM</h1>
+<p>Continuous-by-Discrete Moderation</p>
+</section>
+<section class="slide level2 smaller">
+<h2>CDM Equation</h2>
+<h4>Generic</h4>
+<p><span class="math display">\[
+\begin{aligned}
+y_i &amp;= \overbrace{(\beta_0 + \beta_2 D_{1i} + \dots)}^{\text{Group-Specific Intercept}}
++ \overbrace{(\beta_1 + \beta_3 D_{1i} + \dots)}^{\text{Group-Specific Slope}} \cdot x_i
++ \varepsilon_i
+\end{aligned}
+\]</span></p>
+<h4>Example</h4>
+<p><span class="math display">\[
+\begin{aligned}
+\text{MASS}_i &amp;= (\beta_0 + \beta_2 \text{CHIN}_{i} + \beta_3 \text{GENT}_i) \\
+&amp;\quad + (\beta_1 + \beta_4 \text{CHIN}_{i} + \beta_5 \text{GENT}_i) \cdot \text{FLEN}_i
++ \varepsilon_i
+\end{aligned}
+\]</span></p>
+</section>
+<section class="slide level2">
+<h2>CDM Formula</h2>
+<h4>Generic</h4>
+<div class="tc">
+<p><code>y ~ 1 + x * f</code></p>
+</div>
+<h4>Example</h4>
+<div class="tc">
+<p><code>mass ~ 1 + flipper * species</code></p>
+</div>
+</section>
+<section class="slide level2 nostretch">
+<h2>CDM Diagram</h2>
+<p><img data-src="../../diagrams/cb_moderation_full.png" style="width:50.0%"></p>
+</section>
+<section class="slide level2">
+<h2>CDM Estimation</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>penguins_c <span class="ot">&lt;-</span> <span class="fu">center</span>(penguins, <span class="at">select =</span> <span class="st">"flipper_len"</span>)</span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>cdm_fs <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len <span class="sc">*</span> species, </span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins_c</span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="pv4">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(cdm_fs) <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">select =</span> <span class="st">"minimal"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter                         | Coefficient |             95% CI |      p
+-----------------------------------------------------------------------------
+(Intercept)                       |     4060.55 | [3944.47, 4176.62] | &lt; .001
+flipper len                       |       32.83 | [  23.73,   41.93] | &lt; .001
+species [Chinstrap]               |     -151.42 | [-310.58,    7.73] | 0.062 
+species [Gentoo]                  |      126.66 | [ -85.98,  339.31] | 0.242 
+flipper len × species [Chinstrap] |        1.74 | [ -13.71,   17.19] | 0.825 
+flipper len × species [Gentoo]    |       21.79 | [   8.14,   35.44] | 0.002 </code></pre>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>CDM Interpretation 1</h2>
+<p>After centering the Flipper Length predictor and setting Adelie as reference, …</p>
+<ul>
+<li><p><strong>Intercept</strong> <span class="math inline">\((\beta_0=4060.6\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The expected body mass for an Adelie penguin with average flipper length.</p></li>
+<li><p><strong>Flipper Length Simple Effect</strong> <span class="math inline">\((\beta_1=32.8\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The expected change in mass associated with an increase of 1mm flipper length,<br><em>specifically for the reference group (Adelie)</em>.</p></li>
+<li><p><strong>Chinstrap Simple Effect</strong> <span class="math inline">\((\beta_2=-151.4\)</span>, <span class="math inline">\(p=.062)\)</span><br> The difference in expected mass between Chinstrap and Adelie penguins,<br><em>specifically for penguins with average flipper length</em>.</p></li>
+<li><p><strong>Gentoo Simple Effect</strong> <span class="math inline">\((\beta_3=126.7\)</span>, <span class="math inline">\(p=.242)\)</span><br> The difference in expected mass between Gentoo and Adelie penguins,<br><em>specifically for penguins with average flipper length</em>.</p></li>
+</ul>
+</section>
+<section class="slide level2 smaller">
+<h2>CDM Interpretation 2</h2>
+<ul>
+<li><p><strong>Flipper-by-Chinstrap Interaction Effect</strong> <span class="math inline">\((\beta_4=1.7\)</span>, <span class="math inline">\(p=.825)\)</span><br> The adjustment to the flipper slope for Chinstraps compared to Adelies.<br> <em>The flipper–mass relationship is not significantly different for Chinstraps and Adelies.</em></p></li>
+<li><p><strong>Flipper-by-Gentoo Interaction Effect</strong> <span class="math inline">\((\beta_5=21.8\)</span>, <span class="math inline">\(p=.002)\)</span><br> The adjustment to the flipper slope for Gentoos compared to Adelies.<br> <em>The flipper–mass relationship is significantly steeper for Gentoos than for Adelies.</em></p></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>CDM Visualization</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>pred_cdmf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> cdm_fs, </span>
+<span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(</span>
+<span id="cb18-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"flipper_len"</span>, </span>
+<span id="cb18-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"species"</span></span>
+<span id="cb18-6"><a aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb18-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span></span>
+<span id="cb18-8"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_cdmf) <span class="sc">+</span></span>
+<span id="cb18-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb18-11"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Flipper Length"</span>,</span>
+<span id="cb18-12"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body Mass"</span>,</span>
+<span id="cb18-13"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Species"</span>,</span>
+<span id="cb18-14"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Species"</span></span>
+<span id="cb18-15"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb18-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="816"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>CDM Simple Slopes</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(</span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> cdm_fs, </span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">trend =</span> <span class="st">"flipper_len"</span>, </span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"species"</span></span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated Marginal Effects
+
+species   | Slope |   SE |         95% CI | t(336) |      p
+-----------------------------------------------------------
+Adelie    | 32.83 | 4.63 | [23.73, 41.93] |   7.10 | &lt; .001
+Chinstrap | 34.57 | 6.33 | [22.11, 47.03] |   5.46 | &lt; .001
+Gentoo    | 54.62 | 5.17 | [44.46, 64.79] |  10.57 | &lt; .001
+
+Marginal effects estimated for flipper_len
+Type of slope was dY/dX</code></pre>
+</div>
+</div>
+<div class="fsmaller">
+<p><em>Notice the Gentoo slope (54.6) is the Adelie slope (32.8) plus the interaction (21.8).</em></p>
+</div>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -368,6 +842,82 @@
         ]
       });
     </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
