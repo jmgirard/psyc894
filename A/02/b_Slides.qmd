@@ -380,3 +380,137 @@ estimate_slopes(
 :::{.fsmaller}
 *Notice the Gentoo slope (54.6) is the Adelie slope (32.8) plus the interaction (21.8).*
 :::
+
+## A Formula Resource {.smaller}
+
+<table width="100%">
+<tr>
+  <th>Formula</th>
+  <th colspan=7>Slopes Estimated</th>
+</tr>
+<tr>
+  <td width="30%">`y ~ x`</td>
+  <td width="10%">$x$</td>
+  <td width="10%"></td>
+  <td width="10%"></td>
+  <td width="10%"></td>
+  <td width="10%"></td>
+  <td width="10%"></td>
+  <td width="10%"></td>
+</tr>
+<tr>
+  <td>`y ~ x + w`</td>
+  <td>$x$</td>
+  <td>$w$</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>`y ~ x * w`</td>
+  <td>$x$</td>
+  <td>$w$</td>
+  <td></td>
+  <td>$xw$</td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>`y ~ x + w + z`</td>
+  <td>$x$</td>
+  <td>$w$</td>
+  <td>$z$</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>`y ~ x * w + z`</td>
+  <td>$x$</td>
+  <td>$w$</td>
+  <td>$z$</td>
+  <td>$xw$</td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>`y ~ x * (w + z)`</td>
+  <td>$x$</td>
+  <td>$w$</td>
+  <td>$z$</td>
+  <td>$xw$</td>
+  <td>$xz$</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>`y ~ (x + w + z)^2`</td>
+  <td>$x$</td>
+  <td>$w$</td>
+  <td>$z$</td>
+  <td>$xw$</td>
+  <td>$xz$</td>
+  <td>$wz$</td>
+  <td></td>
+</tr>
+<tr>
+  <td>`y ~ x * w * z`</td>
+  <td>$x$</td>
+  <td>$w$</td>
+  <td>$z$</td>
+  <td>$xw$</td>
+  <td>$xz$</td>
+  <td>$wz$</td>
+  <td>$xwz$</td>
+</tr>
+</table>
+
+::: {.pv4 .f3}
+Note that predictors can be continuous or discrete, but if a discrete predictor has more than two levels, you will end up with additional slopes due to dummy coding. To represent $g$ groups, it will create $g-1$ dummy codes (with a slope for each).
+:::
+
+# Assumptions
+
+## Specification Assumptions {.smaller}
+
+- **Linearity in the Coefficients**
+    + The effect of each predictor is additive and proportional to its slope
+    + [Classic]{.safe}: $y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \varepsilon_i$
+    + [Still Okay]{.safe}: $y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \varepsilon_i$
+    + [Not Okay]{.danger}: $y_i = \beta_0 + \beta_1 \beta_2 x_i + \varepsilon_i$
+    + [Not Okay]{.danger}: $y_i = \beta_0 + e^{\beta_1 x_i} + \varepsilon_i$
+    
+- **No Multicollinearity**
+    + None of the predictors are fully redundant with one another
+
+
+## Residual Assumptions {.smaller}
+
+$$
+\begin{align}
+y_i &= \beta_0 + \beta_1 x_{1i} + \dots + \varepsilon_i \\
+\varepsilon_i &\overset{\text{iid}}{\sim}\text{Normal}(0, \sigma^2)
+\end{align}
+$$
+
+- The residuals $(\varepsilon_i)$ are assumed to be "IID"
+    + <u>**I**</u>ndependent of one another (no clustering or autocorrelation)
+        + *Relaxing this assumption is the main goal of multilevel modeling*
+    + <u>**I**</u>dentically <u>**D**</u>istributed 
+        + Across the line, the residuals form a normal distribution (normality)
+        + Across the line, the residuals have a constant mean of $0$ (zero conditional mean)
+        + Across the line, the resiudals have a constant variance of $\sigma^2$ (homoskedasticity)
+
+## Additional Assumptions
+
+- **For causal modeling especially...**
+    + All relevant predictors (confounders) are included
+    + No "backdoor" causal paths (colliders) are included
+    + All predictors are fully reliable (no measurement error)
+    + The residuals are independent of all the predictors
+    + The predictors are not influenced by the outcome

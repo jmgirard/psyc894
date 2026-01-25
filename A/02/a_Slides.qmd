@@ -522,7 +522,7 @@ estimate_contrasts(
 )
 ```
 
-## CSR Deviation Contrasts
+## DSR Deviation Contrasts
 
 ```{r}
 estimate_contrasts(
