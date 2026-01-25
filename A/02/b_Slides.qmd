@@ -44,11 +44,11 @@ Linear Modeling Review (2/2)
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
-1. Moderation
+1. Continous-by-Continous<br />Variable Moderation
   
-2. Assumptions
+2. Continuous-by-Discrete<br />Variable Moderation
 
-3. Diagnostics
+3. Assumptions, Diagnostics,<br />and Extensions of LM
 
 :::
 
@@ -58,43 +58,27 @@ Linear Modeling Review (2/2)
 
 :::
 
-# R Setup
-
-## Load Packages
+## Setup
 
 ```{r}
 #| message: false
 
-# install.packages(c("easystats", "marginaleffects", "ggplot2", "qqplotr"))
 library(easystats)
 library(ggplot2)
 library(marginaleffects)
 library(qqplotr)
+library(sandwich)
 
 # Set up default plot theme
 theme_set(theme_bw(base_size = 30))
 ```
 
 :::{.fsmaller}
-- [easystats]{.b .blue} will provide most of our statistical functions
-- [ggplot2]{.b .blue} will provide the ability to customize our plots
-- [marginaleffects]{.b .green} is called by easystats for estimation
-- [qqplotr]{.b .green} is called by easystats for certain diagnostics
+**New Packages:**
 
+- [qqplotr]{.b .green} is called by easystats to add CIs to diagnostic plots
+- [sandwich]{.b .green} is called by easystats to implement HC3 corrections
 :::
-
-## Example Dataset
-
-```{r}
-data_codebook(penguins)
-```
-
-::: {.fsmaller}
-*Note that this dataset is already included with recent versions of R.*
-:::
-
-
-# Moderation
 
 ## Moderation {.smaller}
 
@@ -188,7 +172,7 @@ The expected change in the slope of one predictor for an increase of 1 in the ot
 
 ```{r}
 #| fig-asp: 1
-#| fig-width: 6.5
+#| fig-width: 8
 #| output-location: column
 
 pred_ccmf <- estimate_relation(
@@ -200,7 +184,7 @@ pred_ccmf <- estimate_relation(
   estimate = "average"
 )
 
-plot(pred_ccmf)
+plot(pred_ccmf) +
   labs(
     x = "Flipper Length", 
     y = "Body Mass", 
@@ -214,7 +198,7 @@ plot(pred_ccmf)
 
 ```{r}
 #| fig-asp: 1
-#| #| fig-width: 6.5
+#| fig-width: 9
 #| output-location: column
 
 pred_ccmb <- estimate_relation(
@@ -471,43 +455,321 @@ estimate_slopes(
 Note that predictors can be continuous or discrete, but if a discrete predictor has more than two levels, you will end up with additional slopes due to dummy coding. To represent $g$ groups, it will create $g-1$ dummy codes (with a slope for each).
 :::
 
-# Assumptions
+# Linearity Assumption
 
-## Specification Assumptions {.smaller}
+## Overview {.smaller}
 
-- **Linearity in the Coefficients**
-    + The effect of each predictor is additive and proportional to its slope
-    + [Classic]{.safe}: $y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \varepsilon_i$
-    + [Still Okay]{.safe}: $y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \varepsilon_i$
-    + [Not Okay]{.danger}: $y_i = \beta_0 + \beta_1 \beta_2 x_i + \varepsilon_i$
-    + [Not Okay]{.danger}: $y_i = \beta_0 + e^{\beta_1 x_i} + \varepsilon_i$
+- **The Assumption:** The model matches the shape of the data
+    + We assume the relationship is a straight line (additive)
+    + *Intuition:* A one-unit increase in $x$ always produces the same increase in $y$
+
+- **The Problem:** Mismatched shapes (misspecification)
+    + Real relationships are often curved (practice effects, diminishing returns)
+    + If we force a straight line onto a curve, our predictions will be wrong
+
+- **The Solution:** Flexible modeling
+    + *Simple Fix:* For basic curves, we add polynomial (e.g., quadratic) terms
+    + *Advanced Fix:* For complex shapes, we use generalized additive modeling (GAM)
+    + *Takeaway:* We transform the predictors to allow the model to bend
+
+## Example
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r model-vis}
+#| echo: true
+#| fig.show: "hide"
+
+# Does horsepower predict mpg?
+fit_line <- lm(
+  formula = mpg ~ 1 + hp, 
+  data = mtcars
+)
+pred_line <- estimate_relation(
+  model = fit_line, 
+  by = "hp"
+)
+plot(pred_line, show_data = TRUE)
+```
+
+:::{.fsmaller}
+**Note:** Adding horsepower hurts fuel economy, but this levels off (you can't go below 0 mpg), creating the curve that the linear model misses.
+:::
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-asp: 1
+#| fig-width: 6.5
+#| ref.label: "model-vis"
+```
+:::
+
+::::
+
+## Diagnostic
+
+```{r}
+#| fig-width: 8
+#| fig-height: 4
+
+# The reference line looks bad - major violation
+check_model(fit_line, check = "linearity", base_size = 16)
+```
+
+## Simple Fix {.smaller}
+
+- **The Trick:** Transform the Data, not the Parameters.
+  + We can model curves by adding a squared term ($x^2$) as a new predictor.
+  + [Still Linear]{.green}: $y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \varepsilon_i$
+  + We can do this in R easily using `poly(x, degree = 2)` or `poly(x, 2)`
+  + Since we are still just adding weighted terms, this remains a Linear Model (LM).
+
+- **True Non-Linear Models (The "Illegal" Move):**
+  + [Not Linear]{.red}: $y_i = \beta_0 \cdot x_i^{\beta_1}$
+  + Here, the parameter is an exponent. This requires different math!
+
+## Implementation
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r model-poly}
+#| echo: true
+#| fig.show: "hide"
+
+fit_poly <- lm(
+  formula = mpg ~ 1 + 
+    poly(hp, 2, raw = TRUE), 
+  data = mtcars
+)
+
+pred_poly <- estimate_relation(
+  model = fit_poly, 
+  by = "hp"
+)
+plot(pred_poly, show_data = TRUE)
+```
+
+:::{.fsmaller}
+**Note:** By allowing the line to bend or curve (quadratically), we capture the relationship accurately.
+:::
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-asp: 1
+#| fig-width: 6.5
+#| ref.label: "model-poly"
+```
+:::
+
+::::
+
+# Homogeneity Assumption
+
+## Overview {.smaller}
+
+- **The Assumption:** The model is equally reliable everywhere
+    + We assume the error is constant for all participants
+    + *Intuition:* The model should predict low scores as precisely as high scores
+
+- **The Problem:** Uneven reliability (heteroskedasticity)
+  + The model is precise for some people but wildly guessing for others
+  + *Visual:* A "megaphone" shape (errors spread out as values increase)
+  + *Consequence:* Standard errors are wrong (usually too small)
+  
+- **The Solution:** Handling the noise
+  + *Simple Fix:* Apply heteroskedasticity-consistent (HC3) standard errors
+  + *Advanced Fix:* Model the error variance explicitly using location--scale models 
+  + *Takeaway:* We stop assuming the noise is the same for everyone
+
+## Example
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r model-hetero}
+#| echo: true
+#| fig.show: "hide"
+
+# Does speed predict stop distance?
+fit_cars <- lm(
+  formula = dist ~ speed, 
+  data = cars
+)
+
+pred_cars <- estimate_relation(
+  fit_cars, 
+  by = "speed"
+)
+plot(pred_cars, show_data = TRUE)
+```
+
+:::{.fsmaller}
+**Note:** At low speeds, points are near the line. At high speeds, they spread out. We predict distance for "slow" stops well, but not for "fast" stops.
+:::
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-asp: 1
+#| fig-width: 6.5
+#| ref.label: "model-hetero"
+```
+:::
+
+::::
+
+## Diagnostic
+
+```{r}
+#| fig-width: 8
+#| fig-height: 4
+
+# The reference line looks fair - minor violation
+check_model(fit_cars, check = "homogeneity", base_size = 16)
+```
+
+## Simple Fix {.smaller}
+
+- **The Logic**:
+    + We keep the parameter point estimates unchanged
+    + We penalize the Standard Errors where variance is high
+    + The creates "honest" $p$-values that account for noise
+    + We use heteroskedasticity-consistent SEs (formula HC3)
+
+- **The Intuition:**
+    + **Standard (OLS):** Assumes the "noise level" is identical for everyone. It calculates one global variance ($\sigma^2$) and trusts it everywhere.
+    + **Robust (HC3):** Acknowledges that **precision varies**. It uses the *actual* squared error of each observation ($\varepsilon_i^2$) to estimate the variance.
+    + **The "Penalty":** If the model sees large errors in a specific area, it "learns" that the slope is unstable there and inflates the SE to reflect that uncertainty.
+
+## Implementation
+
+```{r}
+model_parameters(fit_cars)  # standard OLS results
+```
+
+```{r}
+model_parameters(fit_cars, vcov = "HC3") # fix
+```
+
+:::{.fsmaller}
+**Observation:** In this case, the penalty is small! But we pay it anyway because it ensures our inferences and conclusions are valid.
+:::
+
+# Normality Assumption
+
+## Overview {.smaller}
+
+- **The Assumption:** The errors follow a bell curve
+  + We assume the residuals are normally distributed around zero
+  + *Intuition:* Most prediction errors are small; extreme errors are rare and symmetric
+
+- **The Problem:** Non-normality of error
+  + The residuals might be skewed, bounded, or have "heavy tails"
+  + *Consequence:* p-values are untrustworthy, especially in small samples ($n<50$)
+
+- **The Solution:** Changing the Assumptions
+  + *Simple Fix:* We resample or "bootstrap" our own data to build empirical estimates of uncertainty without assuming any shape for the sampling distribution
+  + *Advanced Fix:* We explicitly model the error distribution using Generalized Linear Modeling (GLM), e.g., logistic for binary, poisson for counts, cumulative for ordinal
+  + *Takeaway:* We stop forcing non-normal data into a normal shape.
+
+## Example
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r model-norm}
+#| echo: true
+#| fig.show: "hide"
+
+# Does wind speed predict ozone?
+fit_ozone <- lm(
+  formula = Ozone ~ Wind, 
+  data = airquality
+)
+
+pred_ozone <- estimate_relation(
+  model = fit_ozone, 
+  by = "Wind"
+)
+plot(pred_ozone, show_data = TRUE)
+```
+
+:::{.fsmaller}
+**Note:** The model fits a straight line, but there are outliers and negative Ozone (impossible) is being predicted.
+:::
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-asp: 1
+#| fig-width: 6.5
+#| ref.label: "model-norm"
+```
+:::
+
+::::
+
+## Diagnostic
+
+```{r}
+#| fig-width: 12
+#| fig-height: 6
+
+# Distributions look fair - minor violation
+check_model(fit_ozone, check = c("normality", "qq"), base_size = 18)
+```
+
+
+## Simple Fix {.smaller}
+
+- **The Logic:**
+    + If the residuals aren't Normal, the formulas for SEs and CIs are wrong
+    + Resampling methods like **bootstrapping** skips the formulas
+    + We simulate repeating the experiment 2,000 times using our own data
+    + This is done by sampling $n$ observations each time *with replacement*
+    + If 95% of those simulations show a negative slope, the effect is reliable
+
+- **The Intuition:**
+    + **Standard (Parametric):** "I assume the sampling distribution is a perfect bell curve."
+    + **Bootstrap (Non-Parametric):** "I don't assume anything about the shape of the sampling distribution. I built the distribution myself by reshuffling the data."
+
+## Implementation
+
+```{r}
+model_parameters(fit_ozone) # standard OLS results
+```
+
+```{r}
+model_parameters(fit_ozone, bootstrap = TRUE, iterations = 2000) # fix
+```
+
+:::{.fsmaller}
+**Observation:** The confidence interval changed slightly. Because we had a decent sample size ($n=153$), the Central Limit Theorem helped the standard approach. In smaller samples, the difference would likely be larger.
+:::
+
+
+# Independence Assumption
+
+## Preview {.smaller}
+
+- **The Assumption:** The residuals are independent
+    + We assume that every data point provides unique, unrelated information
+    + *Intuition:* Knowing the error for observation $i$ tells us nothing about observation $j$
+
+- **The Problem:** Clustering and dependency
+    + Observations are often related (e.g., repeated measures, students nested in schools)
+    + *Consequence:* The "effective" sample size is much smaller than $n$, leading to an overestimation of confidence (e.g., $p$-values are too small, Type I errors)
+
+- **The Solution:** Addressing the structure
+    + *Simple Fix:* Cluster-robust SEs or Fixed effects (dummy codes) per cluster
+    + *Advanced Fix:* Generalized estimating equations (GEE) or Multilevel models (MLM)
+    + *Takeaway:* We stop assuming rows are independent and model the hierarchy
     
-- **No Multicollinearity**
-    + None of the predictors are fully redundant with one another
-
-
-## Residual Assumptions {.smaller}
-
-$$
-\begin{align}
-y_i &= \beta_0 + \beta_1 x_{1i} + \dots + \varepsilon_i \\
-\varepsilon_i &\overset{\text{iid}}{\sim}\text{Normal}(0, \sigma^2)
-\end{align}
-$$
-
-- The residuals $(\varepsilon_i)$ are assumed to be "IID"
-    + <u>**I**</u>ndependent of one another (no clustering or autocorrelation)
-        + *Relaxing this assumption is the main goal of multilevel modeling*
-    + <u>**I**</u>dentically <u>**D**</u>istributed 
-        + Across the line, the residuals form a normal distribution (normality)
-        + Across the line, the residuals have a constant mean of $0$ (zero conditional mean)
-        + Across the line, the resiudals have a constant variance of $\sigma^2$ (homoskedasticity)
-
-## Additional Assumptions
-
-- **For causal modeling especially...**
-    + All relevant predictors (confounders) are included
-    + No "backdoor" causal paths (colliders) are included
-    + All predictors are fully reliable (no measurement error)
-    + The residuals are independent of all the predictors
-    + The predictors are not influenced by the outcome

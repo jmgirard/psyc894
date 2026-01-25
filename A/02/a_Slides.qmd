@@ -79,12 +79,10 @@ library(marginaleffects)
 ## Example Dataset
 
 ```{r}
-data_codebook(penguins)
+# This penguins dataset is built into R (don't load palmerpenguins)
+data_codebook(penguins, 
+  select = c("species", "bill_dep", "flipper_len", "body_mass"))
 ```
-
-::: {.fsmaller}
-*Note that this dataset is already included with recent versions of R.*
-:::
 
 # CSR
 Continuous Simple Regression
