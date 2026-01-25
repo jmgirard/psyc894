@@ -44,6 +44,17 @@
   border: 1px solid grey;
 }
 
+.reveal .slide-number {
+  position: absolute;
+  top: 15px !important;
+  right: 15px !important;
+  bottom: auto !important;
+  left: auto !important;
+  background: transparent;
+  color: inherit !important;
+  pointer-events: none !important;
+}
+
 /* Style for inline code */
 .reveal p code, .reveal li code, .reveal td code {
   padding: 2px 9px;

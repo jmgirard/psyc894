@@ -239,39 +239,25 @@
 <section class="slide level2">
 <h2>Example Dataset</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data_codebook</span>(penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># This penguins dataset is built into R (don't load palmerpenguins)</span></span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data_codebook</span>(penguins, </span>
+<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"species"</span>, <span class="st">"bill_dep"</span>, <span class="st">"flipper_len"</span>, <span class="st">"body_mass"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>penguins (344 rows and 8 variables, 8 shown)
+<pre><code>penguins (344 rows and 8 variables, 4 shown)
 
-ID | Name        | Type        |  Missings |       Values |           N
----+-------------+-------------+-----------+--------------+------------
-1  | species     | categorical |  0 (0.0%) |       Adelie | 152 (44.2%)
-   |             |             |           |    Chinstrap |  68 (19.8%)
-   |             |             |           |       Gentoo | 124 (36.0%)
----+-------------+-------------+-----------+--------------+------------
-2  | island      | categorical |  0 (0.0%) |       Biscoe | 168 (48.8%)
-   |             |             |           |        Dream | 124 (36.0%)
-   |             |             |           |    Torgersen |  52 (15.1%)
----+-------------+-------------+-----------+--------------+------------
-3  | bill_len    | numeric     |  2 (0.6%) | [32.1, 59.6] |         342
----+-------------+-------------+-----------+--------------+------------
-4  | bill_dep    | numeric     |  2 (0.6%) | [13.1, 21.5] |         342
----+-------------+-------------+-----------+--------------+------------
-5  | flipper_len | integer     |  2 (0.6%) |   [172, 231] |         342
----+-------------+-------------+-----------+--------------+------------
-6  | body_mass   | integer     |  2 (0.6%) | [2700, 6300] |         342
----+-------------+-------------+-----------+--------------+------------
-7  | sex         | categorical | 11 (3.2%) |       female | 165 (49.5%)
-   |             |             |           |         male | 168 (50.5%)
----+-------------+-------------+-----------+--------------+------------
-8  | year        | integer     |  0 (0.0%) |         2007 | 110 (32.0%)
-   |             |             |           |         2008 | 114 (33.1%)
-   |             |             |           |         2009 | 120 (34.9%)
------------------------------------------------------------------------</code></pre>
+ID | Name        | Type        | Missings |       Values |           N
+---+-------------+-------------+----------+--------------+------------
+1  | species     | categorical | 0 (0.0%) |       Adelie | 152 (44.2%)
+   |             |             |          |    Chinstrap |  68 (19.8%)
+   |             |             |          |       Gentoo | 124 (36.0%)
+---+-------------+-------------+----------+--------------+------------
+4  | bill_dep    | numeric     | 2 (0.6%) | [13.1, 21.5] |         342
+---+-------------+-------------+----------+--------------+------------
+5  | flipper_len | integer     | 2 (0.6%) |   [172, 231] |         342
+---+-------------+-------------+----------+--------------+------------
+6  | body_mass   | integer     | 2 (0.6%) | [2700, 6300] |         342
+----------------------------------------------------------------------</code></pre>
 </div>
-</div>
-<div class="fsmaller">
-<p><em>Note that this dataset is already included with recent versions of R.</em></p>
 </div>
 </section></section>
 <section>

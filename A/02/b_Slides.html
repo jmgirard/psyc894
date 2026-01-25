@@ -207,82 +207,33 @@
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ol type="1">
-<li><p>Moderation</p></li>
-<li><p>Assumptions</p></li>
-<li><p>Diagnostics</p></li>
+<li><p>Continous-by-Continous<br>Variable Moderation</p></li>
+<li><p>Continuous-by-Discrete<br>Variable Moderation</p></li>
+<li><p>Assumptions, Diagnostics,<br>and Extensions of LM</p></li>
 </ol>
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section>
-<section class="title-slide slide level1 center">
-<h1>R Setup</h1>
-
-</section>
 <section class="slide level2">
-<h2>Load Packages</h2>
+<h2>Setup</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(c("easystats", "marginaleffects", "ggplot2", "qqplotr"))</span></span>
-<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
-<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
-<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qqplotr)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qqplotr)</span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
 <span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Set up default plot theme</span></span>
 <span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fsmaller">
+<p><strong>New Packages:</strong></p>
 <ul>
-<li><span class="b blue">easystats</span> will provide most of our statistical functions</li>
-<li><span class="b blue">ggplot2</span> will provide the ability to customize our plots</li>
-<li><span class="b green">marginaleffects</span> is called by easystats for estimation</li>
-<li><span class="b green">qqplotr</span> is called by easystats for certain diagnostics</li>
+<li><span class="b green">qqplotr</span> is called by easystats to add CIs to diagnostic plots</li>
+<li><span class="b green">sandwich</span> is called by easystats to implement HC3 corrections</li>
 </ul>
 </div>
-</section>
-<section class="slide level2">
-<h2>Example Dataset</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data_codebook</span>(penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>penguins (344 rows and 8 variables, 8 shown)
-
-ID | Name        | Type        |  Missings |       Values |           N
----+-------------+-------------+-----------+--------------+------------
-1  | species     | categorical |  0 (0.0%) |       Adelie | 152 (44.2%)
-   |             |             |           |    Chinstrap |  68 (19.8%)
-   |             |             |           |       Gentoo | 124 (36.0%)
----+-------------+-------------+-----------+--------------+------------
-2  | island      | categorical |  0 (0.0%) |       Biscoe | 168 (48.8%)
-   |             |             |           |        Dream | 124 (36.0%)
-   |             |             |           |    Torgersen |  52 (15.1%)
----+-------------+-------------+-----------+--------------+------------
-3  | bill_len    | numeric     |  2 (0.6%) | [32.1, 59.6] |         342
----+-------------+-------------+-----------+--------------+------------
-4  | bill_dep    | numeric     |  2 (0.6%) | [13.1, 21.5] |         342
----+-------------+-------------+-----------+--------------+------------
-5  | flipper_len | integer     |  2 (0.6%) |   [172, 231] |         342
----+-------------+-------------+-----------+--------------+------------
-6  | body_mass   | integer     |  2 (0.6%) | [2700, 6300] |         342
----+-------------+-------------+-----------+--------------+------------
-7  | sex         | categorical | 11 (3.2%) |       female | 165 (49.5%)
-   |             |             |           |         male | 168 (50.5%)
----+-------------+-------------+-----------+--------------+------------
-8  | year        | integer     |  0 (0.0%) |         2007 | 110 (32.0%)
-   |             |             |           |         2008 | 114 (33.1%)
-   |             |             |           |         2009 | 120 (34.9%)
------------------------------------------------------------------------</code></pre>
-</div>
-</div>
-<div class="fsmaller">
-<p><em>Note that this dataset is already included with recent versions of R.</em></p>
-</div>
-</section></section>
-<section>
-<section class="title-slide slide level1 center">
-<h1>Moderation</h1>
-
 </section>
 <section class="slide level2 smaller">
 <h2>Moderation</h2>
@@ -314,7 +265,7 @@ ID | Name        | Type        |  Missings |       Values |           N
 </div><div class="column tc pv5" style="width:40%;">
 <p><lord-icon src="../../icons/signpost.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-</section></section>
+</section>
 <section>
 <section class="title-slide slide level1 center">
 <h1>CCM</h1>
@@ -346,15 +297,15 @@ ID | Name        | Type        |  Missings |       Values |           N
 <section class="slide level2">
 <h2>CCM Estimation</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>penguins_c <span class="ot">&lt;-</span> <span class="fu">center</span>(penguins, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"flipper_len"</span>, <span class="st">"bill_dep"</span>))</span>
-<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>ccm_fb <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len <span class="sc">*</span> bill_dep,</span>
-<span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins_c</span>
-<span id="cb4-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>penguins_c <span class="ot">&lt;-</span> <span class="fu">center</span>(penguins, <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"flipper_len"</span>, <span class="st">"bill_dep"</span>))</span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>ccm_fb <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len <span class="sc">*</span> bill_dep,</span>
+<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins_c</span>
+<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="pv4">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(ccm_fb)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(ccm_fb)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Parameter              | Coefficient |    SE |             95% CI | t(338) |      p
 -----------------------------------------------------------------------------------
@@ -380,33 +331,30 @@ flipper len × bill dep |       -8.60 |  1.34 | [ -11.23,   -5.96] |  -6.41 | &l
 <h2>CCM Visualization 1</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>pred_ccmf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
-<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> ccm_fb, </span>
-<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(</span>
-<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"flipper_len"</span>, </span>
-<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"bill_dep = [quartiles]"</span></span>
-<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>  ), </span>
-<span id="cb7-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span></span>
-<span id="cb7-8"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-9"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_ccmf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>pred_ccmf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> ccm_fb, </span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(</span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"flipper_len"</span>, </span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"bill_dep = [quartiles]"</span></span>
+<span id="cb5-6"><a aria-hidden="true" tabindex="-1"></a>  ), </span>
+<span id="cb5-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span></span>
+<span id="cb5-8"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_ccmf) <span class="sc">+</span></span>
+<span id="cb5-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-12"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Flipper Length"</span>, </span>
+<span id="cb5-13"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body Mass"</span>, </span>
+<span id="cb5-14"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Bill Depth"</span>, </span>
+<span id="cb5-15"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Bill Depth"</span></span>
+<span id="cb5-16"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="624"></p>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="768"></p>
 </figure>
 </div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Flipper Length"</span>, </span>
-<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body Mass"</span>, </span>
-<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Bill Depth"</span>, </span>
-<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Bill Depth"</span></span>
-<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb8-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>NULL</code></pre>
 </div>
 </div></div>
 </section>
@@ -414,28 +362,28 @@ flipper len × bill dep |       -8.60 |  1.34 | [ -11.23,   -5.96] |  -6.41 | &l
 <h2>CCM Visualization 2</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>pred_ccmb <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
-<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> ccm_fb, </span>
-<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(</span>
-<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"bill_dep"</span>, </span>
-<span id="cb10-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"flipper_len = [quartiles]"</span></span>
-<span id="cb10-6"><a aria-hidden="true" tabindex="-1"></a>  ), </span>
-<span id="cb10-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span></span>
-<span id="cb10-8"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-9"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_ccmb) <span class="sc">+</span></span>
-<span id="cb10-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb10-12"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Bill Depth"</span>, </span>
-<span id="cb10-13"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body Mass"</span>, </span>
-<span id="cb10-14"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Flipper Length"</span>, </span>
-<span id="cb10-15"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Flipper Length"</span></span>
-<span id="cb10-16"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb10-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>pred_ccmb <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> ccm_fb, </span>
+<span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(</span>
+<span id="cb6-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"bill_dep"</span>, </span>
+<span id="cb6-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"flipper_len = [quartiles]"</span></span>
+<span id="cb6-6"><a aria-hidden="true" tabindex="-1"></a>  ), </span>
+<span id="cb6-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span></span>
+<span id="cb6-8"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_ccmb) <span class="sc">+</span></span>
+<span id="cb6-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-12"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Bill Depth"</span>, </span>
+<span id="cb6-13"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body Mass"</span>, </span>
+<span id="cb6-14"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Flipper Length"</span>, </span>
+<span id="cb6-15"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Flipper Length"</span></span>
+<span id="cb6-16"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-17"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="864"></p>
 </figure>
 </div>
 </div>
@@ -444,11 +392,11 @@ flipper len × bill dep |       -8.60 |  1.34 | [ -11.23,   -5.96] |  -6.41 | &l
 <section class="slide level2">
 <h2>CCM Simple Slopes 1</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(</span>
-<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> ccm_fb, </span>
-<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">trend =</span> <span class="st">"flipper_len"</span>, </span>
-<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"bill_dep = [quartiles]"</span></span>
-<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> ccm_fb, </span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">trend =</span> <span class="st">"flipper_len"</span>, </span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"bill_dep = [quartiles]"</span></span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Estimated Marginal Effects
 
@@ -466,11 +414,11 @@ Type of slope was dY/dX</code></pre>
 <section class="slide level2">
 <h2>CCM Simple Slopes 2</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(</span>
-<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> ccm_fb, </span>
-<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">trend =</span> <span class="st">"bill_dep"</span>, </span>
-<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"flipper_len = [quartiles]"</span></span>
-<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(</span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> ccm_fb, </span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">trend =</span> <span class="st">"bill_dep"</span>, </span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"flipper_len = [quartiles]"</span></span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Estimated Marginal Effects
 
@@ -527,15 +475,15 @@ y_i &amp;= \overbrace{(\beta_0 + \beta_2 D_{1i} + \dots)}^{\text{Group-Specific 
 <section class="slide level2">
 <h2>CDM Estimation</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>penguins_c <span class="ot">&lt;-</span> <span class="fu">center</span>(penguins, <span class="at">select =</span> <span class="st">"flipper_len"</span>)</span>
-<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>cdm_fs <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len <span class="sc">*</span> species, </span>
-<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins_c</span>
-<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>penguins_c <span class="ot">&lt;-</span> <span class="fu">center</span>(penguins, <span class="at">select =</span> <span class="st">"flipper_len"</span>)</span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>cdm_fs <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> body_mass <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> flipper_len <span class="sc">*</span> species, </span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> penguins_c</span>
+<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="pv4">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(cdm_fs) <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">select =</span> <span class="st">"minimal"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(cdm_fs) <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">select =</span> <span class="st">"minimal"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Parameter                         | Coefficient |             95% CI |      p
 -----------------------------------------------------------------------------
@@ -570,27 +518,27 @@ flipper len × species [Gentoo]    |       21.79 | [   8.14,   35.44] | 0.002 </
 <h2>CDM Visualization</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>pred_cdmf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
-<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> cdm_fs, </span>
-<span id="cb18-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(</span>
-<span id="cb18-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"flipper_len"</span>, </span>
-<span id="cb18-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"species"</span></span>
-<span id="cb18-6"><a aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb18-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span></span>
-<span id="cb18-8"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_cdmf) <span class="sc">+</span></span>
-<span id="cb18-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb18-11"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Flipper Length"</span>,</span>
-<span id="cb18-12"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body Mass"</span>,</span>
-<span id="cb18-13"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Species"</span>,</span>
-<span id="cb18-14"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Species"</span></span>
-<span id="cb18-15"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb18-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>pred_cdmf <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> cdm_fs, </span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(</span>
+<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"flipper_len"</span>, </span>
+<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"species"</span></span>
+<span id="cb14-6"><a aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb14-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="st">"average"</span></span>
+<span id="cb14-8"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_cdmf) <span class="sc">+</span></span>
+<span id="cb14-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb14-11"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Flipper Length"</span>,</span>
+<span id="cb14-12"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Body Mass"</span>,</span>
+<span id="cb14-13"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Species"</span>,</span>
+<span id="cb14-14"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Species"</span></span>
+<span id="cb14-15"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-16"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="816"></p>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="816"></p>
 </figure>
 </div>
 </div>
@@ -599,11 +547,11 @@ flipper len × species [Gentoo]    |       21.79 | [   8.14,   35.44] | 0.002 </
 <section class="slide level2">
 <h2>CDM Simple Slopes</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(</span>
-<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> cdm_fs, </span>
-<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">trend =</span> <span class="st">"flipper_len"</span>, </span>
-<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"species"</span></span>
-<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(</span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> cdm_fs, </span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">trend =</span> <span class="st">"flipper_len"</span>, </span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"species"</span></span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Estimated Marginal Effects
 
@@ -822,60 +770,358 @@ Slopes Estimated
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Assumptions</h1>
+<h1>Linearity Assumption</h1>
 
 </section>
 <section class="slide level2 smaller">
-<h2>Specification Assumptions</h2>
+<h2>Overview</h2>
 <ul>
-<li><strong>Linearity in the Coefficients</strong>
+<li><strong>The Assumption:</strong> The model matches the shape of the data
 <ul>
-<li>The effect of each predictor is additive and proportional to its slope</li>
-<li><span class="safe">Classic</span>: <span class="math inline">\(y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \varepsilon_i\)</span></li>
-<li><span class="safe">Still Okay</span>: <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \varepsilon_i\)</span></li>
-<li><span class="danger">Not Okay</span>: <span class="math inline">\(y_i = \beta_0 + \beta_1 \beta_2 x_i + \varepsilon_i\)</span></li>
-<li><span class="danger">Not Okay</span>: <span class="math inline">\(y_i = \beta_0 + e^{\beta_1 x_i} + \varepsilon_i\)</span></li>
+<li>We assume the relationship is a straight line (additive)</li>
+<li><em>Intuition:</em> A one-unit increase in <span class="math inline">\(x\)</span> always produces the same increase in <span class="math inline">\(y\)</span></li>
 </ul></li>
-<li><strong>No Multicollinearity</strong>
+<li><strong>The Problem:</strong> Mismatched shapes (misspecification)
 <ul>
-<li>None of the predictors are fully redundant with one another</li>
+<li>Real relationships are often curved (practice effects, diminishing returns)</li>
+<li>If we force a straight line onto a curve, our predictions will be wrong</li>
 </ul></li>
-</ul>
-</section>
-<section class="slide level2 smaller">
-<h2>Residual Assumptions</h2>
-<p><span class="math display">\[
-\begin{align}
-y_i &amp;= \beta_0 + \beta_1 x_{1i} + \dots + \varepsilon_i \\
-\varepsilon_i &amp;\overset{\text{iid}}{\sim}\text{Normal}(0, \sigma^2)
-\end{align}
-\]</span></p>
+<li><strong>The Solution:</strong> Flexible modeling
 <ul>
-<li>The residuals <span class="math inline">\((\varepsilon_i)\)</span> are assumed to be “IID”
-<ul>
-<li><u><strong>I</strong></u>ndependent of one another (no clustering or autocorrelation)
-<ul>
-<li><em>Relaxing this assumption is the main goal of multilevel modeling</em></li>
-</ul></li>
-<li><u><strong>I</strong></u>dentically <u><strong>D</strong></u>istributed
-<ul>
-<li>Across the line, the residuals form a normal distribution (normality)</li>
-<li>Across the line, the residuals have a constant mean of <span class="math inline">\(0\)</span> (zero conditional mean)</li>
-<li>Across the line, the resiudals have a constant variance of <span class="math inline">\(\sigma^2\)</span> (homoskedasticity)</li>
-</ul></li>
+<li><em>Simple Fix:</em> For basic curves, we add polynomial (e.g., quadratic) terms</li>
+<li><em>Advanced Fix:</em> For complex shapes, we use generalized additive modeling (GAM)</li>
+<li><em>Takeaway:</em> We transform the predictors to allow the model to bend</li>
 </ul></li>
 </ul>
 </section>
 <section class="slide level2">
-<h2>Additional Assumptions</h2>
+<h2>Example</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Does horsepower predict mpg?</span></span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>fit_line <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> mpg <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> hp, </span>
+<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> mtcars</span>
+<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-6"><a aria-hidden="true" tabindex="-1"></a>pred_line <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb17-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> fit_line, </span>
+<span id="cb17-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"hp"</span></span>
+<span id="cb17-9"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_line, <span class="at">show_data =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fsmaller">
+<p><strong>Note:</strong> Adding horsepower hurts fuel economy, but this levels off (you can’t go below 0 mpg), creating the curve that the linear model misses.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="624"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Diagnostic</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># The reference line looks bad - major violation</span></span>
+<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(fit_line, <span class="at">check =</span> <span class="st">"linearity"</span>, <span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-13-1.png" width="768" class="r-stretch"></section>
+<section class="slide level2 smaller">
+<h2>Simple Fix</h2>
 <ul>
-<li><strong>For causal modeling especially…</strong>
+<li><strong>The Trick:</strong> Transform the Data, not the Parameters.
 <ul>
-<li>All relevant predictors (confounders) are included</li>
-<li>No “backdoor” causal paths (colliders) are included</li>
-<li>All predictors are fully reliable (no measurement error)</li>
-<li>The residuals are independent of all the predictors</li>
-<li>The predictors are not influenced by the outcome</li>
+<li>We can model curves by adding a squared term (<span class="math inline">\(x^2\)</span>) as a new predictor.</li>
+<li><span class="green">Still Linear</span>: <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \varepsilon_i\)</span></li>
+<li>We can do this in R easily using <code>poly(x, degree = 2)</code> or <code>poly(x, 2)</code></li>
+<li>Since we are still just adding weighted terms, this remains a Linear Model (LM).</li>
+</ul></li>
+<li><strong>True Non-Linear Models (The “Illegal” Move):</strong>
+<ul>
+<li><span class="red">Not Linear</span>: <span class="math inline">\(y_i = \beta_0 \cdot x_i^{\beta_1}\)</span></li>
+<li>Here, the parameter is an exponent. This requires different math!</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Implementation</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>fit_poly <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> mpg <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> </span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">poly</span>(hp, <span class="dv">2</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> mtcars</span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a aria-hidden="true" tabindex="-1"></a>pred_poly <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb19-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> fit_poly, </span>
+<span id="cb19-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"hp"</span></span>
+<span id="cb19-10"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_poly, <span class="at">show_data =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fsmaller">
+<p><strong>Note:</strong> By allowing the line to bend or curve (quadratically), we capture the relationship accurately.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-14-1.png" width="624"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Homogeneity Assumption</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Overview</h2>
+<ul>
+<li><strong>The Assumption:</strong> The model is equally reliable everywhere
+<ul>
+<li>We assume the error is constant for all participants</li>
+<li><em>Intuition:</em> The model should predict low scores as precisely as high scores</li>
+</ul></li>
+<li><strong>The Problem:</strong> Uneven reliability (heteroskedasticity)
+<ul>
+<li>The model is precise for some people but wildly guessing for others</li>
+<li><em>Visual:</em> A “megaphone” shape (errors spread out as values increase)</li>
+<li><em>Consequence:</em> Standard errors are wrong (usually too small)</li>
+</ul></li>
+<li><strong>The Solution:</strong> Handling the noise
+<ul>
+<li><em>Simple Fix:</em> Apply heteroskedasticity-consistent (HC3) standard errors</li>
+<li><em>Advanced Fix:</em> Model the error variance explicitly using location–scale models</li>
+<li><em>Takeaway:</em> We stop assuming the noise is the same for everyone</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Example</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Does speed predict stop distance?</span></span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>fit_cars <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> dist <span class="sc">~</span> speed, </span>
+<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> cars</span>
+<span id="cb20-5"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a aria-hidden="true" tabindex="-1"></a>pred_cars <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb20-8"><a aria-hidden="true" tabindex="-1"></a>  fit_cars, </span>
+<span id="cb20-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"speed"</span></span>
+<span id="cb20-10"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_cars, <span class="at">show_data =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fsmaller">
+<p><strong>Note:</strong> At low speeds, points are near the line. At high speeds, they spread out. We predict distance for “slow” stops well, but not for “fast” stops.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-15-1.png" width="624"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Diagnostic</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># The reference line looks fair - minor violation</span></span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(fit_cars, <span class="at">check =</span> <span class="st">"homogeneity"</span>, <span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-16-1.png" width="768" class="r-stretch"></section>
+<section class="slide level2 smaller">
+<h2>Simple Fix</h2>
+<ul>
+<li><strong>The Logic</strong>:
+<ul>
+<li>We keep the parameter point estimates unchanged</li>
+<li>We penalize the Standard Errors where variance is high</li>
+<li>The creates “honest” <span class="math inline">\(p\)</span>-values that account for noise</li>
+<li>We use heteroskedasticity-consistent SEs (formula HC3)</li>
+</ul></li>
+<li><strong>The Intuition:</strong>
+<ul>
+<li><strong>Standard (OLS):</strong> Assumes the “noise level” is identical for everyone. It calculates one global variance (<span class="math inline">\(\sigma^2\)</span>) and trusts it everywhere.</li>
+<li><strong>Robust (HC3):</strong> Acknowledges that <strong>precision varies</strong>. It uses the <em>actual</em> squared error of each observation (<span class="math inline">\(\varepsilon_i^2\)</span>) to estimate the variance.</li>
+<li><strong>The “Penalty”:</strong> If the model sees large errors in a specific area, it “learns” that the slope is unstable there and inflates the SE to reflect that uncertainty.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Implementation</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_cars)  <span class="co"># standard OLS results</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter   | Coefficient |   SE |          95% CI | t(48) |      p
+-------------------------------------------------------------------
+(Intercept) |      -17.58 | 6.76 | [-31.17, -3.99] | -2.60 | 0.012 
+speed       |        3.93 | 0.42 | [  3.10,  4.77] |  9.46 | &lt; .001</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_cars, <span class="at">vcov =</span> <span class="st">"HC3"</span>) <span class="co"># fix</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter   | Coefficient |   SE |          95% CI | t(48) |      p
+-------------------------------------------------------------------
+(Intercept) |      -17.58 | 5.93 | [-29.51, -5.65] | -2.96 | 0.005 
+speed       |        3.93 | 0.43 | [  3.07,  4.79] |  9.20 | &lt; .001</code></pre>
+</div>
+</div>
+<div class="fsmaller">
+<p><strong>Observation:</strong> In this case, the penalty is small! But we pay it anyway because it ensures our inferences and conclusions are valid.</p>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Normality Assumption</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Overview</h2>
+<ul>
+<li><strong>The Assumption:</strong> The errors follow a bell curve
+<ul>
+<li>We assume the residuals are normally distributed around zero</li>
+<li><em>Intuition:</em> Most prediction errors are small; extreme errors are rare and symmetric</li>
+</ul></li>
+<li><strong>The Problem:</strong> Non-normality of error
+<ul>
+<li>The residuals might be skewed, bounded, or have “heavy tails”</li>
+<li><em>Consequence:</em> p-values are untrustworthy, especially in small samples (<span class="math inline">\(n&lt;50\)</span>)</li>
+</ul></li>
+<li><strong>The Solution:</strong> Changing the Assumptions
+<ul>
+<li><em>Simple Fix:</em> We resample or “bootstrap” our own data to build empirical estimates of uncertainty without assuming any shape for the sampling distribution</li>
+<li><em>Advanced Fix:</em> We explicitly model the error distribution using Generalized Linear Modeling (GLM), e.g., logistic for binary, poisson for counts, cumulative for ordinal</li>
+<li><em>Takeaway:</em> We stop forcing non-normal data into a normal shape.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Example</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Does wind speed predict ozone?</span></span>
+<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>fit_ozone <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> Ozone <span class="sc">~</span> Wind, </span>
+<span id="cb26-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> airquality</span>
+<span id="cb26-5"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a aria-hidden="true" tabindex="-1"></a>pred_ozone <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(</span>
+<span id="cb26-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> fit_ozone, </span>
+<span id="cb26-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">"Wind"</span></span>
+<span id="cb26-10"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred_ozone, <span class="at">show_data =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fsmaller">
+<p><strong>Note:</strong> The model fits a straight line, but there are outliers and negative Ozone (impossible) is being predicted.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-19-1.png" width="624"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2">
+<h2>Diagnostic</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Distributions look fair - minor violation</span></span>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(fit_ozone, <span class="at">check =</span> <span class="fu">c</span>(<span class="st">"normality"</span>, <span class="st">"qq"</span>), <span class="at">base_size =</span> <span class="dv">18</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-20-1.png" width="1152" class="r-stretch"></section>
+<section class="slide level2 smaller">
+<h2>Simple Fix</h2>
+<ul>
+<li><strong>The Logic:</strong>
+<ul>
+<li>If the residuals aren’t Normal, the formulas for SEs and CIs are wrong</li>
+<li>Resampling methods like <strong>bootstrapping</strong> skips the formulas</li>
+<li>We simulate repeating the experiment 2,000 times using our own data</li>
+<li>This is done by sampling <span class="math inline">\(n\)</span> observations each time <em>with replacement</em></li>
+<li>If 95% of those simulations show a negative slope, the effect is reliable</li>
+</ul></li>
+<li><strong>The Intuition:</strong>
+<ul>
+<li><strong>Standard (Parametric):</strong> “I assume the sampling distribution is a perfect bell curve.”</li>
+<li><strong>Bootstrap (Non-Parametric):</strong> “I don’t assume anything about the shape of the sampling distribution. I built the distribution myself by reshuffling the data.”</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Implementation</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_ozone) <span class="co"># standard OLS results</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter   | Coefficient |   SE |          95% CI | t(114) |      p
+--------------------------------------------------------------------
+(Intercept) |       96.87 | 7.24 | [82.53, 111.21] |  13.38 | &lt; .001
+Wind        |       -5.55 | 0.69 | [-6.92,  -4.18] |  -8.04 | &lt; .001</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_ozone, <span class="at">bootstrap =</span> <span class="cn">TRUE</span>, <span class="at">iterations =</span> <span class="dv">2000</span>) <span class="co"># fix</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter   | Coefficient |          95% CI |      p
+----------------------------------------------------
+(Intercept) |       96.71 | [78.41, 115.03] | &lt; .001
+Wind        |       -5.54 | [-7.25,  -3.96] | &lt; .001</code></pre>
+</div>
+</div>
+<div class="fsmaller">
+<p><strong>Observation:</strong> The confidence interval changed slightly. Because we had a decent sample size (<span class="math inline">\(n=153\)</span>), the Central Limit Theorem helped the standard approach. In smaller samples, the difference would likely be larger.</p>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Independence Assumption</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Preview</h2>
+<ul>
+<li><strong>The Assumption:</strong> The residuals are independent
+<ul>
+<li>We assume that every data point provides unique, unrelated information</li>
+<li><em>Intuition:</em> Knowing the error for observation <span class="math inline">\(i\)</span> tells us nothing about observation <span class="math inline">\(j\)</span></li>
+</ul></li>
+<li><strong>The Problem:</strong> Clustering and dependency
+<ul>
+<li>Observations are often related (e.g., repeated measures, students nested in schools)</li>
+<li><em>Consequence:</em> The “effective” sample size is much smaller than <span class="math inline">\(n\)</span>, leading to an overestimation of confidence (e.g., <span class="math inline">\(p\)</span>-values are too small, Type I errors)</li>
+</ul></li>
+<li><strong>The Solution:</strong> Addressing the structure
+<ul>
+<li><em>Simple Fix:</em> Cluster-robust SEs or Fixed effects (dummy codes) per cluster</li>
+<li><em>Advanced Fix:</em> Generalized estimating equations (GEE) or Multilevel models (MLM)</li>
+<li><em>Takeaway:</em> We stop assuming rows are independent and model the hierarchy</li>
 </ul></li>
 </ul>
 
