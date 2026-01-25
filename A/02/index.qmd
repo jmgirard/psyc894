@@ -36,7 +36,7 @@ title: "Week 02: Linear Modeling Review"
 - Diagnostics
 
 ### Readings
-- [Kelley \& Maxwell (2019)](https://canvas.ku.edu/courses/182539/pages/meeting-02b-moderation-and-diagnostics?module_item_id=4317551){target="_blank"}
+- [Kelley \& Maxwell (2019)](https://canvas.ku.edu/courses/182539/pages/meeting-02b-moderation-and-diagnostics){target="_blank"}
 
 ### Slides
 ```{=html}
