@@ -624,6 +624,264 @@ Type of slope was dY/dX</code></pre>
 <div class="fsmaller">
 <p><em>Notice the Gentoo slope (54.6) is the Adelie slope (32.8) plus the interaction (21.8).</em></p>
 </div>
+</section>
+<section class="slide level2 smaller">
+<h2>A Formula Resource</h2>
+<table width="100%">
+<tbody><tr>
+<th>
+Formula
+</th>
+<th colspan="7">
+Slopes Estimated
+</th>
+</tr>
+<tr>
+<td width="30%">
+<code>y ~ x</code>
+</td>
+<td width="10%">
+<span class="math inline">\(x\)</span>
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+<td width="10%">
+</td>
+</tr>
+<tr>
+<td>
+<code>y ~ x + w</code>
+</td>
+<td>
+<span class="math inline">\(x\)</span>
+</td>
+<td>
+<span class="math inline">\(w\)</span>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>y ~ x * w</code>
+</td>
+<td>
+<span class="math inline">\(x\)</span>
+</td>
+<td>
+<span class="math inline">\(w\)</span>
+</td>
+<td>
+</td>
+<td>
+<span class="math inline">\(xw\)</span>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>y ~ x + w + z</code>
+</td>
+<td>
+<span class="math inline">\(x\)</span>
+</td>
+<td>
+<span class="math inline">\(w\)</span>
+</td>
+<td>
+<span class="math inline">\(z\)</span>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>y ~ x * w + z</code>
+</td>
+<td>
+<span class="math inline">\(x\)</span>
+</td>
+<td>
+<span class="math inline">\(w\)</span>
+</td>
+<td>
+<span class="math inline">\(z\)</span>
+</td>
+<td>
+<span class="math inline">\(xw\)</span>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>y ~ x * (w + z)</code>
+</td>
+<td>
+<span class="math inline">\(x\)</span>
+</td>
+<td>
+<span class="math inline">\(w\)</span>
+</td>
+<td>
+<span class="math inline">\(z\)</span>
+</td>
+<td>
+<span class="math inline">\(xw\)</span>
+</td>
+<td>
+<span class="math inline">\(xz\)</span>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>y ~ (x + w + z)^2</code>
+</td>
+<td>
+<span class="math inline">\(x\)</span>
+</td>
+<td>
+<span class="math inline">\(w\)</span>
+</td>
+<td>
+<span class="math inline">\(z\)</span>
+</td>
+<td>
+<span class="math inline">\(xw\)</span>
+</td>
+<td>
+<span class="math inline">\(xz\)</span>
+</td>
+<td>
+<span class="math inline">\(wz\)</span>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<code>y ~ x * w * z</code>
+</td>
+<td>
+<span class="math inline">\(x\)</span>
+</td>
+<td>
+<span class="math inline">\(w\)</span>
+</td>
+<td>
+<span class="math inline">\(z\)</span>
+</td>
+<td>
+<span class="math inline">\(xw\)</span>
+</td>
+<td>
+<span class="math inline">\(xz\)</span>
+</td>
+<td>
+<span class="math inline">\(wz\)</span>
+</td>
+<td>
+<span class="math inline">\(xwz\)</span>
+</td>
+</tr>
+</tbody></table>
+<div class="pv4 f3">
+<p>Note that predictors can be continuous or discrete, but if a discrete predictor has more than two levels, you will end up with additional slopes due to dummy coding. To represent <span class="math inline">\(g\)</span> groups, it will create <span class="math inline">\(g-1\)</span> dummy codes (with a slope for each).</p>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Assumptions</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Specification Assumptions</h2>
+<ul>
+<li><strong>Linearity in the Coefficients</strong>
+<ul>
+<li>The effect of each predictor is additive and proportional to its slope</li>
+<li><span class="safe">Classic</span>: <span class="math inline">\(y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \varepsilon_i\)</span></li>
+<li><span class="safe">Still Okay</span>: <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \varepsilon_i\)</span></li>
+<li><span class="danger">Not Okay</span>: <span class="math inline">\(y_i = \beta_0 + \beta_1 \beta_2 x_i + \varepsilon_i\)</span></li>
+<li><span class="danger">Not Okay</span>: <span class="math inline">\(y_i = \beta_0 + e^{\beta_1 x_i} + \varepsilon_i\)</span></li>
+</ul></li>
+<li><strong>No Multicollinearity</strong>
+<ul>
+<li>None of the predictors are fully redundant with one another</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2 smaller">
+<h2>Residual Assumptions</h2>
+<p><span class="math display">\[
+\begin{align}
+y_i &amp;= \beta_0 + \beta_1 x_{1i} + \dots + \varepsilon_i \\
+\varepsilon_i &amp;\overset{\text{iid}}{\sim}\text{Normal}(0, \sigma^2)
+\end{align}
+\]</span></p>
+<ul>
+<li>The residuals <span class="math inline">\((\varepsilon_i)\)</span> are assumed to be “IID”
+<ul>
+<li><u><strong>I</strong></u>ndependent of one another (no clustering or autocorrelation)
+<ul>
+<li><em>Relaxing this assumption is the main goal of multilevel modeling</em></li>
+</ul></li>
+<li><u><strong>I</strong></u>dentically <u><strong>D</strong></u>istributed
+<ul>
+<li>Across the line, the residuals form a normal distribution (normality)</li>
+<li>Across the line, the residuals have a constant mean of <span class="math inline">\(0\)</span> (zero conditional mean)</li>
+<li>Across the line, the resiudals have a constant variance of <span class="math inline">\(\sigma^2\)</span> (homoskedasticity)</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Additional Assumptions</h2>
+<ul>
+<li><strong>For causal modeling especially…</strong>
+<ul>
+<li>All relevant predictors (confounders) are included</li>
+<li>No “backdoor” causal paths (colliders) are included</li>
+<li>All predictors are fully reliable (no measurement error)</li>
+<li>The residuals are independent of all the predictors</li>
+<li>The predictors are not influenced by the outcome</li>
+</ul></li>
+</ul>
 
 
 </section></section>
