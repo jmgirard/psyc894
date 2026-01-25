@@ -76,11 +76,8 @@ theme_set(theme_bw(base_size = 30))
 ```
 
 :::{.fsmaller}
-#### Needs to be loaded
 - [easystats]{.b .blue} will provide most of our statistical functions
 - [ggplot2]{.b .blue} will provide the ability to customize our plots
-
-#### Needs to be installed
 - [marginaleffects]{.b .green} is called by easystats for estimation
 - [qqplotr]{.b .green} is called by easystats for certain diagnostics
 

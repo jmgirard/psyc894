@@ -71,13 +71,9 @@ library(marginaleffects)
 ```
 
 :::{.fsmaller}
-#### Needs to be loaded
 - [easystats]{.b .blue} will provide most of our statistical functions
 - [ggplot2]{.b .blue} will provide the ability to customize our plots
-
-#### Needs to be installed
 - [marginaleffects]{.b .green} is called by easystats for estimation
-
 :::
 
 ## Example Dataset
