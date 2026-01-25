@@ -43,13 +43,13 @@ Linear Modeling Review (2/2)
 ## Roadmap
 
 ::: {.columns .pv4}
-
 ::: {.column width="60%"}
 1. Moderation
   
 2. Assumptions
 
 3. Diagnostics
+
 :::
 
 ::: {.column .tc .pv4 width="40%"}
@@ -58,4 +58,325 @@ Linear Modeling Review (2/2)
 
 :::
 
+# R Setup
 
+## Load Packages
+
+```{r}
+#| message: false
+
+# install.packages(c("easystats", "marginaleffects", "ggplot2", "qqplotr"))
+library(easystats)
+library(ggplot2)
+library(marginaleffects)
+library(qqplotr)
+
+# Set up default plot theme
+theme_set(theme_bw(base_size = 30))
+```
+
+:::{.fsmaller}
+#### Needs to be loaded
+- [easystats]{.b .blue} will provide most of our statistical functions
+- [ggplot2]{.b .blue} will provide the ability to customize our plots
+
+#### Needs to be installed
+- [marginaleffects]{.b .green} is called by easystats for estimation
+- [qqplotr]{.b .green} is called by easystats for certain diagnostics
+
+:::
+
+## Example Dataset
+
+```{r}
+data_codebook(penguins)
+```
+
+::: {.fsmaller}
+*Note that this dataset is already included with recent versions of R.*
+:::
+
+
+# Moderation
+
+## Moderation {.smaller}
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+-   We may want to know if the effect of one predictor [depends on]{.b .green} the value on another predictor
+
+::: {.fragment .mt1}
+-   To answer these, we can test [interaction effects]{.b .blue}
+    -   Interaction effects are just slopes for the [product]{.b .green} of two or more predictors
+    -   Centering continous predictors is helpful
+
+:::
+::: {.fragment .mt1}
+-   Types of bivariate moderation
+    +   Continuous-by-Continuous Moderation (CCM)
+    +   Continuous-by-Discrete Moderation (CDM)
+    +   Discrete-by-Discrete Moderation (DDM)
+    +   Higher-order (e.g., three-way) Moderation
+:::
+:::
+
+::: {.column .tc .pv5 width="40%"}
+{{< lif "../../icons/signpost.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+# CCM
+
+Continuous-by-Continuous Moderation
+
+## CCM Equation
+
+#### Generic
+$$y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 (x_{1i} x_{2i}) + \varepsilon_{i}$$
+
+#### Example
+$$\text{MASS}_i = \beta_0 + \beta_1 \text{FLEN}_{i} + \beta_2 \text{BDEP}_{i} + \\
+\beta_3 \text{FLEN}_i \text{BDEP}_i + \varepsilon_i$$
+
+## CCM Formula
+
+#### Generic
+:::{.tc}
+`y ~ 1 + x1 * x2`
+:::
+
+#### Example
+:::{.tc}
+`body_mass ~ 1 + flipper_len * bill_dep`
+:::
+
+## CCM Diagram {.nostretch}
+![](../../diagrams/cc_moderation_full.png){width="50%"}
+
+## CCM Estimation
+
+```{r}
+penguins_c <- center(penguins, select = c("flipper_len", "bill_dep"))
+ccm_fb <- lm(
+  formula = body_mass ~ 1 + flipper_len * bill_dep,
+  data = penguins_c
+)
+```
+
+:::{.pv4}
+```{r}
+model_parameters(ccm_fb)
+```
+
+:::
+
+## CCM Interpretation {.smaller}
+
+After centering the flipper length and bill depth predictors, ...
+
+- **Intercept** $(\beta_0=4063.8$, $p<.001)$<br />
+The expected body mass for a penguin with average flipper length and bill depth.
+
+- **Flipper Length Simple Effect** $(\beta_1=48.6$, $p<.001)$<br />
+The expected change in body mass associated with an increase of 1mm flipper length,<br />*specifically for a penguin with average bill depth*.
+
+- **Bill Depth Simple Effect** $(\beta_2=44.6$, $p<.001)$<br />
+The expected change in body mass associated with an increase of 1mm bill depth,<br />*specifically for a penguin with average flipper length*.
+
+- **Flipper-Length-by-Bill-Depth Interaction Effect** $(\beta_3=-8.6$, $p<.001)$<br />
+The expected change in the slope of one predictor for an increase of 1 in the other.<br />
+*The negative sign here means the flipper length effect gets weaker as bills get deeper.*
+
+## CCM Visualization 1
+
+```{r}
+#| fig-asp: 1
+#| fig-width: 6.5
+#| output-location: column
+
+pred_ccmf <- estimate_relation(
+  model = ccm_fb, 
+  by = c(
+    "flipper_len", 
+    "bill_dep = [quartiles]"
+  ), 
+  estimate = "average"
+)
+
+plot(pred_ccmf)
+  labs(
+    x = "Flipper Length", 
+    y = "Body Mass", 
+    color = "Bill Depth", 
+    fill = "Bill Depth"
+  ) +
+  theme(legend.position = "top")
+```
+
+## CCM Visualization 2
+
+```{r}
+#| fig-asp: 1
+#| #| fig-width: 6.5
+#| output-location: column
+
+pred_ccmb <- estimate_relation(
+  model = ccm_fb, 
+  by = c(
+    "bill_dep", 
+    "flipper_len = [quartiles]"
+  ), 
+  estimate = "average"
+)
+
+plot(pred_ccmb) +
+  labs(
+    x = "Bill Depth", 
+    y = "Body Mass", 
+    color = "Flipper Length", 
+    fill = "Flipper Length"
+  ) +
+  theme(legend.position = "top")
+```
+
+## CCM Simple Slopes 1
+
+```{r}
+estimate_slopes(
+  model = ccm_fb, 
+  trend = "flipper_len", 
+  by = "bill_dep = [quartiles]"
+)
+```
+
+## CCM Simple Slopes 2
+
+```{r}
+estimate_slopes(
+  model = ccm_fb, 
+  trend = "bill_dep", 
+  by = "flipper_len = [quartiles]"
+)
+```
+
+# CDM
+
+Continuous-by-Discrete Moderation
+
+## CDM Equation {.smaller}
+
+#### Generic
+$$
+\begin{aligned}
+y_i &= \overbrace{(\beta_0 + \beta_2 D_{1i} + \dots)}^{\text{Group-Specific Intercept}}
++ \overbrace{(\beta_1 + \beta_3 D_{1i} + \dots)}^{\text{Group-Specific Slope}} \cdot x_i 
++ \varepsilon_i
+\end{aligned}
+$$
+
+#### Example
+$$
+\begin{aligned}
+\text{MASS}_i &= (\beta_0 + \beta_2 \text{CHIN}_{i} + \beta_3 \text{GENT}_i) \\
+&\quad + (\beta_1 + \beta_4 \text{CHIN}_{i} + \beta_5 \text{GENT}_i) \cdot \text{FLEN}_i
++ \varepsilon_i
+\end{aligned}
+$$
+
+## CDM Formula
+
+#### Generic
+:::{.tc}
+`y ~ 1 + x * f`
+:::
+
+#### Example
+:::{.tc}
+`mass ~ 1 + flipper * species`
+:::
+
+## CDM Diagram {.nostretch}
+![](../../diagrams/cb_moderation_full.png){width="50%"}
+
+## CDM Estimation
+
+```{r}
+penguins_c <- center(penguins, select = "flipper_len")
+cdm_fs <- lm(
+  formula = body_mass ~ 1 + flipper_len * species, 
+  data = penguins_c
+)
+```
+
+:::{.pv4}
+```{r}
+#| echo: true
+
+model_parameters(cdm_fs) |> print(select = "minimal")
+```
+
+:::
+
+## CDM Interpretation 1 {.smaller}
+
+After centering the Flipper Length predictor and setting Adelie as reference, ...
+
+- **Intercept** $(\beta_0=4060.6$, $p<.001)$<br />
+The expected body mass for an Adelie penguin with average flipper length.
+
+- **Flipper Length Simple Effect** $(\beta_1=32.8$, $p<.001)$<br />
+The expected change in mass associated with an increase of 1mm flipper length,<br />*specifically for the reference group (Adelie)*.
+
+- **Chinstrap Simple Effect** $(\beta_2=-151.4$, $p=.062)$<br />
+The difference in expected mass between Chinstrap and Adelie penguins,<br />*specifically for penguins with average flipper length*.
+
+- **Gentoo Simple Effect** $(\beta_3=126.7$, $p=.242)$<br />
+The difference in expected mass between Gentoo and Adelie penguins,<br />*specifically for penguins with average flipper length*.
+
+## CDM Interpretation 2 {.smaller}
+- **Flipper-by-Chinstrap Interaction Effect** $(\beta_4=1.7$, $p=.825)$<br />
+The adjustment to the flipper slope for Chinstraps compared to Adelies.<br />
+*The flipper--mass relationship is not significantly different for Chinstraps and Adelies.*
+
+- **Flipper-by-Gentoo Interaction Effect** $(\beta_5=21.8$, $p=.002)$<br />
+The adjustment to the flipper slope for Gentoos compared to Adelies.<br />
+*The flipper--mass relationship is significantly steeper for Gentoos than for Adelies.*
+
+## CDM Visualization
+
+```{r}
+#| fig-asp: 1
+#| fig-width: 8.5
+#| output-location: column
+
+pred_cdmf <- estimate_relation(
+  model = cdm_fs, 
+  by = c(
+    "flipper_len", 
+    "species"
+  ),
+  estimate = "average"
+)
+plot(pred_cdmf) +
+  labs(
+    x = "Flipper Length",
+    y = "Body Mass",
+    color = "Species",
+    fill = "Species"
+  ) +
+  theme(legend.position = "top")
+```
+
+## CDM Simple Slopes
+
+```{r}
+estimate_slopes(
+  model = cdm_fs, 
+  trend = "flipper_len", 
+  by = "species"
+)
+```
+
+:::{.fsmaller}
+*Notice the Gentoo slope (54.6) is the Adelie slope (32.8) plus the interaction (21.8).*
+:::

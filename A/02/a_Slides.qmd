@@ -64,11 +64,21 @@ Linear Modeling Review (1/2)
 ```{r}
 #| message: false
 
-# install.packages(c("easystats", "marginaleffects", "ggplot2"))
+# install.packages(c("easystats", "ggplot2", "marginaleffects"))
 library(easystats)
-library(marginaleffects)
 library(ggplot2)
+library(marginaleffects)
 ```
+
+:::{.fsmaller}
+#### Needs to be loaded
+- [easystats]{.b .blue} will provide most of our statistical functions
+- [ggplot2]{.b .blue} will provide the ability to customize our plots
+
+#### Needs to be installed
+- [marginaleffects]{.b .green} is called by easystats for estimation
+
+:::
 
 ## Example Dataset
 
@@ -80,9 +90,10 @@ data_codebook(penguins)
 *Note that this dataset is already included with recent versions of R.*
 :::
 
-# Simple Regression
+# CSR
+Continuous Simple Regression
 
-## Simple Regression {.smaller}
+## CSR Overview {.smaller}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -106,32 +117,21 @@ data_codebook(penguins)
 :::
 :::
 
-## SR Equation Notation
+## CSR Equation
 
 #### Generic
 
 $$y_i = \beta_0 + \beta_1 x_{i} + \varepsilon_{i}$$
 
-:::{.tc}
-where $y_i$ is the continuous response value for observation $i$,<br>
-$x_i$ is the continuous predictor value for observation $i$,<br>
-$\beta_0$ and $\beta_1$ are the estimated intercept and slope, and<br>
-$\varepsilon_i$ is the estimated residual (error) for observation $i$
-:::
-
 #### Example
 
 $$\text{MASS}_i = \beta_0 + \beta_1 \text{FLEN}_{i} + \varepsilon_i$$
 
-## SR Formula Notation
+## CSR Formula
 
 #### Generic
 :::{.tc}
 `y ~ 1 + x`
-
-where *y* is the response variable name,<br>
-*1* tells R to estimate the intercept,<br>
-and *x* is the continuous predictor variable name
 :::
 
 #### Example
@@ -139,96 +139,130 @@ and *x* is the continuous predictor variable name
 `body_mass ~ 1 + flipper_len`
 :::
 
-## SR Path Diagram {.nostretch}
+## CSR Diagram {.nostretch}
 
 ![](../../diagrams/simple_regression_full.png){width="75%"}
 
-## SR Estimation
+## CSR Estimation
 
 ```{r}
-sr_f <- lm(
+csr_f <- lm(
   formula = body_mass ~ 1 + flipper_len,
   data = penguins
 )
 ```
 
-:::{.pv4 .fragment}
+:::{.pv4}
 ```{r}
-model_parameters(sr_f)
+model_parameters(csr_f)
 ```
-:::{.fsmaller}
-Intercept: Predict a penguin with 0mm flipper length has --5781g body mass.<br />
-Slope: Predict increase of 1mm flipper length increases body mass by 49.7g.<br />
-*Conclude: Flipper length is significantly (and positively) related to body mass.*
-:::
+
 :::
 
-## SR Centering
+## CSR Interpretation {.smaller}
+
+- **Intercept** $(\beta_0 = -5780.8$, $p<.001)$<br />
+The body mass (g) expected for a penguin with a flipper length of 0mm.<br />
+*This is biologically impossible, suggesting we should center our predictor.*
+
+- **Flipper Length Slope** $(\beta_1 = 49.7$, $p<.001)$<br />
+The expected change in body mass (g) for every 1mm increase in flipper length.
+
+- **Conclusion**<br />
+Flipper length is significantly and positively related to body mass.
+
+## CSR Centering
 
 ```{r}
 penguins_c <- center(penguins, select = "flipper_len")
-sr_f_c <- lm(formula = body_mass ~ 1 + flipper_len, data = penguins_c)
+csr_f_c <- lm(formula = body_mass ~ 1 + flipper_len, data = penguins_c)
 ```
 
-:::{.pv4 .fragment}
+:::{.pv4}
 ```{r}
-compare_parameters(sr_f, sr_f_c, select = "{estimate}{stars}")
+compare_parameters(csr_f, csr_f_c, select = "{estimate}{stars}")
 ```
 :::{.fsmaller}
-The slope doesn't change, but the intercept does and is now the predicted body mass for a penguin with *average* flipper length (rather than 0mm).
+**Note:** The slope $(\beta_1)$ does not change. However, the intercept $(\beta_0)$ is now the expected body mass for a penguin with ***average*** flipper length.
 :::
 :::
 
-## SR Standardizing
+## CSR Standardizing
 
 ```{r}
 penguins_z <- standardize(penguins, select = c("body_mass", "flipper_len"))
-sr_f_z <- lm(formula = body_mass ~ 1 + flipper_len, data = penguins_z)
+csr_f_z <- lm(formula = body_mass ~ 1 + flipper_len, data = penguins_z)
 ```
 
-:::{.pv4 .fragment}
+:::{.pv4}
 ```{r}
-compare_parameters(sr_f, sr_f_z, select = "{estimate}{stars}")
+compare_parameters(csr_f, csr_f_z, select = "{estimate}{stars}")
 ```
+
 :::{.fsmaller}
-The intercept is now zero and the slope is now the change in body mass in SD units (rather than grams) associated with a change of 1 SD in flipper length.
+**Note:** The intercept is now zero. The slope is now the change in body mass in **Standard Deviations (SDs)** for a 1 SD increase in flipper length.
 :::
 :::
 
-## SR Visualization
+## CSR Visualization
 
 ```{r}
-#| fig-asp: 0.75
+#| fig-asp: 1
+#| fig-width: 6
+#| output-location: column
 
-pred_srf <- estimate_relation(sr_f, by = "flipper_len")
-plot(pred_srf)
+pred_csrf <- estimate_relation(
+  model = csr_f, 
+  by = "flipper_len"
+)
+plot(pred_csrf)
 ```
 
-## Visualization Customization
+## Plot Customization
 
 ```{r}
-#| fig-asp: 0.75
+#| fig-asp: 1
+#| fig-width: 6.5
+#| output-location: column
 
-plot(pred_srf, show_data = TRUE, dot_size = 5, line_size = 1.5) +
-  scale_y_continuous(limits = c(2500, 6500)) +
-  labs(x = "Flipper length (mm)", y = "Body mass (g)") +
-  theme_bw(base_size = 30)
+# Use the black-and-white theme and
+# use 30pt font for all future plots
+theme_set(theme_bw(base_size = 30))
+
+plot(
+  pred_csrf, 
+  show_data = TRUE,
+  point = list(color = "salmon"),
+  line = list(linewidth = 1.5)
+) +
+scale_y_continuous(
+  limits = c(2500, 6500)
+) +
+labs(
+  x = "Flipper length (mm)", 
+  y = "Body mass (g)"
+)
 ```
 
-# Multiple Regression
+# CMR
+Continuous Multiple Regression
 
-## Multiple Regression {.smaller}
+## CMR Overview {.smaller}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
--   We can also include [multiple predictors]{.b .blue} to assess the [partial effect]{.b .green} of each predictor
-    -   This allows us to account for the variance shared by the predictors and the outcome
+-   We can include [multiple predictors]{.b .blue} to assess the [unique effect]{.b .green} of each predictor
+    -   This controls for the variance shared between predictors (collinearity)
 
 ::: {.fragment .mt1}
--   This changes the slopes' interpretations
-    -   The slope of $x_1$ is no longer just the change in $y$ expected for a change of 1 in $x_1$
-    -   It is now the change in $y$ expected for a change of 1 in $x_1$ **when controlling for $x_2$**
-    -   The slope of $x_2$ similarly controls for $x_1$
+-   This changes the interpretation of slopes
+    -   **Simple Regression:** "zero-order" or Total Effect
+    -   **Multiple Regression:** "partial" or Unique Effect
+    
+:::
+::: {.fragment .mt1}
+-   Interpretation:
+    -   The partial effect of a predictor is the change in $y$ expected for a change of 1 in that predictor, **while holding all other predictors constant**
 :::
 :::
 
@@ -237,80 +271,86 @@ plot(pred_srf, show_data = TRUE, dot_size = 5, line_size = 1.5) +
 :::
 :::
 
-## MR Equation Notation
+## CMR Equation
 
 #### Generic
-$$y_i = \beta_0 + \sum_{p=1}^P \beta_p x_{pi} + \varepsilon_{i}$$
+$$y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \dots + \varepsilon_{i}$$
 
-:::{.tc}
-where $P$ is the number of predictors
-:::
-
-#### Example
+#### Example (with 2 predictors)
 $$\text{MASS}_i = \beta_0 + \beta_1 \text{FLEN}_{i} + \beta_2 \text{BDEP}_{i} + \varepsilon_i$$
 
-## MR Formula Notation
+## CMR Formula
 
 #### Generic
 :::{.tc}
-`y ~ 1 + x1 + ... + xP`
-
-where $\text{x1},\ldots,\text{xP}$ are the predictor variable names
+`y ~ 1 + x1 + x2 + ...`
 :::
 
-#### Example
+#### Example (with 2 predictors)
 :::{.tc}
 `body_mass ~ 1 + flipper_len + bill_dep`
 :::
 
-## MR Path Diagram {.nostretch}
+## CMR Diagram {.nostretch}
 ![](../../diagrams/multiple_regression_full.png){width="70%"}
 
-## MR Estimation
+## CMR Estimation
 
 ```{r}
 #| echo: true
 
-mr_fb <- lm(
+cmr_fb <- lm(
   formula = body_mass ~ 1 + flipper_len + bill_dep,
   data = penguins
 )
 ```
 
-:::{.pv4 .fragment}
+:::{.pv4}
 ```{r}
 #| echo: true
 
-model_parameters(mr_fb)
-```
-
-::: {.fsmaller}
-The intercept is body mass when all predictors equal 0. Flipper length was significantly related to body mass while controlling for bill depth. Bill depth was not significantly related to body mass while controlling for flipper length.
-:::
-:::
-
-## SR vs. MR Estimates
-
-```{r}
-#| echo: true
-
-sr_b <- lm(body_mass ~ 1 + bill_dep, data = penguins)
-```
-
-:::{.pv4 .fragment}
-```{r}
-#| echo: true
-compare_parameters(sr_f, sr_b, mr_fb, select = "{estimate}{stars}")
+model_parameters(cmr_fb)
 ```
 
 :::
 
-:::{.f1 .fragment}
-- The slopes from SR are called "zero-order" (total) effects.
-- The slopes from MR are called "partial" (unique) effects.
+## CMR Interpretation {.smaller}
+
+- **Intercept** $(\beta_0 = -6541.9$, $p<.001)$<br />
+The body mass (g) expected when both Flipper Length and Bill Depth are 0mm.
+
+- **Flipper Length Partial Effect** $(\beta_1 = 51.5$, $p<.001)$<br />
+The expected change in body mass (g) for every 1mm increase in Flipper Length,<br />
+*holding Bill Depth constant*.
+
+- **Bill Depth Partial Effect** $(\beta_2 = 22.6$, $p=.089)$<br />
+The expected change in body mass (g) for every 1mm increase in Bill Depth,<br />
+*holding Flipper Length constant*.
+
+- **Conclusion**<br />
+Flipper length is uniquely predictive of Body Mass, whereas Bill Depth is not.
+
+## Comparing Estimates
+
+```{r}
+#| echo: true
+
+csr_b <- lm(formula = body_mass ~ 1 + bill_dep, data = penguins)
+```
+
+:::{.pv4}
+```{r}
+#| echo: true
+compare_parameters(csr_f, csr_b, cmr_fb, select = "{estimate}{stars}")
+```
+
 :::
 
-## SR vs. MR Visualization (FLEN)
+:::{.fsmaller}
+Notice that Bill Depth was significant on its own (`csr_b`), but loses significance when Flipper Length is added (`cmr_fb`). This is because Flipper Length "explains away" the variance.
+:::
+
+## Comparing Plots 1
 
 :::{.columns}
 
@@ -318,10 +358,10 @@ compare_parameters(sr_f, sr_b, mr_fb, select = "{estimate}{stars}")
 ```{r}
 #| fig-asp: 0.75
 
-pred_srf <- estimate_relation(
-  sr_f, by = "flipper_len"
+pred_csrf <- estimate_relation(
+  model = csr_f, by = "flipper_len"
 )
-plot(pred_srf) + theme_bw(30)
+plot(pred_csrf)
 ```
 :::
 
@@ -329,15 +369,15 @@ plot(pred_srf) + theme_bw(30)
 ```{r}
 #| fig-asp: 0.75
 
-pred_mrf <- estimate_relation(
-  mr_fb, by = "flipper_len"
+pred_cmrf <- estimate_relation(
+  model = cmr_fb, by = "flipper_len"
 )
-plot(pred_mrf) + theme_bw(30)
+plot(pred_cmrf)
 ```
 :::
 :::
 
-## SR vs. MR Visualization (BDEP)
+## Comparing Plots 2
 
 :::{.columns}
 
@@ -345,10 +385,10 @@ plot(pred_mrf) + theme_bw(30)
 ```{r}
 #| fig-asp: 0.75
 
-pred_srb <- estimate_relation(
-  sr_b, by = "bill_dep"
+pred_csrb <- estimate_relation(
+  model = csr_b, by = "bill_dep"
 )
-plot(pred_srb) + theme_bw(30)
+plot(pred_csrb)
 ```
 :::
 
@@ -356,34 +396,35 @@ plot(pred_srb) + theme_bw(30)
 ```{r}
 #| fig-asp: 0.75
 
-pred_mrb <- estimate_relation(
-  mr_fb, by = "bill_dep"
+pred_cmrb <- estimate_relation(
+  model = cmr_fb, by = "bill_dep"
 )
-plot(pred_mrb) + theme_bw(30)
+plot(pred_cmrb)
 ```
 
 :::
 :::
 
-# Categorical Predictors
+# DSR
+Discrete Simple Regression
 
-## Categorical Predictors {.smaller}
+## DSR Overview {.smaller}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
--   To include categorical predictors in regression models, we can use [dummy coding]{.b .blue}
-    -   This creates binary predictor variables
+-   To include a discrete predictor, the model will automatically use [dummy coding]{.b .blue}
+    -   This creates binary $(0/1)$ "switches"
 
 ::: {.fragment .mt1}
--   One [reference group]{.b .green} does not get a slope
-    -   Instead, it controls the model intercept
-    -   All other groups' slopes are just deviations from the intercept
+-   One group is chosen as the [Reference Group]{.b .green}
+    -   This group is represented by the *Intercept*
+    -   The slopes for other groups represent differences from the reference
 :::
 
 ::: {.fragment .mt1}
--   There is no need to create dummy codes in R
-    -   Just include a [factor]{.b .green} as a predictor variable
-    -   The **first level** will be the reference group
+-   In R, simply include a [factor]{.b .green} in the formula
+    -   R treats the first level as the Reference group
+    -   You can create a factor if needed using `factor()`
 :::
 :::
 
@@ -392,159 +433,88 @@ plot(pred_mrb) + theme_bw(30)
 :::
 :::
 
-# Categorical SR
-
-## CSR Equation Notation {.smaller}
+## DSR Equation {.smaller}
 
 #### Generic
-$$y_i = \beta_0 + \sum_{c=1}^{C-1} \beta_c d_{ci} + \varepsilon_{i}$$
+$$y_i = \beta_0 + \beta_1 D_{1i} + \dots + \varepsilon_{i}$$
 
-:::{.tc}
-where $C$ is the number of levels in the categorical predictor and<br>
-$d_{ci}$ represents whether observation $i$ has level $c$ ($0$: no, $1$: yes)
-:::
-
-#### Example 1
-$$\text{MASS}_i = \beta_0 + \beta_1 \text{MALE}_{i} + \varepsilon_i$$
-
-#### Example 2
+#### Example (with 3 Groups)
 $$\text{MASS}_i = \beta_0 + \beta_1 \text{CHIN}_i + \beta_2 \text{GENT}_i + \varepsilon_i$$
 
-## CSR Formula Notation
+## DSR Formula
 
 #### Generic
 :::{.tc}
 `y ~ 1 + f`
-
-where *f* is an unordered factor and<br>
-the first level is the reference group
 :::
 
-#### Example 1
-:::{.tc}
-`body_mass ~ 1 + sex`
-:::
-
-#### Example 2
+#### Example (with 3 Groups)
 :::{.tc}
 `body_mass ~ 1 + species`
 :::
 
-## CSR Path Diagram (2 Levels) {.nostretch}
 
-![](../../diagrams/categorical_regression_full2.png){width="70%"}
-
-## CSR Path Diagram (3 Levels) {.nostretch}
+## DSR Diagram {.nostretch}
 
 ![](../../diagrams/categorical_regression_full3.png){width="70%"}
 
-## Data Prep
+## DSR Data Prep
 
-The `sex` and `species` variables are already factors!
-
+The `species` variable is already a factor!
 
 ```{r}
-xtabs(formula = ~ sex + species, data = penguins)
+summary(penguins$species)
 ```
 
 
-But if they weren't, we would need to convert them:
+But if it wasn't, we would need to convert it:
 
 ```{r}
 #| eval: false
 
-penguins$sex <- factor(penguins$sex)
 penguins$species <- factor(penguins$species)
 ```
 
-## CSR Estimation (2 levels)
+## DSR Estimation
 
 ```{r}
-csr_sx <- lm(
-  formula = body_mass ~ 1 + sex,
-  data = penguins
-)
-```
-
-:::{.pv4 .fragment}
-```{r}
-model_parameters(csr_sx)
-```
-
-:::{.fsmaller}
-Intercept: The predicted body mass of the reference group (female).<br />
-Slope: The difference between the named (male) and reference groups.<br />
-*On average, males had significantly higher body mass than females.*
-:::
-:::
-
-## CSR Means (2 levels)
-
-```{r}
-pred_sx <- estimate_means(csr_sx, by = "sex", estimate = "average")
-pred_sx
-```
-
-:::{.fsmaller}
-The average body mass was approx. 3862 for females and 4546 for males.
-:::
-
-## CSR Visualization (2 levels)
-
-```{r}
-#| fig-asp: 0.75
-
-plot(pred_sx, dot_size = 5, line_size = 1.5) + 
-  scale_y_continuous(limits = c(3500, 5000)) +
-  labs(x = "Sex", y = "Body Mass (g)") +
-  theme_bw(base_size = 30)
-```
-
-## CSR Estimation (3 levels)
-
-```{r}
-csr_sp <- lm(
+dsr_s <- lm(
   formula = body_mass ~ 1 + species,
   data = penguins
 )
 ```
 
-:::{.pv4 .fragment}
+:::{.pv4}
 ```{r}
 #| echo: true
 
-model_parameters(csr_sp)
+model_parameters(dsr_s)
 ```
 
-:::{.fsmaller}
-Intercept: Estimated body mass for reference group (Adelie)<br />
-Slopes: Difference between named group and reference group<br />
-*Note: This table *does not* compare the Chinstrap and Gentoo groups!*
-:::
 :::
 
-## CSR Means (3 levels)
-```{r}
-pred_sp <- estimate_means(csr_sp, by = "species")
-pred_sp
-```
+## DSR Interpretation {.smaller}
 
+- **Intercept** $(\beta_0 = 3700.7$, $p<.001)$<br />
+The predicted body mass (g) for the Reference Group (Adelie).
 
-## CSR Visualization (3 levels)
+- **Species [Chinstrap] Total Effect** $(\beta_1 = 32.4$, $p=.631)$<br />
+The body mass difference between Chinstrap and Adelie.<br />
+*Result:* Not significant. Chinstraps are roughly the same size as Adelies.
 
-```{r}
-#| fig-asp: 0.75
+- **Species [Gentoo] Total Effect** $(\beta_2 = 1375.4$, $p<.001)$<br />
+The body mass difference between Gentoo and Adelie.<br />
+*Result:* Significant. Gentoos are much larger than Adelies.
 
-plot(pred_sp, dot_size = 5, line_size = 1.5) +
-  labs(x = "Species", y = "Body Mass (g)") +
-  theme_bw(base_size = 30)
-```
+- **What's Missing?**<br />
+We know how all groups compare to Adelie, but do Chinstraps differ from Gentoos?<br />
+Standard regression output doesn't tell us. We need contrasts...
 
-## CSR Pairwise Contrasts
+## DSR Pairwise Contrasts
 
 ```{r}
 estimate_contrasts(
-  model = csr_sp, 
+  model = dsr_s, 
   contrast = "species", 
   comparison = "pairwise", # compare pairs of groups
   estimate = "average",
@@ -556,7 +526,7 @@ estimate_contrasts(
 
 ```{r}
 estimate_contrasts(
-  model = csr_sp, 
+  model = dsr_s, 
   contrast = "species",
   comparison = "meandev", # compare groups to mean of all
   estimate = "average",
@@ -564,115 +534,135 @@ estimate_contrasts(
 )
 ```
 
-# Categorical MR
+## DSR Means
+```{r}
+pred_dsrs <- estimate_means(dsr_s, by = "species")
+pred_dsrs
+```
 
-## CMR Equation Notation {.smaller}
+
+## DSR Visualization
+
+```{r}
+#| fig-asp: 1
+#| fig-width: 6.5
+#| output-location: column
+
+plot(pred_dsrs) +
+  labs(
+    x = "Species",
+    y = "Body Mass (g)"
+  )
+```
+
+# MMR
+Mixed Multiple Regression
+
+## MMR Equation {.smaller}
 
 #### Generic
-$$y_i = \beta_0 + \sum_{p=1}^P \beta_p x_{pi} + 
-\sum_{k=1}^K \sum_{c=1}^{C_k-1} \beta_{kc} d_{kci}+ 
-\varepsilon_{i}$$
+$$y_i = \beta_0 + \beta_1 x_{1i} + \dots +\beta_2 D_{1i} + \dots + \varepsilon_{i}$$
 
-:::{.tc}
-where $P$ is the number of continuous predictors,<br>
-$K$ is the number of categorical predictors (each with $C_k$ levels),<br>
-and $d_{kci}$ is a dummy code for obs. $i$ in level $c$ of predictor $k$
-:::
+#### Example (with 1 continuous predictor and 3 groups)
+$$\text{MASS}_i = \beta_0 + \beta_1 \text{FLEN}_i + \beta_2 \text{CHIN}_i + \beta_3 \text{GENT}_i + \varepsilon_i$$
 
-#### Example
-$$\text{MASS}_i = \beta_0 + \beta_1 \text{FLEN}_i + \beta_2 \text{MALE}_{i} + \\
-\beta_3 \text{CHIN}_i + \beta_4 \text{GENT}_i + \varepsilon_i$$
-
-## CMR Formula Notation
+## MMR Formula
 
 #### Generic
 :::{.tc}
-`y ~ 1 + (x1 + ... + xP) + (f1 + ... + fK)`
-
-where $\text{x1},\ldots,\text{xP}$ are continuous predictors,<br>
-$\text{f1},\ldots,\text{fK}$ are unordered factor predictors, and<br>
-the parentheses are optional (for clarity only)
+`y ~ 1 + x1 + ... + f1 + ...`
 :::
 
-#### Example
+#### Example (with 1 continuous and 3 groups)
 :::{.tc}
-`body_mass ~ 1 + flipper_len + sex + species`
+`body_mass ~ 1 + flipper_len + species`
 :::
 
 
-## CMR Path Diagram
+## MMR Diagram
 
 ![](../../diagrams/complex_regression_full.png)
 
-## CMR Estimation
+## MMR Estimation
 
 ```{r}
 #| echo: true
 
-cmr <- lm(
-  formula = body_mass ~ 1 + flipper_len + sex + species,
+mmr_fs <- lm(
+  formula = body_mass ~ 1 + flipper_len + species,
   data = penguins
 )
 ```
 
-:::{.pv4 .fragment}
+:::{.pv4}
 ```{r}
 #| echo: true
 
-model_parameters(cmr)
+model_parameters(mmr_fs)
 ```
 
 :::
 
-## CMR Visualization: Continuous
+## MMR Slope Visualization
 
 ```{r}
-#| fig-asp: 0.75
+#| fig-asp: 1
+#| output-location: column
 
-pred_cmrf <- estimate_relation(cmr, by = "flipper_len", estimate = "average")
-plot(pred_cmrf, dot_size = 5, line_size = 1.5) +
-  labs(x = "Flipper Length (mm)", y = "Body Mass (g)", 
-       subtitle = "Controlling for Sex and Species") + 
-  theme_bw(base_size = 30)
+pred_mmrf <- estimate_relation(
+  model = mmr_fs, 
+  by = "flipper_len", 
+  estimate = "average"
+)
+plot(pred_mmrf) +
+  labs(
+    x = "Flipper Length (mm)", 
+    y = "Body Mass (g)", 
+    subtitle = "Controlling for Species"
+  )
 ```
 
-## CMR Means
+## MMR Means
 
 ```{r}
-pred_cmrs <- estimate_means(cmr, by = "species", estimate = "average")
-pred_cmrs
+pred_mmrs <- estimate_means(mmr_fs, by = "species", estimate = "average")
+pred_mmrs
 ```
 
-## CMR Visualization: Categorical
+## MMR Means Visualization
 
 ```{r}
-#| fig-asp: 0.75
+#| fig-asp: 1
+#| fig-width: 6.5
+#| output-location: column
 
-plot(pred_cmrs, dot_size = 5, line_size = 1.5) +
-  labs(x = "Species", y = "Body Mass (g)", 
-       subtitle = "Controlling for Sex and Flipper Length") + 
-  theme_bw(base_size = 30)
+plot(pred_mmrs) +
+  labs(
+    x = "Species", 
+    y = "Body Mass (g)", 
+    subtitle = "Controlling for Flipper Length"
+  )
 ```
 
-## CMR Pairwise Contrasts
+## MMR Pairwise Contrasts
 
 ```{r}
 estimate_contrasts(
-  model = cmr,
+  model = mmr_fs,
   contrast = "species",
-  comparison = "pairwise", # compare pairs of groups
+  comparison = "pairwise", # compare each group to each other group
   estimate = "average",
   p_adjust = "holm"
 )
 ```
 
-## CMR Deviation Contrasts
+## MMR Deviation Contrasts
 
 ```{r}
 estimate_contrasts(
-  model = cmr,
+  model = mmr_fs,
   contrast = "species",
-  comparison = "meandev", # compare groups to mean of all
+  comparison = "meandev", # compare each group to the mean of all groups
   estimate = "average",
   p_adjust = "holm"
 )
