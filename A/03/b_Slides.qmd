@@ -1,0 +1,83 @@
+---
+format: 
+  revealjs:
+    css: ../../styles.css
+    slide-number: true
+    show-slide-number: all
+    preview-links: false
+    progress: true
+    history: true
+    hash-type: number
+    theme: default
+    code-block-background: true
+    highlight-style: zenburn
+    code-link: false
+    code-copy: true
+    code-line-numbers: false
+    controls: true
+    pagetitle: "Multilevel Modeling"
+    author-meta: "Jeffrey Girard"
+    semester: "Spring 2026"
+    course: "PSYC 894"
+    lecture: "03b"
+execute:
+  echo: true
+  eval: true
+  collapse: false
+  cache: false
+---
+
+::: {.my-title}
+# [Multilevel Modeling]{.blue}
+Approaches to Clustered Data
+
+::: {.my-grey}
+[{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/city-girl.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+
+## Roadmap
+
+::: {.columns .pv4}
+::: {.column width="60%"}
+1. Complete Pooling
+  
+2. No Pooling
+
+3. Partial Pooling
+
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+## Setup
+
+```{r}
+#| message: false
+
+library(easystats)
+library(ggplot2)
+library(marginaleffects)
+library(qqplotr)
+library(sandwich)
+
+data("penguins", "mtcars", "cars", "airquality")
+
+theme_set(theme_bw(base_size = 30))
+```
+
+:::{.fsmaller}
+**New Packages:**
+
+- [qqplotr]{.b .green} is called by easystats to add CIs to diagnostic plots
+- [sandwich]{.b .green} is called by easystats to implement HC3 corrections
+:::
+

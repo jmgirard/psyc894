@@ -6,7 +6,7 @@ toc: false
 ## Unit A
 - Week 01: Overview and Workflow
 - Week 02: Linear Modeling Recap
-- Week 03: Clustering Issues/Approaches
+- Week 03: Clustered Data
 - Week 04: Data Prep and Estimation
 
 ## Unit B

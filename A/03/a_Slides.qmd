@@ -1,0 +1,85 @@
+---
+format: 
+  revealjs:
+    css: ../../styles.css
+    slide-number: true
+    show-slide-number: all
+    preview-links: false
+    progress: true
+    history: true
+    hash-type: number
+    theme: default
+    code-block-background: true
+    highlight-style: zenburn
+    code-link: false
+    code-copy: true
+    code-line-numbers: false
+    controls: true
+    pagetitle: "Multilevel Modeling"
+    author-meta: "Jeffrey Girard"
+    semester: "Spring 2026"
+    course: "PSYC 894"
+    lecture: "03a"
+execute:
+  echo: true
+  eval: true
+  collapse: false
+  cache: false
+---
+
+::: {.my-title}
+# [Multilevel Modeling]{.blue}
+Issues with Clustered Data
+
+::: {.my-grey}
+[{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/city-girl.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+1. Multilevel Data and Questions
+  
+2. Conceptual Issues with Clustering
+
+3. Statistical Issues with Clustering
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+##  R Setup
+
+```{r}
+#| message: false
+
+library(easystats)
+library(ggplot2)
+library(marginaleffects)
+
+data("penguins")
+```
+
+:::{.fsmaller}
+- [easystats]{.b .blue} will provide most of our statistical functions
+- [ggplot2]{.b .blue} will provide the ability to customize our plots
+- [marginaleffects]{.b .green} is called by easystats for estimation
+:::
+
+## Example Dataset
+
+```{r}
+# This penguins dataset is built into R (don't load palmerpenguins)
+data_codebook(penguins, 
+  select = c("species", "bill_dep", "flipper_len", "body_mass"))
+```
+

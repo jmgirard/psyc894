@@ -1,0 +1,67 @@
+---
+title: "Week 03: Clustered Data"
+---
+
+
+::: {.callout-tip title="Work in Progress"}
+This page is not yet complete!
+:::
+
+<!-- 03a -->
+
+## [03a] Materials
+
+### Topics
+- Multilevel Data and Questions
+- Conceptual Issues with Clustering
+- Statistical Issues with Clustering
+
+### Readings
+- [HMV Chapter 1 (Introduction to Multilevel Analysis)](){target="_blank"}
+- [McCoach \& Adelson (2010)](){target="_blank"}
+
+### Slides
+
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[02a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.
+:::
+
+
+<!-- 03b -->
+
+## [03b] Materials
+
+### Topics
+- Complete Pooling
+- No Pooling
+- Partial Pooling
+
+### Readings
+- [S\&F Chapter 3 (Approaches to Multilevel Data)](https://www.learn-mlms.com/03-module-3.html){target="_blank"}
+- *Advanced:* [McNeish et al. (2016)](){target="_blank"}
+- *Advanced:* [McNeish (2023)](){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[02b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.
+:::
+
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../02/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 02</a>
+
+  <a href="../04/index.html" class="btn btn-primary" role="button">Week 04&nbsp;&nbsp;&raquo;</a>
+</div>
+```

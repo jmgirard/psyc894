@@ -1,0 +1,19 @@
+{
+  "hash": "b879f56a9397fd8be7d0313cad875ba4",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\nformat: \n  revealjs:\n    css: ../../styles.css\n    slide-number: true\n    show-slide-number: all\n    preview-links: false\n    progress: true\n    history: true\n    hash-type: number\n    theme: default\n    code-block-background: true\n    highlight-style: zenburn\n    code-link: false\n    code-copy: true\n    code-line-numbers: false\n    controls: true\n    pagetitle: \"Multilevel Modeling\"\n    author-meta: \"Jeffrey Girard\"\n    semester: \"Spring 2026\"\n    course: \"PSYC 894\"\n    lecture: \"03b\"\nexecute:\n  echo: true\n  eval: true\n  collapse: false\n  cache: false\n---\n\n::: {.my-title}\n# [Multilevel Modeling]{.blue}\nApproaches to Clustered Data\n\n::: {.my-grey}\n[{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />\n[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}\n:::\n\n![](../../img/city-girl.svg){.absolute bottom=30 right=0 width=\"400\"}\n:::\n\n\n## Roadmap\n\n::: {.columns .pv4}\n::: {.column width=\"60%\"}\n1. Complete Pooling\n  \n2. No Pooling\n\n3. Partial Pooling\n\n:::\n\n::: {.column .tc .pv4 width=\"40%\"}\n{{< lif \"../../icons/map.json\" trigger=hover colors=secondary:#2a76dd class=rc >}}\n:::\n\n:::\n\n## Setup\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(easystats)\nlibrary(ggplot2)\nlibrary(marginaleffects)\nlibrary(qqplotr)\nlibrary(sandwich)\n\ndata(\"penguins\", \"mtcars\", \"cars\", \"airquality\")\n\ntheme_set(theme_bw(base_size = 30))\n```\n:::\n\n\n:::{.fsmaller}\n**New Packages:**\n\n- [qqplotr]{.b .green} is called by easystats to add CIs to diagnostic plots\n- [sandwich]{.b .green} is called by easystats to implement HC3 corrections\n:::\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
