@@ -17,8 +17,8 @@ This page is not yet complete!
 - Statistical Issues with Clustering
 
 ### Readings
-- [HMV Chapter 1 (Introduction to Multilevel Analysis)](https://canvas.ku.edu/courses/182539/pages/meeting-03a-issues-with-clustered-data){target="_blank"}
-- [McCoach \& Adelson (2010)](https://canvas.ku.edu/courses/182539/pages/meeting-03a-issues-with-clustered-data){target="_blank"}
+- [HMV Chapter 1: Introduction to Multilevel Analysis](https://canvas.ku.edu/courses/182539/pages/meeting-03a-issues-with-clustered-data){target="_blank"}
+- [McCoach \& Adelson (2010): Understanding the effects of clustered data](https://canvas.ku.edu/courses/182539/pages/meeting-03a-issues-with-clustered-data){target="_blank"}
 
 ### Slides
 
@@ -37,14 +37,14 @@ This page is not yet complete!
 ## [03b] Materials
 
 ### Topics
-- Complete Pooling
-- No Pooling
-- Partial Pooling
+- "Complete Pooling" Approaches
+- "No Pooling" Approaches
+- "Partial Pooling" Approaches
 
 ### Readings
-- [S\&F Chapter 3 (Approaches to Multilevel Data)](https://www.learn-mlms.com/03-module-3.html){target="_blank"}
-- *Advanced:* [McNeish et al. (2016)](https://canvas.ku.edu/courses/182539/pages/meeting-03a-issues-with-clustered-data){target="_blank"}
-- *Advanced:* [McNeish (2023)](https://canvas.ku.edu/courses/182539/pages/meeting-03a-issues-with-clustered-data){target="_blank"}
+- [S\&F Chapter 3: Approaches to Multilevel Data](https://www.learn-mlms.com/03-module-3.html){target="_blank"}
+- *Advanced:* [McNeish et al. (2016): On the unnecessary ubiquity of hierarchical linear modeling](https://canvas.ku.edu/courses/182539/pages/meeting-03a-issues-with-clustered-data){target="_blank"}
+- *Advanced:* [McNeish (2023): A practical guide to selecting and blending approaches for clustered data](https://canvas.ku.edu/courses/182539/pages/meeting-03a-issues-with-clustered-data){target="_blank"}
 
 ### Slides
 ```{=html}
