@@ -4,14 +4,14 @@
     "href": "schedule.html",
     "title": "Course Schedule",
     "section": "",
-    "text": "Week 01: Overview and Workflow\nWeek 02: Linear Modeling Recap\nWeek 03: Clustering Issues/Approaches\nWeek 04: Data Prep and Estimation"
+    "text": "Week 01: Overview and Workflow\nWeek 02: Linear Modeling Recap\nWeek 03: Clustered Data\nWeek 04: Data Prep and Estimation"
   },
   {
     "objectID": "schedule.html#unit-a",
     "href": "schedule.html#unit-a",
     "title": "Course Schedule",
     "section": "",
-    "text": "Week 01: Overview and Workflow\nWeek 02: Linear Modeling Recap\nWeek 03: Clustering Issues/Approaches\nWeek 04: Data Prep and Estimation"
+    "text": "Week 01: Overview and Workflow\nWeek 02: Linear Modeling Recap\nWeek 03: Clustered Data\nWeek 04: Data Prep and Estimation"
   },
   {
     "objectID": "schedule.html#unit-b",
@@ -35,25 +35,25 @@
     "text": "Unit D\n\nWeek 13: Troubleshooting and Bayes\nWeek 14: Advanced Previews\nWeek 15: Project Work\nWeek 16: Project Work"
   },
   {
-    "objectID": "A/02/index.html",
-    "href": "A/02/index.html",
-    "title": "Week 02: Linear Modeling Review",
+    "objectID": "A/03/index.html",
+    "href": "A/03/index.html",
+    "title": "Week 03: Clustered Data",
     "section": "",
-    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+    "text": "TipWork in Progress\n\n\n\nThis page is not yet complete!"
   },
   {
-    "objectID": "A/02/index.html#a-materials",
-    "href": "A/02/index.html#a-materials",
-    "title": "Week 02: Linear Modeling Review",
-    "section": "",
-    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+    "objectID": "A/03/index.html#a-materials",
+    "href": "A/03/index.html#a-materials",
+    "title": "Week 03: Clustered Data",
+    "section": "[03a] Materials",
+    "text": "[03a] Materials\n\nTopics\n\nMultilevel Data and Questions\nConceptual Issues with Clustering\nStatistical Issues with Clustering\n\n\n\nReadings\n\nHMV Chapter 1 (Introduction to Multilevel Analysis)\nMcCoach & Adelson (2010)\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
   },
   {
-    "objectID": "A/02/index.html#b-materials",
-    "href": "A/02/index.html#b-materials",
-    "title": "Week 02: Linear Modeling Review",
-    "section": "[02b] Materials",
-    "text": "[02b] Materials\n\nTopics\n\nModeration\nAssumptions\nDiagnostics\n\n\n\nReadings\n\nKelley & Maxwell (2019)\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 01\n\n  Week 03  »"
+    "objectID": "A/03/index.html#b-materials",
+    "href": "A/03/index.html#b-materials",
+    "title": "Week 03: Clustered Data",
+    "section": "[03b] Materials",
+    "text": "[03b] Materials\n\nTopics\n\nComplete Pooling\nNo Pooling\nPartial Pooling\n\n\n\nReadings\n\nS&F Chapter 3 (Approaches to Multilevel Data)\nAdvanced: McNeish et al. (2016)\nAdvanced: McNeish (2023)\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 02\n\n  Week 04  »"
   },
   {
     "objectID": "A/01/index.html",
@@ -75,6 +75,27 @@
     "title": "Week 01: Overview and Recap",
     "section": "[01b] Materials",
     "text": "[01b] Materials\n\nTopics\n\nOverview of Syllabus, Canvas, and Website\nRecap of Basic Workflow in R and Quarto\n\n\n\nReadings\n\nRequired\n\nS&F (1E) Chapter 1: Introduction\n\n\n\nOptional\n\nWCG (2E) Chapter 2: Workflow: Basics\nWCG (2E) Chapter 6: Workflow: Scripts and Projects\nWCG (2E) Chapter 7: Data import\nWCG (2E) Sections 28.1–28.5: Quarto\n\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n  «  Home\n\n  Week 02  »"
+  },
+  {
+    "objectID": "A/02/index.html",
+    "href": "A/02/index.html",
+    "title": "Week 02: Linear Modeling Review",
+    "section": "",
+    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+  },
+  {
+    "objectID": "A/02/index.html#a-materials",
+    "href": "A/02/index.html#a-materials",
+    "title": "Week 02: Linear Modeling Review",
+    "section": "",
+    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+  },
+  {
+    "objectID": "A/02/index.html#b-materials",
+    "href": "A/02/index.html#b-materials",
+    "title": "Week 02: Linear Modeling Review",
+    "section": "[02b] Materials",
+    "text": "[02b] Materials\n\nTopics\n\nModeration\nAssumptions\nDiagnostics\n\n\n\nReadings\n\nKelley & Maxwell (2019)\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 01\n\n  Week 03  »"
   },
   {
     "objectID": "index.html",
