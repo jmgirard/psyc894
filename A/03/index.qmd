@@ -3,7 +3,7 @@ title: "Week 03: Clustered Data"
 ---
 
 
-::: {.callout-tip title="Work in Progress"}
+::: {.callout-caution title="Work in Progress"}
 This page is not yet complete!
 :::
 
