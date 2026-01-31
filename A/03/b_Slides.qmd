@@ -349,7 +349,7 @@ The choice between No Pooling and Partial Pooling connects back to our earlier d
 
 ::: {.columns}
 ::: {.column width="50%"}
-### Fixed Effects (No Pooling)
+### Fixed Effects<br />(No Pooling)
 - Treats clusters as **Fixed Groups**.
 - *Are specific entities.*
 - *Are not interchangeable.*
@@ -357,7 +357,7 @@ The choice between No Pooling and Partial Pooling connects back to our earlier d
 :::
 
 ::: {.column width="50%"}
-### Random Effects (Partial Pooling)
+### Random Effects<br />(Partial Pooling)
 - Treats clusters as **Random Clusters**.
 - *Are samples from a population.*
 - *Are interchangeable.*

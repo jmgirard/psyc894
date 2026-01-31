@@ -31,10 +31,6 @@ title: "Week 03: Clustered Data"
 
 ## [03b] Materials
 
-::: {.callout-caution title="Work in Progress"}
-The slides for 03b are not yet complete!
-:::
-
 ### Topics
 - "Complete Pooling" Approaches
 - "No Pooling" Approaches
