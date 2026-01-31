@@ -136,7 +136,7 @@ model_parameters(m3_interaction)
 # We want to visualize the Education slope split by Religion
 # Replace FIXME with "Religion" to split the lines by group
 pred_m3 <- estimate_relation(
-  m3_interaction, 
+  model = m3_interaction, 
   by = c("Education", "FIXME"),
   estimate = "average"
 )
@@ -163,7 +163,7 @@ Now that we have fitted our interaction model (`m3_interaction`), we must verify
 
 # Pass the correct model object to the function
 check_model(
-  model = FIXME, 
+  x = FIXME, 
   check = c("linearity", "homogeneity", "qq", "normality")
 )
 ```

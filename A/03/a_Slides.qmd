@@ -127,13 +127,32 @@ Issues with Clustered Data
 :::
 
 ::: {.fragment}
-- [Contextual]{.b .red} variables "disaggregate down" from a higher-level
-    + *e.g., the **classroom size** of a student (L1), disaggregated down from class (L2)*
-    + *e.g., the **gender** of a day (L1), disaggregated down from participant (L2)*
+- [Disaggregated]{.b .red} variables "copy down" from a higher-level
+    + *e.g., the **classroom size** of a student (L1), copied down from class (L2)*
+    + *e.g., the **gender** of a day (L1), copied down from participant (L2)*
+    + *Note: This is often how Global (L2) variables are stored in "long format" data.*
 
 :::
 
+## Practice: Classify that Variable {.smaller}
 
+**Scenario:** We are studying **employees (L1)** nested within **companies (L2)**.
+
+For each variable below, is it **Global**, **Structural**, or **Disaggregated**?
+
+::: {.incremental}
+1. **"Employee Job Satisfaction"**
+    - [Answer:]{.blue} **Global**
+    - *It describes the specific level (L1) at which it was measured.*
+
+2. **"Company Profit"** (assigned to every employee row)
+    - [Answer:]{.red} **Disaggregated**
+    - *It describes the higher level (L2) but is "copied down" to the lower level (L1).*
+
+3. **"Average Employee Satisfaction"** (calculated for each company)
+    - [Answer:]{.green} **Structural**
+    - *It describes the higher level (L2) but is "aggregated up" from the lower level (L1).*
+:::
 
 ## Multilevel Research Questions {.smaller}
 
@@ -184,6 +203,44 @@ Issues with Clustered Data
 - Relationships may actually reverse at different levels
 :::
 
+## Visualizing the Paradox {.smaller}
+
+```{r}
+#| echo: false
+#| message: false
+#| fig-align: center
+#| fig-height: 5
+
+library(ggplot2)
+library(dplyr)
+
+# Synthetic data generation for Simpson's Paradox
+set.seed(123)
+n_groups <- 5
+n_per_group <- 20
+df_simpson <- tibble(
+  group = rep(1:n_groups, each = n_per_group),
+  # Between effect: As group X increases, group Y decreases
+  x_between = rep(seq(10, 50, length.out = n_groups), each = n_per_group),
+  y_between = -0.5 * x_between, 
+  # Within effect: As individual x increases, individual y increases
+  x_within = rnorm(n_groups * n_per_group, 0, 3),
+  y_within = 0.8 * x_within + rnorm(n_groups * n_per_group, 0, 2),
+  # Combined
+  x = x_between + x_within,
+  y = y_between + y_within
+)
+
+ggplot(df_simpson, aes(x, y)) +
+  geom_point(aes(color = as.factor(group)), alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "black", linetype = "dashed") + # Naive fit
+  geom_smooth(aes(group = group, color = as.factor(group)), method = "lm", se = FALSE) + # Cluster fit
+  annotate("text", x = 40, y = -5, label = "Naive Global Fit (Negative)", fontface = "italic") +
+  theme_minimal(base_size = 20) +
+  theme(legend.position = "none") +
+  labs(x = "Physical Activity", y = "Heart Rate", title = "Within (Positive) vs. Between (Negative)")
+```
+
 ## The Ecological Fallacy
 
 > Wealthier countries tend to have *higher* average happiness levels. However, this does not necessarily imply that, within a given country, wealthier individuals tend to be happier. In fact, this effect tends to be much *weaker.*
@@ -232,6 +289,85 @@ Issues with Clustered Data
 
 :::
 
+## The Danger of Ignoring Clustering {.smaller}
+
+**Simulation:** We simulate 500 datasets where **no effect exists** ($\beta=0$). We analyze *the exact same data* two ways: ignoring clustering (LM) and accounting for it (MLM). Because H0 is true, only ~5\% of slope p-values should be $<.05$. This is true for MLM but not for LM.
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 10
+#| fig-height: 5
+#| message: false
+#| warning: false
+
+library(ggplot2)
+library(dplyr)
+library(lme4)
+library(parameters) # from easystats
+library(tidyr)
+
+set.seed(2026)
+n_reps <- 500
+
+sim_results <- replicate(n_reps, {
+  n_groups <- 20
+  n_per_group <- 30
+  group_x <- rnorm(n_groups) 
+  group_int <- rnorm(n_groups)
+  df <- tibble(
+    group = rep(1:n_groups, each = n_per_group),
+    x = rep(group_x, each = n_per_group),
+    y = rep(group_int, each = n_per_group) + rnorm(n_groups * n_per_group)
+  )
+  m_bad <- lm(y ~ x, data = df)
+  p_bad <- p_value(m_bad)$p[2]
+  m_good <- lmer(y ~ x + (1|group), data = df)
+  p_good <- p_value(m_good)$p[2]
+  c(lm = p_bad, lmer = p_good)
+})
+
+# 1. Calculate the exact percentages
+pct_lm <- mean(sim_results["lm", ] < .05) * 100
+pct_mlm <- mean(sim_results["lmer", ] < .05) * 100
+
+# 2. Create dynamic labels
+lab_lm <- sprintf("LM (%.1f%% < .05)", pct_lm)
+lab_mlm <- sprintf("MLM (%.1f%% < .05)", pct_mlm)
+
+sim_df <- 
+  t(sim_results) |> 
+  as_tibble() |> 
+  pivot_longer(
+    cols = everything(), 
+    names_to = "Model", 
+    values_to = "p_value"
+  ) |> 
+  mutate(
+    Model = factor(
+      Model,
+      levels = c("lm", "lmer"), 
+      labels = c(lab_lm, lab_mlm)
+    )
+  )
+
+# Plot
+ggplot(sim_df, aes(x = p_value, fill = Model)) +
+  geom_histogram(breaks = seq(0, 1, 0.05), color = "white", alpha = 0.8) +
+  geom_vline(xintercept = 0.05, linetype = "dashed") +
+  scale_fill_manual(values = c("#cc0000", "#137752")) +
+  facet_wrap(~Model) +
+  labs(
+    x = "p-Value", 
+    y = "Frequency"
+  ) +
+  theme_minimal(base_size = 20) +
+  theme(
+    legend.position = "none",
+    strip.text = element_text(face = "bold", size = 24)
+  )
+```
+
 ## Why is the SE too low? {.smaller}
 
 - If we disaggregate to the lowest level, $N$ will be too high
@@ -274,13 +410,61 @@ If $n$ is too large, then $SE_{\beta_p}$ will be too small.
 - How correlated are observations from the same cluster?
 
 $$
-ICC = \rho = \frac{\sigma^2_{between}}{\sigma^2_{between}+\sigma^2_{within}} = \frac{\tau_{00}^2}{\tau_{00}^2+\sigma^2}
+ICC = \rho = \frac{\tau_{00}^2}{\tau_{00}^2+\sigma^2}
 $$
 
-- Is there homogeneity within clusters (relatively low $\sigma^2$)?
-- Is there heterogeneity between clusters (relatively high $\tau_{00}^2$)?
+::: {.fsmaller}
+- $\sigma^2$ is the **Within-Cluster Variance** (Residual Variance)
+- $\tau_{00}^2$ is the **Between-Cluster Variance** (Intercept Variance)
+- *Note: `easystats` usually reports the SDs ($\sigma$ and $\tau_{00}$), so you must square them to get the variances for this formula.*
+:::
+
 - Ranges from 0 (no clustering) to 1 (perfect clustering)
 
+## Visualizing the ICC
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 10
+#| fig-height: 5
+
+library(patchwork)
+
+# Function to generate data with specific ICC
+gen_icc_data <- function(n_groups = 10, n_per_group = 10, icc = 0.1) {
+  sigma_between <- sqrt(icc)
+  sigma_within <- sqrt(1 - icc)
+  
+  tibble(
+    group = rep(1:n_groups, each = n_per_group),
+    intercept = rep(rnorm(n_groups, 0, sigma_between), each = n_per_group),
+    y = intercept + rnorm(n_groups * n_per_group, 0, sigma_within),
+    x = rep(1:n_groups, each = n_per_group) 
+  )
+}
+
+set.seed(42)
+p1 <- gen_icc_data(icc = 0.05) %>%
+  ggplot(aes(x = factor(group), y = y, color = factor(group))) +
+  geom_point(alpha = 0.6, size = 3) +
+  theme_minimal(base_size = 20) + theme(legend.position = "none", axis.text.x=element_blank()) +
+  labs(title = "ICC=0.05", x = "Clusters")
+
+p2 <- gen_icc_data(icc = 0.50) %>%
+  ggplot(aes(x = factor(group), y = y, color = factor(group))) +
+  geom_point(alpha = 0.6, size = 3) +
+  theme_minimal(base_size = 20) + theme(legend.position = "none", axis.text.x=element_blank()) +
+  labs(title = "ICC=0.50", y = NULL, x = "Clusters")
+
+p3 <- gen_icc_data(icc = 0.95) %>%
+  ggplot(aes(x = factor(group), y = y, color = factor(group))) +
+  geom_point(alpha = 0.6, size = 3) +
+  theme_minimal(base_size = 20) + theme(legend.position = "none", axis.text.x=element_blank()) +
+  labs(title = "ICC=0.95", y = NULL, x = "Clusters")
+
+p1 + p2 + p3
+```
 
 ## Design Effect
 
@@ -307,46 +491,38 @@ $$
 :::{.callout-note title="Implications"}
 - Higher ICC $(\rho)$ reduces effective sample size (more bias)
 - Higher cluster size reduces effective sample size (more bias)
+- [Important:]{.b} $n^*$ applies primarily to **Level 1** effects. Power for **Level 2** effects depends mainly on the number of clusters ($J$), not the total $N$.
 :::
 
 ## Brief Activity {.fsmaller}
 
-I collect data from 30 participants and each participant completes between 200 and 400 trials (M=301.2) of a behavioral experiment. I ran a linear regression and my hypothesized effect was significant! However, my annoying friend told me that I am ignoring "clustering" or something and that my effect might not be significant after all. My other, nice friend showed me how to calculate the ICC and said it looked pretty low. So things are fine with my analysis... right?
+I recruited 30 participants to each complete 100 trials of a behavioral experiment; thus, my data has 3000 observations. I ran a linear regression and my hypothesized effect was significant! However, my annoying friend told me that I am ignoring "clustering" or something and that my effect might not be significant after all. My other, nice friend explained how to calculate the necessary information, but the software output only gave me Standard Deviations (SDs).
 
-Calculate the ICC, DEFF, DEFT, and $n^*$ given that my estimates are that the between-participant variance was 1.23 and the within-participant variance was 20.98. Then answer my question.
+**Calculate the ICC, DEFF, DEFT, and $n^*$** given the following estimates:
+
+- Between-participant SD (`tau00`): **1.20**
+- Within-participant SD (`sigma`): **4.60**
 
 ## Answer Key
 
 ```{r}
-#| echo: true
-
-(icc <- 1.23 / (1.23 + 20.98))
+tau00 <- 1.20
+sigma <- 4.60
 ```
 
-:::{}
 ```{r}
-#| echo: true
-
-(deff <- 1 + icc * (301.2 - 1))
-```
-:::
-
-:::{}
-```{r}
-#| echo: true
-
+(icc <- tau00^2 / (tau00^2 + sigma^2))
+(deff <- 1 + icc * (100 - 1))
 (deft <- sqrt(deff))
+(neff <- (30 * 100) / deff)
 ```
-:::
 
-:::{}
-```{r}
-#| echo: true
+## Interpretation
 
-(neff <- (30 * 301.2) / deff)
-```
-:::
-
-:::{}
-Although the ICC is only 0.055, which seems small, the average cluster size is quite large at 301.2. Because both matter, the SEs are around 4 times too small. That's likely a big problem!
-:::
+- The ICC is only 6.4\%, which may seem low
+- However, the average cluster size is large (100)
+- Because both matter, the SEs are about 2.7 times too small
+- So, although my overall number of observations is 3000...
+- My effective sample size at level 1 is only 411
+- And my sample size at level 2 is only 30
+- So, it is important to account for clustering here
