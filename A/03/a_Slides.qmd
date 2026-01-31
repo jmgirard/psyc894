@@ -57,29 +57,296 @@ Issues with Clustered Data
 
 :::
 
-##  R Setup
 
-```{r}
-#| message: false
+# Multilevel Data and Multilevel Questions
 
-library(easystats)
-library(ggplot2)
-library(marginaleffects)
+## What is multilevel data? {.smaller}
 
-data("penguins")
-```
+- Data are [hierarchically clustered]{.b .blue} when there are groups of observations<br> that are more similar *within* groups than they are *between* groups
+    + We say that observations are **nested within** clusters
+    + We count the levels (L\#) in ascending order of nesting
+    + *e.g., students (L1) within classrooms (L2)... within schools (L3)...*
+    + *e.g., days (L1) within participants (L2)... within countries (L3)...*
 
-:::{.fsmaller}
-- [easystats]{.b .blue} will provide most of our statistical functions
-- [ggplot2]{.b .blue} will provide the ability to customize our plots
-- [marginaleffects]{.b .green} is called by easystats for estimation
+::: {.fragment}
+- In MLM, we assume a [successive sampling]{.b .green} strategy
+    + Specifically, we randomly sample from the top-down
+    + *e.g., we sample classrooms and then students within each classroom*
+    + *e.g., we sample participants and then days within each participant*
+
 :::
 
-## Example Dataset
+## What is and isn't a cluster? {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+[Random Clusters...]{.b .blue}
+
+- Are **randomly sampled**
+- Come from a **population**
+- Are **interchangeable**
+- Are not exhaustive
+- Permit **generalization**
+- Require a **large number**
+
+:::{.fragment}
+- *e.g., classrooms*
+- *e.g., individuals*
+
+:::
+:::
+::: {.column width="50%"}
+
+[Fixed Groups...]{.b .green}
+
+- Are not randomly sampled
+- Do not come from a population
+- Are not interchangeable
+- Are (typically) **exhaustive**
+- Do not permit generalization
+- Do not require a large number
+
+::: {.fragment}
+- *e.g., biological sexes*
+- *e.g., experimental conditions*
+:::
+:::
+:::
+
+## Types of Multilevel Variables {.smaller}
+
+- [Global]{.b .blue} variables describe their own level
+    + *e.g., the **motivation** of a student (L1) or the **size** of a class (L2)*
+    + *e.g., the **stress level** of a day (L1) or the **gender** of a participant (L2)*
+
+::: {.fragment}
+- [Structural]{.b .green} variables "aggregate up" from a lower-level
+    + *e.g., the **average motivation** of a class (L2), aggregated up from students (L1)*
+    + *e.g., the **average stress level** of a participant (L2), aggregated up from days (L1)*
+
+:::
+
+::: {.fragment}
+- [Contextual]{.b .red} variables "disaggregate down" from a higher-level
+    + *e.g., the **classroom size** of a student (L1), disaggregated down from class (L2)*
+    + *e.g., the **gender** of a day (L1), disaggregated down from participant (L2)*
+
+:::
+
+
+
+## Multilevel Research Questions {.smaller}
+
+- [Within-Cluster]{.b .blue} Questions
+    + *e.g., how does student motivation (L1) relate to student achievement (L1)?*
+    + *e.g., how does daily stress (L1) relate to daily calorie intake (L1)?*
+
+:::{.fragment}
+- [Between-Cluster]{.b .green} Questions
+    + *e.g., how does average motivation (L2) relate to average achievement (L2)?*
+    + *e.g., how does participant gender (L2) relate to average calorie intake (L2)?*
+
+:::
+
+:::{.fragment}
+- [Cross-level]{.b .red} Questions
+    + *e.g., does the relationship between a student's motivation (L1) and achievement (L1) depend on the class's average motivation (L2)?*
+    + *e.g., does the relationship between daily stress (L1) and daily calorie intake (L1) depend on the participant's gender (L2)?*
+
+:::
+
+
+## Brief Activity
+
+1. How might data you care about be **clustered**? 
+    + *What are the clusters, levels, and level numbers?*
+
+:::{.fragment}
+2. What are some **multilevel variables** you care about?
+    + *What level is each variable on? What type is each?*
+    
+:::
+
+:::{.fragment}
+3. What are some **multilevel questions** you care about?
+    + *Is each within-cluster, between-cluster, or cross-level?*
+    
+:::
+
+
+# Conceptual Issues
+
+## Simpson's Paradox
+
+> Individuals who engage in more rigorous physical activity generally have a *lower* average resting heart rate. However, in the moment, engaging in more rigorous physical activity temporarily *increases* heart rate.
+
+:::{.callout-important title="Caution" .fragment .pv4}
+- Relationships may actually reverse at different levels
+:::
+
+## The Ecological Fallacy
+
+> Wealthier countries tend to have *higher* average happiness levels. However, this does not necessarily imply that, within a given country, wealthier individuals tend to be happier. In fact, this effect tends to be much *weaker.*
+
+:::{.callout-important title="Caution" .fragment}
+- Higher-level results may not apply to lower levels
+:::
+
+## The Atomistic Fallacy
+
+> Wealthier individuals in the USA tend to vote more conservatively. However, this does not necessarily imply that wealthier regions also tend to vote more conservatively. In fact, the opposite is true with US states and counties tending to vote more liberally.
+
+:::{.callout-important title="Caution" .fragment}
+- Lower-level results may not apply to higher levels
+:::
+
+## Lurking Moderators
+
+> A new treatment may work (or not work) in a given hospital. However, this does not necessarily imply that it would also work (or not work) in all hospitals. There may be other hospital-level moderators at play (e.g., due to different staff, patients, and environmental factors).
+
+:::{.callout-important title="Caution" .fragment}
+- A lower-level effect may only be present in certain clusters
+:::
+
+# Statistical Issues
+
+## Forcing a Single Level {.smaller}
+
+- If we [disaggregate to the lowest level]{.b .blue} and run a single-level model...
+    + We treat 10 students in 20 classrooms as 200 IID students
+    + Standard errors will be too low and power will be too high
+    + We will increase our Type I Error rate (false positives)
+    + We may commit the atomistic fallacy (if actually interested in L2)
+
+:::{.fragment}
+- If we [aggregate to the highest level]{.b .green} and run a single-level model...
+    + We treat 10 students in 20 classrooms as 20 IID classrooms
+    + Standard errors will be okay but power will be too low
+    + We will increase our Type II Error rate (false negatives)
+    + We may commit the ecological fallacy (if actually interested in L1)
+    
+:::
+
+:::{.fragment}
+- In neither case can we explore [cross-level research questions]{.b .red}
+
+:::
+
+## Why is the SE too low? {.smaller}
+
+- If we disaggregate to the lowest level, $N$ will be too high
+    + We are pretending that we have 200 IID observations
+    + But if observations from the same cluster are identical...
+    + ...then we really only have 20 unique observations
+    + We are taking credit for unique data we don't have
+    + This will give us too much confidence (SEs will be too low)
+    
+:::{.fragment}
+- In reality, observations are rarely *identical* within clusters
+    + Clustering is rarely perfect, but it likely has *some* influence
+    + Our [effective sample size]{.b .blue} is somewhere between 20 and 200
+    + Our standard errors should thus be increased by some factor
+
+:::
+
+
+## Why does getting N right matter?
+
+$$
+SE_{\beta_p}=\frac{SD_Y}{SD_{X_p}} \sqrt{\frac{1-R^2}{(n-k-1)(1-R_p^2)}}
+$$
+
+:::{.tc .f1}
+$n$ is the sample size (assuming IID)<br>
+$k$ is the number of predictor ($X$) variables<br>
+$R^2$ is the variance in $Y$ explained by all $X$<br>
+$R_p^2$ is the variance in $X_p$ explained by all other $X$
+
+:::
+
+:::{.callout-important title="Warning" .fragment}
+If $n$ is too large, then $SE_{\beta_p}$ will be too small.
+:::
+
+## The Intraclass Correlation (ICC)
+
+- How strong is the clustering or interdependency?
+- How correlated are observations from the same cluster?
+
+$$
+ICC = \rho = \frac{\sigma^2_{between}}{\sigma^2_{between}+\sigma^2_{within}} = \frac{\tau_{00}^2}{\tau_{00}^2+\sigma^2}
+$$
+
+- Is there homogeneity within clusters (relatively low $\sigma^2$)?
+- Is there heterogeneity between clusters (relatively high $\tau_{00}^2$)?
+- Ranges from 0 (no clustering) to 1 (perfect clustering)
+
+
+## Design Effect
+
+- The [design effect]{.b .blue} (DEFF) is a ratio of the sampling variability observed to that expected from a simple random sample
+
+$$
+DEFF=1+\rho(\bar{n}_j - 1)
+$$
+
+:::{.tc}
+where $\rho$ is the ICC and $\bar{n}_j$ is the average cluster size
+:::
+
+- The square root of the design effect (DEFT) is what you need to multiply $SE_{\beta}$ by to *roughly* correct it for clustering bias^[We will learn some more accurate corrections next lecture.]
+
+## Effective Sample Size
+
+The design effect (DEFF) can also be used to calculate the [effective sample size]{.b .blue} $(n^*)$ accounting for clustering
+
+$$
+n^*=\frac{n}{1+\rho(\bar{n}_j - 1)}
+$$
+
+:::{.callout-note title="Implications"}
+- Higher ICC $(\rho)$ reduces effective sample size (more bias)
+- Higher cluster size reduces effective sample size (more bias)
+:::
+
+## Brief Activity {.fsmaller}
+
+I collect data from 30 participants and each participant completes between 200 and 400 trials (M=301.2) of a behavioral experiment. I ran a linear regression and my hypothesized effect was significant! However, my annoying friend told me that I am ignoring "clustering" or something and that my effect might not be significant after all. My other, nice friend showed me how to calculate the ICC and said it looked pretty low. So things are fine with my analysis... right?
+
+Calculate the ICC, DEFF, DEFT, and $n^*$ given that my estimates are that the between-participant variance was 1.23 and the within-participant variance was 20.98. Then answer my question.
+
+## Answer Key
 
 ```{r}
-# This penguins dataset is built into R (don't load palmerpenguins)
-data_codebook(penguins, 
-  select = c("species", "bill_dep", "flipper_len", "body_mass"))
+#| echo: true
+
+(icc <- 1.23 / (1.23 + 20.98))
 ```
 
+:::{}
+```{r}
+#| echo: true
+
+(deff <- 1 + icc * (301.2 - 1))
+```
+:::
+
+:::{}
+```{r}
+#| echo: true
+
+(deft <- sqrt(deff))
+```
+:::
+
+:::{}
+```{r}
+#| echo: true
+
+(neff <- (30 * 301.2) / deff)
+```
+:::
+
+:::{}
+Although the ICC is only 0.055, which seems small, the average cluster size is quite large at 301.2. Because both matter, the SEs are around 4 times too small. That's likely a big problem!
+:::
