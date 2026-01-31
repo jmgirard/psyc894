@@ -1,5 +1,5 @@
 ---
-format: 
+format:
   revealjs:
     css: ../../styles.css
     slide-number: true
@@ -24,7 +24,6 @@ execute:
   echo: true
   eval: true
   collapse: false
-  cache: false
 ---
 
 ::: {.my-title}
@@ -65,19 +64,443 @@ Approaches to Clustered Data
 
 library(easystats)
 library(ggplot2)
-library(marginaleffects)
-library(qqplotr)
 library(sandwich)
 
-data("penguins", "mtcars", "cars", "airquality")
+# We will use the same dataset throughout
+# heck2011.csv: Students (L1) nested in Schools (L2)
+dat <- read.csv("../../data/heck2011.csv")
 
 theme_set(theme_bw(base_size = 30))
 ```
 
-:::{.fsmaller}
-**New Packages:**
+# Complete Pooling
 
-- [qqplotr]{.b .green} is called by easystats to add CIs to diagnostic plots
-- [sandwich]{.b .green} is called by easystats to implement HC3 corrections
+## Overview of Complete Pooling {.fsmaller}
+
+1. Analyze all the clusters together in a single-level model
+2. Correct for violated assumption using [cluster-robust SEs]{.b .blue}
+
+:::{.fragment}
+- Best when clustering is a nuisance rather than an interest
+- Effects are averaged across clusters and all information is shared
 :::
 
+:::{.fragment}
+- &#9989; Accounts for non-independence (and heteroskedasticity)
+- &#9989; Relatively easy to implement and efficient to estimate
+:::
+
+:::{.fragment}
+- &#10060; Cannot estimate effect heterogeneity (there's just one)
+- &#10060; Requires around 40+ clusters for accurate estimation
+:::
+
+## OLS Residual Covariance {.smaller}
+
+- When we assume that the residuals are IID, we assume they are...
+    + **Independent:** all residuals have $0$ covariance (and correlation)
+    + **Identically Distributed:** all residuals have the same $\sigma^2$ variance
+- This implies that the residual covariance matrix is a "[scalar matrix]{.b .blue}"
+- For example, with six observations, we assume the matrix looks like this:
+
+$$
+\Omega_{ols} =
+\begin{bmatrix}
+\sigma^2 & 0 & 0 & 0 & 0 & 0 \\
+0 & \sigma^2 & 0 & 0 & 0 & 0 \\
+0 & 0 & \sigma^2 & 0 & 0 & 0 \\
+0 & 0 & 0 & \sigma^2 & 0 & 0 \\
+0 & 0 & 0 & 0 & \sigma^2 & 0 \\
+0 & 0 & 0 & 0 & 0 & \sigma^2
+\end{bmatrix}
+$$
+
+
+## Cluster-Robust Residual Covariance {.smaller}
+
+- If we know the cluster structure of our data, we can instead assume...
+    + Residuals have non-zero covariance **within** the same cluster
+    + All residuals in a cluster have the same $\sigma_j^2$ variance
+- This implies that the residual covariance matrix is a "[block diagonal matrix]{.b .blue}"
+- For example, if our six observations are clustered in two groups (\{1,2,3\} & \{4,5,6\}):
+
+$$
+\Omega_{cl} =
+\begin{bmatrix}
+\color{blue}{\sigma^2_1} & \color{blue}{\sigma^2_{1}} & \color{blue}{\sigma^2_{1}} & 0 & 0 & 0 \\
+\color{blue}{\sigma^2_{1}} & \color{blue}{\sigma^2_1} & \color{blue}{\sigma^2_{1}} & 0 & 0 & 0 \\
+\color{blue}{\sigma^2_{1}} & \color{blue}{\sigma^2_{1}} & \color{blue}{\sigma^2_1} & 0 & 0 & 0 \\
+0 & 0 & 0 & \color{green}{\sigma^2_2} & \color{green}{\sigma^2_{2}} & \color{green}{\sigma^2_{2}} \\
+0 & 0 & 0 & \color{green}{\sigma^2_{2}} & \color{green}{\sigma^2_2} & \color{green}{\sigma^2_{2}} \\
+0 & 0 & 0 & \color{green}{\sigma^2_{2}} & \color{green}{\sigma^2_{2}} & \color{green}{\sigma^2_2}
+\end{bmatrix}
+$$
+
+## The "Sandwich" Estimator {.fsmaller}
+
+- How do we get standard errors from that block matrix?
+- We use a [Sandwich Estimator]{.b .blue}: **Bread** $\times$ **Meat** $\times$ **Bread**
+
+$$
+Var(\beta) = \underbrace{(X'X)^{-1}}_{\text{Bread}} \overbrace{X' \Omega X}^{\text{Meat}} \underbrace{(X'X)^{-1}}_{\text{Bread}}
+$$
+
+:::{.fragment}
+- **The Bread:** Represents the standard estimation precision (sample size, etc.)
+- **The Meat:** Represents the "clumpiness" (variance) of the residuals
+:::
+
+:::{.fragment}
+- If there is no clustering, the meat cancels out (standard OLS)
+- If there is clustering, the meat "inflates" the SEs appropriately
+:::
+
+## Example Dataset {.fsmaller}
+
+```{r}
+dat$gender <- factor(dat$female, levels = c(0, 1), labels = c("M", "F"))
+str(dat) # read into R on slide 3
+```
+
+- `math` (L1): Student math score (Outcome)
+- `ses` (L1): Student socioeconomic status
+- `gender` (L1): Student gender (0=Male, 1=Female)
+- `school` (L2): School ID (Cluster)
+
+## Implementation
+
+```{r}
+ols <- lm(formula = math ~ 1 + ses + gender, data = dat)
+model_parameters(ols)
+model_parameters(ols, vcov = "vcovCL", vcov_args = list(cluster = dat$school))
+```
+
+:::{.fsmaller}
+Note that the SEs increased from 0.20 to 0.21 and 0.13 to 0.15.
+:::
+
+## Visualization
+
+```{r}
+pred <- estimate_relation(ols, by = c("ses", "gender"), 
+  vcov = "vcovCL", vcov_args = list(cluster = dat$school))
+plot(pred) + labs(y = "math")
+```
+
+
+# No Pooling
+
+## Overview of No Pooling {.fsmaller}
+
+1. Add cluster dummy codes and interactions ("[fixed effect]{.b .blue} method")
+2. **Or** split the data and run separate models ("[idiographic]{.b .green} method")
+
+:::{.fragment}
+- Best when clustering is a nuisance rather than an interest
+- Effects are cluster-specific and no information is shared
+:::
+
+:::{.fragment}
+- &#9989; Completely removes contextual variance of clustering
+- &#9989; Does not require a minimum number of clusters 
+:::
+
+:::{.fragment}
+- &#10060; Cannot generalize to the broader population of clusters
+- &#10060; Cannot explain contextual variance because it is removed
+:::
+
+## Approach A: Controlling
+
+**The Logic:** "I know schools have different average scores, but I assume SES works the same way everywhere."
+
+- **Model:** `math ~ ses + school`
+- **Result:** Unique intercepts, but a **shared slope**.
+- **Visual:** [Parallel Lines]{.blue}
+- **Use When:** Clustering is just a "nuisance" (mean differences) you want to remove to see the "true" main effect.
+
+## Implementing Approach A
+
+We include `school` (Factor) as a predictor to estimate a unique intercept for every single school.
+
+```{r slopes1}
+#| cache: true
+
+dat$school <- factor(dat$school)
+
+fem_add <- lm(math ~ 1 + ses + school, data = dat)
+
+estimate_slopes(fem_add, trend = "ses")
+```
+
+## Visualizing Approach A
+
+```{r}
+#| fig-width: 12
+#| fig-height: 5.5
+#| message: false
+
+lines_add <- estimate_relation(fem_add, by = c("ses", "school"))
+
+plot(lines_add, line = list(color = "red", alpha = 1/10), ribbon = "none") +
+  theme(legend.position = "none") + labs(title = "Additive", y = "math")
+```
+
+## Approach B: Interacting
+
+**The Logic:** "I suspect the school context actually *changes* how important SES is for achievement."
+
+- **Model:** `math ~ ses * school`
+- **Result:** Unique intercepts **and** unique slopes.
+- **Visual:** [Crossing Lines]{.red}
+- **Use When:** You care about **Effect Heterogeneity** (e.g., "Is the SES gap larger in public vs. private schools?").
+
+## Implementing Approach B
+
+```{r slopes2}
+#| cache: true
+
+fem_int <- lm(math ~ ses * school, data = dat)
+
+estimate_slopes(fem_int, trend = "ses", by = "school")
+```
+
+## Visualizing Approach B
+
+```{r}
+#| fig-width: 12
+#| fig-height: 5.5
+#| message: false
+
+lines_int <- estimate_relation(fem_int, by = c("ses", "school"))
+
+plot(lines_int, line = list(color = "blue", alpha = 1/10), ribbon = "none") +
+  theme(legend.position = "none") + labs(y = "math")
+```
+
+## The Inference Dilemma {.fsmaller}
+
+We just conducted **419** hypothesis tests. We are now stuck in a trap:
+
+::: {.incremental}
+1.  [Ignore the Problem:]{.b .red} 
+    - If we use $\alpha = .05$, we expect $419 \times .05 \approx$ **21 False Positives** just by chance. We are likely "finding" school differences that don't exist.
+
+2.  [Correct the Problem:]{.b .blue} 
+    - Even if we use modern corrections like **Holm or FDR** to control the error rate, adjusting for this many tests will still crush our statistical power. We will likely miss real differences (Type II errors).
+
+3.  [The MLM Solution:]{.b .green}
+    - Partial Pooling avoids this trap. It doesn't punish the *p-value* (threshold); instead, it shrinks the *estimates* (coefficients) based on their reliability, reducing false positives naturally.
+
+:::
+
+## [Activity] The Small Sample Dilemma {background-color="#34495e" .fsmaller}
+
+::: {.white-text}
+Imagine you are comparing two schools' math scores:
+
+* **School A:** $N = 3$, Mean Score = 95%
+* **School B:** $N = 100$, Mean Score = 72%
+* **Grand Mean (All Schools):** 70%
+
+**Discussion Questions:**
+
+1. If you had to predict the score of a *new* student from School A, would you guess 95%? Why or why not?
+2. Which school's mean do you think is closer to its "true" long-term average?
+3. If School A's 95% is "mostly luck," what should our model do with that information?
+:::
+
+# Partial Pooling
+
+## Overview of Partial Pooling {.fsmaller}
+
+1. Partition the variance by level of clustering
+2. Build submodels to explain sources of dependence
+
+:::{.fragment}
+- Best when multilevel clustering is a substantive focus
+- Effects are *distributions* and some information is shared
+:::
+
+:::{.fragment}
+- &#9989; Can generalize to the broader population of clusters
+- &#9989; Can explain context variance and effect heterogeneity
+:::
+
+:::{.fragment}
+- &#10060; Introduces some new assumptions to the model
+- &#10060; Requires around 30+ clusters for accurate estimation
+:::
+
+
+## Multilevel Modeling
+
+- MLM partitions the variance in the outcome variable<br> into within-cluster and between-cluster components
+
+- Lower-level predictors can explain/predict the<br> within-cluster variance component (L1 questions)
+
+- Higher-level predictors can explain/predict the<br> between-cluster variance component (L2 questions)
+
+- Higher-level predictors can also moderate the effects<br> of lower-level predictors (cross-level questions)
+
+## The Conceptual Leap: Fixed vs. Random {.fsmaller}
+
+The choice between No Pooling and Partial Pooling connects back to our earlier definitions of **Clusters**.
+
+::: {.columns}
+::: {.column width="50%"}
+### Fixed Effects (No Pooling)
+- Treats clusters as **Fixed Groups**.
+- *Are specific entities.*
+- *Are not interchangeable.*
+- *Do not permit generalization.*
+:::
+
+::: {.column width="50%"}
+### Random Effects (Partial Pooling)
+- Treats clusters as **Random Clusters**.
+- *Are samples from a population.*
+- *Are interchangeable.*
+- *Permit generalization.*
+:::
+:::
+
+## Multilevel Modeling {.fsmaller}
+
+- Rather than fitting one line to all clusters (complete pooling)<br> or fitting a separate line to each cluster (no pooling), we can<br> instead [fit a distribution of lines]{.b .blue} across clusters (partial pooling)
+
+:::{.fragment}
+- This will let us share *some* information across clusters (e.g., what<br> a typical line looks like and how spread out the lines tend to be) while still allowing each cluster to have its own unique line
+:::
+
+:::{.fragment}
+- When estimating each line, clusters with less data will have their lines "pulled" toward the center of the distribution in a process called [shrinkage]{.b .green}, which combats overfitting in small subsamples
+:::
+
+## Visualizing Shrinkage {.fsmaller}
+
+The **Fixed Effects** (No Pooling) estimates are noisy.<br>
+The **Multilevel** (Partial Pooling) estimates "shrink" toward Complete Pooling.
+
+```{r shrink}
+#| echo: false
+#| fig-align: center
+#| fig-height: 5
+#| message: false
+#| warning: false
+#| cache: true
+
+library(lme4)
+library(dplyr)
+library(ggplot2)
+
+df_nopool <- dat |>
+  group_by(school) |>
+  summarize(
+    intercept_no = mean(math, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  )
+
+m_partpool <- lmer(math ~ 1 + (1 | school), data = dat)
+grand_mean <- fixef(m_partpool)[1]
+
+df_partpool <- ranef(m_partpool)$school |>
+  tibble::rownames_to_column("school") |>
+  mutate(intercept_part = `(Intercept)` + grand_mean)
+
+df_shrink <- 
+  df_nopool |>
+  mutate(school = as.character(school)) |>
+  left_join(df_partpool, by = "school") |>
+  arrange(n) |>
+  slice_head(n = 20)
+
+ggplot(df_shrink) +
+  geom_vline(
+    aes(xintercept = grand_mean, linetype = "Complete Pooling"),
+    size = 1,
+    color = "black"
+  ) +
+  geom_segment(
+    aes(
+      x = intercept_no,
+      xend = intercept_part,
+      y = reorder(school, n),
+      yend = reorder(school, n)
+    ),
+    arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+    color = "grey60"
+  ) +
+  geom_point(
+    aes(x = intercept_no, y = reorder(school, n), color = "No Pooling"),
+    size = 3
+  ) +
+  geom_point(
+    aes(x = intercept_part, y = reorder(school, n), color = "Partial Pooling"),
+    size = 3
+  ) +
+  scale_color_manual(values = c("#cc0000", "#137752")) +
+  scale_linetype_manual(values = c("Complete Pooling" = "dashed")) +
+  labs(
+    x = "Estimated Math Intercept",
+    y = "School ID (sampled)"
+  ) +
+  theme_minimal(base_size = 20) +
+  theme(
+    legend.position = "bottom", 
+    legend.title = element_blank(),
+    axis.text.y = element_text(size = 10)
+  )
+```
+
+## The Mechanics of Shrinkage {.smaller}
+
+The Partial Pooling estimate is a weighted average of the **Cluster Mean** and the<br />
+**Grand Mean**, where the weight ($\lambda_j$) represents the **reliability** of that cluster.
+
+$$ \text{Est}_j = \lambda_j(\bar{y}_j) + (1 - \lambda_j)(\bar{y}_{grand}) $$
+
+**What determines the Reliability ($\lambda_j$)?**
+
+$$ \lambda_j = \frac{\tau^2_{00}}{\tau^2_{00} + \frac{\sigma^2}{n_j}} $$
+
+::: {.incremental}
+* **$n_j$ (Sample Size):** As $n$ gets larger, the error term $\left(\frac{\sigma^2}{n_j}\right)$ vanishes, and Reliability $\rightarrow 1$.
+* **$\sigma^2$ (Noise):** If within-group noise is high, Reliability drops.
+* **$\tau^2_{00}$ (Signal):** If true between-group differences are large, Reliability rises.
+
+:::
+
+
+## [Activity] You are the Consultant {background-color="#34495e" .smaller}
+
+::: {.white-text}
+**Scenario:** A colleague comes to you with clustered data. Which approach do you recommend?
+**(A) Complete Pooling** (Robust SEs)
+**(B) No Pooling** (Fixed Effects)
+**(C) Partial Pooling** (Multilevel Model)
+:::
+
+::: {.incremental .fade-in-then-semi-out .white-text}
+1. "I am testing a drug across 50 hospitals. I don't care about the hospitals specifically; I just want to generalize my drug's effect to the whole medical system."
+    - **[Answer: (C) Partial Pooling]{.orange}**
+
+2. "I am comparing the performance of the 3 specific high schools in my district to decide which one gets a grant. I don't care about other schools."
+    - **[Answer: (B) No Pooling]{.orange}**
+
+3. "I have data from 30 classrooms, but I only have 2 students per class. I just want to run a simple regression and fix the p-values."
+    - **[Answer: (A) Complete Pooling]{.orange}**
+
+:::
+
+## Next Steps {.fsmaller}
+
+- **Lab this week:**
+    - We will practice applying **Cluster-Robust SEs** (Complete Pooling) and the **Fixed Effect approaches** (No Pooling) to real data.
+
+- **Starting in Unit B:**
+    - We will learn the R syntax needed to specify **Multilevel Models** (Partial Pooling) and interpret their results.
+
+- **Before then:**
+    - Look at your own research data. Is your clustering a "nuisance" to be corrected or a "substantive interest" to be modeled?

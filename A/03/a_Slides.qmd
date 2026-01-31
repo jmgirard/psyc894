@@ -175,18 +175,13 @@ For each variable below, is it **Global**, **Structural**, or **Disaggregated**?
 :::
 
 
-## Brief Activity
+## Brief Activity {background-color="#34495e"}
 
+::: {.incremental .white-text}
 1. How might data you care about be **clustered**? 
     + *What are the clusters, levels, and level numbers?*
-
-:::{.fragment}
 2. What are some **multilevel variables** you care about?
     + *What level is each variable on? What type is each?*
-    
-:::
-
-:::{.fragment}
 3. What are some **multilevel questions** you care about?
     + *Is each within-cluster, between-cluster, or cross-level?*
     
@@ -494,7 +489,7 @@ $$
 - [Important:]{.b} $n^*$ applies primarily to **Level 1** effects. Power for **Level 2** effects depends mainly on the number of clusters ($J$), not the total $N$.
 :::
 
-## Brief Activity {.fsmaller}
+## Brief Activity {background-color="#34495e" .fsmaller .white-text}
 
 I recruited 30 participants to each complete 100 trials of a behavioral experiment; thus, my data has 3000 observations. I ran a linear regression and my hypothesized effect was significant! However, my annoying friend told me that I am ignoring "clustering" or something and that my effect might not be significant after all. My other, nice friend explained how to calculate the necessary information, but the software output only gave me Standard Deviations (SDs).
 

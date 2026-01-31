@@ -2,11 +2,6 @@
 title: "Week 03: Clustered Data"
 ---
 
-
-::: {.callout-caution title="Work in Progress"}
-This page is not yet complete!
-:::
-
 <!-- 03a -->
 
 ## [03a] Materials
@@ -35,6 +30,10 @@ This page is not yet complete!
 <!-- 03b -->
 
 ## [03b] Materials
+
+::: {.callout-caution title="Work in Progress"}
+The slides for 03b are not yet complete!
+:::
 
 ### Topics
 - "Complete Pooling" Approaches
