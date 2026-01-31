@@ -215,49 +215,474 @@
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2">
-<h2>R Setup</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
-<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
-<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"penguins"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="fsmaller">
+<section>
+<section class="title-slide slide level1 center">
+<h1>Multilevel Data and Multilevel Questions</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>What is multilevel data?</h2>
 <ul>
-<li><span class="b blue">easystats</span> will provide most of our statistical functions</li>
-<li><span class="b blue">ggplot2</span> will provide the ability to customize our plots</li>
-<li><span class="b green">marginaleffects</span> is called by easystats for estimation</li>
+<li>Data are <span class="b blue">hierarchically clustered</span> when there are groups of observations<br> that are more similar <em>within</em> groups than they are <em>between</em> groups
+<ul>
+<li>We say that observations are <strong>nested within</strong> clusters</li>
+<li>We count the levels (L#) in ascending order of nesting</li>
+<li><em>e.g., students (L1) within classrooms (L2)… within schools (L3)…</em></li>
+<li><em>e.g., days (L1) within participants (L2)… within countries (L3)…</em></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>In MLM, we assume a <span class="b green">successive sampling</span> strategy
+<ul>
+<li>Specifically, we randomly sample from the top-down</li>
+<li><em>e.g., we sample classrooms and then students within each classroom</em></li>
+<li><em>e.g., we sample participants and then days within each participant</em></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>What is and isn’t a cluster?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><span class="b blue">Random Clusters…</span></p>
+<ul>
+<li>Are <strong>randomly sampled</strong></li>
+<li>Come from a <strong>population</strong></li>
+<li>Are <strong>interchangeable</strong></li>
+<li>Are not exhaustive</li>
+<li>Permit <strong>generalization</strong></li>
+<li>Require a <strong>large number</strong></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><em>e.g., classrooms</em></li>
+<li><em>e.g., individuals</em></li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="b green">Fixed Groups…</span></p>
+<ul>
+<li>Are not randomly sampled</li>
+<li>Do not come from a population</li>
+<li>Are not interchangeable</li>
+<li>Are (typically) <strong>exhaustive</strong></li>
+<li>Do not permit generalization</li>
+<li>Do not require a large number</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><em>e.g., biological sexes</em></li>
+<li><em>e.g., experimental conditions</em></li>
+</ul>
+</div>
+</div></div>
+</section>
+<section class="slide level2 smaller">
+<h2>Types of Multilevel Variables</h2>
+<ul>
+<li><span class="b blue">Global</span> variables describe their own level
+<ul>
+<li><em>e.g., the <strong>motivation</strong> of a student (L1) or the <strong>size</strong> of a class (L2)</em></li>
+<li><em>e.g., the <strong>stress level</strong> of a day (L1) or the <strong>gender</strong> of a participant (L2)</em></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><span class="b green">Structural</span> variables “aggregate up” from a lower-level
+<ul>
+<li><em>e.g., the <strong>average motivation</strong> of a class (L2), aggregated up from students (L1)</em></li>
+<li><em>e.g., the <strong>average stress level</strong> of a participant (L2), aggregated up from days (L1)</em></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="b red">Disaggregated</span> variables “copy down” from a higher-level
+<ul>
+<li><em>e.g., the <strong>classroom size</strong> of a student (L1), copied down from class (L2)</em></li>
+<li><em>e.g., the <strong>gender</strong> of a day (L1), copied down from participant (L2)</em></li>
+<li><em>Note: This is often how Global (L2) variables are stored in “long format” data.</em></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Practice: Classify that Variable</h2>
+<p><strong>Scenario:</strong> We are studying <strong>employees (L1)</strong> nested within <strong>companies (L2)</strong>.</p>
+<p>For each variable below, is it <strong>Global</strong>, <strong>Structural</strong>, or <strong>Disaggregated</strong>?</p>
+<ol type="1">
+<li class="fragment"><strong>“Employee Job Satisfaction”</strong>
+<ul>
+<li class="fragment"><span class="blue">Answer:</span> <strong>Global</strong></li>
+<li class="fragment"><em>It describes the specific level (L1) at which it was measured.</em></li>
+</ul></li>
+<li class="fragment"><strong>“Company Profit”</strong> (assigned to every employee row)
+<ul>
+<li class="fragment"><span class="red">Answer:</span> <strong>Disaggregated</strong></li>
+<li class="fragment"><em>It describes the higher level (L2) but is “copied down” to the lower level (L1).</em></li>
+</ul></li>
+<li class="fragment"><strong>“Average Employee Satisfaction”</strong> (calculated for each company)
+<ul>
+<li class="fragment"><span class="green">Answer:</span> <strong>Structural</strong></li>
+<li class="fragment"><em>It describes the higher level (L2) but is “aggregated up” from the lower level (L1).</em></li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level2 smaller">
+<h2>Multilevel Research Questions</h2>
+<ul>
+<li><span class="b blue">Within-Cluster</span> Questions
+<ul>
+<li><em>e.g., how does student motivation (L1) relate to student achievement (L1)?</em></li>
+<li><em>e.g., how does daily stress (L1) relate to daily calorie intake (L1)?</em></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><span class="b green">Between-Cluster</span> Questions
+<ul>
+<li><em>e.g., how does average motivation (L2) relate to average achievement (L2)?</em></li>
+<li><em>e.g., how does participant gender (L2) relate to average calorie intake (L2)?</em></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="b red">Cross-level</span> Questions
+<ul>
+<li><em>e.g., does the relationship between a student’s motivation (L1) and achievement (L1) depend on the class’s average motivation (L2)?</em></li>
+<li><em>e.g., does the relationship between daily stress (L1) and daily calorie intake (L1) depend on the participant’s gender (L2)?</em></li>
+</ul></li>
 </ul>
 </div>
 </section>
 <section class="slide level2">
-<h2>Example Dataset</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># This penguins dataset is built into R (don't load palmerpenguins)</span></span>
-<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data_codebook</span>(penguins, </span>
-<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">select =</span> <span class="fu">c</span>(<span class="st">"species"</span>, <span class="st">"bill_dep"</span>, <span class="st">"flipper_len"</span>, <span class="st">"body_mass"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>penguins (344 rows and 8 variables, 4 shown)
-
-ID | Name        | Type        | Missings |       Values |           N
----+-------------+-------------+----------+--------------+------------
-1  | species     | categorical | 0 (0.0%) |       Adelie | 152 (44.2%)
-   |             |             |          |    Chinstrap |  68 (19.8%)
-   |             |             |          |       Gentoo | 124 (36.0%)
----+-------------+-------------+----------+--------------+------------
-4  | bill_dep    | numeric     | 2 (0.6%) | [13.1, 21.5] |         342
----+-------------+-------------+----------+--------------+------------
-5  | flipper_len | integer     | 2 (0.6%) |   [172, 231] |         342
----+-------------+-------------+----------+--------------+------------
-6  | body_mass   | integer     | 2 (0.6%) | [2700, 6300] |         342
-----------------------------------------------------------------------</code></pre>
+<h2>Brief Activity</h2>
+<ol type="1">
+<li>How might data you care about be <strong>clustered</strong>?
+<ul>
+<li><em>What are the clusters, levels, and level numbers?</em></li>
+</ul></li>
+</ol>
+<div class="fragment">
+<ol start="2" type="1">
+<li>What are some <strong>multilevel variables</strong> you care about?
+<ul>
+<li><em>What level is each variable on? What type is each?</em></li>
+</ul></li>
+</ol>
 </div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>What are some <strong>multilevel questions</strong> you care about?
+<ul>
+<li><em>Is each within-cluster, between-cluster, or cross-level?</em></li>
+</ul></li>
+</ol>
 </div>
-
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Conceptual Issues</h1>
 
 </section>
+<section class="slide level2">
+<h2>Simpson’s Paradox</h2>
+<blockquote>
+<p>Individuals who engage in more rigorous physical activity generally have a <em>lower</em> average resting heart rate. However, in the moment, engaging in more rigorous physical activity temporarily <em>increases</em> heart rate.</p>
+</blockquote>
+<div class="fragment pv4" title="Caution">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Caution</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Relationships may actually reverse at different levels</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Visualizing the Paradox</h2>
+
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section class="slide level2">
+<h2>The Ecological Fallacy</h2>
+<blockquote>
+<p>Wealthier countries tend to have <em>higher</em> average happiness levels. However, this does not necessarily imply that, within a given country, wealthier individuals tend to be happier. In fact, this effect tends to be much <em>weaker.</em></p>
+</blockquote>
+<div class="fragment" title="Caution">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Caution</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Higher-level results may not apply to lower levels</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>The Atomistic Fallacy</h2>
+<blockquote>
+<p>Wealthier individuals in the USA tend to vote more conservatively. However, this does not necessarily imply that wealthier regions also tend to vote more conservatively. In fact, the opposite is true with US states and counties tending to vote more liberally.</p>
+</blockquote>
+<div class="fragment" title="Caution">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Caution</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Lower-level results may not apply to higher levels</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Lurking Moderators</h2>
+<blockquote>
+<p>A new treatment may work (or not work) in a given hospital. However, this does not necessarily imply that it would also work (or not work) in all hospitals. There may be other hospital-level moderators at play (e.g., due to different staff, patients, and environmental factors).</p>
+</blockquote>
+<div class="fragment" title="Caution">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Caution</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>A lower-level effect may only be present in certain clusters</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Statistical Issues</h1>
+
+</section>
+<section class="slide level2 smaller">
+<h2>Forcing a Single Level</h2>
+<ul>
+<li>If we <span class="b blue">disaggregate to the lowest level</span> and run a single-level model…
+<ul>
+<li>We treat 10 students in 20 classrooms as 200 IID students</li>
+<li>Standard errors will be too low and power will be too high</li>
+<li>We will increase our Type I Error rate (false positives)</li>
+<li>We may commit the atomistic fallacy (if actually interested in L2)</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>If we <span class="b green">aggregate to the highest level</span> and run a single-level model…
+<ul>
+<li>We treat 10 students in 20 classrooms as 20 IID classrooms</li>
+<li>Standard errors will be okay but power will be too low</li>
+<li>We will increase our Type II Error rate (false negatives)</li>
+<li>We may commit the ecological fallacy (if actually interested in L1)</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>In neither case can we explore <span class="b red">cross-level research questions</span></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>The Danger of Ignoring Clustering</h2>
+<p><strong>Simulation:</strong> We simulate 500 datasets where <strong>no effect exists</strong> (<span class="math inline">\(\beta=0\)</span>). We analyze <em>the exact same data</em> two ways: ignoring clustering (LM) and accounting for it (MLM). Because H0 is true, only ~5% of slope p-values should be <span class="math inline">\(&lt;.05\)</span>. This is true for MLM but not for LM.</p>
+
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section class="slide level2 smaller">
+<h2>Why is the SE too low?</h2>
+<ul>
+<li>If we disaggregate to the lowest level, <span class="math inline">\(N\)</span> will be too high
+<ul>
+<li>We are pretending that we have 200 IID observations</li>
+<li>But if observations from the same cluster are identical…</li>
+<li>…then we really only have 20 unique observations</li>
+<li>We are taking credit for unique data we don’t have</li>
+<li>This will give us too much confidence (SEs will be too low)</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>In reality, observations are rarely <em>identical</em> within clusters
+<ul>
+<li>Clustering is rarely perfect, but it likely has <em>some</em> influence</li>
+<li>Our <span class="b blue">effective sample size</span> is somewhere between 20 and 200</li>
+<li>Our standard errors should thus be increased by some factor</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Why does getting N right matter?</h2>
+<p><span class="math display">\[
+SE_{\beta_p}=\frac{SD_Y}{SD_{X_p}} \sqrt{\frac{1-R^2}{(n-k-1)(1-R_p^2)}}
+\]</span></p>
+<div class="tc f1">
+<p><span class="math inline">\(n\)</span> is the sample size (assuming IID)<br> <span class="math inline">\(k\)</span> is the number of predictor (<span class="math inline">\(X\)</span>) variables<br> <span class="math inline">\(R^2\)</span> is the variance in <span class="math inline">\(Y\)</span> explained by all <span class="math inline">\(X\)</span><br> <span class="math inline">\(R_p^2\)</span> is the variance in <span class="math inline">\(X_p\)</span> explained by all other <span class="math inline">\(X\)</span></p>
+</div>
+<div class="fragment" title="Warning">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>If <span class="math inline">\(n\)</span> is too large, then <span class="math inline">\(SE_{\beta_p}\)</span> will be too small.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>The Intraclass Correlation (ICC)</h2>
+<ul>
+<li>How strong is the clustering or interdependency?</li>
+<li>How correlated are observations from the same cluster?</li>
+</ul>
+<p><span class="math display">\[
+ICC = \rho = \frac{\tau_{00}^2}{\tau_{00}^2+\sigma^2}
+\]</span></p>
+<div class="fsmaller">
+<ul>
+<li><span class="math inline">\(\sigma^2\)</span> is the <strong>Within-Cluster Variance</strong> (Residual Variance)</li>
+<li><span class="math inline">\(\tau_{00}^2\)</span> is the <strong>Between-Cluster Variance</strong> (Intercept Variance)</li>
+<li><em>Note: <code>easystats</code> usually reports the SDs (<span class="math inline">\(\sigma\)</span> and <span class="math inline">\(\tau_{00}\)</span>), so you must square them to get the variances for this formula.</em></li>
+</ul>
+</div>
+<ul>
+<li>Ranges from 0 (no clustering) to 1 (perfect clustering)</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Visualizing the ICC</h2>
+
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-3-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section class="slide level2">
+<h2>Design Effect</h2>
+<ul>
+<li>The <span class="b blue">design effect</span> (DEFF) is a ratio of the sampling variability observed to that expected from a simple random sample</li>
+</ul>
+<p><span class="math display">\[
+DEFF=1+\rho(\bar{n}_j - 1)
+\]</span></p>
+<div class="tc">
+<p>where <span class="math inline">\(\rho\)</span> is the ICC and <span class="math inline">\(\bar{n}_j\)</span> is the average cluster size</p>
+</div>
+<ul>
+<li>The square root of the design effect (DEFT) is what you need to multiply <span class="math inline">\(SE_{\beta}\)</span> by to <em>roughly</em> correct it for clustering bias<sup>1</sup></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>We will learn some more accurate corrections next lecture.</p></li></ol></aside></section>
+<section class="slide level2">
+<h2>Effective Sample Size</h2>
+<p>The design effect (DEFF) can also be used to calculate the <span class="b blue">effective sample size</span> <span class="math inline">\((n^*)\)</span> accounting for clustering</p>
+<p><span class="math display">\[
+n^*=\frac{n}{1+\rho(\bar{n}_j - 1)}
+\]</span></p>
+<div title="Implications">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Implications</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Higher ICC <span class="math inline">\((\rho)\)</span> reduces effective sample size (more bias)</li>
+<li>Higher cluster size reduces effective sample size (more bias)</li>
+<li><span class="b">Important:</span> <span class="math inline">\(n^*\)</span> applies primarily to <strong>Level 1</strong> effects. Power for <strong>Level 2</strong> effects depends mainly on the number of clusters (<span class="math inline">\(J\)</span>), not the total <span class="math inline">\(N\)</span>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Brief Activity</h2>
+<p>I recruited 30 participants to each complete 100 trials of a behavioral experiment; thus, my data has 3000 observations. I ran a linear regression and my hypothesized effect was significant! However, my annoying friend told me that I am ignoring “clustering” or something and that my effect might not be significant after all. My other, nice friend explained how to calculate the necessary information, but the software output only gave me Standard Deviations (SDs).</p>
+<p><strong>Calculate the ICC, DEFF, DEFT, and <span class="math inline">\(n^*\)</span></strong> given the following estimates:</p>
+<ul>
+<li>Between-participant SD (<code>tau00</code>): <strong>1.20</strong></li>
+<li>Within-participant SD (<code>sigma</code>): <strong>4.60</strong></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Answer Key</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>tau00 <span class="ot">&lt;-</span> <span class="fl">1.20</span></span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">4.60</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>(icc <span class="ot">&lt;-</span> tau00<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (tau00<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> sigma<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.06371681</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>(deff <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> icc <span class="sc">*</span> (<span class="dv">100</span> <span class="sc">-</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.307965</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>(deft <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(deff))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.703325</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>(neff <span class="ot">&lt;-</span> (<span class="dv">30</span> <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">/</span> deff)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 410.511</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Interpretation</h2>
+<ul>
+<li>The ICC is only 6.4%, which may seem low</li>
+<li>However, the average cluster size is large (100)</li>
+<li>Because both matter, the SEs are about 2.7 times too small</li>
+<li>So, although my overall number of observations is 3000…</li>
+<li>My effective sample size at level 1 is only 411</li>
+<li>And my sample size at level 2 is only 30</li>
+<li>So, it is important to account for clustering here</li>
+</ul>
+
+
+</section></section>
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
