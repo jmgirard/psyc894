@@ -1,0 +1,754 @@
+---
+format: 
+  revealjs:
+    css: ../../styles.css
+    slide-number: true
+    show-slide-number: all
+    preview-links: false
+    progress: true
+    history: true
+    hash-type: number
+    theme: default
+    code-block-background: true
+    highlight-style: zenburn
+    code-link: false
+    code-copy: true
+    code-line-numbers: false
+    controls: true
+    pagetitle: "Multilevel Modeling"
+    author-meta: "Jeffrey Girard"
+    semester: "Spring 2026"
+    course: "PSYC 894"
+    lecture: "04a"
+execute:
+  echo: false
+  eval: true
+  collapse: false
+  cache: false
+---
+
+::: {.my-title}
+# [Multilevel Modeling]{.blue}
+Estimation Strategies
+
+::: {.my-grey}
+[{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/city-girl.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+```{r setup}
+#| echo: false
+#| message: false
+
+library(tidyverse)
+library(easystats)
+library(patchwork)
+mytheme <- function(sz = 30) {
+  theme_gray(base_size = sz) + 
+  theme(panel.grid.minor = element_blank())
+}
+```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+1. Ordinary Least Squares
+    + *Goals, Estimates, Intuition*
+
+2. Maximum Likelihood
+    + *Goals, Versions, Optimizers*
+
+3. Bayesian Overview
+    + *Basics, Priors, MCMC*
+    
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+# Ordinary Least Squares
+
+## Goals and Objectives
+
+- We want to estimate population parameters from a sample
+    1. Select a "loss function" that measures estimation quality
+    2. Find the parameter values that optimize this function
+
+:::{.fragment}
+- `lm()` uses Ordinary Least Squares (OLS) estimation
+    + The loss function is the sum of squared residuals (SSR)
+    + We can simply optimize this function using calculus
+
+:::
+
+## OLS Estimates
+
+- Imagine calculating SSR for every possible $\beta$ estimate
+
+- Plot the estimated values on $x$ and their SSR values on $y$
+
+:::{.fragment}
+- SSR will be smallest at the true population parameter value
+
+- SSR will increase as estimates move away from this value
+
+- The plotted loss function will appear quadratic (like a U)
+
+:::
+
+:::{.fragment}
+- The OLS estimates will be at the bottom of that curve
+
+- This is when the derivative of the loss function equals zero
+
+:::
+
+## Loss Function 
+
+Here is our imagined plot when the true value is $\beta=3.0$
+
+```{r}
+#| echo: false
+
+df <- tibble(x = seq(-1, 1, .1) + 3, y = (x - 3)^2+0.5)
+p1 <- 
+  ggplot(df, aes(x, y)) + 
+  geom_smooth(linewidth = 1.5, se = FALSE) +
+  coord_cartesian(ylim = c(0.25, 1.75)) +
+  labs(x = "Parameter Estimate", y = "Loss Function (SSR)") +
+  theme_bw(base_size = 24)
+p1
+```
+
+## Derivative at Zero
+
+The derivative is the slope of the tangent line
+
+```{r}
+#| echo: false
+
+p1 + 
+  geom_segment(
+    x = 2.5, xend = 3.5, y = 0.5, yend = 0.5, 
+    linewidth = 2, linetype = "dashed", color = "darkorange"
+  ) + 
+  geom_point(data = tibble(x = 3, y = 0.5), size = 5)
+```
+
+## The OLS Solution {.fsmaller}
+
+- Because OLS makes simple assumptions, we don't need to guess.
+- Calculus gives us a direct "closed-form" solution.
+
+:::{.fragment}
+**In Simple Regression:**
+$$Slope = \frac{\text{Covariance}(X,Y)}{\text{Variance}(X)}$$
+:::
+
+:::{.fragment}
+- This is essentially a "Variance-Weighted Correlation."
+- It tells us how much $Y$ changes as $X$ changes, relative to the spread of $X$.
+:::
+
+## Generalizing OLS
+
+- **Multiple Regression**
+    + The logic is exactly the same, but we use Matrix Algebra.
+    + It accounts for the covariance between *all* predictors simultaneously.
+    
+:::{.fragment}
+- **The Takeaway**
+    + OLS is fast and precise because we can solve it directly.
+    + We jump straight to the bottom of the "U" curve.
+    + ... But only if the assumptions are met.
+:::
+
+# Maximum Likelihood
+
+## Recap: Why not OLS?
+
+- **Recall from last lecture:**
+    + OLS assumes errors are [independent]{.b .blue}.
+    + Clustered data (students in schools) violates this.
+    
+:::{.fragment}
+- **The Consequence:**
+    + OLS thinks we have more unique information than we do.
+    + Standard Errors are underestimated.
+    + [Result:]{.b .red} Drastically inflated Type I Error (False Positives).
+:::
+
+## Goals {.fsmaller}
+
+- Because of this, ***OLS cannot be used*** for multilevel models
+
+:::{.fragment}
+- [Maximum Likelihood Estimation]{.b .blue} (MLE) is often used
+    + **The Concept:** We want to *maximize* the [Likelihood]{.b .green}, which asks: *"If the population parameter were $X$, how probable would our data be?"*
+    + **The Goal:** Find the parameter values that make our observed data **most probable** (i.e., the top of the Likelihood hill).
+
+:::
+:::{.fragment}
+- **Computational Note:**
+    + To make the math easier, software actually *minimizes* a transformation of the Likelihood: the [Negative Log-Likelihood ($-LL$)]{.b .green}
+    + *Intuition:* We flip the "Likelihood Hill" upside down into a "Loss Valley" so the computer can minimize "badness" (just like in OLS). 
+
+:::
+
+## MLE Versions {.fsmaller}
+
+- [Full Maximum Likelihood]{.b .blue} (ML) includes both the regression<br />coefficients and the variance components in the likelihood
+    + &#9989; Can compare models with different (fixed) predictors
+    + &#10060; Variance component estimates may be too small (biased)
+
+:::{.fragment}
+- [Restricted Maximum Likelihood]{.b .green} (REML) only includes the<br>  variance components in the likelihood and then estimates the<br> regression coefficients in a separate step
+    + &#9989; Corrects the bias in the variance components
+    + &#10060; Can't compare models with different (fixed) predictors
+    
+:::
+
+## Practical Advice: ML vs REML
+
+- **When reporting parameters:**
+    + Use [REML]{.b .green} (default in most software)
+    + It gives less biased estimates of variance/SD
+
+:::{.fragment}
+- **When comparing models:**
+    + If models differ in (fixed) predictors, use [ML]{.b .blue}
+    + If models differ only in cluster structure, use [REML]{.b .green}
+
+:::
+
+## How to optimize it? {.fsmaller}
+
+- Unlike OLS, there is no **closed-form solution**
+    + We cannot simply solve for the answer with algebra
+    + (The math is too complex to do in one step)
+
+:::{.fragment}
+- Instead, we must use an [iterative search]{.b .blue}
+    + We try a value, check the fit, and improve it
+    + We repeat this loop until the answer stops changing
+
+:::
+
+:::{.fragment}
+- We often use [local derivatives]{.b .green} to guide the search
+    + **Gradient:** Which direction is steepest? *(The Compass)*
+    + **Hessian:** How curved is the hill? *(The Map)*
+    + *Note: If the terrain is flat or ambiguous, the search may fail*
+
+:::
+
+## Hill Climbing Analogy {.fsmaller}
+
+a. I am blindfolded in a thick fog and dropped on a hill
+b. I can win a great prize if I find the summit without looking
+c. Luckily, I have a device that announces my elevation
+
+:::{.fragment}
+d. I step in a random direction and then check my elevation
+    + If it increased, then I step again in that direction
+    + If it decreased, I step back and try another direction
+
+:::
+:::{.fragment}
+e. I repeat (d) until stepping in any direction decreases my elevation
+    + I am now at a peak of the hill (and hopefully the summit)
+    
+:::
+
+## Hill Climbing Challenges {.fsmaller}
+
+- What if I walk for days and never reach a peak of the hill?
+
+- What if I get stuck on a local peak that isn't the summit?
+
+:::{.fragment}
+**Potential Solutions**
+
+- I can map out the curvature around me (before taking each step)
+    + *This may prevent me from committing to unfruitful paths*
+
+:::
+:::{.fragment}
+- I can partner with other hill climbers (and share the prize money)
+    + *With different starting places, some may avoid local peaks*
+    + *With different step sizes, some may find additional paths*
+    
+:::
+
+## Optimization as Hill Climbing {.fsmaller}
+
+a. Select a random or "best guess" starting value^[We can optionally use a "multi-start" strategy (for multiple climbers)]
+b. Estimate the likelihood of the current value^[Technically, we try to minimize the negative log-likelihood]
+c. Detemine whether to increase or decrease the value^[We can optionally use derivative information (gradient/hessian) here]
+d. Update the current value by some amount (step size)^[We can adjust the step size, which affects speed and pathing]
+e. Repeat steps 2-4 until the change in likelihood is small^[We repeat until convergence or a maximum number of iterations]
+
+
+## Visual Example
+
+We start with no knowledge of the likelihood function
+
+```{r}
+#| echo: false
+
+likelihood_function <- function(x) {
+  -0.1 * (x - 5)^2 + 
+    3 * exp(-((x - 2)^2) / 0.5) +  # Local peak at x = 2
+    2 * exp(-((x - 8)^2) / 0.8) +  # Local peak at x = 8
+    3
+}
+
+x_vals <- seq(0, 10, length.out = 101)
+
+likelihood_vals <- likelihood_function(x_vals)
+
+df <- tibble(estimate = x_vals, likelihood = likelihood_vals)
+
+p2a <- 
+  ggplot(df, aes(estimate, likelihood)) +
+  #geom_line(linewidth = 1.5, color = "black") +
+  labs(x = "Parameter Estimate", y = "Likelihood") +
+  coord_cartesian(ylim = c(0, 6), xlim = c(0, 10)) +
+  theme_bw(base_size = 36)
+
+p2a
+```
+
+## Visual Example 2
+
+We can choose three starting values at $x=\{0,5,10\}$
+
+```{r}
+#| echo: false
+
+  ggplot() +
+  geom_point(
+    data = filter(df, estimate %in% c(0, 5, 10)),
+    aes(estimate, likelihood),
+    size = 6,
+    color = "black"
+  ) +
+  labs(x = "Parameter Estimate", y = "Likelihood") +
+  coord_cartesian(ylim = c(0, 6), xlim = c(0, 10)) +
+  theme_bw(base_size = 36)
+```
+
+## Visual Example 2
+
+Now each climbs until convergence and the highest wins
+
+```{r}
+#| echo: false
+
+ggplot() +
+  geom_line(
+    data = filter(df, estimate <= 2),
+    aes(estimate, likelihood),
+    linewidth = 1.5, 
+    color = "steelblue3"
+  ) +
+  geom_line(
+    data = filter(df, estimate >= 8),
+    aes(estimate, likelihood),
+    linewidth = 1.5, 
+    color = "coral3"
+  ) +
+  geom_point(
+    data = tibble(x = 2, y = likelihood_vals[x_vals == 2]),
+    aes(x, y),
+    color = "steelblue3",
+    size = 5
+  ) +
+  geom_point(
+    data = filter(df, estimate %in% c(0, 5, 10)),
+    aes(estimate, likelihood),
+    size = 6, 
+    color = "black"
+  ) +
+  geom_point(
+    data = tibble(x = 5, y = likelihood_vals[x_vals == 5]),
+    aes(x, y),
+    color = "seagreen",
+    size = 5
+  ) +
+  geom_point(
+    data = tibble(x = 8, y = likelihood_vals[x_vals == 8]),
+    aes(x, y),
+    color = "coral3",
+    size = 5
+  ) +
+  geom_segment(
+    data = tibble(x = -1, xend = 2, y = likelihood_vals[x_vals == 2]),
+    aes(x = x, xend = xend, y = y, yend = y),
+    color = "steelblue3",
+    linewidth = 1,
+    linetype = "dashed"
+  ) +
+  geom_segment(
+    data = tibble(x = -1, xend = 5, y = likelihood_vals[x_vals == 5]),
+    aes(x = x, xend = xend, y = y, yend = y),
+    color = "seagreen",
+    linewidth = 1,
+    linetype = "dashed"
+  ) +
+  geom_segment(
+    data = tibble(x = -1, xend = 8, y = likelihood_vals[x_vals == 8]),
+    aes(x = x, xend = xend, y = y, yend = y),
+    color = "coral3",
+    linewidth = 1,
+    linetype = "dashed"
+  ) +
+  labs(x = "Parameter Estimate", y = "Likelihood") +
+  coord_cartesian(ylim = c(0, 6), xlim = c(0, 10)) +
+  theme_bw(base_size = 36)
+```
+
+
+:::{.footer}
+Our maximum likelihood estimate would thus be $x \approx 2$
+
+:::
+
+## Visual Example 3
+
+The *unknown-to-us* likelihood function is plotted in black
+
+```{r}
+#| echo: false
+
+ggplot() +
+  geom_line(
+    data = df,
+    aes(estimate, likelihood),
+    linewidth = 1.5, 
+    color = "black"
+  ) +
+  geom_point(
+    data = tibble(x = 2.05, y = likelihood_vals[x_vals == 2]),
+    aes(x, y),
+    color = "steelblue3",
+    size = 5
+  ) +
+  geom_point(
+    data = tibble(x = 5, y = likelihood_vals[x_vals == 5]),
+    aes(x, y),
+    color = "seagreen",
+    size = 5
+  ) +
+  geom_point(
+    data = tibble(x = 7.9, y = likelihood_vals[x_vals == 7.9]),
+    aes(x, y),
+    color = "coral3",
+    size = 5
+  ) +
+  geom_segment(
+    data = tibble(x = -1, xend = 2, y = likelihood_vals[x_vals == 2]),
+    aes(x = x, xend = xend, y = y, yend = y),
+    color = "steelblue3",
+    linewidth = 1,
+    linetype = "dashed"
+  ) +
+  geom_segment(
+    data = tibble(x = 2.05, y = likelihood_vals[x_vals == 2], yend = -1),
+    aes(x = x, xend = x, y = y, yend = yend),
+    color = "steelblue3",
+    linewidth = 1,
+    linetype = "dashed"
+  ) +
+  labs(x = "Parameter Estimate", y = "Likelihood") +
+  coord_cartesian(ylim = c(0, 6), xlim = c(0, 10)) +
+  theme_bw(base_size = 36)
+```
+
+## Optimization Algorithms {.fsmaller}
+
+- **Quadratic Approximation** (lme4) 
+    + Does not require derivative information (Gradient/Hessian)
+    + &#9989; High speed, good when derivatives are difficult to compute
+    + &#10060; Struggles with complex models, many warnings
+
+:::{.fragment}
+- **Quasi-Newton** (glmmTMB) 
+    + Uses derivative information (Gradient/Hessian)
+    + &#9989; Manages parameters boundaries, fewer warnings
+    + &#10060; Sensitive to starting values, slower speed
+
+:::
+:::{.fragment}
+- ***Expectation Maximization (EM)*** has benefits for missing data
+
+:::
+
+
+# Bayesian Alternative
+
+## Overview
+
+- MLE only uses the Likelihood for estimation
+    + It relies entirely on the observed sample
+    + It is "objective" and purely data-driven
+    + But it can be misled by small samples
+
+:::{.fragment}
+- [Bayesian estimation]{.b .blue} also uses the Likelihood
+    + But it combines it with other information
+    + Specifically, it relies on the user to input a [prior]{.b .green}
+    
+:::
+
+## Bayes' Theorem
+
+1. Prior = Information from Before Seeing Data
+2. Likelihood = Information from Observed Sample
+3. Posterior = Updated or Combined Information
+
+$$
+\text{Posterior} \propto \frac{\text{Likelihood}\cdot\text{Prior}}{\text{Marginal Likelihood}} \\
+$$
+
+:::{.fragment}
+
+$$
+P(\theta|\text{Data}) \propto \frac{P(\text{Data}|\theta)P(\theta)}{P(\text{Data})}
+$$
+
+:::
+
+## Visual Depiction: Prior
+
+```{r}
+# Define a grid of possible parameter values (theta)
+theta <- seq(0, 1, length.out = 100)
+
+# Define a Beta(2,2) prior
+prior <- dbeta(theta, 3, 3)
+prior_scaled <- prior / max(prior)
+
+# Assume a binomial likelihood: 6 successes out of 10 trials
+n <- 10
+y <- 9
+likelihood <- dbinom(y, size = n, prob = theta)
+
+# Compute the unnormalized posterior
+posterior_unnormalized <- likelihood * prior
+
+# Normalize the posterior
+posterior <- posterior_unnormalized / sum(posterior_unnormalized)
+
+# Create individual data frames for each step
+df_prior <- data.frame(
+  theta = theta, 
+  density = prior_scaled, 
+  distribution = "Prior"
+)
+df_likelihood <- data.frame(
+  theta = theta, 
+  density = likelihood / max(likelihood), 
+  distribution = "Likelihood"
+)
+df_posterior <- data.frame(
+  theta = theta, 
+  density = posterior / max(posterior), 
+  distribution = "Posterior"
+)
+df_all <- bind_rows(df_prior, df_likelihood, df_posterior)
+mycolors <- RColorBrewer::brewer.pal(3, "Set1")
+```
+
+```{r}
+ggplot(df_prior, aes(x = theta, y = density / max(density))) +
+  geom_line(color = mycolors[[2]], linewidth = 1.5) +
+  labs(x = expression(theta), y = "Prior Probability") +
+  theme_bw(base_size = 30)
+```
+
+## Visual Depiction: Likelihood
+
+```{r}
+ggplot(df_likelihood, aes(x = theta, y = density)) +
+  geom_line(color = mycolors[[3]], linewidth = 1.5) +
+  labs(x = expression(theta), y = "Scaled Likelihood") +
+  theme_bw(base_size = 30)
+```
+
+## Visual Depiction: Posterior
+
+```{r}
+ggplot(df_posterior, aes(x = theta, y = density)) +
+  geom_line(color = mycolors[[1]], linewidth = 1.5) +
+  labs(x = expression(theta), y = "Posterior Probability") +
+  theme_bw(base_size = 30)
+```
+
+## Comparison
+
+```{r}
+ggplot(df_all, aes(x = theta, y = density, color = distribution)) +
+  geom_line(linewidth = 1.5) + 
+  scale_color_manual(
+    values = c("Prior" = mycolors[[2]], "Likelihood" = mycolors[[3]], "Posterior" = mycolors[[1]]),
+    breaks = c("Prior", "Likelihood", "Posterior")
+  ) +
+  labs(x = expression(theta), y = "Probability", color = "Distribution") +
+  theme_bw(base_size = 24) +
+  theme(legend.position = "bottom")
+```
+
+
+## Informative Priors
+
+- An [informative]{.b .blue} prior: *specific values are more likely*
+    + This can stabilize estimates in small samples
+    + But can be misleading and needs to be justified
+    
+```{r}
+#| fig-width: 12
+#| fig-height: 4
+
+theta <- seq(0, 1, length.out = 100)
+prior <- dbeta(theta, 9, 2)
+prior_scaled <- prior / max(prior)
+
+ggplot(
+  tibble(theta, density = prior_scaled), 
+  aes(x = theta, y = density)
+) +
+  geom_line(color = mycolors[[2]], linewidth = 2) + 
+  labs(x = expression(theta), y = "Prior") +
+  theme_bw(base_size = 30)
+```
+
+
+## Noninformative Priors
+
+- A [noninformative]{.b .blue} prior: *all values are equally likely*
+    + This can yield estimates very similar to MLE
+    + But some values are really implausible...
+
+```{r}
+#| fig-width: 12
+#| fig-height: 4
+
+theta <- seq(-0.2, 1.2, length.out = 100)
+prior <- dunif(theta, 0, 1)
+ggplot(tibble(theta), aes(x = theta, y = prior)) +
+  geom_line(color = mycolors[[2]], linewidth = 2) + 
+  scale_x_continuous(breaks = seq(-0, 1, 0.25)) +
+  coord_cartesian(xlim = c(0, 1)) +
+  labs(x = expression(theta), y = "Prior") +
+  theme_bw(base_size = 30)
+```
+
+## Weakly Informative Priors
+
+- A [weakly informative]{.b .blue} prior: *plausible values are more likely*
+    + We can discourage the model from implausible values
+    + We can conservatively center it on the null value
+
+```{r}
+#| fig-width: 12
+#| fig-height: 4
+
+theta <- seq(0, 1, length.out = 100)
+prior <- dbeta(theta, 2, 2)
+prior_scaled <- prior / max(prior)
+
+ggplot(
+  tibble(theta, density = prior_scaled), 
+  aes(x = theta, y = density)
+) +
+  geom_line(color = mycolors[[2]], linewidth = 2) + 
+  labs(x = expression(theta), y = "Prior") +
+  theme_bw(base_size = 30)
+```
+
+## Approximating the Posterior
+
+- Bayes' theorem requires estimating the Marginal Likelihood
+    + In most situations, solving for this would be impossible
+
+:::{.fragment}  
+- Instead, we usually try to approximate the posterior
+    + We use Markov Chain Monte Carlo (MCMC) to do so
+    + This is an iterative procedure that can be intensive
+    + It provides a distribution of samples from the posterior
+    
+:::
+
+## Estimation Comparisons {.fsmaller}
+
+- [Maximum Likelihood Estimation]{.b .blue}
+    + **Goal:** Find the single best Frequentist estimate (the peak)
+    + **Method:** "Climb the hill" using local derivatives
+    + **Pros/Cons:** Faster, but gets stuck on flat or complex terrain
+
+:::{.fragment}
+- [Markov Chain Monte Carlo]{.b .green}
+    + **Goal:** Approximate the entire Bayesian posterior (the shape)
+    + **Method:** "Explore the mountain" using random sampling
+    + **Pros/Cons:** Slower, but more robust (less likely to fail)
+
+:::
+
+## Using the Posterior {.fsmaller}
+
+::: {.columns .pv4}
+
+::: {.column width="50%"}
+**1. Point Estimate**<br>
+We report the center of the posterior distribution (e.g., the [Median]{.b .red}) as our single "best guess" for the parameter.
+:::
+
+::: {.column width="50%"}
+**2. Uncertainty Interval**<br>
+We report the interval containing the inner 95% of the posterior density (e.g., the [HDI]{.b .red}) to show our uncertainty.
+:::
+
+:::
+
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-width: 12
+
+library(ggdist)
+
+set.seed(123)
+posterior_samples <- data.frame(value = rbeta(2000, 5, 2) * 10)
+
+ggplot(posterior_samples, aes(x = value)) +
+  stat_halfeye(
+    aes(y = 0), 
+    point_interval = median_hdi,
+    .width = 0.95,
+    color = "red",
+    fill = "grey",
+    slab_alpha = 0.6,
+    adjust = 0.8, 
+    interval_size_range = c(3, 3),
+    point_size = 9
+  ) +
+  labs(x = "Parameter Value", y = NULL) +
+  scale_y_continuous(expand = c(0.1, 0.1)) +
+  theme_bw(base_size = 24) +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks.y = element_blank(),
+    panel.grid = element_blank(),
+    panel.border = element_blank(),
+    axis.line.x = element_line(color="black")
+  )
+```

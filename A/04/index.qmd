@@ -1,0 +1,60 @@
+---
+title: "Week 04: The Mechanics of MLM"
+---
+
+<!-- 04a -->
+
+## [04a] Materials
+
+### Topics
+- Ordinary Least Squares
+- Maximum Likelihood
+- Bayesian Overview
+
+### Readings
+- [HMV Sections 3.1--3.3: Which Estimation Method?](https://canvas.ku.edu/courses/182539/pages/meeting-04a-estimation-strategies?module_item_id=4317558){target="_blank"}
+
+### Slides
+
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[04a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.
+:::
+
+
+<!-- 04b -->
+
+## [04b] Materials
+
+### Topics
+- Data Tidying Recap
+- Getting to Long Format
+- Multilevel Manipulation
+
+### Readings
+- [WCG Chapter 3: Data transformation](https://r4ds.hadley.nz/data-transform){target="_blank"}
+- [WCG Chapter 5: Data tidying](https://r4ds.hadley.nz/data-tidy){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[04b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.
+:::
+
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../03/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 03</a>
+
+  <a href="../05/index.html" class="btn btn-primary" role="button">Week 05&nbsp;&nbsp;&raquo;</a>
+</div>
+```
