@@ -33,7 +33,7 @@ website:
             text: "Week 03: Clustering Issues and Approaches"
             href: A/03/index.html
           - icon: tools
-            text: "Week 04: Data Prep and Estimation"
+            text: "Week 04: The Mechanics of MLM"
             href: A/04/index.html
       - text: "Unit B"
         menu:
