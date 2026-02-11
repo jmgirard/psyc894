@@ -413,10 +413,10 @@ $ public  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 <span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>wide_real</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
-     id stress_T1 stress_T2 mood_T1 mood_T2
-  &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1     1        10        14       5       7
-2     2        12        11       6       5</code></pre>
+  id    stress_T1 stress_T2 mood_T1 mood_T2
+  &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 S001         10        14       5       7
+2 S002         12        11       6       5</code></pre>
 </div>
 </div>
 <ul>
@@ -446,12 +446,12 @@ $ public  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 <span id="cb13-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
-     id time  stress  mood
-  &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
-1     1 T1        10     5
-2     1 T2        14     7
-3     2 T1        12     6
-4     2 T2        11     5</code></pre>
+  id    time  stress  mood
+  &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1 S001  T1        10     5
+2 S001  T2        14     7
+3 S002  T1        12     6
+4 S002  T2        11     5</code></pre>
 </div>
 </div>
 </section>
@@ -478,12 +478,12 @@ $ public  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 <span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>long_real</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
-     id time  stress  mood
-  &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
-1     1 T1        10     5
-2     1 T2        14     7
-3     2 T1        12     6
-4     2 T2        11     5</code></pre>
+  id    time  stress  mood
+  &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1 S001  T1        10     5
+2 S001  T2        14     7
+3 S002  T1        12     6
+4 S002  T2        11     5</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -495,16 +495,28 @@ $ public  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 <span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
-     id  time stress  mood
-  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-1     1     1     10     5
-2     1     2     14     7
-3     2     1     12     6
-4     2     2     11     5</code></pre>
+  id     time stress  mood
+  &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1 S001      1     10     5
+2 S001      2     14     7
+3 S002      1     12     6
+4 S002      2     11     5</code></pre>
 </div>
 </div>
 </div>
-</section></section>
+</section>
+<section class="slide level2 fsmaller">
+<h2>The Payoff: Visualizing Change</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Now that our data is in long-format, we can easily plot it by participant!</span></span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(long_real, <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> stress, <span class="at">color =</span> id)) <span class="sc">+</span></span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Individual Stress Trajectories"</span>) <span class="sc">+</span></span>
+<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section></section>
 <section>
 <section class="title-slide slide level1 center">
 <h1>Handling Hierarchy</h1>
@@ -530,15 +542,15 @@ $ public  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 <section class="slide level2 fsmaller">
 <h2>Aggregating (Summarize)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># To create a L2 dataset (e.g., summaries per school), we use summarize(.by)</span></span>
-<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>school_means <span class="ot">&lt;-</span> </span>
-<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>  heck <span class="sc">|&gt;</span> </span>
-<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> school,</span>
-<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">school_math_mean =</span> <span class="fu">mean</span>(math),</span>
-<span id="cb19-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_students =</span> <span class="fu">n</span>()</span>
-<span id="cb19-8"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb19-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># To create a L2 dataset (e.g., summaries per school), we use summarize(.by)</span></span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>school_means <span class="ot">&lt;-</span> </span>
+<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>  heck <span class="sc">|&gt;</span> </span>
+<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb20-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> school,</span>
+<span id="cb20-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">school_math_mean =</span> <span class="fu">mean</span>(math),</span>
+<span id="cb20-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_students =</span> <span class="fu">n</span>()</span>
+<span id="cb20-8"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb20-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 419 × 3
   school school_math_mean n_students
@@ -556,14 +568,14 @@ $ public  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 <section class="slide level2 fsmaller">
 <h2>Annotating (Mutate)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># To simply add L2 summaries to the L1 dataset, we use mutate(.by)</span></span>
-<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>heck_with_means <span class="ot">&lt;-</span> </span>
-<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>  heck <span class="sc">|&gt;</span> </span>
-<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> school,</span>
-<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">school_math_mean =</span> <span class="fu">mean</span>(math, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb21-7"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb21-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># To simply add L2 summaries to the L1 dataset, we use mutate(.by)</span></span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>heck_with_means <span class="ot">&lt;-</span> </span>
+<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>  heck <span class="sc">|&gt;</span> </span>
+<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> school,</span>
+<span id="cb22-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">school_math_mean =</span> <span class="fu">mean</span>(math, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-7"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb22-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6,871 × 8
   school student female    ses  math  puniv public school_math_mean
@@ -601,7 +613,7 @@ $ public  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 <li>Contains individual variables and the grouping ID (country).</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>L1_people</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>L1_people</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
     pid sex   income country
@@ -618,7 +630,7 @@ $ public  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 <li>Contains cluster-level variables and the same grouping ID (country)</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>L2_countries</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>L2_countries</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   country continent   gdp
@@ -634,13 +646,13 @@ $ public  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 <section class="slide level2 fsmaller">
 <h2>Merging: The Join</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> </span>
-<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
-<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> L1_people,    <span class="co"># The Level 1 file (Start with the detailed data)</span></span>
-<span id="cb27-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> L2_countries, <span class="co"># The Level 2 file (Bring in the context)</span></span>
-<span id="cb27-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"country"</span>    <span class="co"># The linking variable (cluster ID)</span></span>
-<span id="cb27-6"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb27-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> </span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> L1_people,    <span class="co"># The Level 1 file (Start with the detailed data)</span></span>
+<span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> L2_countries, <span class="co"># The Level 2 file (Bring in the context)</span></span>
+<span id="cb28-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"country"</span>    <span class="co"># The linking variable (cluster ID)</span></span>
+<span id="cb28-6"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb28-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 6
     pid sex   income country continent   gdp
