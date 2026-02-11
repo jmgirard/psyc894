@@ -29,6 +29,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-0b5db92d115c8c04db4ce50e7f546384.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -147,21 +211,454 @@
 <ul>
 <li><em>Select, Filter, Mutate</em></li>
 </ul></li>
-<li>Getting to Long Format
+<li>Reshaping Data
 <ul>
-<li><em>Formats, Pivot, Join</em></li>
+<li><em>Wide vs.&nbsp;Long Formats</em></li>
+<li><em>Pivoting with <code>tidyr</code></em></li>
 </ul></li>
-<li>Multilevel Manipulation
+<li>Handling Hierarchy
 <ul>
-<li><em>Degroup, Center, Standardize</em></li>
+<li><em>Grouping &amp; Summarizing</em></li>
+<li><em>Joining Level 1 &amp; 2 Files</em></li>
 </ul></li>
 </ol>
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Data Tidying Recap</h1>
 
 </section>
+<section class="slide level2">
+<h2>The Tidyverse Toolkit</h2>
+<ul>
+<li><strong><code>dplyr</code></strong> is our primary tool for data manipulation.</li>
+<li>It uses a set of “verbs” to describe actions on data:
+<ul>
+<li><code>select()</code>: Pick specific columns</li>
+<li><code>filter()</code>: Pick specific rows</li>
+<li><code>mutate()</code>: Create or change columns</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>The Pipe (<code>|&gt;</code> or <code>%&gt;%</code>)</strong>
+<ul>
+<li>Passes the result of one function to the next.</li>
+<li>Read it as <strong>“and then…”</strong></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Example Dataset</h2>
+<div class="cell" data-replace_path="[&quot;../../data/&quot;,&quot;&quot;]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>heck <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"heck2011.csv"</span>)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Take heck AND THEN glimpse it</span></span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>heck <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 6,871
+Columns: 7
+$ school  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2,…
+$ student &lt;dbl&gt; 6701, 6702, 6703, 6704, 6705, 6706, 6707, 6708, 6709, 6710, 67…
+$ female  &lt;dbl&gt; 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ ses     &lt;dbl&gt; 0.586, 0.304, -0.544, -0.848, 0.001, -0.106, -0.330, -0.891, 0…
+$ math    &lt;dbl&gt; 47.1400, 63.6100, 57.7100, 53.9000, 58.0100, 59.8700, 62.5556,…
+$ puniv   &lt;dbl&gt; 0.08333333, 0.08333333, 0.08333333, 0.08333333, 0.08333333, 0.…
+$ public  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Select &amp; Filter</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Take heck AND THEN select columns AND THEN filter rows AND THEN print it</span></span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>heck_subset <span class="ot">&lt;-</span> </span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>  heck <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(student, school, math, <span class="fu">starts_with</span>(<span class="st">"p"</span>)) <span class="sc">|&gt;</span> <span class="co"># retain these columns</span></span>
+<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(math <span class="sc">&gt;=</span> <span class="dv">50</span>) <span class="sc">|&gt;</span> <span class="co"># retain students with math greater or equal to 50</span></span>
+<span id="cb3-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,514 × 5
+  student school  math  puniv public
+    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1    6702      1  63.6 0.0833      0
+2    6703      1  57.7 0.0833      0
+3    6704      1  53.9 0.0833      0
+4    6705      1  58.0 0.0833      0
+5    6706      1  59.9 0.0833      0
+6    6707      1  62.6 0.0833      0
+# ℹ 5,508 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Mutate</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Take heck AND THEN transform school and create the logmath variable</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>heck_transformed <span class="ot">&lt;-</span> </span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>  heck <span class="sc">|&gt;</span> </span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">school =</span> <span class="fu">factor</span>(school), <span class="co"># Convert to categorical (in place)</span></span>
+<span id="cb5-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">logmath =</span> <span class="fu">log</span>(math)      <span class="co"># Natural log transform (new column)</span></span>
+<span id="cb5-7"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb5-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,871 × 8
+  school student female    ses  math  puniv public logmath
+  &lt;fct&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1 1         6701      1  0.586  47.1 0.0833      0    3.85
+2 1         6702      1  0.304  63.6 0.0833      0    4.15
+3 1         6703      1 -0.544  57.7 0.0833      0    4.06
+4 1         6704      0 -0.848  53.9 0.0833      0    3.99
+5 1         6705      0  0.001  58.0 0.0833      0    4.06
+6 1         6706      0 -0.106  59.9 0.0833      0    4.09
+# ℹ 6,865 more rows</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Reshaping Data</h1>
+
+</section>
+<section class="slide level2 fsmaller">
+<h2>The Shape of MLM Data</h2>
+<ul>
+<li><span class="b red">Wide Format</span>
+<ul>
+<li>One Row = One <strong>Cluster</strong> (e.g., a subject in longitudinal study)</li>
+<li>One Column = One <strong>Time-Specific Score</strong><br> (e.g., Stress_T1, Stress_T2, …, Mood_T1, Mood_T2, …)</li>
+<li>❌ Most MLM software cannot handle this</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><span class="b green">Long Format</span>
+<ul>
+<li>One Row = One <strong>Observation</strong><br> (e.g., Time 1 of Person 1, Time 2 of Person 1, …)</li>
+<li>One Column = One <strong>Variable</strong> (e.g., Time, Person, Stress, Mood)</li>
+<li>✅ Most MLM software expects this</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Scenario 1: Simple</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Example longitudinal dataset in wide format</span></span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>wide_simple</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  subject    T1    T2    T3
+    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1       1    10    14     9
+2       2    12    11    13</code></pre>
+</div>
+</div>
+<ul>
+<li>This dataset is currently in <span class="b green">wide-format</span>
+<ul>
+<li>We have 2 clusters (subjects), each with its own row</li>
+<li>We have 3 time points, each with its own column</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>But MLM wants it in <span class="b blue">long-format</span>
+<ul>
+<li>We want 6 rows, one per observation (time-specific score)</li>
+<li>We want 3 columns: <strong>subject</strong>, <strong>time</strong>, <strong>score</strong></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Scenario 1: Simple</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot the data longer (from wide-format to long-format)</span></span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>long_simple <span class="ot">&lt;-</span> </span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>  wide_simple <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(T1, T2, T3), <span class="co"># which old columns contain our observations?</span></span>
+<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"time"</span>,    <span class="co"># what new column should the old column names go to?</span></span>
+<span id="cb9-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"score"</span>   <span class="co"># what new column should the old values go to?</span></span>
+<span id="cb9-8"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb9-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  subject time  score
+    &lt;int&gt; &lt;chr&gt; &lt;dbl&gt;
+1       1 T1       10
+2       1 T2       14
+3       1 T3        9
+4       2 T1       12
+5       2 T2       11
+6       2 T3       13</code></pre>
+</div>
+</div>
+<ul>
+<li>We move the old column <strong>names</strong> to a new column (“time”)</li>
+<li>We move the old 2x3 block of <strong>values</strong> into a new column (“score”)</li>
+</ul>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Scenario 2: Realistic</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Example longitudinal dataset in very-wide-format</span></span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>wide_real</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+     id stress_T1 stress_T2 mood_T1 mood_T2
+  &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1     1        10        14       5       7
+2     2        12        11       6       5</code></pre>
+</div>
+</div>
+<ul>
+<li>Real world data is often a bit more complicated…</li>
+<li>Here, we have <em>two</em> scores per time point: <strong>stress</strong> and <strong>mood</strong>
+<ul>
+<li>MLM needs these to be separate columns…</li>
+<li>Luckily, they are named consistently as “variable_time”</li>
+<li>We can leverage this using <code>names_sep</code> and <code>names_to</code></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Scenario 2: Realistic</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Pivot the data longer (from very-wide-format to long-format)</span></span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>long_real <span class="ot">&lt;-</span> </span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  wide_real <span class="sc">|&gt;</span> </span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># Which old columns contain our observations?</span></span>
+<span id="cb13-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(<span class="fu">starts_with</span>(<span class="st">"stress"</span>), <span class="fu">starts_with</span>(<span class="st">"mood"</span>)), </span>
+<span id="cb13-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># What separates our old column names (e.g., "stress" _ "T1")</span></span>
+<span id="cb13-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_"</span>,</span>
+<span id="cb13-9"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># Map the parts: ".value" keeps the name as a header, "time" takes the suffix</span></span>
+<span id="cb13-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"time"</span>)</span>
+<span id="cb13-11"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb13-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+     id time  stress  mood
+  &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1     1 T1        10     5
+2     1 T2        14     7
+3     2 T1        12     6
+4     2 T2        11     5</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Why .value is Magic</h2>
+<p>Notice what happened:</p>
+<ol type="1">
+<li>It saw <code>stress_T1</code>.</li>
+<li>It split it at <code>_</code>.</li>
+<li>Because we said <code>c(".value", "time")</code>:
+<ul>
+<li><strong>“stress”</strong> became a <strong>Column Header</strong>.</li>
+<li><strong>“T1”</strong> went into the <strong><code>time</code></strong> column.</li>
+</ul></li>
+</ol>
+<div class="fragment mt4">
+<p>This creates a perfectly formatted MLM dataset with one row per observation, and separate columns for your predictors (<span class="math inline">\(X\)</span>) and outcomes (<span class="math inline">\(Y\)</span>).</p>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Parsing Numbers</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># What if we want to extract the numeric part of time ("T2" -&gt; 2)?</span></span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>long_real</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+     id time  stress  mood
+  &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1     1 T1        10     5
+2     1 T2        14     7
+3     2 T1        12     6
+4     2 T2        11     5</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># We can use parse_number() inside of mutate()</span></span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>long_real <span class="ot">&lt;-</span> </span>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>  long_real <span class="sc">|&gt;</span> </span>
+<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">parse_number</span>(time)) <span class="sc">|&gt;</span> </span>
+<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+     id  time stress  mood
+  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1     1     1     10     5
+2     1     2     14     7
+3     2     1     12     6
+4     2     2     11     5</code></pre>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Handling Hierarchy</h1>
+
+</section>
+<section class="slide level2">
+<h2>Split–Apply–Combine</h2>
+<p>In MLM, we often need to calculate statistics <em>per cluster</em><br> (e.g., school average math score). We do this using <code>.by</code>.</p>
+<div class="fragment">
+<ol type="1">
+<li><strong>Split</strong> the data into groups (Schools).</li>
+<li><strong>Apply</strong> a calculation to each group (Mean).</li>
+<li><strong>Combine</strong> the results back into the dataframe.</li>
+</ol>
+</div>
+<div class="fragment">
+<ul>
+<li><code>summarize(.by)</code> is useful for data exploration</li>
+<li><code>mutate(.by)</code> will prepare the data for MLM</li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Aggregating (Summarize)</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># To create a L2 dataset (e.g., summaries per school), we use summarize(.by)</span></span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>school_means <span class="ot">&lt;-</span> </span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>  heck <span class="sc">|&gt;</span> </span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> school,</span>
+<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">school_math_mean =</span> <span class="fu">mean</span>(math),</span>
+<span id="cb19-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">n_students =</span> <span class="fu">n</span>()</span>
+<span id="cb19-8"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb19-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 419 × 3
+  school school_math_mean n_students
+   &lt;dbl&gt;            &lt;dbl&gt;      &lt;int&gt;
+1      1             59.0         12
+2      2             63.6         13
+3      3             47.6         18
+4      4             65.7         17
+5      5             48.1         17
+6      6             61.0         16
+# ℹ 413 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Annotating (Mutate)</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># To simply add L2 summaries to the L1 dataset, we use mutate(.by)</span></span>
+<span id="cb21-2"><a aria-hidden="true" tabindex="-1"></a>heck_with_means <span class="ot">&lt;-</span> </span>
+<span id="cb21-3"><a aria-hidden="true" tabindex="-1"></a>  heck <span class="sc">|&gt;</span> </span>
+<span id="cb21-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb21-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> school,</span>
+<span id="cb21-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">school_math_mean =</span> <span class="fu">mean</span>(math, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-7"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb21-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,871 × 8
+  school student female    ses  math  puniv public school_math_mean
+   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;            &lt;dbl&gt;
+1      1    6701      1  0.586  47.1 0.0833      0             59.0
+2      1    6702      1  0.304  63.6 0.0833      0             59.0
+3      1    6703      1 -0.544  57.7 0.0833      0             59.0
+4      1    6704      0 -0.848  53.9 0.0833      0             59.0
+5      1    6705      0  0.001  58.0 0.0833      0             59.0
+6      1    6706      0 -0.106  59.9 0.0833      0             59.0
+# ℹ 6,865 more rows</code></pre>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Note that <code>school_math_mean</code> is repeated for every student in the same school. This is what MLM wants!</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Merging: The Setup</h2>
+<p>Sometimes your data comes in separate files per level…</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>1. Level 1 Data (People)</strong></p>
+<ul>
+<li>Contains individual variables and the grouping ID (country).</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>L1_people</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+    pid sex   income country
+  &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;  
+1     1 M         50 Japan  
+2     2 F         55 Japan  
+3     3 F         42 France 
+4     4 M         48 France </code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><strong>2. Level 2 Data (Countries)</strong></p>
+<ul>
+<li>Contains cluster-level variables and the same grouping ID (country)</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a>L2_countries</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  country continent   gdp
+  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;
+1 China   Asia      38.2 
+2 Japan   Asia       6.45
+3 France  Europe     4.29
+4 Germany Europe     6.14</code></pre>
+</div>
+</div>
+</div></div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Merging: The Join</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> </span>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> L1_people,    <span class="co"># The Level 1 file (Start with the detailed data)</span></span>
+<span id="cb27-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> L2_countries, <span class="co"># The Level 2 file (Bring in the context)</span></span>
+<span id="cb27-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"country"</span>    <span class="co"># The linking variable (cluster ID)</span></span>
+<span id="cb27-6"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb27-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 6
+    pid sex   income country continent   gdp
+  &lt;int&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;
+1     1 M         50 Japan   Asia       6.45
+2     2 F         55 Japan   Asia       6.45
+3     3 F         42 France  Europe     4.29
+4     4 M         48 France  Europe     4.29</code></pre>
+</div>
+</div>
+<ul>
+<li>Notice that <code>Asia</code> and <code>4.2</code> were copied for both participants in Japan</li>
+<li>This creates the rectangular, long-format dataset required for MLM</li>
+<li>Notice that China and Germany are excluded (no participants from there!)</li>
+</ul>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
