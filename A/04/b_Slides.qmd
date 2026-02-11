@@ -47,14 +47,7 @@ library(here)
 source(here("_common.R"))
 
 options(readr.show_col_types = FALSE)
-
-library(tidyverse)
-library(easystats)
-library(patchwork)
-mytheme <- function(sz = 30) {
-  theme_gray(base_size = sz) + 
-  theme(panel.grid.minor = element_blank())
-}
+options(tibble.print_max = 6, tibble.print_min = 6)
 ```
 
 ## Roadmap
@@ -65,11 +58,13 @@ mytheme <- function(sz = 30) {
 1. Data Tidying Recap
     + *Select, Filter, Mutate*
 
-2. Getting to Long Format
-    + *Formats, Pivot, Join*
+2. Reshaping Data
+    + *Wide vs. Long Formats*
+    + *Pivoting with `tidyr`*
 
-3. Multilevel Manipulation
-    + *Degroup, Center, Standardize*
+3. Handling Hierarchy
+    + *Grouping & Summarizing*
+    + *Joining Level 1 & 2 Files*
     
 :::
 
@@ -81,389 +76,301 @@ mytheme <- function(sz = 30) {
 
 # Data Tidying Recap
 
-## Overview {.fsmaller}
+## The Tidyverse Toolkit
 
-- We can use the \{tidyverse\} package to tidy the data
-    + `select()` will only retain the listed columns
-    + `filter()` will only retain rows that meet some criteria
-    + `mutate()` will add columns and transform columns
+- **`dplyr`** is our primary tool for data manipulation.
+- It uses a set of "verbs" to describe actions on data:
+    + `select()`: Pick specific columns
+    + `filter()`: Pick specific rows
+    + `mutate()`: Create or change columns
 
 :::{.fragment}
-- It will also be useful to learn about programming "pipes"
-    + `|>` or `%>%` can be used to chain commands together
-    + `x |> f(args)` is interpreted by R as `f(x, args)`
-    + `pi |> sqrt() |> round(digits = 1)` is a "pipeline"
-
+- **The Pipe (`|>` or `%>%`)**
+    + Passes the result of one function to the next.
+    + Read it as **"and then..."**
 :::
 
 ## Example Dataset
 
 ```{r}
+#| message: false
 #| replace_path: ["../../data/", ""]
 
 library(tidyverse)
-dat <- read_csv("../../data/heck2011.csv")
+heck <- read_csv("../../data/heck2011.csv")
 
-glimpse(dat)
+# Take heck AND THEN glimpse it
+heck |> glimpse()
 ```
 
-## Select Example
+## Select & Filter
 
 ```{r}
-# We can list columns by name
-# Or use helpers like starts_with() or ends_with()
-dat2 <- 
-  dat |> 
-  select(student, school, starts_with("math")) |> 
+# Take heck AND THEN select columns AND THEN filter rows AND THEN print it
+heck_subset <- 
+  heck |> 
+  select(student, school, math, starts_with("p")) |> # retain these columns
+  filter(math >= 50) |> # retain students with math greater or equal to 50
   print()
 ```
 
-## Filter Example
+## Mutate
 
 ```{r}
-dat2 <- 
-  dat |> 
-  filter(
-    public == 1, # only retain public schools
-    school != 10, # drop data from school 10
-    math > 60 # only retain students with passing grades
-  ) |> 
-  print()
-```
-
-## Mutate Example
-
-```{r}
-dat2 <-
-  dat |> 
+# Take heck AND THEN transform school and create the logmath variable
+heck_transformed <- 
+  heck |> 
   mutate(
-    school = factor(school), # turn numeric ID into a categorical variable
-    lnmath = log(math) # create a log-transformed version of math
+    school = factor(school), # Convert to categorical (in place)
+    logmath = log(math)      # Natural log transform (new column)
   ) |> 
   print()
 ```
 
-## A Note on Missing Data
+# Reshaping Data
 
-- `lme4` (and most modeling packages) will silently drop rows with **any** missing data in the predictors or outcome.
-- Best practice: Check for `NA` values *before* you start modeling.
+## The Shape of MLM Data {.fsmaller}
+
+- [Wide Format]{.b .red}
+    + One Row = One **Cluster** (e.g., a subject in longitudinal study)
+    + One Column = One **Time-Specific Score**<br>
+      (e.g., Stress_T1, Stress_T2, ..., Mood_T1, Mood_T2, ...)
+    + ❌ Most MLM software cannot handle this
+
+:::{.fragment}
+- [Long Format]{.b .green}
+    + One Row = One **Observation**<br>
+      (e.g., Time 1 of Person 1, Time 2 of Person 1, ...)
+    + One Column = One **Variable** (e.g., Time, Person, Stress, Mood)
+    + ✅ Most MLM software expects this
+
+:::
+
+## Scenario 1: Simple {.fsmaller}
 
 ```{r}
-#| echo: true
-#| eval: false
+#| echo: false
 
-# Drop rows where critical variables are missing
-dat_clean <- 
-  dat |> 
-  drop_na(math, ses) 
+wide_simple <- tibble(
+  subject = 1:2,
+  T1 = c(10, 12),
+  T2 = c(14, 11),
+  T3 = c(9, 13)
+)
 ```
 
+```{r}
+# Example longitudinal dataset in wide format
+wide_simple
+```
 
-# Getting to Long Format
-
-## Overview {.fsmaller}
-
-- MLM expects the data to be in a very specific format
-    + *Each row needs to describe an L1 observation ([long format]{.b .blue})*
-    + *All levels need to be described in a [single data frame]{.b .green}*
+- This dataset is currently in [wide-format]{.b .green}
+    - We have 2 clusters (subjects), each with its own row
+    - We have 3 time points, each with its own column
     
-:::{.fragment}
-- But often our data does not come to us in this format
-    + *Often each row describes an L2 observation (wide format)*
-    + *Sometimes we have separate files describing each level*
-
+::: {.fragment}
+- But MLM wants it in [long-format]{.b .blue}
+    - We want 6 rows, one per observation (time-specific score)
+    - We want 3 columns: **subject**, **time**, **score**
+    
 :::
 
-## Desired (Long) Format
-
-:::{.columns}
-
-:::{.column width="50%"}
-**Students in Schools**
+## Scenario 1: Simple {.fsmaller}
 
 ```{r}
-#| echo: false
-long1 <-
-  tibble(
-    student = 1:9,
-    ses = rnorm(9, mean(dat2$ses), sd(dat2$ses)),
-    lnmath = rnorm(9, mean(dat2$lnmath), sd(dat2$lnmath)),
-    school = rep(1:3, each = 3),
-    puniv = rep(rnorm(3, mean(dat2$puniv, sd(dat2$puniv))), each = 3)
-  ) |> 
-  print()
-```
-
-:::
-
-:::{.column width="50%"}
-:::{.fragment}
-**Days in Participants**
-
-```{r}
-#| echo: false
-long2 <-
-  tibble(
-    day = rep(1:3, times = 3),
-    stress = round(rnorm(9, 3, 1.5), 1),
-    calories = round(rnorm(9, 2000, 500)),
-    participant = rep(1:3, each = 3),
-    age = rep(c(12, 15, 14), each = 3)
-  ) |> 
-  print()
-```
-
-:::
-:::
-:::
-
-## Undesired (Wide) Format
-
-**Days in Participants**
-
-```{r}
-old_wide <- 
-  long2 |> 
-  pivot_wider(
-    names_from = day, 
-    values_from = c(stress, calories)
-  ) |> 
-  print()
-```
-
-:::{.fragment .callout-note title="Note" .pv4}
-Psychological data often comes "wide" (one row per participant) with variables for each timepoint (e.g., `stress_1`, `stress_2`, `calories_1`, `calories_2`).
-:::
-
-
-## Pivoting Strategy: The `.value` Trick
-
-```{r}
-old_wide
-```
-
-**Goal:** We want columns for `participant`, `age`, `day`, `stress`, and `calories`.
-
-:::{.fragment}
-- We can pivot multiple sets of columns at once using the special `.value` name.
-- `.value` tells R: *"Keep this part of the name as a column header."*
-:::
-
-
-## The Pivot Code
-
-```{r}
-new_long <- 
-  old_wide |>
+# Pivot the data longer (from wide-format to long-format)
+long_simple <- 
+  wide_simple |> 
   pivot_longer(
-    # Use starts_with() so we don't depend on column order
-    cols = c(starts_with("stress"), starts_with("calories")),
-    # Split the name at the underscore
+    cols = c(T1, T2, T3), # which old columns contain our observations?
+    names_to = "time",    # what new column should the old column names go to?
+    values_to = "score"   # what new column should the old values go to?
+  ) |> 
+  print()
+```
+
+- We move the old column **names** to a new column ("time")
+- We move the old 2x3 block of **values** into a new column ("score")
+
+
+## Scenario 2: Realistic {.fsmaller}
+
+```{r}
+#| echo: false
+
+wide_real <- tibble(
+  id = 1:2,
+  stress_T1 = c(10, 12),
+  stress_T2 = c(14, 11),
+  mood_T1 = c(5, 6),
+  mood_T2 = c(7, 5)
+)
+```
+
+```{r}
+# Example longitudinal dataset in very-wide-format
+wide_real
+```
+
+- Real world data is often a bit more complicated...
+- Here, we have *two* scores per time point: **stress** and **mood**
+    + MLM needs these to be separate columns...
+    + Luckily, they are named consistently as "variable_time"
+    + We can leverage this using `names_sep` and `names_to`
+
+## Scenario 2: Realistic {.fsmaller}
+
+```{r}
+# Pivot the data longer (from very-wide-format to long-format)
+long_real <- 
+  wide_real |> 
+  pivot_longer(
+    # Which old columns contain our observations?
+    cols = c(starts_with("stress"), starts_with("mood")), 
+    # What separates our old column names (e.g., "stress" _ "T1")
     names_sep = "_",
-    # ".value" keeps the measure name as a column
-    # "day" puts the number into a new column
-    names_to = c(".value", "day") 
+    # Map the parts: ".value" keeps the name as a header, "time" takes the suffix
+    names_to = c(".value", "time")
   ) |> 
   print()
 ```
 
-## Undesired (Separated) Format
+## Why .value is Magic {.fsmaller}
 
-:::{.columns}
-:::{.column width="50%"}
-**Student (L1) Data**
+Notice what happened:
+
+1.  It saw `stress_T1`.
+2.  It split it at `_`.
+3.  Because we said `c(".value", "time")`:
+    +   **"stress"** became a **Column Header**.
+    +   **"T1"** went into the **`time`** column.
+
+:::{.fragment .mt4}
+This creates a perfectly formatted MLM dataset with one row per observation, and separate columns for your predictors ($X$) and outcomes ($Y$).
+:::
+
+## Parsing Numbers {.fsmaller}
+
+```{r}
+# What if we want to extract the numeric part of time ("T2" -> 2)?
+long_real
+```
+
+:::{.fragment}
+```{r}
+# We can use parse_number() inside of mutate()
+long_real <- 
+  long_real |> 
+  mutate(time = parse_number(time)) |> 
+  print()
+```
+:::
+
+# Handling Hierarchy
+
+## Split--Apply--Combine
+
+In MLM, we often need to calculate statistics *per cluster*<br>
+(e.g., school average math score). We do this using `.by`.
+
+:::{.fragment}
+1. **Split** the data into groups (Schools).
+2. **Apply** a calculation to each group (Mean).
+3. **Combine** the results back into the dataframe.
+:::
+
+:::{.fragment}
+- `summarize(.by)` is useful for data exploration
+- `mutate(.by)` will prepare the data for MLM
+:::
+
+## Aggregating (Summarize) {.fsmaller}
+
+```{r}
+# To create a L2 dataset (e.g., summaries per school), we use summarize(.by)
+school_means <- 
+  heck |> 
+  summarize(
+    .by = school,
+    school_math_mean = mean(math),
+    n_students = n()
+  ) |> 
+  print()
+```
+
+## Annotating (Mutate) {.fsmaller}
+
+```{r}
+# To simply add L2 summaries to the L1 dataset, we use mutate(.by)
+heck_with_means <- 
+  heck |> 
+  mutate(
+    .by = school,
+    school_math_mean = mean(math, na.rm = TRUE)
+  ) |> 
+  print()
+```
+
+:::{.callout-tip}
+Note that `school_math_mean` is repeated for every student in the same school. This is what MLM wants!
+:::
+
+## Merging: The Setup {.fsmaller}
 
 ```{r}
 #| echo: false
+# Level 1: Participants (nested in countries)
+L1_people <- tibble(
+  pid = 1:4,
+  sex = c("M", "F", "F", "M"),
+  income = c(50, 55, 42, 48),
+  country = c("Japan", "Japan", "France", "France")
+)
 
-student_data <- long1 |> select(-puniv)
+# Level 2: Countries
+L2_countries <- tibble(
+  country = c("China", "Japan", "France", "Germany"),
+  continent = c("Asia", "Asia", "Europe", "Europe"),
+  gdp = c(38.19, 6.45, 4.29, 6.14)
+)
 ```
+
+Sometimes your data comes in separate files per level...
+
+::: {.columns}
+::: {.column width="50%"}
+**1. Level 1 Data (People)**
+
+- Contains individual variables and the grouping ID (country).
 
 ```{r}
-student_data
+L1_people
 ```
-
 :::
-:::{.column width="50%"}
-**School (L2) Data**
+
+::: {.column width="50%"}
+**2. Level 2 Data (Countries)**
+
+- Contains cluster-level variables and the same grouping ID (country)
 
 ```{r}
-#| echo: false
-school_data <- 
-  long1 |>
-  summarize(.by = school, puniv = first(puniv)) |> 
-  rename(id = school)
+L2_countries
 ```
-
-```{r}
-school_data
-```
-
 :::
 :::
 
-
-## Joining Example
+## Merging: The Join {.fsmaller}
 
 ```{r}
-new_long <- 
+merged_data <- 
   left_join(
-    x = student_data, # x should be the level 1 dataset
-    y = school_data, # y should be the level 2 dataset
-    by = join_by(school == id) # match on xvar == yvar
+    x = L1_people,    # The Level 1 file (Start with the detailed data)
+    y = L2_countries, # The Level 2 file (Bring in the context)
+    by = "country"    # The linking variable (cluster ID)
   ) |> 
   print()
 ```
 
-## Sanity Check Your Join!
-
-- A common error in MLM is exploding or shrinking your dataset during a join.
-- Always check your row counts.
-
-```{r}
-#| echo: true
-#| eval: false
-
-# 1. Did I lose anyone?
-nrow(student_data) == nrow(new_long)
-
-# 2. Who is missing school data?
-anti_join(student_data, school_data, by = join_by(school == id))
-```
-
-:::{.fragment .callout-tip}
-If `nrow(new_long)` is greater than `nrow(student_data)`, your Level 2 file has duplicates!
-:::
-
-# Visualizing Hierarchy
-
-## The "Spaghetti Plot"
-
-- Before we model, we must visualize.
-- We want to see how individual trajectories (Level 1) deviate from the group average.
-
-```{r}
-#| echo: true
-#| output-location: slide
-
-# Using our wide-to-long dataset
-ggplot(new_long, aes(x = day, y = stress, group = participant)) +
-  # Light gray lines for individuals
-  geom_line(alpha = 0.5) + 
-  # Blue line for the overall trend
-  geom_smooth(aes(group = 1), method = "lm", se = FALSE, linewidth = 2) +
-  theme_minimal(base_size = 20)
-```
-
-# Multilevel Manipulation
-
-## Blended Effects {.f36}
-
-- A higher-level (L2) predictor can only have between-cluster effects
-    + *This is because L2 predictors do not vary within clusters*
-    
-:::{.fragment}
-- But a lower-level (L1) predictor can have multilevel effects
-    + *e.g., What is the relationship between exercise and heart rate?*
-    + *Within: exercising more increases my heart rate (in the moment)*
-    + *Between: exercising more decreases my heart rate (in general)*
-
-:::
-
-:::{.fragment}
-- The raw slope of a L1 predictor is thus an "uninterpretable blend"
-    + *Better to decompose it into within- and between-cluster effects*
-
-:::
-
-## Pure Effects
-
-- The [pure between-cluster effect]{.b .blue} of an L1 predictor
-    + Calculate the cluster means of $x$ as a structural variable
-    + Add this between-cluster component as a L2 predictor
-
-:::{.fragment}
-- The [pure within-cluster effect]{.b .green} of an L1 predictor
-    + Cluster-mean center $x$ (by subtracting the cluster means)
-    + Add this within-person component as a L1 predictor
-
-:::
-
-:::{.fragment}
-$$\color{blue}{x_{ij}^b} = \bar{x}_j \qquad \color{green}{x_{ij}^w} = x_{ij} - \bar{x}_j$$
-
-:::
-
-## Degrouping in R
-
-- We can use `datawizard::degroup()` to automate this math.
-- It creates the `_within` (centered) and `_between` (mean) columns for us.
-
-```{r}
-#| echo: true
-#| message: false
-
-library(easystats)
-
-# Explicitly create the components
-tidy2 <- 
-  long2 |> 
-  degroup(
-    select = "stress", 
-    by = "participant",
-    suffix_demean = "_within",
-    suffix_groupmean = "_between"
-  ) |> 
-  print()
-```
-
-## Interpreting the New Columns
-
-```{r}
-#| echo: true
-#| eval: false
-
-tidy2 |> 
-  select(participant, stress, stress_within, stress_between) |> 
-  head(3)
-```
-
-:::{.fragment}
-- **stress**: The raw score (The Blend)
-- **stress_between**: The participant's average stress (Level 2 predictor)
-- **stress_within**: How strictly stressed they are *today* relative to *their* norm (Level 1 predictor)
-:::
-
-## Further Manipulation
-
-- [After]{.b .red} we have our degrouped L1 predictors, we may...
-
-:::{.fragment}
-- Grand mean center all predictors and components
-    + Subtract the mean (across all observations)
-    + Interpret the zero value as the sample average
-
-:::
-
-:::{.fragment}
-- Standardize all predictors and components
-    + Center and then divide by the standard deviation
-    + Interpret the units as standard deviations
-
-:::
-
-
-## Further Manipulation in R
-
-```{r}
-#| echo: true
-
-tidy2 <- 
-  long2 |> 
-  degroup(select = "stress", by = "participant") |> 
-  # Standardize predictors (but usually not the outcome!)
-  standardize(
-    select = c("age", "stress_within", "stress_between")
-  ) |> 
-  print()
-```
+- Notice that `Asia` and `4.2` were copied for both participants in Japan
+- This creates the rectangular, long-format dataset required for MLM
+- Notice that China and Germany are excluded (no participants from there!)
