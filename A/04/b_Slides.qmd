@@ -199,7 +199,7 @@ long_simple <-
 #| echo: false
 
 wide_real <- tibble(
-  id = 1:2,
+  id = c("S001", "S002"),
   stress_T1 = c(10, 12),
   stress_T2 = c(14, 11),
   mood_T1 = c(5, 6),
@@ -265,6 +265,17 @@ long_real <-
   print()
 ```
 :::
+
+## The Payoff: Visualizing Change {.fsmaller}
+
+```{r}
+# Now that our data is in long-format, we can easily plot it by participant!
+ggplot(long_real, aes(x = time, y = stress, color = id)) +
+  geom_line() + 
+  geom_point() +
+  labs(title = "Individual Stress Trajectories") +
+  theme_bw(base_size = 20)
+```
 
 # Handling Hierarchy
 
