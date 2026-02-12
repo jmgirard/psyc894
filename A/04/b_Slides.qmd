@@ -303,7 +303,7 @@ school_means <-
   heck |> 
   summarize(
     .by = school,
-    school_math_mean = mean(math),
+    school_math_mean = mean(math, na.rm = TRUE),
     n_students = n()
   ) |> 
   print()
