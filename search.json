@@ -56,25 +56,25 @@
     "text": "[04b] Materials\n\nTopics\n\nData Tidying Recap\nGetting to Long Format\nMultilevel Manipulation\n\n\n\nReadings\n\nWCG Chapter 3: Data transformation\nWCG Chapter 5: Data tidying\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 03\n\n  Week 05  »"
   },
   {
-    "objectID": "A/02/index.html",
-    "href": "A/02/index.html",
-    "title": "Week 02: Linear Modeling Review",
+    "objectID": "A/03/index.html",
+    "href": "A/03/index.html",
+    "title": "Week 03: Clustered Data",
     "section": "",
-    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+    "text": "Multilevel Data and Questions\nConceptual Issues with Clustering\nStatistical Issues with Clustering\n\n\n\n\n\nHMV Chapter 1: Introduction to Multilevel Analysis\nMcCoach & Adelson (2010): Understanding the effects of clustered data\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
   },
   {
-    "objectID": "A/02/index.html#a-materials",
-    "href": "A/02/index.html#a-materials",
-    "title": "Week 02: Linear Modeling Review",
+    "objectID": "A/03/index.html#a-materials",
+    "href": "A/03/index.html#a-materials",
+    "title": "Week 03: Clustered Data",
     "section": "",
-    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+    "text": "Multilevel Data and Questions\nConceptual Issues with Clustering\nStatistical Issues with Clustering\n\n\n\n\n\nHMV Chapter 1: Introduction to Multilevel Analysis\nMcCoach & Adelson (2010): Understanding the effects of clustered data\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
   },
   {
-    "objectID": "A/02/index.html#b-materials",
-    "href": "A/02/index.html#b-materials",
-    "title": "Week 02: Linear Modeling Review",
-    "section": "[02b] Materials",
-    "text": "[02b] Materials\n\nTopics\n\nModeration\nAssumptions\nDiagnostics\n\n\n\nReadings\n\nKelley & Maxwell (2019)\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 01\n\n  Week 03  »"
+    "objectID": "A/03/index.html#b-materials",
+    "href": "A/03/index.html#b-materials",
+    "title": "Week 03: Clustered Data",
+    "section": "[03b] Materials",
+    "text": "[03b] Materials\n\nTopics\n\n“Complete Pooling” Approaches\n“No Pooling” Approaches\n“Partial Pooling” Approaches\n\n\n\nReadings\n\nS&F Chapter 3: Approaches to Multilevel Data\nAdvanced: McNeish et al. (2016): On the unnecessary ubiquity of hierarchical linear modeling\nAdvanced: McNeish (2023): A practical guide to selecting and blending approaches for clustered data\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 02\n\n  Week 04  »"
   },
   {
     "objectID": "A/01/index.html",
@@ -98,25 +98,53 @@
     "text": "[01b] Materials\n\nTopics\n\nOverview of Syllabus, Canvas, and Website\nRecap of Basic Workflow in R and Quarto\n\n\n\nReadings\n\nRequired\n\nS&F (1E) Chapter 1: Introduction\n\n\n\nOptional\n\nWCG (2E) Chapter 2: Workflow: Basics\nWCG (2E) Chapter 6: Workflow: Scripts and Projects\nWCG (2E) Chapter 7: Data import\nWCG (2E) Sections 28.1–28.5: Quarto\n\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n  «  Home\n\n  Week 02  »"
   },
   {
-    "objectID": "A/03/index.html",
-    "href": "A/03/index.html",
-    "title": "Week 03: Clustered Data",
+    "objectID": "A/02/index.html",
+    "href": "A/02/index.html",
+    "title": "Week 02: Linear Modeling Review",
     "section": "",
-    "text": "Multilevel Data and Questions\nConceptual Issues with Clustering\nStatistical Issues with Clustering\n\n\n\n\n\nHMV Chapter 1: Introduction to Multilevel Analysis\nMcCoach & Adelson (2010): Understanding the effects of clustered data\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
   },
   {
-    "objectID": "A/03/index.html#a-materials",
-    "href": "A/03/index.html#a-materials",
-    "title": "Week 03: Clustered Data",
+    "objectID": "A/02/index.html#a-materials",
+    "href": "A/02/index.html#a-materials",
+    "title": "Week 02: Linear Modeling Review",
     "section": "",
-    "text": "Multilevel Data and Questions\nConceptual Issues with Clustering\nStatistical Issues with Clustering\n\n\n\n\n\nHMV Chapter 1: Introduction to Multilevel Analysis\nMcCoach & Adelson (2010): Understanding the effects of clustered data\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
   },
   {
-    "objectID": "A/03/index.html#b-materials",
-    "href": "A/03/index.html#b-materials",
-    "title": "Week 03: Clustered Data",
-    "section": "[03b] Materials",
-    "text": "[03b] Materials\n\nTopics\n\n“Complete Pooling” Approaches\n“No Pooling” Approaches\n“Partial Pooling” Approaches\n\n\n\nReadings\n\nS&F Chapter 3: Approaches to Multilevel Data\nAdvanced: McNeish et al. (2016): On the unnecessary ubiquity of hierarchical linear modeling\nAdvanced: McNeish (2023): A practical guide to selecting and blending approaches for clustered data\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 02\n\n  Week 04  »"
+    "objectID": "A/02/index.html#b-materials",
+    "href": "A/02/index.html#b-materials",
+    "title": "Week 02: Linear Modeling Review",
+    "section": "[02b] Materials",
+    "text": "[02b] Materials\n\nTopics\n\nModeration\nAssumptions\nDiagnostics\n\n\n\nReadings\n\nKelley & Maxwell (2019)\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 01\n\n  Week 03  »"
+  },
+  {
+    "objectID": "A/04/assignment.html",
+    "href": "A/04/assignment.html",
+    "title": "Lab 04: Data Processing for MLM",
+    "section": "",
+    "text": "The goal of this lab is to prepare data from a hypothetical clinical trial for multilevel modeling. You will demonstrate the skills covered in Lecture 04b, including:\n\nReshaping “wide” data into “long” format.\nParsing and cleaning variable names.\nCalculating cluster-level summaries (Split-Apply-Combine).\nMerging separate Level 1 and Level 2 data files."
+  },
+  {
+    "objectID": "A/04/assignment.html#objective",
+    "href": "A/04/assignment.html#objective",
+    "title": "Lab 04: Data Processing for MLM",
+    "section": "",
+    "text": "The goal of this lab is to prepare data from a hypothetical clinical trial for multilevel modeling. You will demonstrate the skills covered in Lecture 04b, including:\n\nReshaping “wide” data into “long” format.\nParsing and cleaning variable names.\nCalculating cluster-level summaries (Split-Apply-Combine).\nMerging separate Level 1 and Level 2 data files."
+  },
+  {
+    "objectID": "A/04/assignment.html#data-source",
+    "href": "A/04/assignment.html#data-source",
+    "title": "Lab 04: Data Processing for MLM",
+    "section": "2 Data Source",
+    "text": "2 Data Source\nDownload the following two CSV files from Canvas and save them in your project folder:\n\nanxiety_wide.csv: Contains repeated anxiety scores for 50 patients over 4 weeks.\npatient_info.csv: Contains demographic information (Age and Treatment Condition) for those same patients."
+  },
+  {
+    "objectID": "A/04/assignment.html#instructions",
+    "href": "A/04/assignment.html#instructions",
+    "title": "Lab 04: Data Processing for MLM",
+    "section": "3 Instructions",
+    "text": "3 Instructions\n\n3.1 Setup and Inspection\nCreate a new Quarto document for your lab report. Load the tidyverse package and read in the two CSV files using read_csv().\nInspect the anxiety_wide object. Note that it is currently in wide format: there is one row per patient, but the anxiety scores are spread across multiple columns (anxiety_wk1, anxiety_wk2, etc.). This format is unsuitable for MLM and must be reshaped.\n\n\n3.2 Reshape (Pivot)\nCreate a new object called anxiety_long. Use the pivot_longer() function to transform the wide anxiety data into long format.\n\nCols: Select the columns that start with the string “anxiety”.\nNames: Send the old column names to a new column called \"week\".\nValues: Send the scores to a new column called \"anxiety\".\n\n\n\n3.3 Clean the Data\nLook at your new week column. It currently contains character strings (e.g., \"anxiety_wk1\").\nOverwrite the week column using mutate() and parse_number() to convert these strings into clean numbers (e.g., 1).\n\n\n3.4 Cluster-Level Summaries\nWe want to determine the minimum (best) anxiety score each patient reached during the study.\nUse mutate() to add this as a new column called min_score to your long dataset. You must use the .by argument (or group_by()) to ensure this calculation happens per patient (patient_id).\n(Hint: You can use the min() function to find the lowest score).\n\n\n3.5 Merging Level 2 Data\nThe file patient_info.csv contains the study condition (Control vs. Treatment) for each person. This is Level 2 data.\nUse left_join() to merge this demographic info into your anxiety_long dataset. Join the two tables by the patient_id column.\nVerification: View your data to ensure the condition variable now appears for every time point (row) for each patient.\n\n\n3.6 Visualization\nUse ggplot() to create a “spaghetti plot” of the study results:\n\nMap week to the x-axis and anxiety to the y-axis.\nConnect the data points with lines (geom_line()).\nGroup the lines by patient_id so we see individual trajectories.\nColor the lines by condition.\n\nInterpretation Question: Based on your plot, does the Treatment group seem to improve (i.e., scores go down) faster than the Control group?"
   },
   {
     "objectID": "index.html",
