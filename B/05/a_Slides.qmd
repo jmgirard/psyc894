@@ -1,0 +1,573 @@
+---
+format: 
+  revealjs:
+    css: ../../styles.css
+    slide-number: true
+    show-slide-number: all
+    preview-links: false
+    progress: true
+    history: true
+    hash-type: number
+    theme: default
+    code-block-background: true
+    highlight-style: zenburn
+    code-link: false
+    code-copy: true
+    code-line-numbers: false
+    controls: true
+    pagetitle: "Multilevel Modeling"
+    author-meta: "Jeffrey Girard"
+    semester: "Spring 2026"
+    course: "PSYC 894"
+    lecture: "05a"
+execute:
+  echo: true
+  eval: true
+  collapse: false
+  cache: false
+---
+
+::: {.my-title}
+# [Multilevel Modeling]{.blue}
+Null Models
+
+::: {.my-grey}
+[{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/city-girl.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+```{r setup}
+#| echo: false
+#| message: false
+
+library(tidyverse)
+library(easystats)
+library(patchwork)
+library(here)
+
+source(here("_common.R"))
+
+set_theme(theme_gray(base_size = 30))
+```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+1. Overview
+    + *Fixed, Random, Null Models*
+  
+2. Specifications
+    + *Equations, Formulas, Diagrams*
+
+3. Practicalities
+    + *ICCs, Estimates, Interpretation*
+    
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+# Overview
+
+## Random Intercepts
+
+- The intercept is the expected value of $y$ when all $x=0$
+    + If there are no $x$ variables, it estimates the mean of $y$
+    + We are used to there being just one intercept per model
+
+:::{.fragment}
+- But with clustered data, we might want intercepts to vary
+    + *e.g., schools vary in their average math scores*
+
+:::
+:::{.fragment}
+- Doing so will partition the $y$ variance and correct our SEs
+    + This will create our first, simple multilevel model!
+
+:::
+
+## Intercept Distribution
+
+- In the population of clusters, we assume that all the intercepts are [normally distributed]{.b .blue}, which implies that...
+    1. There is an average intercept in the population
+    2. Each cluster's intercept deviates from this average
+    3. Smaller deviations are more common than larger ones
+
+:::{.fragment}
+- We can summarize this distribution by its mean and SD
+    - The mean is the [fixed intercept]{.b .green} (average level)
+    - The SD is the [random intercept SD]{.b .green} (spread of levels)
+
+:::
+
+## Visualizing the Fixed Effect
+
+```{r}
+#| echo: false
+
+ggplot() +
+stat_function(
+  fun = dnorm, 
+  args = list(mean = 10, sd = 2), 
+  color = "firebrick", 
+  xlim = c(0, 20),
+  linewidth = 1.5
+) +
+annotate(
+  geom = "segment",
+  x = 10,
+  xend = 10,
+  y = 0,
+  yend = dnorm(10, 10, 2) - .005,
+  linewidth = 1.25,
+  arrow = arrow(
+    length = unit(0.1, "inches"), 
+    ends = "first", 
+    type = "closed"
+  )
+) +
+labs(y = NULL, x = "Intercept") +
+theme_bw(base_size = 24) +
+theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+```
+
+## Visualizing the Random Effect
+
+```{r}
+#| echo: false
+
+ggplot() +
+stat_function(
+  fun = dnorm, 
+  args = list(mean = 10, sd = 2), 
+  color = "firebrick", 
+  xlim = c(0, 20),
+  linewidth = 1.5
+) +
+annotate(
+  geom = "segment",
+  x = 10,
+  xend = 10,
+  y = 0,
+  yend = dnorm(10, 10, 2) - 0.005,
+  linewidth = 1,
+  linetype = "dashed"
+) +
+annotate(
+  geom = "segment",
+  x = 12,
+  xend = 12,
+  y = 0,
+  yend = dnorm(12, 10, 2) - .005,
+  linewidth = 1,
+  linetype = "dashed"
+) +
+annotate(
+  geom = "segment",
+  x = 10 + .105,
+  xend = 12 - .105,
+  y = dnorm(12, 10, 2),
+  yend = dnorm(12, 10, 2),
+  arrow = arrow(
+    ends = "both", 
+    type = "closed", 
+    length = unit(0.1, "inches")
+  ),
+  linewidth = 1.25
+) +
+labs(y = NULL, x = "Intercept") +
+theme_bw(base_size = 24) +
+theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+```
+
+## Null Models
+
+- We begin with MLMs that have no predictor variables
+    + These are called "[empty models]{.b .blue}" or "[null models]{.b .blue}"
+    + They are a nice first step when learning MLM
+    + And we will continue using them to estimate ICCs
+
+:::{.fragment}
+- As stated before, intercepts are averages [in empty models]{.b .green}
+    + However, this interpretation isn't true in many models
+    + *e.g., when adding dummy codes or uncentered predictors*
+
+:::
+
+# Specifications
+
+## Multilevel Equation {.fsmaller}
+
+:::{.tc}
+[Level One (Observation)]{.b}
+:::
+
+$$
+y_{ij} = \beta_{0j} + \color{#e41a1c}{e_{ij}},
+\qquad
+\color{#e41a1c}{e_{ij}} \sim \text{Normal}(0, \color{#e41a1c}{\sigma})
+$$
+
+:::{.tc}
+[Level Two (Cluster)]{.b}
+:::
+
+$$
+\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#4daf4a}{u_{0j}},
+\qquad
+\color{#4daf4a}{u_{0j}} \sim \text{Normal}(0, \color{#4daf4a}{\tau_{00}})
+$$
+
+- $\color{#377eb8}{\gamma_{00}}$ is the **Fixed Intercept** (Population Average)
+- $\color{#4daf4a}{u_{0j}}$ is the **Cluster Deviation** (Random Effect)
+- $\color{#e41a1c}{e_{ij}}$ is the **Observation Deviation** (Residual Error)
+
+## Reading the Equation {.fsmaller}
+
+$$
+y_{ij} = \beta_{0j} + \color{#e41a1c}{e_{ij}},
+\qquad
+\color{#e41a1c}{e_{ij}} \sim \text{Normal}(0, \color{#e41a1c}{\sigma})
+$$
+
+> $y_{ij}$ is the **outcome** for observation $i$ in cluster $j$ and equals ...<br>
+> ...the **Cluster Average** $(\beta_{0j})$ plus the **Observation Deviation** $(\color{#e41a1c}{e_{ij}})$.<br>
+> These deviations are normally distributed with 0 mean and $\color{#e41a1c}{\sigma}$ SD.
+
+:::{.fragment}
+$$
+\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#4daf4a}{u_{0j}},
+\qquad
+\color{#4daf4a}{u_{0j}} \sim \text{Normal}(0, \color{#4daf4a}{\tau_{00}})
+$$
+
+> $\beta_{0j}$ is the **Cluster Average** for cluster $j$ and equals...<br>
+> ...the **Population Average** $(\color{#377eb8}{\gamma_{00}})$ plus the **Cluster Deviation** $(\color{#4daf4a}{u_{0j}})$.<br>
+> These deviations are normally distributed with 0 mean and $\color{#4daf4a}{\tau_{00}}$ SD.
+
+:::
+
+## Notation Cheat Sheet {.smaller}
+
+| Symbol | Name | Meaning |
+| :--- | :--- | :--- |
+| $\gamma_{00}$ | Fixed Intercept | The average outcome for the average cluster |
+| $u_{0j}$ | Cluster Deviation | How far cluster $j$ is from the Fixed Intercept |
+| $\beta_{0j}$ | Cluster Intercept | The specific intercept for cluster $j$ <br> $(\beta_{0j} = \gamma_{00} + u_{0j})$ |
+| $\tau_{00}$ | Random Intercept SD | The standard deviation of the $u_{0j}$ deviations <br> *(Between-cluster variation)* |
+| $\sigma$ | Residual SD | The standard deviation of the $e_{ij}$ residuals <br> *(Within-cluster variation)* |
+
+## Parameter Interpretations {.fsmaller}
+
+- **Manifest (Observed) Variables**
+    + $y_{ij}$ is the outcome for observation $i$ from cluster $j$
+
+:::{.fragment}
+- **Estimated Parameters**
+    + $\sigma$ is the SD of the L1 residuals
+    + $\gamma_{00}$ is the mean of the random intercept distribution
+    + $\tau_{00}$ is the SD of the random intercept distribution
+
+:::
+:::{.fragment}
+- **Derivable Values**
+    + We don't estimate $\beta_{0j}$ or $e_{ij}$ or $u_{0j}$ but can derive them
+
+:::
+
+## Students in Schools Example
+
+$$
+\begin{align}
+\textit{MATH}_{ij} &= \beta_{0j} + e_{ij} \\
+\beta_{0j} &= \gamma_{00} + u_{0j}
+\end{align}
+$$
+
+- **Level One:** The math score for student $i$ in school $j$ is estimated by that student's deviation $(e_{ij})$ from their school's average math score $(\beta_{0j})$
+
+- **Level Two:** The average math score for each school is estimated as its deviation $(u_{0j})$ from the average of all schools in the population $(\gamma_{00})$
+
+## Days in Participants Example
+
+$$
+\begin{align}
+\textit{STRESS}_{ij} &= \beta_{0j} + e_{ij} \\
+\beta_{0j} &= \gamma_{00} + u_{0j}
+\end{align}
+$$
+
+- **Level One:** The stress reported on day $i$ by participant $j$ is estimated by that day's deviation $(e_{ij})$ from the participant's average daily stress $(\beta_{0j})$
+
+- **Level Two:** The average daily stress reported by each participant is estimated as their deviation $(u_{0j})$ from the daily average of all participants in the population $(\gamma_{00})$
+
+## Path Diagram
+
+![](../../diagrams/random_intercepts_full.png)
+
+## Mixed (or Reduced) Equation
+
+:::{.eql}
+$$
+\begin{align}
+\text{Level One} \\
+y_{ij} &= \beta_{0j} + e_{ij} \\
+\text{Level Two} \\
+\beta_{0j} &= \gamma_{00} + u_{0j}
+\end{align}
+$$
+
+:::
+
+We can make one [mixed equation]{.b .blue} through substitution
+
+$$
+y_{ij} = \gamma_{00} + u_{0j} + e_{ij}
+$$
+
+:::{.fragment}
+This mixed equation is the basis of the R formula
+
+:::
+
+## Formula
+
+**Generic**
+
+:::{.tc}
+`y ~ 1 + (1 | cluster)`
+
+where *y* is the outcome variable and *cluster*<br> 
+is a factor indicating cluster membership,<br>
+the first *1* is the fixed intercept $(\gamma_{00})$,<br>
+and the *(1)* is the random intercept $(u_{0j})$
+:::
+
+:::{.fragment}
+**Examples**
+
+:::{.tc}
+`math ~ 1 + (1 | school)`
+
+`stress ~ 1 + (1 | participant)`
+:::
+:::
+
+# Practicalities
+
+## Setup
+
+```{r}
+#| message: false
+#| replace_path: ["../../data/", ""]
+
+library(tidyverse) # read_csv, mutate, glimpse
+library(easystats) # model_parameters, icc, estimate_grouplevel
+library(lme4) # lmer (MLE via quadratic approximation)
+
+dat <- read_csv("../../data/heck2011.csv") |> mutate(school = factor(school))
+
+glimpse(dat)
+```
+
+## Fitting an Empty Model
+
+```{r}
+#| echo: true
+
+fit_null <- lmer(
+  formula = math ~ 1 + (1 | school),
+  data = dat,
+  REML = TRUE # TRUE = Restricted MLE (default), FALSE = Full MLE
+)
+model_parameters(fit_null)
+```
+
+## Interpreting the Table {.fsmaller}
+
+```{r}
+#| echo: false
+
+# Extract values for inline text
+params <- get_parameters(fit_null)
+gamma_00 <- params$Estimate[1]
+tau_00 <- sqrt(get_variance(fit_null)$var.intercept)
+sigma <- get_sigma(fit_null)
+```
+
+- The fixed intercept $(\gamma_{00}=`r round(gamma_00, 2)`)$ is...
+    + The mean of the distribution of the random intercepts
+    + The average math score of the average school
+
+:::{.fragment} 
+- The random intercept SD $(\tau_{00}=`r round(tau_00, 2)`)$ is...
+    + The spread of the distribution of the random intercepts
+    + The spread of average math scores *between* schools
+
+:::
+:::{.fragment}
+- The L1 residual SD $(\sigma=`r round(sigma, 2)`)$ is...
+    + The spread of the residuals at the lowest model level
+    + The spread of students' math scores *within* schools
+
+:::
+
+## The Cost of Ignoring Clustering
+
+:::{.fsmaller}
+We can compare the fixed intercept point estimates and standard errors (SEs) between our MLM and a standard OLS model that ignores clustering.
+:::
+
+```{r}
+# Fit OLS model with a fixed intercept
+fit_ols <- lm(math ~ 1, data = dat)
+
+# Compare the point and SE estimates
+compare_parameters(fit_ols, fit_null, select = "se")
+```
+
+:::{.fsmaller}
+**Note:** The point estimates are similar, but the **SE is larger** in the MLM.
+The OLS model was *too confident* because it assumed all students were independent.
+:::
+
+## Why are the estimates different? {.fsmaller}
+
+You might notice the intercept point estimates are slightly different.
+
+- **OLS** treats all *observations* as equal
+    + Larger clusters dominate the estimate
+    + *e.g., A school with 100 students pulls the mean more than one with 10*
+
+:::{.fragment}
+- **MLM** treats all *clusters* as (roughly) equal
+    + It is a "precision-weighted" mean of the cluster means
+    + Smaller clusters have less influence, but more than in OLS
+    
+:::
+
+:::{.fragment .mt4}
+**Key Takeaway:**
+If your clusters are different sizes, OLS is biased toward the larger clusters, while MLM is more representative of the "average cluster."
+:::
+
+## Estimating the ICC (Manual)
+
+:::{.fsmaller}
+To calculate the ICC, we first need to extract the **Variances** (not SDs!)
+:::
+
+```{r}
+# Extract variance estimates
+vars <- get_variance(fit_null)
+
+tau2 <- vars$var.intercept  # between-school variance
+sigma2 <- vars$var.residual # within-school variance
+```
+
+:::{.fragment}
+:::{.fsmaller}
+$$\rho = \frac{\tau_{00}^2}{\tau_{00}^2+\sigma^2}$$
+:::
+
+```{r}
+# Calculate the ICC manually
+tau2 / (tau2 + sigma2)
+```
+:::
+
+## Reporting the ICC
+
+In practice, we use convenience functions to estimate and report the ICC with uncertainty intervals.
+
+```{r}
+# Use the performance package for a rigorous estimate
+icc(fit_null, ci = 0.95)
+```
+
+```{r}
+#| echo: false
+
+icc_res <- icc(fit_null)
+rho <- icc_res$ICC_adjusted
+pct_between <- round(rho * 100)
+pct_within  <- round((1 - rho) * 100)
+```
+
+- **Interpretation:**
+    - `r pct_between`% of the variance in math scores is between schools
+    - `r pct_within`% of the variance is within schools (among students)
+
+## Deriving L1 Residuals {.fsmaller}
+
+What is each observation's deviation from its cluster mean?
+
+In other words, derive estimates of $e_{ij}$ for every observation $ij$
+
+```{r}
+get_residuals(fit_null)
+```
+
+
+## Deriving Cluster Deviations {.fsmaller}
+
+What is each cluster's deviation from the fixed intercept?
+
+In other words, derive estimates of $u_{0j}$ for every cluster $j$
+
+```{r}
+estimate_grouplevel(fit_null, type = "random")
+```
+
+## Deriving Cluster Intercepts {.fsmaller}
+
+What is each cluster's intercept (best linear unbiased prediction)?
+
+In other words, derive predictions of $\beta_{0j}$ for every cluster $j$
+
+```{r}
+estimate_grouplevel(fit_null, type = "total")
+```
+
+## Visualizing the Distribution
+
+Sample-based intercept distribution (blue)<br>
+Population-level intercept estimate (red)
+
+```{r}
+#| echo: false 
+
+ggplot() +
+geom_histogram(
+  data = estimate_grouplevel(fit_null, type = "total"),
+  aes(x = Coefficient, y = after_stat(density)),
+  bins = 40,
+  fill = "cornflowerblue"
+) +
+stat_function(
+  fun = dnorm, 
+  args = list(mean = 57.67, sd = 3.26), 
+  color = "firebrick", 
+  xlim = c(45, 70),
+  linewidth = 1.5
+) +
+annotate(
+  geom = "label",
+  x = 49.25,
+  y = 0.1625, 
+  color = "firebrick",
+  size = 8,
+  label = "Normal(57.7, 3.3)"
+) +
+labs(y = NULL, x = expression(paste("Intercept (", beta[0*j], ")"))) +
+theme_bw(base_size = 24) +
+theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+```

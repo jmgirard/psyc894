@@ -1,0 +1,59 @@
+---
+title: "Week 05: Random Intercept Models"
+---
+
+<!-- 05a -->
+
+## [05a] Null Models
+
+### Topics
+- Overview: Random Intercepts, Null Models
+- Specifications: Equations, Formulas, Diagrams
+- Practicalities: ICCs, Estimates, Interpretations
+
+### Readings
+- [S\&F Chapter 4: Our first multilevel models](https://www.learn-mlms.com/04-module-4.html){target="_blank"}
+
+### Slides
+
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[05a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.
+:::
+
+
+<!-- 05b -->
+
+## [05b] Fixed Slopes
+
+### Topics
+- Overview: Slope Types and Rationales
+- Fixed Slopes for L2: Specifications and Examples
+- Fixed Slopes for L1: Specifications and Examples
+
+### Readings
+- [S\&F Chapter 5: Adding fixed predictors to MLMs](https://www.learn-mlms.com/05-module-5.html){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[05b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.
+:::
+
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../04/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 04</a>
+
+  <a href="../06/index.html" class="btn btn-primary" role="button">Week 06&nbsp;&nbsp;&raquo;</a>
+</div>
+```
