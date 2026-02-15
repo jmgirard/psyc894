@@ -330,6 +330,7 @@ Note that `school_math_mean` is repeated for every student in the same school. T
 
 ```{r}
 #| echo: false
+
 # Level 1: Participants (nested in countries)
 L1_people <- tibble(
   pid = 1:4,

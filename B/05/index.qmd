@@ -11,6 +11,9 @@ title: "Week 05: Random Intercept Models"
 - Specifications: Equations, Formulas, Diagrams
 - Practicalities: ICCs, Estimates, Interpretations
 
+### File Downloads
+- [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
+
 ### Readings
 - [S\&F Chapter 4: Our first multilevel models](https://www.learn-mlms.com/04-module-4.html){target="_blank"}
 
@@ -35,6 +38,9 @@ title: "Week 05: Random Intercept Models"
 - Fixed Slopes for L2: Specifications and Examples
 - Fixed Slopes for L1: Specifications and Examples
 
+### File Downloads
+- [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
+
 ### Readings
 - [S\&F Chapter 5: Adding fixed predictors to MLMs](https://www.learn-mlms.com/05-module-5.html){target="_blank"}
 
@@ -52,7 +58,7 @@ title: "Week 05: Random Intercept Models"
 
 ```{=html}
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
-  <a href="../04/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 04</a>
+  <a href="../../A/04/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 04</a>
 
   <a href="../06/index.html" class="btn btn-primary" role="button">Week 06&nbsp;&nbsp;&raquo;</a>
 </div>

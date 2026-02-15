@@ -35,6 +35,11 @@ title: "Week 04: The Mechanics of MLM"
 - Getting to Long Format
 - Multilevel Manipulation
 
+### File Downloads
+- [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
+- [L1_people.csv](../../data/L1_people.csv){download="L1_people.csv"}
+- [L2_countries.csv](../../data/L2_countries.csv){download="L2_countries.csv"}
+
 ### Readings
 - [WCG Chapter 3: Data transformation](https://r4ds.hadley.nz/data-transform){target="_blank"}
 - [WCG Chapter 5: Data tidying](https://r4ds.hadley.nz/data-tidy){target="_blank"}
@@ -55,6 +60,6 @@ title: "Week 04: The Mechanics of MLM"
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
   <a href="../03/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 03</a>
 
-  <a href="../05/index.html" class="btn btn-primary" role="button">Week 05&nbsp;&nbsp;&raquo;</a>
+  <a href="../../B/05/index.html" class="btn btn-primary" role="button">Week 05&nbsp;&nbsp;&raquo;</a>
 </div>
 ```
