@@ -39,21 +39,21 @@
     "href": "B/05/index.html",
     "title": "Week 05: Random Intercept Models",
     "section": "",
-    "text": "Overview: Random Intercepts, Null Models\nSpecifications: Equations, Formulas, Diagrams\nPracticalities: ICCs, Estimates, Interpretations\n\n\n\n\n\nS&F Chapter 4: Our first multilevel models\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+    "text": "Overview: Random Intercepts, Null Models\nSpecifications: Equations, Formulas, Diagrams\nPracticalities: ICCs, Estimates, Interpretations\n\n\n\n\n\nheck2011.csv\n\n\n\n\n\nS&F Chapter 4: Our first multilevel models\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
   },
   {
     "objectID": "B/05/index.html#a-null-models",
     "href": "B/05/index.html#a-null-models",
     "title": "Week 05: Random Intercept Models",
     "section": "",
-    "text": "Overview: Random Intercepts, Null Models\nSpecifications: Equations, Formulas, Diagrams\nPracticalities: ICCs, Estimates, Interpretations\n\n\n\n\n\nS&F Chapter 4: Our first multilevel models\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+    "text": "Overview: Random Intercepts, Null Models\nSpecifications: Equations, Formulas, Diagrams\nPracticalities: ICCs, Estimates, Interpretations\n\n\n\n\n\nheck2011.csv\n\n\n\n\n\nS&F Chapter 4: Our first multilevel models\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
   },
   {
     "objectID": "B/05/index.html#b-fixed-slopes",
     "href": "B/05/index.html#b-fixed-slopes",
     "title": "Week 05: Random Intercept Models",
     "section": "[05b] Fixed Slopes",
-    "text": "[05b] Fixed Slopes\n\nTopics\n\nOverview: Slope Types and Rationales\nFixed Slopes for L2: Specifications and Examples\nFixed Slopes for L1: Specifications and Examples\n\n\n\nReadings\n\nS&F Chapter 5: Adding fixed predictors to MLMs\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 04\n\n  Week 06  »"
+    "text": "[05b] Fixed Slopes\n\nTopics\n\nOverview: Slope Types and Rationales\nFixed Slopes for L2: Specifications and Examples\nFixed Slopes for L1: Specifications and Examples\n\n\n\nFile Downloads\n\nheck2011.csv\n\n\n\nReadings\n\nS&F Chapter 5: Adding fixed predictors to MLMs\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 04\n\n  Week 06  »"
   },
   {
     "objectID": "A/04/index.html",
@@ -74,7 +74,7 @@
     "href": "A/04/index.html#b-materials",
     "title": "Week 04: The Mechanics of MLM",
     "section": "[04b] Materials",
-    "text": "[04b] Materials\n\nTopics\n\nData Tidying Recap\nGetting to Long Format\nMultilevel Manipulation\n\n\n\nReadings\n\nWCG Chapter 3: Data transformation\nWCG Chapter 5: Data tidying\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 03\n\n  Week 05  »"
+    "text": "[04b] Materials\n\nTopics\n\nData Tidying Recap\nGetting to Long Format\nMultilevel Manipulation\n\n\n\nFile Downloads\n\nheck2011.csv\nL1_people.csv\nL2_countries.csv\n\n\n\nReadings\n\nWCG Chapter 3: Data transformation\nWCG Chapter 5: Data tidying\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 03\n\n  Week 05  »"
   },
   {
     "objectID": "A/03/index.html",
