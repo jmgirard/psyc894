@@ -1,0 +1,77 @@
+---
+format: 
+  revealjs:
+    css: ../../styles.css
+    slide-number: true
+    show-slide-number: all
+    preview-links: false
+    progress: true
+    history: true
+    hash-type: number
+    theme: default
+    code-block-background: true
+    highlight-style: zenburn
+    code-link: false
+    code-copy: true
+    code-line-numbers: false
+    controls: true
+    pagetitle: "Multilevel Modeling"
+    author-meta: "Jeffrey Girard"
+    semester: "Spring 2026"
+    course: "PSYC 894"
+    lecture: "05b"
+execute:
+  echo: true
+  eval: true
+  collapse: false
+  cache: false
+---
+
+::: {.my-title}
+# [Multilevel Modeling]{.blue}
+Fixed Slopes
+
+::: {.my-grey}
+[{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/city-girl.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+```{r setup}
+#| echo: false
+#| message: false
+
+library(tidyverse)
+library(easystats)
+library(patchwork)
+library(here)
+
+source(here("_common.R"))
+
+set_theme(theme_gray(base_size = 30))
+```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+1. Overview
+    + *Slope Types and Rationales*
+  
+2. Fixed Slopes for L2
+    + *Specifications and Examples*
+
+3. Fixed Slopes for L1
+    + *Specifications and Examples*
+    
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
