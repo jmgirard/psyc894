@@ -272,7 +272,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="setup-and-data-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="setup-and-data-preparation">Setup and Data Preparation</h2>
-<p>First, load the necessary packages (e.g., <code>tidyverse</code>, <code>lme4</code>, and <code>easystats</code>) and your data. You will be using the “smiling.csv” dataset (available on Canvas) for the entirety of this lab. Format the main categorical variables (nation, sex) as factors.</p>
+<p>First, load the necessary packages (e.g., <code>tidyverse</code>, <code>lme4</code>, and <code>easystats</code>) and your data. You will be using the “smiling.csv” dataset (available on Canvas) for the entirety of this lab. It is a subset of real data from Campbell, Girard, McDuff, &amp; Rosengren (<a href="https://doi.org/10.1177/10949968251360683">2025</a>). Be sure to format sex and nation as factors. Also, create a new variable called <code>gdp</code> by applying the <code>standardize()</code> function to the <code>gdp_percap_ppp</code> variable. This will prevent model convergence warnings and make the slope easier to interpret.</p>
 </section>
 <section id="part-i-null-models" class="level2">
 <h2 class="anchored" data-anchor-id="part-i-null-models">Part I: Null Models</h2>
@@ -301,16 +301,16 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="question-3-fitting-an-l2-predictor">Question 3: Fitting an L2 Predictor</h3>
 <p>By adding predictor variables to MLMs, we can try to explain or predict variance partitions.</p>
 <ul>
-<li><strong>3a.</strong> Fit a model predicting <code>smile</code> with a fixed effect for <code>gdp_percap_ppp</code> and a random intercept for <code>nation</code>. Use the generic formula <code>y ~ 1 + z + (1 | cluster)</code> as your guide.</li>
-<li><strong>3b.</strong> Interpret the fixed intercept and the fixed slope of <code>gdp_percap_ppp</code>. What does the intercept represent in this context (where GDP is zero), and what is the expected change in a nation’s average smiling score for a 1-unit increase in GDP? Is this slope statistically significant?</li>
+<li><strong>3a.</strong> Fit a model predicting <code>smile</code> with a fixed effect for <code>gdp</code> and a random intercept for <code>nation</code>. Use the generic formula <code>y ~ 1 + z + (1 | cluster)</code> as your guide.</li>
+<li><strong>3b.</strong> Interpret the fixed intercept and the fixed slope of <code>gdp</code>. What does the intercept represent in this context (where the standardized GDP is zero), and what is the expected change in a nation’s average smiling score for a 1 standard deviation increase in GDP? Is this slope statistically significant?</li>
 </ul>
 </section>
 <section id="question-4-the-cost-of-ignoring-clustering" class="level3">
 <h3 class="anchored" data-anchor-id="question-4-the-cost-of-ignoring-clustering">Question 4: The Cost of Ignoring Clustering</h3>
 <p>It can be tempting to use a simpler model, but ignoring the clustered nature of your data comes with costs.</p>
 <ul>
-<li><strong>4a.</strong> Fit a standard linear model (OLS) predicting <code>smile</code> from <code>gdp_percap_ppp</code> using the <code>lm()</code> function. Then, use <code>compare_parameters(..., select = "se")</code> to compare the standard errors of the OLS model and your MLM from Question 3a. Briefly explain why the standard errors differ and the danger of ignoring clustering.</li>
-<li><strong>4b.</strong> Visualize the marginal effect of <code>gdp_percap_ppp</code> on <code>smile</code> using your multilevel model from Question 3a. Extract the relation using <code>estimate_relation()</code> and plot it.</li>
+<li><strong>4a.</strong> Fit a standard linear model (OLS) predicting <code>smile</code> from <code>gdp</code> using the <code>lm()</code> function. Then, use <code>compare_parameters(..., select = "se")</code> to compare the standard errors of the OLS model and your MLM from Question 3a. Briefly explain why the standard errors differ and the danger of ignoring clustering.</li>
+<li><strong>4b.</strong> Visualize the marginal effect of <code>gdp</code> on <code>smile</code> using your multilevel model from Question 3a. Extract the relation using <code>estimate_relation()</code> and plot it.</li>
 </ul>
 </section>
 </section>
