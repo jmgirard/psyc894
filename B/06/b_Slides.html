@@ -29,6 +29,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-0b5db92d115c8c04db4ce50e7f546384.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -159,9 +223,695 @@
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Fixed Slopes for L2</h1>
 
 </section>
+<section class="slide level2 fsmaller">
+<h2>L2 Predictors</h2>
+<ul>
+<li>Random intercepts partition the <span class="math inline">\(y\)</span> variance by level
+<ul>
+<li>By adding predictor variables to MLMs, we can<br>try to explain/predict those variance partitions</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>L2 predictors <span class="math inline">\((z)\)</span> will try to explain variance at L2
+<ul>
+<li>For now, we are focusing on explaining the intercept variance.</li>
+<li>i.e., <em>Which clusters have higher or lower intercepts?</em></li>
+<li>e.g., <em>Do clusters with higher <span class="math inline">\(z\)</span> have higher average <span class="math inline">\(y\)</span>?</em></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Crucial Concept:</strong> Because <span class="math inline">\(z\)</span> is measured at the cluster level, it has no variance <em>within</em> a cluster. Therefore, it has a single, fixed effect across the entire population.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Review: The Null Model</h2>
+<p>Before we add complexity, let’s recall our baseline null model.</p>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[
+y_{ij} = \beta_{0j} + \color{#e41a1c}{e_{ij}},
+\qquad
+\color{#e41a1c}{e_{ij}} \sim \text{Normal}(0, \color{#e41a1c}{\sigma})
+\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[
+\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#4daf4a}{u_{0j}},
+\qquad
+\color{#4daf4a}{u_{0j}} \sim \text{Normal}(0, \color{#4daf4a}{\tau_{00}})
+\]</span></p>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Adding a Level 2 Predictor</h2>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[
+y_{ij} = \beta_{0j} + e_{ij},
+\qquad
+e_{ij} \sim \text{Normal}(0, \sigma)
+\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[
+\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j},
+\qquad
+u_{0j} \sim \text{Normal}(0, \tau_{00})
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\color{#377eb8}{\gamma_{00}}\)</span> is the <strong>Fixed Intercept</strong> (The expected cluster average when <span class="math inline">\(z_j = 0\)</span>)</p></li>
+<li><p><span class="math inline">\(\color{#984ea3}{\gamma_{01}}\)</span> is the <strong>Fixed Slope</strong> (Main effect of L2 predictor <span class="math inline">\(z\)</span>)</p></li>
+<li><p>Notice that <span class="math inline">\(z_j\)</span> is in the L2 equation and predicts the cluster average <span class="math inline">\((\beta_{0j})\)</span></p></li>
+</ul>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Decoding the Gammas</h2>
+<p>Why <span class="math inline">\(\gamma_{00}\)</span> and <span class="math inline">\(\gamma_{01}\)</span>? The subscripts follow a specific rule:</p>
+<ol type="1">
+<li><strong>The first number</strong> says <em>which Level 1 parameter</em> is being predicted.
+<ul>
+<li><code>0</code> = The Intercept <span class="math inline">\((\beta_{0j})\)</span></li>
+</ul></li>
+<li><strong>The second number</strong> says <em>which Level 2 predictor</em> is doing the predicting.
+<ul>
+<li><code>0</code> = The base intercept predictor (essentially a column of 1s)</li>
+<li><code>1</code> = The first L2 variable you added <span class="math inline">\((z_j)\)</span></li>
+</ul></li>
+</ol>
+<div class="fragment">
+<p><strong>Putting it together:</strong></p>
+<ul>
+<li><span class="math inline">\(\gamma_{00}\)</span> is the base intercept for the Level 1 intercept.</li>
+<li><span class="math inline">\(\gamma_{01}\)</span> is the effect of predictor 1 on the Level 1 intercept.</li>
+<li>If we had more L2 predictors, we would add <span class="math inline">\(\gamma_{02}\)</span>, <span class="math inline">\(\gamma_{03}\)</span>, and so on…</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Reading the Level 2 Equation</h2>
+<div class="fsmaller">
+<p><span class="math display">\[
+\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j},
+\qquad
+u_{0j} \sim \text{Normal}(0, \tau_{00})
+\]</span></p>
+<blockquote>
+<p><span class="math inline">\(\beta_{0j}\)</span> is the <strong>Conditional Cluster Average</strong> for cluster <span class="math inline">\(j\)</span> and equals…<br> …the <strong>Intercept</strong> <span class="math inline">\((\color{#377eb8}{\gamma_{00}})\)</span> (the expected average when <span class="math inline">\(z_j=0\)</span>) plus the <strong>Effect of Predictor <span class="math inline">\(z\)</span></strong> <span class="math inline">\((\color{#984ea3}{\gamma_{01}} z_j)\)</span> plus the <strong>Cluster Deviation</strong> <span class="math inline">\((u_{0j})\)</span>.<br> These deviations are normally distributed with 0 mean and <span class="math inline">\(\tau_{00}\)</span> SD.</p>
+</blockquote>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Notice the Shift:</strong> In the null model, <span class="math inline">\(\gamma_{00}\)</span> was the grand population average. Now that we have a predictor, <span class="math inline">\(\gamma_{00}\)</span> is specifically the expected average <em>for a cluster where <span class="math inline">\(z_j = 0\)</span></em>.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Students in Schools Example</h2>
+<p><span class="math display">\[
+\begin{align}
+\textit{MATH}_{ij} &amp;= \beta_{0j} + e_{ij} \\
+\beta_{0j} &amp;= \gamma_{00} + \gamma_{01} \mathit{PUBLIC}_j + u_{0j}
+\end{align}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\gamma_{00}\)</span> is the <span class="b green">fixed intercept</span>: what is the expected average math score for a private school?</p></li>
+<li><p><span class="math inline">\(\gamma_{01}\)</span> is the <span class="b blue">fixed slope</span> of PUBLIC: do public schools have higher average math scores than private schools?</p></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Path Diagram</h2>
+
+<img data-src="../../diagrams/fixed_slopes_l2_full.png" class="r-stretch"></section>
+<section class="slide level2 fsmaller">
+<h2>Mixed (or Reduced) Equation</h2>
+<p><span class="math display">\[
+\begin{alignat}{2}
+&amp;\text{L1:} \quad &amp; y_{ij} &amp;= \beta_{0j} + e_{ij} \\
+&amp;\text{L2:} \quad &amp; \beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j}
+\end{alignat}
+\]</span></p>
+<p>Substitute the L2 equation directly into the L1 equation:</p>
+<p><span class="math display">\[
+y_{ij} = (\color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j}) + e_{ij}
+\]</span></p>
+<div class="fragment">
+<p>Rearrange to group the fixed and random parts:</p>
+<p><span class="math display">\[
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j}_{\text{Fixed}} + \underbrace{u_{0j} + e_{ij}}_{\text{Random}}
+\]</span></p>
+</div>
+<div class="fragment">
+<p>This mixed equation is the basis of the R formula.</p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Formula</h2>
+<p><strong>Generic</strong></p>
+<div class="tc">
+<p><code>y ~ 1 + z + (1 | cluster)</code></p>
+<p>where <em>z</em> is a predictor you want a fixed slope<br> for and the rest is the same as last time</p>
+</div>
+<div class="fragment">
+<p><strong>Example</strong></p>
+<div class="tc">
+<p><code>math ~ 1 + public + (1 | school)</code></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Setup</h2>
+<div class="cell" data-replace_path="[&quot;../../data/&quot;,&quot;&quot;]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> </span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">"heck2011.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">school =</span> <span class="fu">factor</span>(school), <span class="at">public =</span> <span class="fu">factor</span>(public))</span>
+<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 6,871
+Columns: 7
+$ school  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2,…
+$ student &lt;dbl&gt; 6701, 6702, 6703, 6704, 6705, 6706, 6707, 6708, 6709, 6710, 67…
+$ female  &lt;dbl&gt; 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ ses     &lt;dbl&gt; 0.586, 0.304, -0.544, -0.848, 0.001, -0.106, -0.330, -0.891, 0…
+$ math    &lt;dbl&gt; 47.1400, 63.6100, 57.7100, 53.9000, 58.0100, 59.8700, 62.5556,…
+$ puniv   &lt;dbl&gt; 0.08333333, 0.08333333, 0.08333333, 0.08333333, 0.08333333, 0.…
+$ public  &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Fitting the Model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> math <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> public <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> school),</span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat,</span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">REML =</span> <span class="cn">TRUE</span></span>
+<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter   | Coefficient |   SE |         95% CI | t(6867) |      p
+--------------------------------------------------------------------
+(Intercept) |       57.48 | 0.36 | [56.77, 58.18] |  159.54 | &lt; .001
+public [1]  |        0.27 | 0.42 | [-0.55,  1.09] |    0.64 | 0.521 
+
+# Random Effects
+
+Parameter              | Coefficient
+------------------------------------
+SD (Intercept: school) |        3.27
+SD (Residual)          |        8.16</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Interpreting the Fixed Effects</h2>
+<ul>
+<li>The fixed intercept <span class="math inline">\((\color{#377eb8}{\gamma_{00}})\)</span> is the <strong>Conditional Base Rate</strong>
+<ul>
+<li>The expected average math score when our predictor equals zero.</li>
+<li>Since <code>public</code> is dummy coded (0 = Private, 1 = Public), this is the average math score of a typical <em>private</em> school.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>The fixed slope of public <span class="math inline">\((\color{#984ea3}{\gamma_{01}})\)</span> is the <strong>Main Effect</strong>
+<ul>
+<li>The expected change in the school average for a 1-unit increase in the predictor. This is the estimated difference in average math scores between public and private schools.</li>
+<li><strong>Significance:</strong> Because <span class="math inline">\(p &gt; .05\)</span>, this difference is not statistically significant. We lack evidence to say public and private schools differ in their population averages.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Interpreting the Random Effects</h2>
+<ul>
+<li>The random intercept SD <span class="math inline">\((\tau_{00})\)</span> is the <strong>Conditional Between-Cluster Spread</strong>
+<ul>
+<li>The spread of average math scores <em>between</em> schools (specifically, the spread of the <strong>intercepts</strong>).</li>
+<li><strong>Crucial update:</strong> This is the spread <em>after</em> accounting for a school’s public or private status.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>The L1 residual SD <span class="math inline">\((\sigma)\)</span> is the <strong>Within-Cluster Spread</strong>
+<ul>
+<li>The spread of students’ math scores <em>within</em> their respective schools.</li>
+<li>This represents how much individual students deviate from their school’s conditional average.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Deriving More Information</h2>
+<p>We can extract the residuals and group-level estimates from our fitted model</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">get_residuals</span>(fit) <span class="co"># e_ij</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">estimate_grouplevel</span>(fit, <span class="at">type =</span> <span class="st">"random"</span>) <span class="co"># u_0j</span></span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">estimate_grouplevel</span>(fit, <span class="at">type =</span> <span class="st">"total"</span>) <span class="co"># beta_0j</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Preview the random intercept deviations</span></span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(u)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Group  | Level | Parameter   | Coefficient |   SE |          95% CI
+-------------------------------------------------------------------
+school | 1     | (Intercept) |        1.00 | 1.91 | [ -2.74,  4.74]
+school | 2     | (Intercept) |        4.16 | 1.86 | [  0.52,  7.81]
+school | 3     | (Intercept) |       -7.36 | 1.66 | [-10.61, -4.11]
+school | 4     | (Intercept) |        5.99 | 1.69 | [  2.68,  9.31]
+school | 5     | (Intercept) |       -6.85 | 1.69 | [-10.17, -3.54]
+school | 6     | (Intercept) |        2.56 | 1.73 | [ -0.83,  5.95]</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>The Conditional ICC</h2>
+<div class="fsmaller">
+<ul>
+<li>The <strong>Unconditional ICC</strong> (from the null model) tells us the proportion of <em>total</em> variance situated between clusters. Usually this is what you want to report.</li>
+<li>The <strong>Conditional ICC</strong> (from this model) tells us the proportion of <em>remaining</em> variance situated between clusters, after accounting for our predictors.</li>
+</ul>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">icc</span>(fit, <span class="at">ci =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.138 [0.114, 0.161]
+  Unadjusted ICC: 0.138 [0.114, 0.161]</code></pre>
+</div>
+</div>
+<div title="Why does this matter?">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why does this matter?</strong></p>
+</div>
+<div class="callout-content">
+<p>Adding predictors changes the variance components! If we add a strong L2 predictor, the L2 variance drops, and the conditional ICC shrinks. This can be misleading!</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Which ICC Should You Report?</h2>
+<p>If you are only going to report one, report the <span class="b blue">Unconditional ICC</span>.</p>
+<ul>
+<li><strong>The Unconditional ICC is the standard.</strong>
+<ul>
+<li>It tells the reader how much clustering exists in the raw data.</li>
+<li>It justifies your decision to use a multilevel model in the first place.</li>
+<li>If a paper simply says “The ICC was .15,” this is what they mean.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>The Conditional ICC is a stepping stone.</strong>
+<ul>
+<li>It is rarely reported as a standalone final metric.</li>
+<li>Instead, we use it to figure out how much variance our predictors explained (by comparing it back to the null model).</li>
+<li>We will learn how to calculate this “variance explained” (Pseudo-<span class="math inline">\(R^2\)</span>)</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Plotting the Marginal Effect</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>rel <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(fit, <span class="at">by =</span> <span class="st">"public"</span>)</span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2 fsmaller">
+<h2>Why not just a t-test?</h2>
+<p>Looking at that plot, you might wonder: <em>Couldn’t we just run a simple t-test comparing math scores of public vs.&nbsp;private school students?</em></p>
+<p><strong>No! And here is why:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>fit0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(math <span class="sc">~</span> public, <span class="at">data =</span> dat)</span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">compare_parameters</span>(fit0, fit, <span class="at">select =</span> <span class="st">"se"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter    |         fit0 |          fit
+------------------------------------------
+(Intercept)  | 57.58 (0.20) | 57.48 (0.36)
+public [1]   |  0.21 (0.24) |  0.27 (0.42)
+------------------------------------------
+Observations |         6871 |         6871</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>Ignores Clustering:</strong> The standard model (<code>fit0</code>) assumes all students are completely independent.</li>
+<li><strong>Shrinks Standard Errors:</strong> Notice the artificially tiny SE for <em>public</em> in <code>fit0</code>. This false confidence drastically increases our risk of false positives.</li>
+</ul>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Fixed Slopes for L1</h1>
+
+</section>
+<section class="slide level2 fsmaller">
+<h2>L1 Predictors</h2>
+<ul>
+<li>Just like L2 predictors explain variance between clusters, L1 predictors try to explain variance <em>within</em> clusters.</li>
+<li>For now, we are focusing on adding a <strong>fixed slope</strong> at Level 1.
+<ul>
+<li>We assume the same effect of our L1 predictor across all clusters.</li>
+</ul></li>
+<li><strong>When is this assumption reasonable?</strong>
+<ul>
+<li><em>Theoretically:</em> When we have no strong reason to believe the relationship changes based on the cluster context.</li>
+<li><em>Pragmatically:</em> As a baseline model-building step before testing random slopes, or when a random slopes model fails to converge.</li>
+<li>e.g., <em>Does a student’s sex predict their math score, assuming this relationship is identical at every school?</em></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Adding a Level 1 Predictor</h2>
+<p>Let <span class="math inline">\(x_{ij}\)</span> be the value of L1 predictor <span class="math inline">\(x\)</span> for observation <span class="math inline">\(i\)</span> in cluster <span class="math inline">\(j\)</span>.</p>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[
+y_{ij} = \beta_{0j} + \color{#ff7f00}{\beta_{1j}} x_{ij} + e_{ij},
+\qquad
+e_{ij} \sim \text{Normal}(0, \sigma)
+\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[
+\begin{align}
+\beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + u_{0j},
+\qquad
+u_{0j} \sim \text{Normal}(0, \tau_{00}) \\
+\color{#ff7f00}{\beta_{1j}} &amp;= \color{#ff7f00}{\gamma_{10}}
+\end{align}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\color{#377eb8}{\gamma_{00}}\)</span> is the <strong>Fixed Intercept</strong> (The expected cluster average when <span class="math inline">\(x_{ij} = 0\)</span>)</li>
+<li><span class="math inline">\(\color{#ff7f00}{\beta_{1j}}\)</span> is the <strong>L1 Slope</strong> for predictor <span class="math inline">\(x\)</span> in cluster <span class="math inline">\(j\)</span></li>
+<li><span class="math inline">\(\color{#ff7f00}{\gamma_{10}}\)</span> is the <strong>Fixed L1 Slope</strong> (The overall main effect of <span class="math inline">\(x\)</span>)</li>
+</ul>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Decoding the Gammas</h2>
+<p>Let’s use our rule again for the new fixed effect:</p>
+<ol type="1">
+<li><strong>The first number</strong> says <em>which Level 1 parameter</em> is being predicted.
+<ul>
+<li><code>0</code> = The Intercept <span class="math inline">\((\beta_{0j})\)</span></li>
+<li><code>1</code> = The L1 slope <span class="math inline">\((\beta_{1j})\)</span></li>
+</ul></li>
+<li><strong>The second number</strong> says <em>which Level 2 predictor</em> is doing the predicting.
+<ul>
+<li><code>0</code> = The base intercept (no L2 predictors are predicting this slope yet)</li>
+</ul></li>
+</ol>
+<div class="fragment">
+<p><strong>Putting it together:</strong></p>
+<ul>
+<li><span class="math inline">\(\gamma_{10}\)</span> is the baseline effect of our Level 1 predictor.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Reading the Equations</h2>
+<p><span class="math display">\[
+y_{ij} = \beta_{0j} + \color{#ff7f00}{\beta_{1j}} x_{ij} + e_{ij},
+\qquad
+e_{ij} \sim \text{Normal}(0, \sigma)
+\]</span></p>
+<blockquote>
+<p><span class="math inline">\(y_{ij}\)</span> is the <strong>outcome</strong> for observation <span class="math inline">\(i\)</span> in cluster <span class="math inline">\(j\)</span> and equals…<br> …the <strong>Cluster Average</strong> <span class="math inline">\((\beta_{0j})\)</span> plus the <strong>Effect of Predictor <span class="math inline">\(x\)</span></strong> <span class="math inline">\((\color{#ff7f00}{\beta_{1j}} x_{ij})\)</span> plus the <strong>Observation Deviation</strong> <span class="math inline">\((e_{ij})\)</span>.</p>
+</blockquote>
+<div class="fragment">
+<p><span class="math display">\[
+\begin{align}
+\beta_{0j} &amp;= \gamma_{00} + u_{0j},
+\qquad
+u_{0j} \sim \text{Normal}(0, \tau_{00}) \\
+\color{#ff7f00}{\beta_{1j}} &amp;= \color{#ff7f00}{\gamma_{10}}
+\end{align}
+\]</span></p>
+<blockquote>
+<p><span class="math inline">\(\color{#ff7f00}{\beta_{1j}}\)</span> is the <strong>Cluster Slope</strong> for cluster <span class="math inline">\(j\)</span> and equals…<br> …the <strong>Fixed Population Slope</strong> <span class="math inline">\((\color{#ff7f00}{\gamma_{10}})\)</span>.<br> We are assuming the effect of <span class="math inline">\(x\)</span> is identical across all clusters.</p>
+</blockquote>
+</div>
+</section>
+<section class="slide level2">
+<h2>Students in Schools Example</h2>
+<p><span class="math display">\[
+\begin{align}
+\textit{MATH}_{ij} &amp;= \beta_{0j} + \color{#ff7f00}{\beta_{1j}} \mathit{FEMALE}_{ij} + e_{ij} \\
+\beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + u_{0j} \\
+\color{#ff7f00}{\beta_{1j}} &amp;= \color{#ff7f00}{\gamma_{10}}
+\end{align}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\gamma_{00}\)</span> is the <span class="b blue">fixed intercept</span>: what is the expected math score for a male student (where female = 0)?</li>
+<li><span class="math inline">\(\gamma_{10}\)</span> is the <span class="b orange">fixed slope</span> of FEMALE: do female students have different math scores than male students, assuming this relationship is identical at every school?</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Path Diagram</h2>
+
+<img data-src="../../diagrams/fixed_slopes_l1.png" class="r-stretch"></section>
+<section class="slide level2 fsmaller">
+<h2>Mixed (or Reduced) Equation</h2>
+<p><span class="math display">\[
+\begin{alignat}{2}
+&amp;\text{L1:} \quad &amp; y_{ij} &amp;= \beta_{0j} + \color{#ff7f00}{\beta_{1j}} x_{ij} + e_{ij} \\
+&amp;\text{L2:} \quad &amp; \beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + u_{0j} \\
+&amp;                 &amp; \color{#ff7f00}{\beta_{1j}} &amp;= \color{#ff7f00}{\gamma_{10}}
+\end{alignat}
+\]</span></p>
+<p>Substitute the L2 equations directly into the L1 equation:</p>
+<p><span class="math display">\[
+y_{ij} = (\color{#377eb8}{\gamma_{00}} + u_{0j}) + (\color{#ff7f00}{\gamma_{10}}) x_{ij} + e_{ij}
+\]</span></p>
+<div class="fragment">
+<p>Rearrange to group the fixed and random parts:</p>
+<p><span class="math display">\[
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#ff7f00}{\gamma_{10}} x_{ij}}_{\text{Fixed}} + \underbrace{u_{0j} + e_{ij}}_{\text{Random}}
+\]</span></p>
+</div>
+<div class="fragment">
+<p>This mixed equation is the basis of the R formula.</p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Formula</h2>
+<p><strong>Generic</strong></p>
+<div class="tc">
+<p><code>y ~ 1 + x + (1 | cluster)</code></p>
+<p>where <em>x</em> is an L1 predictor you want a fixed slope<br> for and the rest is the same as the null model</p>
+</div>
+<div class="fragment">
+<p><strong>Example</strong></p>
+<div class="tc">
+<p><code>math ~ 1 + female + (1 | school)</code></p>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Fitting the Model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> math <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> female <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> school),</span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat,</span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">REML =</span> <span class="cn">TRUE</span></span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter   | Coefficient |   SE |         95% CI | t(6867) |      p
+--------------------------------------------------------------------
+(Intercept) |       58.28 | 0.21 | [57.86, 58.70] |  272.97 | &lt; .001
+female      |       -1.21 | 0.20 | [-1.61, -0.81] |   -5.94 | &lt; .001
+
+# Random Effects
+
+Parameter              | Coefficient
+------------------------------------
+SD (Intercept: school) |        3.24
+SD (Residual)          |        8.14</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Interpreting the Fixed Effects</h2>
+<ul>
+<li>The fixed intercept <span class="math inline">\((\color{#377eb8}{\gamma_{00}})\)</span>
+<ul>
+<li>The expected math score for a male student (female = 0) in a typical school.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>The fixed slope of female <span class="math inline">\((\color{#ff7f00}{\gamma_{10}})\)</span>
+<ul>
+<li>The expected difference in math scores for female students compared to male students.</li>
+<li><strong>Significance:</strong> Because <span class="math inline">\(p &lt; .001\)</span>, this slope is statistically significant.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Interpreting the Random Effects</h2>
+<ul>
+<li>The random intercept SD <span class="math inline">\((\tau_{00})\)</span> is the <strong>Conditional Between-Cluster Spread</strong>
+<ul>
+<li>The spread of average math scores <em>between</em> schools (specifically, the spread of the <strong>intercepts</strong>).</li>
+<li>This is the spread <em>after</em> accounting for student gender.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>The L1 residual SD <span class="math inline">\((\sigma)\)</span> is the <strong>Conditional Within-Cluster Spread</strong>
+<ul>
+<li>The spread of students’ math scores <em>within</em> their respective schools.</li>
+<li>This represents how much individual students deviate from their expected score after accounting for their gender.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Deriving More Information</h2>
+<p>We can extract the individual residuals and cluster deviations as before.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">get_residuals</span>(fit) <span class="co"># e_ij</span></span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">estimate_grouplevel</span>(fit, <span class="at">type =</span> <span class="st">"random"</span>) <span class="co"># u_0j</span></span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">estimate_grouplevel</span>(fit, <span class="at">type =</span> <span class="st">"total"</span>) <span class="co"># beta_0j</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment pv4">
+<ul>
+<li>We can also calculate the <strong>Conditional ICC</strong>, which tells us the proportion of <em>remaining</em> variance between clusters after accounting for student sex.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">icc</span>(fit, <span class="at">ci =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.137 [0.109, 0.157]
+  Unadjusted ICC: 0.136 [0.108, 0.156]</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Plotting the Marginal Effect</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>rel <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(fit, <span class="at">by =</span> <span class="st">"female"</span>)</span>
+<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2 fsmaller">
+<h2>Visualizing a Fixed Slope</h2>
+<p>Because we only estimated a <em>random intercept</em> and a <em>fixed slope</em>, our model assumes the effect of being female on math scores is identical across all schools. Notice how the lines (one per cluster/school) are parallel!</p>
+
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2 fsmaller">
+<h2>Putting It All Together</h2>
+<p>In practice, applied researchers usually include both L1 and L2 predictors in the same model. We can combine our previous equations into one full model.</p>
+<p><span class="math display">\[
+y_{ij} = \underbrace{\gamma_{00} + \gamma_{01} \mathit{PUBLIC}_j + \gamma_{10} \mathit{FEMALE}_{ij}}_{\text{Fixed}} + \underbrace{u_{0j} + e_{ij}}_{\text{Random}}
+\]</span></p>
+<div class="tc">
+<p><code>math ~ 1 + public + female + (1 | school)</code></p>
+</div>
+<div class="fragment mt4">
+<p><strong>Why do this?</strong></p>
+<ol type="1">
+<li><strong>Simultaneous Control:</strong> We can estimate the effect of school type while controlling for student gender (and vice versa).</li>
+<li><strong>Explaining Variance:</strong>
+<ul>
+<li><span class="math inline">\(\mathit{PUBLIC}_j\)</span> tries to explain variance <em>between</em> schools (reducing <span class="math inline">\(\tau_{00}\)</span>)</li>
+<li><span class="math inline">\(\mathit{FEMALE}_{ij}\)</span> tries to explain variance <em>within</em> schools (reducing <span class="math inline">\(\sigma\)</span>)</li>
+</ul></li>
+</ol>
+</div>
+</section>
+<section class="slide level2">
+<h2>Combined Path Diagram</h2>
+
+<img data-src="../../diagrams/fixed_slopes_combined.png" class="r-stretch"></section>
+<section class="slide level2 fsmaller">
+<h2>Fitting the Combined Model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>fit_combined <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> math <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> public <span class="sc">+</span> female <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> school),</span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat,</span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">REML =</span> <span class="cn">TRUE</span></span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_combined)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter   | Coefficient |   SE |         95% CI | t(6866) |      p
+--------------------------------------------------------------------
+(Intercept) |       58.12 | 0.37 | [57.38, 58.85] |  155.20 | &lt; .001
+public [1]  |        0.23 | 0.42 | [-0.59,  1.05] |    0.54 | 0.588 
+female      |       -1.21 | 0.20 | [-1.60, -0.81] |   -5.93 | &lt; .001
+
+# Random Effects
+
+Parameter              | Coefficient
+------------------------------------
+SD (Intercept: school) |        3.25
+SD (Residual)          |        8.14</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Interpreting the Combined Model</h2>
+<ul>
+<li><strong>The Fixed Effects (Gammas)</strong>
+<ul>
+<li>The intercept is now the expected math score for a male student in a private school.</li>
+<li>The slope for <code>public</code> is the difference between public and private schools, <em>controlling for student gender</em>.</li>
+<li>The slope for <code>female</code> is the difference between female and male students, <em>controlling for school type</em>.</li>
+</ul></li>
+<li><strong>The Random Effects (Variance Components)</strong>
+<ul>
+<li><span class="math inline">\(\tau_{00}\)</span> has decreased compared to the null model because <code>public</code> explained some of the between-school variance.</li>
+<li><span class="math inline">\(\sigma\)</span> has decreased because <code>female</code> explained some of the within-school variance.</li>
+</ul></li>
+</ul>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
