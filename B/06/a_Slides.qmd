@@ -330,12 +330,11 @@ $$
 We can make one [mixed equation]{.b .blue} through substitution
 
 $$
-y_{ij} = \gamma_{00} + u_{0j} + e_{ij}
+y_{ij} = \underbrace{\gamma_{00} + u_{0j}}_{\beta_{0j}} + e_{ij}
 $$
 
 :::{.fragment}
 This mixed equation is the basis of the R formula
-
 :::
 
 ## Formula
@@ -369,11 +368,13 @@ and the *(1)* is the random intercept $(u_{0j})$
 #| message: false
 #| replace_path: ["../../data/", ""]
 
-library(tidyverse) # read_csv, mutate, glimpse
-library(easystats) # model_parameters, icc, estimate_grouplevel
-library(lme4) # lmer (MLE via quadratic approximation)
+library(tidyverse)
+library(easystats)
+library(lme4)
 
-dat <- read_csv("../../data/heck2011.csv") |> mutate(school = factor(school))
+dat <- 
+  read_csv("../../data/heck2011.csv") |> 
+  mutate(school = factor(school))
 
 glimpse(dat)
 ```
@@ -386,7 +387,7 @@ glimpse(dat)
 fit_null <- lmer(
   formula = math ~ 1 + (1 | school),
   data = dat,
-  REML = TRUE # TRUE = Restricted MLE (default), FALSE = Full MLE
+  REML = TRUE
 )
 model_parameters(fit_null)
 ```
