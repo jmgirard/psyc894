@@ -1,4 +1,4 @@
-gender,smile,nation,population,net_migration_rate,urbanization_pct,gdp_percap_ppp,internet_pct,individualism,masculinity
+sex,smile,nation,population,net_migration_rate,urbanization_pct,gdp_percap_ppp,internet_pct,individualism,masculinity
 male,1.6267536666666669,IRL,5068050,4,63.4,73200,0.8220000000000001,70,68
 male,0.0851449,IRL,5068050,4,63.4,73200,0.8220000000000001,70,68
 male,0.4441933333333334,IRL,5068050,4,63.4,73200,0.8220000000000001,70,68
