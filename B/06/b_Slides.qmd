@@ -186,8 +186,8 @@ $$
 
 $$
 \begin{align}
-\textit{MATH}_{ij} &= \beta_{0j} + e_{ij} \\
-\beta_{0j} &= \gamma_{00} + \gamma_{01} \mathit{PUBLIC}_j + u_{0j}
+\text{MATH}_{ij} &= \beta_{0j} + e_{ij} \\
+\beta_{0j} &= \gamma_{00} + \gamma_{01} \text{PUBLIC}_j + u_{0j}
 \end{align}
 $$
 
@@ -459,7 +459,7 @@ $$
 
 $$
 \begin{align}
-\textit{MATH}_{ij} &= \beta_{0j} + \color{#ff7f00}{\beta_{1j}} \mathit{FEMALE}_{ij} + e_{ij} \\
+\text{MATH}_{ij} &= \beta_{0j} + \color{#ff7f00}{\beta_{1j}} \text{FEMALE}_{ij} + e_{ij} \\
 \beta_{0j} &= \color{#377eb8}{\gamma_{00}} + u_{0j} \\
 \color{#ff7f00}{\beta_{1j}} &= \color{#ff7f00}{\gamma_{10}}
 \end{align}
