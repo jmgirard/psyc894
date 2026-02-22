@@ -56,88 +56,25 @@
     "text": "[06b] Fixed Slopes\n\nTopics\n\nOverview: Slope Types and Rationales\nFixed Slopes for L2: Specifications and Examples\nFixed Slopes for L1: Specifications and Examples\n\n\n\nFile Downloads\n\nheck2011.csv\n\n\n\nReadings\n\nS&F Chapter 5: Adding fixed predictors to MLMs\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 05\n\n  Week 07  »"
   },
   {
-    "objectID": "A/04/index.html",
-    "href": "A/04/index.html",
-    "title": "Week 04: The Mechanics of MLM",
+    "objectID": "B/05/index.html",
+    "href": "B/05/index.html",
+    "title": "Week 05: Influenza",
     "section": "",
-    "text": "Ordinary Least Squares\nMaximum Likelihood\nBayesian Overview\n\n\n\n\n\nHMV Sections 3.1–3.3: Which Estimation Method?\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+    "text": "Instructor out sick"
   },
   {
-    "objectID": "A/04/index.html#a-materials",
-    "href": "A/04/index.html#a-materials",
-    "title": "Week 04: The Mechanics of MLM",
+    "objectID": "B/05/index.html#a-no-class",
+    "href": "B/05/index.html#a-no-class",
+    "title": "Week 05: Influenza",
     "section": "",
-    "text": "Ordinary Least Squares\nMaximum Likelihood\nBayesian Overview\n\n\n\n\n\nHMV Sections 3.1–3.3: Which Estimation Method?\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+    "text": "Instructor out sick"
   },
   {
-    "objectID": "A/04/index.html#b-materials",
-    "href": "A/04/index.html#b-materials",
-    "title": "Week 04: The Mechanics of MLM",
-    "section": "[04b] Materials",
-    "text": "[04b] Materials\n\nTopics\n\nData Tidying Recap\nGetting to Long Format\nMultilevel Manipulation\n\n\n\nFile Downloads\n\nheck2011.csv\nL1_people.csv\nL2_countries.csv\n\n\n\nReadings\n\nWCG Chapter 3: Data transformation\nWCG Chapter 5: Data tidying\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 03\n\n  Week 05  »"
-  },
-  {
-    "objectID": "A/03/index.html",
-    "href": "A/03/index.html",
-    "title": "Week 03: Clustered Data",
-    "section": "",
-    "text": "Multilevel Data and Questions\nConceptual Issues with Clustering\nStatistical Issues with Clustering\n\n\n\n\n\nHMV Chapter 1: Introduction to Multilevel Analysis\nMcCoach & Adelson (2010): Understanding the effects of clustered data\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
-  },
-  {
-    "objectID": "A/03/index.html#a-materials",
-    "href": "A/03/index.html#a-materials",
-    "title": "Week 03: Clustered Data",
-    "section": "",
-    "text": "Multilevel Data and Questions\nConceptual Issues with Clustering\nStatistical Issues with Clustering\n\n\n\n\n\nHMV Chapter 1: Introduction to Multilevel Analysis\nMcCoach & Adelson (2010): Understanding the effects of clustered data\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
-  },
-  {
-    "objectID": "A/03/index.html#b-materials",
-    "href": "A/03/index.html#b-materials",
-    "title": "Week 03: Clustered Data",
-    "section": "[03b] Materials",
-    "text": "[03b] Materials\n\nTopics\n\n“Complete Pooling” Approaches\n“No Pooling” Approaches\n“Partial Pooling” Approaches\n\n\n\nReadings\n\nS&F Chapter 3: Approaches to Multilevel Data\nAdvanced: McNeish et al. (2016): On the unnecessary ubiquity of hierarchical linear modeling\nAdvanced: McNeish (2023): A practical guide to selecting and blending approaches for clustered data\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 02\n\n  Week 04  »"
-  },
-  {
-    "objectID": "A/01/index.html",
-    "href": "A/01/index.html",
-    "title": "Week 01: Overview and Recap",
-    "section": "",
-    "text": "No Class due to MLK Day"
-  },
-  {
-    "objectID": "A/01/index.html#a-materials",
-    "href": "A/01/index.html#a-materials",
-    "title": "Week 01: Overview and Recap",
-    "section": "",
-    "text": "No Class due to MLK Day"
-  },
-  {
-    "objectID": "A/01/index.html#b-materials",
-    "href": "A/01/index.html#b-materials",
-    "title": "Week 01: Overview and Recap",
-    "section": "[01b] Materials",
-    "text": "[01b] Materials\n\nTopics\n\nOverview of Syllabus, Canvas, and Website\nRecap of Basic Workflow in R and Quarto\n\n\n\nReadings\n\nRequired\n\nS&F (1E) Chapter 1: Introduction\n\n\n\nOptional\n\nWCG (2E) Chapter 2: Workflow: Basics\nWCG (2E) Chapter 6: Workflow: Scripts and Projects\nWCG (2E) Chapter 7: Data import\nWCG (2E) Sections 28.1–28.5: Quarto\n\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n  «  Home\n\n  Week 02  »"
-  },
-  {
-    "objectID": "A/02/index.html",
-    "href": "A/02/index.html",
-    "title": "Week 02: Linear Modeling Review",
-    "section": "",
-    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
-  },
-  {
-    "objectID": "A/02/index.html#a-materials",
-    "href": "A/02/index.html#a-materials",
-    "title": "Week 02: Linear Modeling Review",
-    "section": "",
-    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
-  },
-  {
-    "objectID": "A/02/index.html#b-materials",
-    "href": "A/02/index.html#b-materials",
-    "title": "Week 02: Linear Modeling Review",
-    "section": "[02b] Materials",
-    "text": "[02b] Materials\n\nTopics\n\nModeration\nAssumptions\nDiagnostics\n\n\n\nReadings\n\nKelley & Maxwell (2019)\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 01\n\n  Week 03  »"
+    "objectID": "B/05/index.html#b-no-class",
+    "href": "B/05/index.html#b-no-class",
+    "title": "Week 05: Influenza",
+    "section": "[05b] NO CLASS",
+    "text": "[05b] NO CLASS\n\nInstructor out sick\n\n\n\n  «  Week 04\n\n  Week 06  »"
   },
   {
     "objectID": "A/04/assignment.html",
@@ -168,25 +105,123 @@
     "text": "3 Instructions\n\n3.1 Setup and Inspection\nCreate a new Quarto document for your lab report. Load the tidyverse package and read in the two CSV files using read_csv().\nInspect the anxiety_wide object. Note that it is currently in wide format: there is one row per patient, but the anxiety scores are spread across multiple columns (anxiety_wk1, anxiety_wk2, etc.). This format is unsuitable for MLM and must be reshaped.\n\n\n3.2 Reshape (Pivot)\nCreate a new object called anxiety_long. Use the pivot_longer() function to transform the wide anxiety data into long format.\n\nCols: Select the columns that start with the string “anxiety”.\nNames: Send the old column names to a new column called \"week\".\nValues: Send the scores to a new column called \"anxiety\".\n\n\n\n3.3 Clean the Data\nLook at your new week column. It currently contains character strings (e.g., \"anxiety_wk1\").\nOverwrite the week column using mutate() and parse_number() to convert these strings into clean numbers (e.g., 1).\n\n\n3.4 Cluster-Level Summaries\nWe want to determine the minimum (best) anxiety score each patient reached during the study.\nUse mutate() to add this as a new column called min_score to your long dataset. You must use the .by argument (or group_by()) to ensure this calculation happens per patient (patient_id).\n(Hint: You can use the min() function to find the lowest score).\n\n\n3.5 Merging Level 2 Data\nThe file patient_info.csv contains the study condition (Control vs. Treatment) for each person. This is Level 2 data.\nUse left_join() to merge this demographic info into your anxiety_long dataset. Join the two tables by the patient_id column.\nVerification: View your data to ensure the condition variable now appears for every time point (row) for each patient.\n\n\n3.6 Visualization\nUse ggplot() to create a “spaghetti plot” of the study results:\n\nMap week to the x-axis and anxiety to the y-axis.\nConnect the data points with lines (geom_line()).\nGroup the lines by patient_id so we see individual trajectories.\nColor the lines by condition.\n\nInterpretation Question: Based on your plot, does the Treatment group seem to improve (i.e., scores go down) faster than the Control group?"
   },
   {
-    "objectID": "B/05/index.html",
-    "href": "B/05/index.html",
-    "title": "Week 05: Influenza",
+    "objectID": "A/02/index.html",
+    "href": "A/02/index.html",
+    "title": "Week 02: Linear Modeling Review",
     "section": "",
-    "text": "Instructor out sick"
+    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
   },
   {
-    "objectID": "B/05/index.html#a-no-class",
-    "href": "B/05/index.html#a-no-class",
-    "title": "Week 05: Influenza",
+    "objectID": "A/02/index.html#a-materials",
+    "href": "A/02/index.html#a-materials",
+    "title": "Week 02: Linear Modeling Review",
     "section": "",
-    "text": "Instructor out sick"
+    "text": "Simple Regression\nMultiple Regression\nCategorical Predictors\n\n\n\n\n\nS&F (1E) Chapter 2: Multiple Regression Review\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
   },
   {
-    "objectID": "B/05/index.html#b-no-class",
-    "href": "B/05/index.html#b-no-class",
-    "title": "Week 05: Influenza",
-    "section": "[05b] NO CLASS",
-    "text": "[05b] NO CLASS\n\nInstructor out sick\n\n\n\n  «  Week 04\n\n  Week 06  »"
+    "objectID": "A/02/index.html#b-materials",
+    "href": "A/02/index.html#b-materials",
+    "title": "Week 02: Linear Modeling Review",
+    "section": "[02b] Materials",
+    "text": "[02b] Materials\n\nTopics\n\nModeration\nAssumptions\nDiagnostics\n\n\n\nReadings\n\nKelley & Maxwell (2019)\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 01\n\n  Week 03  »"
+  },
+  {
+    "objectID": "A/01/index.html",
+    "href": "A/01/index.html",
+    "title": "Week 01: Overview and Recap",
+    "section": "",
+    "text": "No Class due to MLK Day"
+  },
+  {
+    "objectID": "A/01/index.html#a-materials",
+    "href": "A/01/index.html#a-materials",
+    "title": "Week 01: Overview and Recap",
+    "section": "",
+    "text": "No Class due to MLK Day"
+  },
+  {
+    "objectID": "A/01/index.html#b-materials",
+    "href": "A/01/index.html#b-materials",
+    "title": "Week 01: Overview and Recap",
+    "section": "[01b] Materials",
+    "text": "[01b] Materials\n\nTopics\n\nOverview of Syllabus, Canvas, and Website\nRecap of Basic Workflow in R and Quarto\n\n\n\nReadings\n\nRequired\n\nS&F (1E) Chapter 1: Introduction\n\n\n\nOptional\n\nWCG (2E) Chapter 2: Workflow: Basics\nWCG (2E) Chapter 6: Workflow: Scripts and Projects\nWCG (2E) Chapter 7: Data import\nWCG (2E) Sections 28.1–28.5: Quarto\n\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n  «  Home\n\n  Week 02  »"
+  },
+  {
+    "objectID": "A/03/index.html",
+    "href": "A/03/index.html",
+    "title": "Week 03: Clustered Data",
+    "section": "",
+    "text": "Multilevel Data and Questions\nConceptual Issues with Clustering\nStatistical Issues with Clustering\n\n\n\n\n\nHMV Chapter 1: Introduction to Multilevel Analysis\nMcCoach & Adelson (2010): Understanding the effects of clustered data\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+  },
+  {
+    "objectID": "A/03/index.html#a-materials",
+    "href": "A/03/index.html#a-materials",
+    "title": "Week 03: Clustered Data",
+    "section": "",
+    "text": "Multilevel Data and Questions\nConceptual Issues with Clustering\nStatistical Issues with Clustering\n\n\n\n\n\nHMV Chapter 1: Introduction to Multilevel Analysis\nMcCoach & Adelson (2010): Understanding the effects of clustered data\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+  },
+  {
+    "objectID": "A/03/index.html#b-materials",
+    "href": "A/03/index.html#b-materials",
+    "title": "Week 03: Clustered Data",
+    "section": "[03b] Materials",
+    "text": "[03b] Materials\n\nTopics\n\n“Complete Pooling” Approaches\n“No Pooling” Approaches\n“Partial Pooling” Approaches\n\n\n\nReadings\n\nS&F Chapter 3: Approaches to Multilevel Data\nAdvanced: McNeish et al. (2016): On the unnecessary ubiquity of hierarchical linear modeling\nAdvanced: McNeish (2023): A practical guide to selecting and blending approaches for clustered data\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 02\n\n  Week 04  »"
+  },
+  {
+    "objectID": "A/04/index.html",
+    "href": "A/04/index.html",
+    "title": "Week 04: The Mechanics of MLM",
+    "section": "",
+    "text": "Ordinary Least Squares\nMaximum Likelihood\nBayesian Overview\n\n\n\n\n\nHMV Sections 3.1–3.3: Which Estimation Method?\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+  },
+  {
+    "objectID": "A/04/index.html#a-materials",
+    "href": "A/04/index.html#a-materials",
+    "title": "Week 04: The Mechanics of MLM",
+    "section": "",
+    "text": "Ordinary Least Squares\nMaximum Likelihood\nBayesian Overview\n\n\n\n\n\nHMV Sections 3.1–3.3: Which Estimation Method?\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools."
+  },
+  {
+    "objectID": "A/04/index.html#b-materials",
+    "href": "A/04/index.html#b-materials",
+    "title": "Week 04: The Mechanics of MLM",
+    "section": "[04b] Materials",
+    "text": "[04b] Materials\n\nTopics\n\nData Tidying Recap\nGetting to Long Format\nMultilevel Manipulation\n\n\n\nFile Downloads\n\nheck2011.csv\nL1_people.csv\nL2_countries.csv\n\n\n\nReadings\n\nWCG Chapter 3: Data transformation\nWCG Chapter 5: Data tidying\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.\n\n\n\n  «  Week 03\n\n  Week 05  »"
+  },
+  {
+    "objectID": "B/06/assignment.html",
+    "href": "B/06/assignment.html",
+    "title": "Lab 06: Random Intercepts",
+    "section": "",
+    "text": "First, load the necessary packages (e.g., tidyverse, lme4, and easystats) and your data. You will be using the “smiling.csv” dataset (available on Canvas) for the entirety of this lab. Format the main categorical variables (nation, sex) as factors."
+  },
+  {
+    "objectID": "B/06/assignment.html#setup-and-data-preparation",
+    "href": "B/06/assignment.html#setup-and-data-preparation",
+    "title": "Lab 06: Random Intercepts",
+    "section": "",
+    "text": "First, load the necessary packages (e.g., tidyverse, lme4, and easystats) and your data. You will be using the “smiling.csv” dataset (available on Canvas) for the entirety of this lab. Format the main categorical variables (nation, sex) as factors."
+  },
+  {
+    "objectID": "B/06/assignment.html#part-i-null-models",
+    "href": "B/06/assignment.html#part-i-null-models",
+    "title": "Lab 06: Random Intercepts",
+    "section": "Part I: Null Models",
+    "text": "Part I: Null Models\nFor this section, we will partition the variance in smiling behavior across different nations.\n\nQuestion 1: Fitting the Empty Model\nEmpty models, or null models, are models with no predictor variables. They are an excellent first step when learning multilevel modeling (MLM).\n\n1a. Fit a null model predicting smile with a random intercept for nation. You will need to specify the generic formula y ~ 1 + (1 | cluster) using the lmer() function. Assign this model to an object.\n1b. Use the model_parameters() function to view your results. In your own words, report and interpret the fixed intercept and the random intercept standard deviation.\n\n\n\nQuestion 2: Intraclass Correlation Coefficient (ICC)\nWe will continue using null models to estimate ICCs.\n\n2a. Calculate the unconditional ICC for your null model. You can extract the variances manually to calculate this, or you can use the convenience functions from the easystats performance package.\n2b. Interpret the ICC in the context of this dataset. Specifically, what percentage of the variance in smiling is between nations, and what percentage is within nations?"
+  },
+  {
+    "objectID": "B/06/assignment.html#part-ii-level-2-predictors",
+    "href": "B/06/assignment.html#part-ii-level-2-predictors",
+    "title": "Lab 06: Random Intercepts",
+    "section": "Part II: Level-2 Predictors",
+    "text": "Part II: Level-2 Predictors\nFor this section, we will add a Level-2 predictor to our model. Because a nation’s GDP (gdp_percap_ppp, an indicator of national wealth) is measured at the cluster level, it has no variance within a cluster. Therefore, it has a single, fixed effect across the entire population.\n\nQuestion 3: Fitting an L2 Predictor\nBy adding predictor variables to MLMs, we can try to explain or predict variance partitions.\n\n3a. Fit a model predicting smile with a fixed effect for gdp_percap_ppp and a random intercept for nation. Use the generic formula y ~ 1 + z + (1 | cluster) as your guide.\n3b. Interpret the fixed intercept and the fixed slope of gdp_percap_ppp. What does the intercept represent in this context (where GDP is zero), and what is the expected change in a nation’s average smiling score for a 1-unit increase in GDP? Is this slope statistically significant?\n\n\n\nQuestion 4: The Cost of Ignoring Clustering\nIt can be tempting to use a simpler model, but ignoring the clustered nature of your data comes with costs.\n\n4a. Fit a standard linear model (OLS) predicting smile from gdp_percap_ppp using the lm() function. Then, use compare_parameters(..., select = \"se\") to compare the standard errors of the OLS model and your MLM from Question 3a. Briefly explain why the standard errors differ and the danger of ignoring clustering.\n4b. Visualize the marginal effect of gdp_percap_ppp on smile using your multilevel model from Question 3a. Extract the relation using estimate_relation() and plot it."
+  },
+  {
+    "objectID": "B/06/assignment.html#part-iii-level-1-predictors",
+    "href": "B/06/assignment.html#part-iii-level-1-predictors",
+    "title": "Lab 06: Random Intercepts",
+    "section": "Part III: Level-1 Predictors",
+    "text": "Part III: Level-1 Predictors\nFor this final section, we will test a Level-1 predictor. Level-1 predictors try to explain variance within clusters. We will assume the effect of our L1 predictor is identical across all clusters.\n\nQuestion 5: Fitting an L1 Predictor\n\n5a. Fit a model predicting smile with a fixed slope for sex and a random intercept for nation. Use the generic formula y ~ 1 + x + (1 | cluster) as your guide. Assign this model to an object.\n5b. Interpret the fixed slope of the sex variable. What is the expected difference in smiling scores for this predictor, and is it statistically significant?\n\n\n\nQuestion 6: Visualizing Fixed Slopes\n\n6a. Derive the cluster deviations to see how each nation deviates from the fixed intercept. You can extract these estimates using estimate_grouplevel(fit, type = \"random\").\n6b. Visualize the marginal effect of sex on smile using your MLM by extracting the relation with estimate_relation() and plotting it. Because we only estimated a random intercept and a fixed slope, what assumption does this model make about the effect of sex across different nations?"
   },
   {
     "objectID": "index.html",
