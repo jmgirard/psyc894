@@ -7,7 +7,7 @@ format:
 
 ## Setup and Data Preparation
 
-First, load the necessary packages (e.g., `tidyverse`, `lme4`, and `easystats`) and your data. You will be using the "smiling.csv" dataset (available on Canvas) for the entirety of this lab. Format the main categorical variables (nation, sex) as factors.
+First, load the necessary packages (e.g., `tidyverse`, `lme4`, and `easystats`) and your data. You will be using the "smiling.csv" dataset (available on Canvas) for the entirety of this lab. It is a subset of real data from Campbell, Girard, McDuff, \& Rosengren ([2025](https://doi.org/10.1177/10949968251360683)). Be sure to format sex and nation as factors. Also, create a new variable called `gdp` by applying the `standardize()` function to the `gdp_percap_ppp` variable. This will prevent model convergence warnings and make the slope easier to interpret.
 
 ## Part I: Null Models 
 
@@ -32,14 +32,14 @@ For this section, we will add a Level-2 predictor to our model. Because a nation
 ### Question 3: Fitting an L2 Predictor
 By adding predictor variables to MLMs, we can try to explain or predict variance partitions. 
 
-- **3a.** Fit a model predicting `smile` with a fixed effect for `gdp_percap_ppp` and a random intercept for `nation`. Use the generic formula `y ~ 1 + z + (1 | cluster)` as your guide. 
-- **3b.** Interpret the fixed intercept and the fixed slope of `gdp_percap_ppp`. What does the intercept represent in this context (where GDP is zero), and what is the expected change in a nation's average smiling score for a 1-unit increase in GDP? Is this slope statistically significant?
+- **3a.** Fit a model predicting `smile` with a fixed effect for `gdp` and a random intercept for `nation`. Use the generic formula `y ~ 1 + z + (1 | cluster)` as your guide. 
+- **3b.** Interpret the fixed intercept and the fixed slope of `gdp`. What does the intercept represent in this context (where the standardized GDP is zero), and what is the expected change in a nation's average smiling score for a 1 standard deviation increase in GDP? Is this slope statistically significant?
 
 ### Question 4: The Cost of Ignoring Clustering
 It can be tempting to use a simpler model, but ignoring the clustered nature of your data comes with costs.
 
-- **4a.** Fit a standard linear model (OLS) predicting `smile` from `gdp_percap_ppp` using the `lm()` function. Then, use `compare_parameters(..., select = "se")` to compare the standard errors of the OLS model and your MLM from Question 3a. Briefly explain why the standard errors differ and the danger of ignoring clustering.
-- **4b.** Visualize the marginal effect of `gdp_percap_ppp` on `smile` using your multilevel model from Question 3a. Extract the relation using `estimate_relation()` and plot it. 
+- **4a.** Fit a standard linear model (OLS) predicting `smile` from `gdp` using the `lm()` function. Then, use `compare_parameters(..., select = "se")` to compare the standard errors of the OLS model and your MLM from Question 3a. Briefly explain why the standard errors differ and the danger of ignoring clustering.
+- **4b.** Visualize the marginal effect of `gdp` on `smile` using your multilevel model from Question 3a. Extract the relation using `estimate_relation()` and plot it. 
 
 ## Part III: Level-1 Predictors
 
