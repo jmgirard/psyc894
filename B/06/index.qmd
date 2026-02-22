@@ -1,0 +1,65 @@
+---
+title: "Week 06: Random Intercept Models"
+---
+
+<!-- 06a -->
+
+## [06a] Null Models
+
+### Topics
+- Overview: Random Intercepts, Null Models
+- Specifications: Equations, Formulas, Diagrams
+- Practicalities: ICCs, Estimates, Interpretations
+
+### File Downloads
+- [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
+
+### Readings
+- [S\&F Chapter 4: Our first multilevel models](https://www.learn-mlms.com/04-module-4.html){target="_blank"}
+
+### Slides
+
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[06a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.
+:::
+
+
+<!-- 06b -->
+
+## [06b] Fixed Slopes
+
+### Topics
+- Overview: Slope Types and Rationales
+- Fixed Slopes for L2: Specifications and Examples
+- Fixed Slopes for L1: Specifications and Examples
+
+### File Downloads
+- [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
+
+### Readings
+- [S\&F Chapter 5: Adding fixed predictors to MLMs](https://www.learn-mlms.com/05-module-5.html){target="_blank"}
+
+### Slides
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[06b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.
+:::
+
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../05/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 05</a>
+
+  <a href="../07/index.html" class="btn btn-primary" role="button">Week 07&nbsp;&nbsp;&raquo;</a>
+</div>
+```

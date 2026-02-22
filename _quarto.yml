@@ -37,14 +37,14 @@ website:
             href: A/04/index.html
       - text: "Unit B"
         menu:
-          - icon: arrow-down-up
-            text: "Week 05: Random Intercept Models"
+          - icon: virus
+            text: "Week 05: Influenza"
             href: B/05/index.html
-          - icon: shuffle
-            text: "Week 06: Random Slope Models"
+          - icon: arrow-down-up
+            text: "Week 06: Random Intercepts"
             href: B/06/index.html
-          - icon: arrow-down-right
-            text: "Week 07: Cross-level Interactions"
+          - icon: shuffle
+            text: "Week 07: Random Slopes"
             href: B/07/index.html
           - icon: translate
             text: "Week 08: Translation Activity"

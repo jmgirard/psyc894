@@ -1,58 +1,14 @@
 ---
-title: "Week 05: Random Intercept Models"
+title: "Week 05: Influenza"
 ---
 
-<!-- 05a -->
+## [05a] NO CLASS
 
-## [05a] Null Models
+- Instructor out sick
 
-### Topics
-- Overview: Random Intercepts, Null Models
-- Specifications: Equations, Formulas, Diagrams
-- Practicalities: ICCs, Estimates, Interpretations
+## [05b] NO CLASS
 
-### File Downloads
-- [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
-
-### Readings
-- [S\&F Chapter 4: Our first multilevel models](https://www.learn-mlms.com/04-module-4.html){target="_blank"}
-
-### Slides
-
-```{=html}
-<iframe class="slide-deck" src="a_Slides.html" title="[05a] Slideshow">
-</iframe>
-```
-
-::: {.fsmaller}
-\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.
-:::
-
-
-<!-- 05b -->
-
-## [05b] Fixed Slopes
-
-### Topics
-- Overview: Slope Types and Rationales
-- Fixed Slopes for L2: Specifications and Examples
-- Fixed Slopes for L1: Specifications and Examples
-
-### File Downloads
-- [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
-
-### Readings
-- [S\&F Chapter 5: Adding fixed predictors to MLMs](https://www.learn-mlms.com/05-module-5.html){target="_blank"}
-
-### Slides
-```{=html}
-<iframe class="slide-deck" src="b_Slides.html" title="[05b] Slideshow">
-</iframe>
-```
-
-::: {.fsmaller}
-\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu and tools.
-:::
+- Instructor out sick
 
 <!-- Bottom Nav -->
 

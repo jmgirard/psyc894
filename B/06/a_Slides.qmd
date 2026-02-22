@@ -19,7 +19,7 @@ format:
     author-meta: "Jeffrey Girard"
     semester: "Spring 2026"
     course: "PSYC 894"
-    lecture: "05a"
+    lecture: "06a"
 execute:
   echo: true
   eval: true
