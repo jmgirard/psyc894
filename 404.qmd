@@ -1,5 +1,6 @@
 ---
 title: Page Not Found
+toc: false
 ---
 
 The page you requested cannot be found. It is likely still being developed! 
@@ -14,7 +15,7 @@ The following weeks are ready for viewing:
 - [x] Week 02
 - [x] Week 03
 - [x] Week 04
-- [ ] Week 05
+- [x] Week 05
 - [ ] Week 06
 - [ ] Week 07
 - [ ] Week 08
