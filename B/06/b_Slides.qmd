@@ -199,24 +199,28 @@ $$
 
 ![](../../diagrams/fixed_slopes_l2_full.png)
 
-## Mixed (or Reduced) Equation
+## Mixed (or Reduced) Equation {.fsmaller}
 
-:::{.eql}
 $$
-\begin{align}
-\text{Level One} \\
-y_{ij} &= \beta_{0j} + e_{ij} \\
-\text{Level Two} \\
-\beta_{0j} &= \gamma_{00} + \gamma_{01} z_j + u_{0j}
-\end{align}
+\begin{alignat}{2}
+&\text{L1:} \quad & y_{ij} &= \beta_{0j} + e_{ij} \\
+&\text{L2:} \quad & \beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j}
+\end{alignat}
+$$
+
+Substitute the L2 equation directly into the L1 equation:
+
+$$
+y_{ij} = (\color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j}) + e_{ij}
+$$
+
+:::{.fragment}
+Rearrange to group the fixed and random parts:
+
+$$
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j}_{\text{Fixed}} + \underbrace{u_{0j} + e_{ij}}_{\text{Random}}
 $$
 :::
-
-We can make one [mixed equation]{.b .blue} through substitution.
-
-$$
-y_{ij} = \underbrace{\gamma_{00} + \gamma_{01} z_j + u_{0j}}_{\beta_{0j}} + e_{ij}
-$$
 
 :::{.fragment}
 This mixed equation is the basis of the R formula.
@@ -470,30 +474,30 @@ $$
 
 ## Mixed (or Reduced) Equation {.fsmaller}
 
-:::{.eql}
 $$
-\begin{align}
-\text{Level One} \\
-y_{ij} &= \beta_{0j} + \color{#ff7f00}{\beta_{1j}} x_{ij} + e_{ij} \\
-\text{Level Two} \\
-\beta_{0j} &= \gamma_{00} + u_{0j} \\
-\color{#ff7f00}{\beta_{1j}} &= \color{#ff7f00}{\gamma_{10}}
-\end{align}
+\begin{alignat}{2}
+&\text{L1:} \quad & y_{ij} &= \beta_{0j} + \color{#ff7f00}{\beta_{1j}} x_{ij} + e_{ij} \\
+&\text{L2:} \quad & \beta_{0j} &= \color{#377eb8}{\gamma_{00}} + u_{0j} \\
+&                 & \color{#ff7f00}{\beta_{1j}} &= \color{#ff7f00}{\gamma_{10}}
+\end{alignat}
 $$
-:::
 
 Substitute the L2 equations directly into the L1 equation:
 
 $$
-y_{ij} = (\gamma_{00} + u_{0j}) + (\color{#ff7f00}{\gamma_{10}}) x_{ij} + e_{ij}
+y_{ij} = (\color{#377eb8}{\gamma_{00}} + u_{0j}) + (\color{#ff7f00}{\gamma_{10}}) x_{ij} + e_{ij}
 $$
 
 :::{.fragment}
 Rearrange to group the fixed and random parts:
 
 $$
-y_{ij} = \underbrace{\gamma_{00} + \color{#ff7f00}{\gamma_{10}} x_{ij}}_{\text{Fixed}} + \underbrace{u_{0j} + e_{ij}}_{\text{Random}}
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#ff7f00}{\gamma_{10}} x_{ij}}_{\text{Fixed}} + \underbrace{u_{0j} + e_{ij}}_{\text{Random}}
 $$
+:::
+
+:::{.fragment}
+This mixed equation is the basis of the R formula.
 :::
 
 ## Formula

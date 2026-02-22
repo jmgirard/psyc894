@@ -313,28 +313,31 @@ $$
 
 ![](../../diagrams/random_intercepts_full.png)
 
-## Mixed (or Reduced) Equation
-
-:::{.eql}
-$$
-\begin{align}
-\text{Level One} \\
-y_{ij} &= \beta_{0j} + e_{ij} \\
-\text{Level Two} \\
-\beta_{0j} &= \gamma_{00} + u_{0j}
-\end{align}
-$$
-
-:::
-
-We can make one [mixed equation]{.b .blue} through substitution
+## Mixed (or Reduced) Equation {.fsmaller}
 
 $$
-y_{ij} = \underbrace{\gamma_{00} + u_{0j}}_{\beta_{0j}} + e_{ij}
+\begin{alignat}{2}
+&\text{L1:} \quad & y_{ij} &= \beta_{0j} + \color{#e41a1c}{e_{ij}} \\
+&\text{L2:} \quad & \beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#4daf4a}{u_{0j}}
+\end{alignat}
+$$
+
+Substitute the L2 equation directly into the L1 equation:
+
+$$
+y_{ij} = (\color{#377eb8}{\gamma_{00}} + \color{#4daf4a}{u_{0j}}) + \color{#e41a1c}{e_{ij}}
 $$
 
 :::{.fragment}
-This mixed equation is the basis of the R formula
+Rearrange to group the fixed and random parts:
+
+$$
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}}}_{\text{Fixed}} + \underbrace{\color{#4daf4a}{u_{0j}} + \color{#e41a1c}{e_{ij}}}_{\text{Random}}
+$$
+:::
+
+:::{.fragment}
+This mixed equation is the basis of the R formula.
 :::
 
 ## Formula
