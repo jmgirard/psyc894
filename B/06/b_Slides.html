@@ -350,8 +350,8 @@ u_{0j} \sim \text{Normal}(0, \tau_{00})
 <h2>Students in Schools Example</h2>
 <p><span class="math display">\[
 \begin{align}
-\textit{MATH}_{ij} &amp;= \beta_{0j} + e_{ij} \\
-\beta_{0j} &amp;= \gamma_{00} + \gamma_{01} \mathit{PUBLIC}_j + u_{0j}
+\text{MATH}_{ij} &amp;= \beta_{0j} + e_{ij} \\
+\beta_{0j} &amp;= \gamma_{00} + \gamma_{01} \text{PUBLIC}_j + u_{0j}
 \end{align}
 \]</span></p>
 <ul>
@@ -523,8 +523,8 @@ school | 6     | (Intercept) |        2.56 | 1.73 | [ -0.83,  5.95]</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.138 [0.114, 0.161]
-  Unadjusted ICC: 0.138 [0.114, 0.161]</code></pre>
+    Adjusted ICC: 0.138 [0.117, 0.165]
+  Unadjusted ICC: 0.138 [0.117, 0.165]</code></pre>
 </div>
 </div>
 <div title="Why does this matter?">
@@ -692,7 +692,7 @@ u_{0j} \sim \text{Normal}(0, \tau_{00}) \\
 <h2>Students in Schools Example</h2>
 <p><span class="math display">\[
 \begin{align}
-\textit{MATH}_{ij} &amp;= \beta_{0j} + \color{#ff7f00}{\beta_{1j}} \mathit{FEMALE}_{ij} + e_{ij} \\
+\text{MATH}_{ij} &amp;= \beta_{0j} + \color{#ff7f00}{\beta_{1j}} \text{FEMALE}_{ij} + e_{ij} \\
 \beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + u_{0j} \\
 \color{#ff7f00}{\beta_{1j}} &amp;= \color{#ff7f00}{\gamma_{10}}
 \end{align}
@@ -823,8 +823,8 @@ SD (Residual)          |        8.14</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.137 [0.109, 0.157]
-  Unadjusted ICC: 0.136 [0.108, 0.156]</code></pre>
+    Adjusted ICC: 0.137 [0.115, 0.163]
+  Unadjusted ICC: 0.136 [0.115, 0.162]</code></pre>
 </div>
 </div>
 </div>
