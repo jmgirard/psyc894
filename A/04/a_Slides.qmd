@@ -510,6 +510,8 @@ $$
 ## Visual Depiction: Prior
 
 ```{r}
+#| echo: false
+
 # Define a grid of possible parameter values (theta)
 theta <- seq(0, 1, length.out = 100)
 
@@ -549,6 +551,8 @@ mycolors <- RColorBrewer::brewer.pal(3, "Set1")
 ```
 
 ```{r}
+#| echo: false
+
 ggplot(df_prior, aes(x = theta, y = density / max(density))) +
   geom_line(color = mycolors[[2]], linewidth = 1.5) +
   labs(x = expression(theta), y = "Prior Probability") +
@@ -558,6 +562,8 @@ ggplot(df_prior, aes(x = theta, y = density / max(density))) +
 ## Visual Depiction: Likelihood
 
 ```{r}
+#| echo: false
+
 ggplot(df_likelihood, aes(x = theta, y = density)) +
   geom_line(color = mycolors[[3]], linewidth = 1.5) +
   labs(x = expression(theta), y = "Scaled Likelihood") +
@@ -567,6 +573,8 @@ ggplot(df_likelihood, aes(x = theta, y = density)) +
 ## Visual Depiction: Posterior
 
 ```{r}
+#| echo: false
+
 ggplot(df_posterior, aes(x = theta, y = density)) +
   geom_line(color = mycolors[[1]], linewidth = 1.5) +
   labs(x = expression(theta), y = "Posterior Probability") +
@@ -576,6 +584,8 @@ ggplot(df_posterior, aes(x = theta, y = density)) +
 ## Comparison
 
 ```{r}
+#| echo: false
+
 ggplot(df_all, aes(x = theta, y = density, color = distribution)) +
   geom_line(linewidth = 1.5) + 
   scale_color_manual(
@@ -595,6 +605,7 @@ ggplot(df_all, aes(x = theta, y = density, color = distribution)) +
     + But can be misleading and needs to be justified
     
 ```{r}
+#| echo: false
 #| fig-width: 12
 #| fig-height: 4
 
@@ -619,6 +630,7 @@ ggplot(
     + But some values are really implausible...
 
 ```{r}
+#| echo: false
 #| fig-width: 12
 #| fig-height: 4
 
@@ -639,6 +651,7 @@ ggplot(tibble(theta), aes(x = theta, y = prior)) +
     + We can conservatively center it on the null value
 
 ```{r}
+#| echo: false
 #| fig-width: 12
 #| fig-height: 4
 

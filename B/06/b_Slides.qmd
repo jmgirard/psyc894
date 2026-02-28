@@ -38,13 +38,10 @@ set_theme(theme_gray(base_size = 20))
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-1. Overview
-    + *Slope Types and Rationales*
-  
-2. Fixed Slopes for L2
+1. Fixed Slopes for L2
     + *Specifications and Examples*
 
-3. Fixed Slopes for L1
+2. Fixed Slopes for L1
     + *Specifications and Examples*
     
 :::
@@ -417,7 +414,7 @@ e_{ij} \sim \text{Normal}(0, \sigma)
 $$
 
 > $y_{ij}$ is the **outcome** for observation $i$ in cluster $j$ and equals...<br>
-> ...the **Cluster Average** $(\beta_{0j})$ plus the **Effect of Predictor $x$** $(\color{#ff7f00}{\beta_{1j}} x_{ij})$ plus the **Observation Deviation** $(e_{ij})$.
+> ...the **Cluster Average** $(\beta_{0j})$ (the expected average when $x_{ij}=0$) plus the **Effect of Predictor $x$** $(\color{#ff7f00}{\beta_{1j}} x_{ij})$ plus the **Observation Deviation** $(e_{ij})$.
 
 :::{.fragment}
 $$
