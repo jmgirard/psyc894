@@ -1297,6 +1297,100 @@ Type of slope was dY/dX</code></pre>
         ]
       });
     </script>
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+      // 1. Re-classify stderr to warnings and messages and strip empty lines
+
+      document.querySelectorAll('.cell-output-stderr').forEach(function(output) {
+
+        // Strip invisible zero-width spaces Quarto sometimes inserts
+
+        const text = output.textContent.replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
+
+    
+
+        // Remove completely empty blocks to fix the gaps
+
+        if (text === '') {
+
+          output.remove();
+
+          return;
+
+        }
+
+    
+
+        if (output.textContent.includes('Warning:')) {
+
+          output.classList.replace('cell-output-stderr', 'cell-output-warning');
+
+        } else {
+
+          output.classList.replace('cell-output-stderr', 'cell-output-message');
+
+        }
+
+      });
+
+    
+
+      // 2. Physically merge adjacent blocks into one seamless block
+
+      ['.cell-output-message', '.cell-output-warning'].forEach(function(selector) {
+
+        const elements = document.querySelectorAll(selector);
+
+        elements.forEach(function(current) {
+
+          if (!current.parentNode) return; // Skip if it was already merged and removed
+
+    
+
+          let next = current.nextElementSibling;
+
+          while (next && next.classList.contains(selector.substring(1))) {
+
+            let currentCode = current.querySelector('pre code');
+
+            let nextCode = next.querySelector('pre code');
+
+    
+
+            if (currentCode && nextCode) {
+
+               // Clean up formatting and append to the primary block
+
+               let appendText = nextCode.innerHTML.replace(/^\n+|\n+$/g, '');
+
+               if (appendText !== '') {
+
+                 currentCode.innerHTML += '\n' + appendText;
+
+               }
+
+            }
+
+    
+
+            let toRemove = next;
+
+            next = next.nextElementSibling;
+
+            toRemove.remove();
+
+          }
+
+        });
+
+      });
+
+    });
+
+    </script>
+
     
 
     <script>

@@ -29,6 +29,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-0b5db92d115c8c04db4ce50e7f546384.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -518,19 +582,86 @@ P(\theta|\text{Data}) \propto \frac{P(\text{Data}|\theta)P(\theta)}{P(\text{Data
 </section>
 <section class="slide level2">
 <h2>Visual Depiction: Prior</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Define a grid of possible parameter values (theta)</span></span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Define a Beta(2,2) prior</span></span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(theta, <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>prior_scaled <span class="ot">&lt;-</span> prior <span class="sc">/</span> <span class="fu">max</span>(prior)</span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Assume a binomial likelihood: 6 successes out of 10 trials</span></span>
+<span id="cb1-9"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb1-10"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">9</span></span>
+<span id="cb1-11"><a aria-hidden="true" tabindex="-1"></a>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(y, <span class="at">size =</span> n, <span class="at">prob =</span> theta)</span>
+<span id="cb1-12"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the unnormalized posterior</span></span>
+<span id="cb1-14"><a aria-hidden="true" tabindex="-1"></a>posterior_unnormalized <span class="ot">&lt;-</span> likelihood <span class="sc">*</span> prior</span>
+<span id="cb1-15"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize the posterior</span></span>
+<span id="cb1-17"><a aria-hidden="true" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> posterior_unnormalized <span class="sc">/</span> <span class="fu">sum</span>(posterior_unnormalized)</span>
+<span id="cb1-18"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Create individual data frames for each step</span></span>
+<span id="cb1-20"><a aria-hidden="true" tabindex="-1"></a>df_prior <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-21"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">theta =</span> theta, </span>
+<span id="cb1-22"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">density =</span> prior_scaled, </span>
+<span id="cb1-23"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">distribution =</span> <span class="st">"Prior"</span></span>
+<span id="cb1-24"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-25"><a aria-hidden="true" tabindex="-1"></a>df_likelihood <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-26"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">theta =</span> theta, </span>
+<span id="cb1-27"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">density =</span> likelihood <span class="sc">/</span> <span class="fu">max</span>(likelihood), </span>
+<span id="cb1-28"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">distribution =</span> <span class="st">"Likelihood"</span></span>
+<span id="cb1-29"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-30"><a aria-hidden="true" tabindex="-1"></a>df_posterior <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-31"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">theta =</span> theta, </span>
+<span id="cb1-32"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">density =</span> posterior <span class="sc">/</span> <span class="fu">max</span>(posterior), </span>
+<span id="cb1-33"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">distribution =</span> <span class="st">"Posterior"</span></span>
+<span id="cb1-34"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-35"><a aria-hidden="true" tabindex="-1"></a>df_all <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(df_prior, df_likelihood, df_posterior)</span>
+<span id="cb1-36"><a aria-hidden="true" tabindex="-1"></a>mycolors <span class="ot">&lt;-</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">3</span>, <span class="st">"Set1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_prior, <span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> density <span class="sc">/</span> <span class="fu">max</span>(density))) <span class="sc">+</span></span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> mycolors[[<span class="dv">2</span>]], <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"Prior Probability"</span>) <span class="sc">+</span></span>
+<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
+</div>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Visual Depiction: Likelihood</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_likelihood, <span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> density)) <span class="sc">+</span></span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> mycolors[[<span class="dv">3</span>]], <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"Scaled Likelihood"</span>) <span class="sc">+</span></span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
+</div>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Visual Depiction: Posterior</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_posterior, <span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> density)) <span class="sc">+</span></span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> mycolors[[<span class="dv">1</span>]], <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"Posterior Probability"</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
+</div>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Comparison</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_all, <span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> density, <span class="at">color =</span> distribution)) <span class="sc">+</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">+</span> </span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(</span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Prior"</span> <span class="ot">=</span> mycolors[[<span class="dv">2</span>]], <span class="st">"Likelihood"</span> <span class="ot">=</span> mycolors[[<span class="dv">3</span>]], <span class="st">"Posterior"</span> <span class="ot">=</span> mycolors[[<span class="dv">1</span>]]),</span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="st">"Prior"</span>, <span class="st">"Likelihood"</span>, <span class="st">"Posterior"</span>)</span>
+<span id="cb5-6"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"Probability"</span>, <span class="at">color =</span> <span class="st">"Distribution"</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">24</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
+</div>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Informative Priors</h2>
@@ -541,7 +672,20 @@ P(\theta|\text{Data}) \propto \frac{P(\text{Data}|\theta)P(\theta)}{P(\text{Data
 <li>But can be misleading and needs to be justified</li>
 </ul></li>
 </ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(theta, <span class="dv">9</span>, <span class="dv">2</span>)</span>
+<span id="cb6-3"><a aria-hidden="true" tabindex="-1"></a>prior_scaled <span class="ot">&lt;-</span> prior <span class="sc">/</span> <span class="fu">max</span>(prior)</span>
+<span id="cb6-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb6-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(theta, <span class="at">density =</span> prior_scaled), </span>
+<span id="cb6-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> density)</span>
+<span id="cb6-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb6-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> mycolors[[<span class="dv">2</span>]], <span class="at">linewidth =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb6-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"Prior"</span>) <span class="sc">+</span></span>
+<span id="cb6-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
+</div>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="1152" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Noninformative Priors</h2>
@@ -552,7 +696,17 @@ P(\theta|\text{Data}) \propto \frac{P(\text{Data}|\theta)P(\theta)}{P(\text{Data
 <li>But some values are really implausible…</li>
 </ul></li>
 </ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.2</span>, <span class="fl">1.2</span>, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">dunif</span>(theta, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(theta), <span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> prior)) <span class="sc">+</span></span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> mycolors[[<span class="dv">2</span>]], <span class="at">linewidth =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.25</span>)) <span class="sc">+</span></span>
+<span id="cb7-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb7-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"Prior"</span>) <span class="sc">+</span></span>
+<span id="cb7-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
+</div>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-13-1.png" width="1152" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Weakly Informative Priors</h2>
@@ -563,7 +717,20 @@ P(\theta|\text{Data}) \propto \frac{P(\text{Data}|\theta)P(\theta)}{P(\text{Data
 <li>We can conservatively center it on the null value</li>
 </ul></li>
 </ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(theta, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>prior_scaled <span class="ot">&lt;-</span> prior <span class="sc">/</span> <span class="fu">max</span>(prior)</span>
+<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(theta, <span class="at">density =</span> prior_scaled), </span>
+<span id="cb8-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> theta, <span class="at">y =</span> density)</span>
+<span id="cb8-8"><a aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb8-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> mycolors[[<span class="dv">2</span>]], <span class="at">linewidth =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb8-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="fu">expression</span>(theta), <span class="at">y =</span> <span class="st">"Prior"</span>) <span class="sc">+</span></span>
+<span id="cb8-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
+</div>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-14-1.png" width="1152" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Approximating the Posterior</h2>
@@ -833,6 +1000,100 @@ P(\theta|\text{Data}) \propto \frac{P(\text{Data}|\theta)P(\theta)}{P(\text{Data
         ]
       });
     </script>
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+      // 1. Re-classify stderr to warnings and messages and strip empty lines
+
+      document.querySelectorAll('.cell-output-stderr').forEach(function(output) {
+
+        // Strip invisible zero-width spaces Quarto sometimes inserts
+
+        const text = output.textContent.replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
+
+    
+
+        // Remove completely empty blocks to fix the gaps
+
+        if (text === '') {
+
+          output.remove();
+
+          return;
+
+        }
+
+    
+
+        if (output.textContent.includes('Warning:')) {
+
+          output.classList.replace('cell-output-stderr', 'cell-output-warning');
+
+        } else {
+
+          output.classList.replace('cell-output-stderr', 'cell-output-message');
+
+        }
+
+      });
+
+    
+
+      // 2. Physically merge adjacent blocks into one seamless block
+
+      ['.cell-output-message', '.cell-output-warning'].forEach(function(selector) {
+
+        const elements = document.querySelectorAll(selector);
+
+        elements.forEach(function(current) {
+
+          if (!current.parentNode) return; // Skip if it was already merged and removed
+
+    
+
+          let next = current.nextElementSibling;
+
+          while (next && next.classList.contains(selector.substring(1))) {
+
+            let currentCode = current.querySelector('pre code');
+
+            let nextCode = next.querySelector('pre code');
+
+    
+
+            if (currentCode && nextCode) {
+
+               // Clean up formatting and append to the primary block
+
+               let appendText = nextCode.innerHTML.replace(/^\n+|\n+$/g, '');
+
+               if (appendText !== '') {
+
+                 currentCode.innerHTML += '\n' + appendText;
+
+               }
+
+            }
+
+    
+
+            let toRemove = next;
+
+            next = next.nextElementSibling;
+
+            toRemove.remove();
+
+          }
+
+        });
+
+      });
+
+    });
+
+    </script>
+
     
 
     <script>

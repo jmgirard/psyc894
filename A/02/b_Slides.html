@@ -226,7 +226,7 @@
 <span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"penguins"</span>, <span class="st">"mtcars"</span>, <span class="st">"cars"</span>, <span class="st">"airquality"</span>)</span>
 <span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fsmaller">
 <p><strong>New Packages:</strong></p>
@@ -353,7 +353,7 @@ flipper len × bill dep |       -8.60 |  1.34 | [ -11.23,   -5.96] |  -6.41 | &l
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="768"></p>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -384,7 +384,7 @@ flipper len × bill dep |       -8.60 |  1.34 | [ -11.23,   -5.96] |  -6.41 | &l
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="864"></p>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -539,7 +539,7 @@ flipper len × species [Gentoo]    |       21.79 | [   8.14,   35.44] | 0.002 </
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="816"></p>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -819,7 +819,7 @@ Slopes Estimated
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="624"></p>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -876,7 +876,7 @@ Slopes Estimated
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-14-1.png" width="624"></p>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-14-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -935,7 +935,7 @@ Slopes Estimated
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-15-1.png" width="624"></p>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-15-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1043,7 +1043,7 @@ speed       |        3.93 | 0.43 | [  3.07,  4.79] |  9.20 | &lt; .001</code></p
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-19-1.png" width="624"></p>
+<p><img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-19-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1092,8 +1092,8 @@ Wind        |       -5.55 | 0.69 | [-6.92,  -4.18] |  -8.04 | &lt; .001</code></
 <div class="cell-output cell-output-stdout">
 <pre><code>Parameter   | Coefficient |          95% CI |      p
 ----------------------------------------------------
-(Intercept) |       97.00 | [79.13, 115.05] | &lt; .001
-Wind        |       -5.56 | [-7.24,  -4.03] | &lt; .001</code></pre>
+(Intercept) |       97.09 | [80.15, 114.61] | &lt; .001
+Wind        |       -5.56 | [-7.15,  -4.07] | &lt; .001</code></pre>
 </div>
 </div>
 <div class="fsmaller">
@@ -1343,6 +1343,100 @@ Wind        |       -5.56 | [-7.24,  -4.03] | &lt; .001</code></pre>
         ]
       });
     </script>
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+      // 1. Re-classify stderr to warnings and messages and strip empty lines
+
+      document.querySelectorAll('.cell-output-stderr').forEach(function(output) {
+
+        // Strip invisible zero-width spaces Quarto sometimes inserts
+
+        const text = output.textContent.replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
+
+    
+
+        // Remove completely empty blocks to fix the gaps
+
+        if (text === '') {
+
+          output.remove();
+
+          return;
+
+        }
+
+    
+
+        if (output.textContent.includes('Warning:')) {
+
+          output.classList.replace('cell-output-stderr', 'cell-output-warning');
+
+        } else {
+
+          output.classList.replace('cell-output-stderr', 'cell-output-message');
+
+        }
+
+      });
+
+    
+
+      // 2. Physically merge adjacent blocks into one seamless block
+
+      ['.cell-output-message', '.cell-output-warning'].forEach(function(selector) {
+
+        const elements = document.querySelectorAll(selector);
+
+        elements.forEach(function(current) {
+
+          if (!current.parentNode) return; // Skip if it was already merged and removed
+
+    
+
+          let next = current.nextElementSibling;
+
+          while (next && next.classList.contains(selector.substring(1))) {
+
+            let currentCode = current.querySelector('pre code');
+
+            let nextCode = next.querySelector('pre code');
+
+    
+
+            if (currentCode && nextCode) {
+
+               // Clean up formatting and append to the primary block
+
+               let appendText = nextCode.innerHTML.replace(/^\n+|\n+$/g, '');
+
+               if (appendText !== '') {
+
+                 currentCode.innerHTML += '\n' + appendText;
+
+               }
+
+            }
+
+    
+
+            let toRemove = next;
+
+            next = next.nextElementSibling;
+
+            toRemove.remove();
+
+          }
+
+        });
+
+      });
+
+    });
+
+    </script>
+
     
 
     <script>

@@ -399,7 +399,7 @@ Observations |         342 |         342</code></pre>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="576"></p>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -410,8 +410,8 @@ Observations |         342 |         342</code></pre>
 <div class="cell columns column-output-location">
 <div class="column">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Use the black-and-white theme and</span></span>
-<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># use 30pt font for all future plots</span></span>
-<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">30</span>))</span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># use 20pt font for all future plots</span></span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">20</span>))</span>
 <span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
 <span id="cb14-6"><a aria-hidden="true" tabindex="-1"></a>  pred_csrf, </span>
@@ -430,7 +430,7 @@ Observations |         342 |         342</code></pre>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="624"></p>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -559,7 +559,7 @@ Observations |         342 |        342 |         342</code></pre>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-15-1.png" width="960"></p>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-15-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -573,7 +573,7 @@ Observations |         342 |        342 |         342</code></pre>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-16-1.png" width="960"></p>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-16-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -592,7 +592,7 @@ Observations |         342 |        342 |         342</code></pre>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-17-1.png" width="960"></p>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-17-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -606,7 +606,7 @@ Observations |         342 |        342 |         342</code></pre>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-18-1.png" width="960"></p>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-18-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -799,7 +799,7 @@ Predictors modulated: species</code></pre>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-26-1.png" width="624"></p>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-26-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -873,7 +873,7 @@ species [Gentoo]    |      266.81 |  95.26 | [   79.43,   454.19] |   2.80 | 0.0
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-29-1.png" width="960"></p>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-29-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -912,7 +912,7 @@ Predictors modulated: species</code></pre>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-31-1.png" width="624"></p>
+<p><img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-31-1.png" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1185,6 +1185,100 @@ p-value adjustment method: Holm (1979)</code></pre>
         ]
       });
     </script>
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+      // 1. Re-classify stderr to warnings and messages and strip empty lines
+
+      document.querySelectorAll('.cell-output-stderr').forEach(function(output) {
+
+        // Strip invisible zero-width spaces Quarto sometimes inserts
+
+        const text = output.textContent.replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
+
+    
+
+        // Remove completely empty blocks to fix the gaps
+
+        if (text === '') {
+
+          output.remove();
+
+          return;
+
+        }
+
+    
+
+        if (output.textContent.includes('Warning:')) {
+
+          output.classList.replace('cell-output-stderr', 'cell-output-warning');
+
+        } else {
+
+          output.classList.replace('cell-output-stderr', 'cell-output-message');
+
+        }
+
+      });
+
+    
+
+      // 2. Physically merge adjacent blocks into one seamless block
+
+      ['.cell-output-message', '.cell-output-warning'].forEach(function(selector) {
+
+        const elements = document.querySelectorAll(selector);
+
+        elements.forEach(function(current) {
+
+          if (!current.parentNode) return; // Skip if it was already merged and removed
+
+    
+
+          let next = current.nextElementSibling;
+
+          while (next && next.classList.contains(selector.substring(1))) {
+
+            let currentCode = current.querySelector('pre code');
+
+            let nextCode = next.querySelector('pre code');
+
+    
+
+            if (currentCode && nextCode) {
+
+               // Clean up formatting and append to the primary block
+
+               let appendText = nextCode.innerHTML.replace(/^\n+|\n+$/g, '');
+
+               if (appendText !== '') {
+
+                 currentCode.innerHTML += '\n' + appendText;
+
+               }
+
+            }
+
+    
+
+            let toRemove = next;
+
+            next = next.nextElementSibling;
+
+            toRemove.remove();
+
+          }
+
+        });
+
+      });
+
+    });
+
+    </script>
+
     
 
     <script>
