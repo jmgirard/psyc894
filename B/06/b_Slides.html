@@ -207,10 +207,6 @@
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ol type="1">
-<li>Overview
-<ul>
-<li><em>Slope Types and Rationales</em></li>
-</ul></li>
 <li>Fixed Slopes for L2
 <ul>
 <li><em>Specifications and Examples</em></li>
@@ -523,8 +519,8 @@ school | 6     | (Intercept) |        2.56 | 1.73 | [ -0.83,  5.95]</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.138 [0.120, 0.160]
-  Unadjusted ICC: 0.138 [0.120, 0.160]</code></pre>
+    Adjusted ICC: 0.138 [0.116, 0.160]
+  Unadjusted ICC: 0.138 [0.116, 0.160]</code></pre>
 </div>
 </div>
 <div title="Why does this matter?">
@@ -672,7 +668,7 @@ y_{ij} = \beta_{0j} + \color{#ff7f00}{\beta_{1j}} x_{ij} + e_{ij},
 e_{ij} \sim \text{Normal}(0, \sigma)
 \]</span></p>
 <blockquote>
-<p><span class="math inline">\(y_{ij}\)</span> is the <strong>outcome</strong> for observation <span class="math inline">\(i\)</span> in cluster <span class="math inline">\(j\)</span> and equals…<br> …the <strong>Cluster Average</strong> <span class="math inline">\((\beta_{0j})\)</span> plus the <strong>Effect of Predictor <span class="math inline">\(x\)</span></strong> <span class="math inline">\((\color{#ff7f00}{\beta_{1j}} x_{ij})\)</span> plus the <strong>Observation Deviation</strong> <span class="math inline">\((e_{ij})\)</span>.</p>
+<p><span class="math inline">\(y_{ij}\)</span> is the <strong>outcome</strong> for observation <span class="math inline">\(i\)</span> in cluster <span class="math inline">\(j\)</span> and equals…<br> …the <strong>Cluster Average</strong> <span class="math inline">\((\beta_{0j})\)</span> (the expected average when <span class="math inline">\(x_{ij}=0\)</span>) plus the <strong>Effect of Predictor <span class="math inline">\(x\)</span></strong> <span class="math inline">\((\color{#ff7f00}{\beta_{1j}} x_{ij})\)</span> plus the <strong>Observation Deviation</strong> <span class="math inline">\((e_{ij})\)</span>.</p>
 </blockquote>
 <div class="fragment">
 <p><span class="math display">\[
@@ -823,8 +819,8 @@ SD (Residual)          |        8.14</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.137 [0.113, 0.158]
-  Unadjusted ICC: 0.136 [0.112, 0.158]</code></pre>
+    Adjusted ICC: 0.137 [0.117, 0.160]
+  Unadjusted ICC: 0.136 [0.116, 0.159]</code></pre>
 </div>
 </div>
 </div>
