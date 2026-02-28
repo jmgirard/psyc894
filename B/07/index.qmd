@@ -1,21 +1,21 @@
 ---
-title: "Week 06: Random Intercept Models"
+title: "Week 07: Random Slopes Models"
 ---
 
-<!-- 06a -->
+<!-- 07a -->
 
-## [06a] Null Models
+## [07a] Random Slopes
 
 ### Topics
-- Overview: Random Intercepts, Null Models
-- Specifications: Equations, Formulas, Diagrams
-- Practicalities: ICCs, Estimates, Interpretations
+- Conceptual Foundations: Defining Models and Assumptions
+- Application and Interpretation: Fitting and Visualizing Models
 
 ### File Downloads
 - [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
 
 ### Readings
-- [S\&F Chapter 4: Our first multilevel models](https://www.learn-mlms.com/04-module-4.html){target="_blank"}
+- [S\&F Chapter 6: Random Effects and Cross-level Interactions](https://www.learn-mlms.com/06-module-6.html){target="_blank"}
+- [HMV Sections 2.1--2.2: The Basic Two-level Regression Model](https://canvas.ku.edu/courses/182539/pages/07a-random-slopes-2?module_item_id=4317566){target="_blank"}
 
 ### Slides
 
@@ -29,19 +29,20 @@ title: "Week 06: Random Intercept Models"
 :::
 
 
-<!-- 06b -->
+<!-- 07b -->
 
-## [06b] Fixed Slopes
+## [07b] Cross-level Interactions
 
 ### Topics
-- Fixed Slopes for L2: Specifications and Examples
-- Fixed Slopes for L1: Specifications and Examples
+- A
+- B
 
 ### File Downloads
 - [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
 
 ### Readings
-- [S\&F Chapter 5: Adding fixed predictors to MLMs](https://www.learn-mlms.com/05-module-5.html){target="_blank"}
+- [Aguinis, Gottfredson, \& Culpepper (2013)](https://canvas.ku.edu/courses/182539/pages/07a-random-slopes-2?module_item_id=4317566){target="_blank"}
+
 
 ### Slides
 ```{=html}
@@ -57,8 +58,8 @@ title: "Week 06: Random Intercept Models"
 
 ```{=html}
 <div style="display: flex; justify-content: space-between; margin-top: 3rem;">
-  <a href="../05/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 05</a>
+  <a href="../06/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 06</a>
 
-  <a href="../07/index.html" class="btn btn-primary" role="button">Week 07&nbsp;&nbsp;&raquo;</a>
+  <a href="../08/index.html" class="btn btn-primary" role="button">Week 08&nbsp;&nbsp;&raquo;</a>
 </div>
 ```

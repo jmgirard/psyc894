@@ -67,7 +67,7 @@ set_theme(theme_gray(base_size = 20))
 :::
 
 :::{.fragment}
-- **Crucial Concept:** Because $z$ is measured at the cluster level, it has no variance *within* a cluster. Therefore, it has a single, fixed effect across the entire population. 
+- **Crucial Concept:** Because $z$ is measured at the cluster level, it has no variance *within* a cluster. Therefore, it has a single, fixed effect across the entire population.
 :::
 
 ## Review: The Null Model {.fsmaller}
@@ -79,9 +79,9 @@ Level One (Observation)
 :::
 
 $$
-y_{ij} = \beta_{0j} + \color{#e41a1c}{e_{ij}},
+y_{ij} = \beta_{0j} + \color{#4daf4a}{e_{ij}},
 \qquad
-\color{#e41a1c}{e_{ij}} \sim \text{Normal}(0, \color{#e41a1c}{\sigma})
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
 $$
 
 :::{.tc .b}
@@ -89,9 +89,9 @@ Level Two (Cluster)
 :::
 
 $$
-\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#4daf4a}{u_{0j}},
+\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0j}},
 \qquad
-\color{#4daf4a}{u_{0j}} \sim \text{Normal}(0, \color{#4daf4a}{\tau_{00}})
+\color{#e41a1c}{u_{0j}} \sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}})
 $$
 
 ## Adding a Level 2 Predictor {.fsmaller}
@@ -101,9 +101,9 @@ Level One (Observation)
 :::
 
 $$
-y_{ij} = \beta_{0j} + e_{ij},
+y_{ij} = \beta_{0j} + \color{#4daf4a}{e_{ij}},
 \qquad
-e_{ij} \sim \text{Normal}(0, \sigma)
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
 $$
 
 :::{.tc .b}
@@ -111,13 +111,13 @@ Level Two (Cluster)
 :::
 
 $$
-\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j},
+\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}},
 \qquad
-u_{0j} \sim \text{Normal}(0, \tau_{00})
+\color{#e41a1c}{u_{0j}} \sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}})
 $$
 
 - $\color{#377eb8}{\gamma_{00}}$ is the **Fixed Intercept** (The expected cluster average when $z_j = 0$)
-- $\color{#984ea3}{\gamma_{01}}$ is the **Fixed Slope** (Main effect of L2 predictor $z$)
+- $\color{#377eb8}{\gamma_{01}}$ is the **Fixed Slope** (Main effect of L2 predictor $z$)
 
 - Notice that $z_j$ is in the L2 equation and predicts the cluster average $(\beta_{0j})$
 
@@ -144,34 +144,31 @@ Why $\gamma_{00}$ and $\gamma_{01}$? The subscripts follow a specific rule:
 
 ::: {.fsmaller}
 $$
-\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j},
+\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}},
 \qquad
-u_{0j} \sim \text{Normal}(0, \tau_{00})
+\color{#e41a1c}{u_{0j}} \sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}})
 $$
 
 > $\beta_{0j}$ is the **Conditional Cluster Average** for cluster $j$ and equals...<br>
-> ...the **Intercept** $(\color{#377eb8}{\gamma_{00}})$ (the expected average when $z_j=0$) plus the **Effect of Predictor $z$** $(\color{#984ea3}{\gamma_{01}} z_j)$ plus the **Cluster Deviation** $(u_{0j})$.<br>
+> ...the **Intercept** $(\color{#377eb8}{\gamma_{00}})$ (the expected average when $z_j=0$) plus the **Effect of Predictor $z$** $(\color{#377eb8}{\gamma_{01}} z_j)$ plus the **Cluster Deviation** $(\color{#e41a1c}{u_{0j}})$.<br>
 > These deviations are normally distributed with 0 mean and $\tau_{00}$ SD.
-
 :::
 
 :::{.callout-note}
-**Notice the Shift:** In the null model, $\gamma_{00}$ was the grand population average. Now that we have a predictor, $\gamma_{00}$ is specifically the expected average *for a cluster where $z_j = 0$*. 
+**Notice the Shift:** In the null model, $\gamma_{00}$ was the grand population average. Now that we have a predictor, $\gamma_{00}$ is specifically the expected average *for a cluster where $z_j = 0$*.
 :::
 
 ## Students in Schools Example
 
 $$
 \begin{align}
-\text{MATH}_{ij} &= \beta_{0j} + e_{ij} \\
-\beta_{0j} &= \gamma_{00} + \gamma_{01} \text{PUBLIC}_j + u_{0j}
+\text{MATH}_{ij} &= \beta_{0j} + \color{#4daf4a}{e_{ij}} \\
+\beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} \text{PUBLIC}_j + \color{#e41a1c}{u_{0j}}
 \end{align}
 $$
 
-- $\gamma_{00}$ is the [fixed intercept]{.b .green}: what is the expected average math score for a private school?
-
+- $\gamma_{00}$ is the [fixed intercept]{.b .blue}: what is the expected average math score for a private school?
 - $\gamma_{01}$ is the [fixed slope]{.b .blue} of PUBLIC: do public schools have higher average math scores than private schools?
-
 ## Path Diagram
 
 ![](../../diagrams/fixed_slopes_l2_full.png)
@@ -180,22 +177,22 @@ $$
 
 $$
 \begin{alignat}{2}
-&\text{L1:} \quad & y_{ij} &= \beta_{0j} + e_{ij} \\
-&\text{L2:} \quad & \beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j}
+&\text{L1:} \quad & y_{ij} &= \beta_{0j} + \color{#4daf4a}{e_{ij}} \\
+&\text{L2:} \quad & \beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}}
 \end{alignat}
 $$
 
 Substitute the L2 equation directly into the L1 equation:
 
 $$
-y_{ij} = (\color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j}) + e_{ij}
+y_{ij} = (\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}}) + \color{#4daf4a}{e_{ij}}
 $$
 
 :::{.fragment}
 Rearrange to group the fixed and random parts:
 
 $$
-y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j}_{\text{Fixed}} + \underbrace{u_{0j} + e_{ij}}_{\text{Random}}
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}}}_{\text{Random}} + \color{#4daf4a}{e_{ij}}
 $$
 :::
 
@@ -204,6 +201,10 @@ This mixed equation is the basis of the R formula.
 :::
 
 ## Formula
+
+$$
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}}}_{\text{(Random)}} + \color{#4daf4a}{e_{ij}}
+$$
 
 **Generic**
 
@@ -238,7 +239,7 @@ dat <-
 glimpse(dat)
 ```
 
-## Fitting the Model
+## Fitting the Model {.fsmaller}
 
 ```{r}
 fit <- lmer(
@@ -256,23 +257,21 @@ model_parameters(fit)
     + Since `public` is dummy coded (0 = Private, 1 = Public), this is the average math score of a typical *private* school.
 
 :::{.fragment}
-- The fixed slope of public $(\color{#984ea3}{\gamma_{01}})$ is the **Main Effect**
+- The fixed slope of public $(\color{#377eb8}{\gamma_{01}})$ is the **Main Effect**
     + The expected change in the school average for a 1-unit increase in the predictor. This is the estimated difference in average math scores between public and private schools.
     + **Significance:** Because $p > .05$, this difference is not statistically significant. We lack evidence to say public and private schools differ in their population averages.
-
 :::
 
 ## Interpreting the Random Effects {.fsmaller}
 
-- The random intercept SD $(\tau_{00})$ is the **Conditional Between-Cluster Spread**
+- The random intercept SD $(\color{#e41a1c}{\tau_{00}})$ is the **Conditional Between-Cluster Spread**
     + The spread of average math scores *between* schools (specifically, the spread of the **intercepts**).
     + **Crucial update:** This is the spread *after* accounting for a school's public or private status.
 
 :::{.fragment}
-- The L1 residual SD $(\sigma)$ is the **Within-Cluster Spread**
+- The L1 residual SD $(\color{#4daf4a}{\sigma})$ is the **Within-Cluster Spread**
     + The spread of students' math scores *within* their respective schools.
     + This represents how much individual students deviate from their school's conditional average.
-
 :::
 
 ## Deriving More Information  {.fsmaller}
@@ -366,9 +365,9 @@ Level One (Observation)
 :::
 
 $$
-y_{ij} = \beta_{0j} + \color{#ff7f00}{\beta_{1j}} x_{ij} + e_{ij},
+y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}},
 \qquad
-e_{ij} \sim \text{Normal}(0, \sigma)
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
 $$
 
 :::{.tc .b}
@@ -377,16 +376,16 @@ Level Two (Cluster)
 
 $$
 \begin{align}
-\beta_{0j} &= \color{#377eb8}{\gamma_{00}} + u_{0j},
+\beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0j}},
 \qquad
-u_{0j} \sim \text{Normal}(0, \tau_{00}) \\
-\color{#ff7f00}{\beta_{1j}} &= \color{#ff7f00}{\gamma_{10}}
+\color{#e41a1c}{u_{0j}} \sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}}) \\
+\beta_{1j} &= \color{#377eb8}{\gamma_{10}}
 \end{align}
 $$
 
 - $\color{#377eb8}{\gamma_{00}}$ is the **Fixed Intercept** (The expected cluster average when $x_{ij} = 0$)
-- $\color{#ff7f00}{\beta_{1j}}$ is the **L1 Slope** for predictor $x$ in cluster $j$
-- $\color{#ff7f00}{\gamma_{10}}$ is the **Fixed L1 Slope** (The overall main effect of $x$)
+- $\beta_{1j}$ is the **L1 Slope** for predictor $x$ in cluster $j$
+- $\color{#377eb8}{\gamma_{10}}$ is the **Fixed L1 Slope** (The overall main effect of $x$)
 
 ## Decoding the Gammas {.fsmaller}
 
@@ -402,49 +401,46 @@ Let's use our rule again for the new fixed effect:
 **Putting it together:**
 
 * $\gamma_{10}$ is the baseline effect of our Level 1 predictor.
-
 :::
 
 ## Reading the Equations {.fsmaller}
 
 $$
-y_{ij} = \beta_{0j} + \color{#ff7f00}{\beta_{1j}} x_{ij} + e_{ij},
+y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}},
 \qquad
-e_{ij} \sim \text{Normal}(0, \sigma)
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
 $$
 
 > $y_{ij}$ is the **outcome** for observation $i$ in cluster $j$ and equals...<br>
-> ...the **Cluster Average** $(\beta_{0j})$ (the expected average when $x_{ij}=0$) plus the **Effect of Predictor $x$** $(\color{#ff7f00}{\beta_{1j}} x_{ij})$ plus the **Observation Deviation** $(e_{ij})$.
+> ...the **Cluster Average** $(\beta_{0j})$ (the expected average when $x_{ij}=0$) plus the **Effect of Predictor $x$** $(\beta_{1j} x_{ij})$ plus the **Observation Deviation** $(\color{#4daf4a}{e_{ij}})$.
 
 :::{.fragment}
 $$
 \begin{align}
-\beta_{0j} &= \gamma_{00} + u_{0j},
+\beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0j}},
 \qquad
-u_{0j} \sim \text{Normal}(0, \tau_{00}) \\
-\color{#ff7f00}{\beta_{1j}} &= \color{#ff7f00}{\gamma_{10}}
+\color{#e41a1c}{u_{0j}} \sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}}) \\
+\beta_{1j} &= \color{#377eb8}{\gamma_{10}}
 \end{align}
 $$
 
-> $\color{#ff7f00}{\beta_{1j}}$ is the **Cluster Slope** for cluster $j$ and equals...<br>
-> ...the **Fixed Population Slope** $(\color{#ff7f00}{\gamma_{10}})$.<br>
+> $\beta_{1j}$ is the **Cluster Slope** for cluster $j$ and equals...<br>
+> ...the **Fixed Population Slope** $(\color{#377eb8}{\gamma_{10}})$.<br>
 > We are assuming the effect of $x$ is identical across all clusters.
-
 :::
 
 ## Students in Schools Example
 
 $$
 \begin{align}
-\text{MATH}_{ij} &= \beta_{0j} + \color{#ff7f00}{\beta_{1j}} \text{FEMALE}_{ij} + e_{ij} \\
-\beta_{0j} &= \color{#377eb8}{\gamma_{00}} + u_{0j} \\
-\color{#ff7f00}{\beta_{1j}} &= \color{#ff7f00}{\gamma_{10}}
+\text{MATH}_{ij} &= \beta_{0j} + \beta_{1j} \text{FEMALE}_{ij} + \color{#4daf4a}{e_{ij}} \\
+\beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0j}} \\
+\beta_{1j} &= \color{#377eb8}{\gamma_{10}}
 \end{align}
 $$
 
 - $\gamma_{00}$ is the [fixed intercept]{.b .blue}: what is the expected math score for a male student (where female = 0)?
-- $\gamma_{10}$ is the [fixed slope]{.b .orange} of FEMALE: do female students have different math scores than male students, assuming this relationship is identical at every school?
-
+- $\gamma_{10}$ is the [fixed slope]{.b .blue} of FEMALE: do female students have different math scores than male students, assuming this relationship is identical at every school?
 ## Path Diagram
 
 ![](../../diagrams/fixed_slopes_l1.png)
@@ -453,23 +449,23 @@ $$
 
 $$
 \begin{alignat}{2}
-&\text{L1:} \quad & y_{ij} &= \beta_{0j} + \color{#ff7f00}{\beta_{1j}} x_{ij} + e_{ij} \\
-&\text{L2:} \quad & \beta_{0j} &= \color{#377eb8}{\gamma_{00}} + u_{0j} \\
-&                 & \color{#ff7f00}{\beta_{1j}} &= \color{#ff7f00}{\gamma_{10}}
+&\text{L1:} \quad & y_{ij} &= \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}} \\
+&\text{L2:} \quad & \beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0j}} \\
+&                 & \beta_{1j} &= \color{#377eb8}{\gamma_{10}}
 \end{alignat}
 $$
 
 Substitute the L2 equations directly into the L1 equation:
 
 $$
-y_{ij} = (\color{#377eb8}{\gamma_{00}} + u_{0j}) + (\color{#ff7f00}{\gamma_{10}}) x_{ij} + e_{ij}
+y_{ij} = (\color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0j}}) + (\color{#377eb8}{\gamma_{10}}) x_{ij} + \color{#4daf4a}{e_{ij}}
 $$
 
 :::{.fragment}
 Rearrange to group the fixed and random parts:
 
 $$
-y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#ff7f00}{\gamma_{10}} x_{ij}}_{\text{Fixed}} + \underbrace{u_{0j} + e_{ij}}_{\text{Random}}
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{10}} x_{ij}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}} + \color{#4daf4a}{e_{ij}}}_{\text{Random}}
 $$
 :::
 
@@ -513,32 +509,29 @@ model_parameters(fit)
 
 - The fixed intercept $(\color{#377eb8}{\gamma_{00}})$ 
     + The expected math score for a male student (female = 0) in a typical school.
-    
+
 :::{.fragment}
-- The fixed slope of female $(\color{#ff7f00}{\gamma_{10}})$ 
+- The fixed slope of female $(\color{#377eb8}{\gamma_{10}})$ 
     + The expected difference in math scores for female students compared to male students.
     + **Significance:** Because $p < .001$, this slope is statistically significant.
-    
 :::
 
 
 ## Interpreting the Random Effects {.fsmaller}
 
-- The random intercept SD $(\tau_{00})$ is the **Conditional Between-Cluster Spread**
+- The random intercept SD $(\color{#e41a1c}{\tau_{00}})$ is the **Conditional Between-Cluster Spread**
     + The spread of average math scores *between* schools (specifically, the spread of the **intercepts**).
     + This is the spread *after* accounting for student gender.
 
 :::{.fragment}
-- The L1 residual SD $(\sigma)$ is the **Conditional Within-Cluster Spread**
+- The L1 residual SD $(\color{#4daf4a}{\sigma})$ is the **Conditional Within-Cluster Spread**
     + The spread of students' math scores *within* their respective schools.
     + This represents how much individual students deviate from their expected score after accounting for their gender.
-
 :::
 
 ## Deriving More Information {.fsmaller}
 
 We can extract the individual residuals and cluster deviations as before.
-
 ```{r}
 e <- get_residuals(fit) # e_ij
 u <- estimate_grouplevel(fit, type = "random") # u_0j
@@ -571,11 +564,13 @@ library(modelr)
 
 # Generate predictions from our model
 dat_pred <- dat |> 
-  data_grid(school, female = c(0, 1)) |> 
+  data_grid(school, female) |> 
   add_predictions(fit)
 
 ggplot(dat, aes(x = factor(female), y = math, color = school)) +
   geom_line(data = dat_pred, aes(y = pred, group = school), alpha = 0.6, linewidth = 1) +
+  # The fixed effect population average (thick black line)
+  geom_smooth(aes(group = 1), method = "lm", se = FALSE, color = "black", linewidth = 2.5) +
   theme_bw(base_size = 20) +
   labs(x = "Female (0 = Male, 1 = Female)", y = "Predicted Math Score") +
   theme(legend.position = "none")
@@ -584,9 +579,8 @@ ggplot(dat, aes(x = factor(female), y = math, color = school)) +
 ## Putting It All Together {.fsmaller}
 
 In practice, applied researchers usually include both L1 and L2 predictors in the same model. We can combine our previous equations into one full model.
-
 $$
-y_{ij} = \underbrace{\gamma_{00} + \gamma_{01} \mathit{PUBLIC}_j + \gamma_{10} \mathit{FEMALE}_{ij}}_{\text{Fixed}} + \underbrace{u_{0j} + e_{ij}}_{\text{Random}}
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} \mathit{PUBLIC}_j + \color{#377eb8}{\gamma_{10}} \mathit{FEMALE}_{ij}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}} + \color{#4daf4a}{e_{ij}}}_{\text{Random}}
 $$
 
 :::{.tc}
@@ -597,8 +591,7 @@ $$
 **Why do this?**
 
 1. **Simultaneous Control:** We can estimate the effect of school type while controlling for student gender (and vice versa).
-2. **Explaining Variance:** 
-    + $\mathit{PUBLIC}_j$ tries to explain variance *between* schools (reducing $\tau_{00}$)
+2. **Explaining Variance:** + $\mathit{PUBLIC}_j$ tries to explain variance *between* schools (reducing $\tau_{00}$)
     + $\mathit{FEMALE}_{ij}$ tries to explain variance *within* schools (reducing $\sigma$)
     
 :::
@@ -626,7 +619,6 @@ model_parameters(fit_combined)
     + The intercept is now the expected math score for a male student in a private school.
     + The slope for `public` is the difference between public and private schools, *controlling for student gender*.
     + The slope for `female` is the difference between female and male students, *controlling for school type*.
-
 - **The Random Effects (Variance Components)**
-    + $\tau_{00}$ has decreased compared to the null model because `public` explained some of the between-school variance.
-    + $\sigma$ has decreased because `female` explained some of the within-school variance. 
+    + $\color{#e41a1c}{\tau_{00}}$ has decreased compared to the null model because `public` explained some of the between-school variance.
+    + $\color{#4daf4a}{\sigma}$ has decreased because `female` explained some of the within-school variance.
