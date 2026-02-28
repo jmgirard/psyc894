@@ -256,17 +256,17 @@
 <p>Level One (Observation)</p>
 </div>
 <p><span class="math display">\[
-y_{ij} = \beta_{0j} + \color{#e41a1c}{e_{ij}},
+y_{ij} = \beta_{0j} + \color{#4daf4a}{e_{ij}},
 \qquad
-\color{#e41a1c}{e_{ij}} \sim \text{Normal}(0, \color{#e41a1c}{\sigma})
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
 \]</span></p>
 <div class="tc b">
 <p>Level Two (Cluster)</p>
 </div>
 <p><span class="math display">\[
-\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#4daf4a}{u_{0j}},
+\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0j}},
 \qquad
-\color{#4daf4a}{u_{0j}} \sim \text{Normal}(0, \color{#4daf4a}{\tau_{00}})
+\color{#e41a1c}{u_{0j}} \sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}})
 \]</span></p>
 </section>
 <section class="slide level2 fsmaller">
@@ -275,21 +275,21 @@ y_{ij} = \beta_{0j} + \color{#e41a1c}{e_{ij}},
 <p>Level One (Observation)</p>
 </div>
 <p><span class="math display">\[
-y_{ij} = \beta_{0j} + e_{ij},
+y_{ij} = \beta_{0j} + \color{#4daf4a}{e_{ij}},
 \qquad
-e_{ij} \sim \text{Normal}(0, \sigma)
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
 \]</span></p>
 <div class="tc b">
 <p>Level Two (Cluster)</p>
 </div>
 <p><span class="math display">\[
-\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j},
+\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}},
 \qquad
-u_{0j} \sim \text{Normal}(0, \tau_{00})
+\color{#e41a1c}{u_{0j}} \sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}})
 \]</span></p>
 <ul>
 <li><p><span class="math inline">\(\color{#377eb8}{\gamma_{00}}\)</span> is the <strong>Fixed Intercept</strong> (The expected cluster average when <span class="math inline">\(z_j = 0\)</span>)</p></li>
-<li><p><span class="math inline">\(\color{#984ea3}{\gamma_{01}}\)</span> is the <strong>Fixed Slope</strong> (Main effect of L2 predictor <span class="math inline">\(z\)</span>)</p></li>
+<li><p><span class="math inline">\(\color{#377eb8}{\gamma_{01}}\)</span> is the <strong>Fixed Slope</strong> (Main effect of L2 predictor <span class="math inline">\(z\)</span>)</p></li>
 <li><p>Notice that <span class="math inline">\(z_j\)</span> is in the L2 equation and predicts the cluster average <span class="math inline">\((\beta_{0j})\)</span></p></li>
 </ul>
 </section>
@@ -320,12 +320,12 @@ u_{0j} \sim \text{Normal}(0, \tau_{00})
 <h2>Reading the Level 2 Equation</h2>
 <div class="fsmaller">
 <p><span class="math display">\[
-\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j},
+\beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}},
 \qquad
-u_{0j} \sim \text{Normal}(0, \tau_{00})
+\color{#e41a1c}{u_{0j}} \sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}})
 \]</span></p>
 <blockquote>
-<p><span class="math inline">\(\beta_{0j}\)</span> is the <strong>Conditional Cluster Average</strong> for cluster <span class="math inline">\(j\)</span> and equals…<br> …the <strong>Intercept</strong> <span class="math inline">\((\color{#377eb8}{\gamma_{00}})\)</span> (the expected average when <span class="math inline">\(z_j=0\)</span>) plus the <strong>Effect of Predictor <span class="math inline">\(z\)</span></strong> <span class="math inline">\((\color{#984ea3}{\gamma_{01}} z_j)\)</span> plus the <strong>Cluster Deviation</strong> <span class="math inline">\((u_{0j})\)</span>.<br> These deviations are normally distributed with 0 mean and <span class="math inline">\(\tau_{00}\)</span> SD.</p>
+<p><span class="math inline">\(\beta_{0j}\)</span> is the <strong>Conditional Cluster Average</strong> for cluster <span class="math inline">\(j\)</span> and equals…<br> …the <strong>Intercept</strong> <span class="math inline">\((\color{#377eb8}{\gamma_{00}})\)</span> (the expected average when <span class="math inline">\(z_j=0\)</span>) plus the <strong>Effect of Predictor <span class="math inline">\(z\)</span></strong> <span class="math inline">\((\color{#377eb8}{\gamma_{01}} z_j)\)</span> plus the <strong>Cluster Deviation</strong> <span class="math inline">\((\color{#e41a1c}{u_{0j}})\)</span>.<br> These deviations are normally distributed with 0 mean and <span class="math inline">\(\tau_{00}\)</span> SD.</p>
 </blockquote>
 </div>
 <div class="callout callout-note callout-titled callout-style-default">
@@ -346,35 +346,32 @@ u_{0j} \sim \text{Normal}(0, \tau_{00})
 <h2>Students in Schools Example</h2>
 <p><span class="math display">\[
 \begin{align}
-\text{MATH}_{ij} &amp;= \beta_{0j} + e_{ij} \\
-\beta_{0j} &amp;= \gamma_{00} + \gamma_{01} \text{PUBLIC}_j + u_{0j}
+\text{MATH}_{ij} &amp;= \beta_{0j} + \color{#4daf4a}{e_{ij}} \\
+\beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} \text{PUBLIC}_j + \color{#e41a1c}{u_{0j}}
 \end{align}
 \]</span></p>
 <ul>
-<li><p><span class="math inline">\(\gamma_{00}\)</span> is the <span class="b green">fixed intercept</span>: what is the expected average math score for a private school?</p></li>
-<li><p><span class="math inline">\(\gamma_{01}\)</span> is the <span class="b blue">fixed slope</span> of PUBLIC: do public schools have higher average math scores than private schools?</p></li>
+<li><span class="math inline">\(\gamma_{00}\)</span> is the <span class="b blue">fixed intercept</span>: what is the expected average math score for a private school?</li>
+<li><span class="math inline">\(\gamma_{01}\)</span> is the <span class="b blue">fixed slope</span> of PUBLIC: do public schools have higher average math scores than private schools? ## Path Diagram</li>
 </ul>
-</section>
-<section class="slide level2">
-<h2>Path Diagram</h2>
 
 <img data-src="../../diagrams/fixed_slopes_l2_full.png" class="r-stretch"></section>
 <section class="slide level2 fsmaller">
 <h2>Mixed (or Reduced) Equation</h2>
 <p><span class="math display">\[
 \begin{alignat}{2}
-&amp;\text{L1:} \quad &amp; y_{ij} &amp;= \beta_{0j} + e_{ij} \\
-&amp;\text{L2:} \quad &amp; \beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j}
+&amp;\text{L1:} \quad &amp; y_{ij} &amp;= \beta_{0j} + \color{#4daf4a}{e_{ij}} \\
+&amp;\text{L2:} \quad &amp; \beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}}
 \end{alignat}
 \]</span></p>
 <p>Substitute the L2 equation directly into the L1 equation:</p>
 <p><span class="math display">\[
-y_{ij} = (\color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j + u_{0j}) + e_{ij}
+y_{ij} = (\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}}) + \color{#4daf4a}{e_{ij}}
 \]</span></p>
 <div class="fragment">
 <p>Rearrange to group the fixed and random parts:</p>
 <p><span class="math display">\[
-y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}} z_j}_{\text{Fixed}} + \underbrace{u_{0j} + e_{ij}}_{\text{Random}}
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}}}_{\text{Random}} + \color{#4daf4a}{e_{ij}}
 \]</span></p>
 </div>
 <div class="fragment">
@@ -383,6 +380,9 @@ y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#984ea3}{\gamma_{01}}
 </section>
 <section class="slide level2">
 <h2>Formula</h2>
+<p><span class="math display">\[
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}}}_{\text{(Random)}} + \color{#4daf4a}{e_{ij}}
+\]</span></p>
 <p><strong>Generic</strong></p>
 <div class="tc">
 <p><code>y ~ 1 + z + (1 | cluster)</code></p>
@@ -419,7 +419,7 @@ $ public  &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 </div>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fsmaller">
 <h2>Fitting the Model</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
@@ -456,7 +456,7 @@ SD (Residual)          |        8.16</code></pre>
 </ul>
 <div class="fragment">
 <ul>
-<li>The fixed slope of public <span class="math inline">\((\color{#984ea3}{\gamma_{01}})\)</span> is the <strong>Main Effect</strong>
+<li>The fixed slope of public <span class="math inline">\((\color{#377eb8}{\gamma_{01}})\)</span> is the <strong>Main Effect</strong>
 <ul>
 <li>The expected change in the school average for a 1-unit increase in the predictor. This is the estimated difference in average math scores between public and private schools.</li>
 <li><strong>Significance:</strong> Because <span class="math inline">\(p &gt; .05\)</span>, this difference is not statistically significant. We lack evidence to say public and private schools differ in their population averages.</li>
@@ -467,7 +467,7 @@ SD (Residual)          |        8.16</code></pre>
 <section class="slide level2 fsmaller">
 <h2>Interpreting the Random Effects</h2>
 <ul>
-<li>The random intercept SD <span class="math inline">\((\tau_{00})\)</span> is the <strong>Conditional Between-Cluster Spread</strong>
+<li>The random intercept SD <span class="math inline">\((\color{#e41a1c}{\tau_{00}})\)</span> is the <strong>Conditional Between-Cluster Spread</strong>
 <ul>
 <li>The spread of average math scores <em>between</em> schools (specifically, the spread of the <strong>intercepts</strong>).</li>
 <li><strong>Crucial update:</strong> This is the spread <em>after</em> accounting for a school’s public or private status.</li>
@@ -475,7 +475,7 @@ SD (Residual)          |        8.16</code></pre>
 </ul>
 <div class="fragment">
 <ul>
-<li>The L1 residual SD <span class="math inline">\((\sigma)\)</span> is the <strong>Within-Cluster Spread</strong>
+<li>The L1 residual SD <span class="math inline">\((\color{#4daf4a}{\sigma})\)</span> is the <strong>Within-Cluster Spread</strong>
 <ul>
 <li>The spread of students’ math scores <em>within</em> their respective schools.</li>
 <li>This represents how much individual students deviate from their school’s conditional average.</li>
@@ -519,8 +519,8 @@ school | 6     | (Intercept) |        2.56 | 1.73 | [ -0.83,  5.95]</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.138 [0.116, 0.160]
-  Unadjusted ICC: 0.138 [0.116, 0.160]</code></pre>
+    Adjusted ICC: 0.138 [0.115, 0.171]
+  Unadjusted ICC: 0.138 [0.115, 0.170]</code></pre>
 </div>
 </div>
 <div title="Why does this matter?">
@@ -618,25 +618,25 @@ Observations |         6871 |         6871</code></pre>
 <p>Level One (Observation)</p>
 </div>
 <p><span class="math display">\[
-y_{ij} = \beta_{0j} + \color{#ff7f00}{\beta_{1j}} x_{ij} + e_{ij},
+y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}},
 \qquad
-e_{ij} \sim \text{Normal}(0, \sigma)
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
 \]</span></p>
 <div class="tc b">
 <p>Level Two (Cluster)</p>
 </div>
 <p><span class="math display">\[
 \begin{align}
-\beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + u_{0j},
+\beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0j}},
 \qquad
-u_{0j} \sim \text{Normal}(0, \tau_{00}) \\
-\color{#ff7f00}{\beta_{1j}} &amp;= \color{#ff7f00}{\gamma_{10}}
+\color{#e41a1c}{u_{0j}} \sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}}) \\
+\beta_{1j} &amp;= \color{#377eb8}{\gamma_{10}}
 \end{align}
 \]</span></p>
 <ul>
 <li><span class="math inline">\(\color{#377eb8}{\gamma_{00}}\)</span> is the <strong>Fixed Intercept</strong> (The expected cluster average when <span class="math inline">\(x_{ij} = 0\)</span>)</li>
-<li><span class="math inline">\(\color{#ff7f00}{\beta_{1j}}\)</span> is the <strong>L1 Slope</strong> for predictor <span class="math inline">\(x\)</span> in cluster <span class="math inline">\(j\)</span></li>
-<li><span class="math inline">\(\color{#ff7f00}{\gamma_{10}}\)</span> is the <strong>Fixed L1 Slope</strong> (The overall main effect of <span class="math inline">\(x\)</span>)</li>
+<li><span class="math inline">\(\beta_{1j}\)</span> is the <strong>L1 Slope</strong> for predictor <span class="math inline">\(x\)</span> in cluster <span class="math inline">\(j\)</span></li>
+<li><span class="math inline">\(\color{#377eb8}{\gamma_{10}}\)</span> is the <strong>Fixed L1 Slope</strong> (The overall main effect of <span class="math inline">\(x\)</span>)</li>
 </ul>
 </section>
 <section class="slide level2 fsmaller">
@@ -663,24 +663,24 @@ u_{0j} \sim \text{Normal}(0, \tau_{00}) \\
 <section class="slide level2 fsmaller">
 <h2>Reading the Equations</h2>
 <p><span class="math display">\[
-y_{ij} = \beta_{0j} + \color{#ff7f00}{\beta_{1j}} x_{ij} + e_{ij},
+y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}},
 \qquad
-e_{ij} \sim \text{Normal}(0, \sigma)
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
 \]</span></p>
 <blockquote>
-<p><span class="math inline">\(y_{ij}\)</span> is the <strong>outcome</strong> for observation <span class="math inline">\(i\)</span> in cluster <span class="math inline">\(j\)</span> and equals…<br> …the <strong>Cluster Average</strong> <span class="math inline">\((\beta_{0j})\)</span> (the expected average when <span class="math inline">\(x_{ij}=0\)</span>) plus the <strong>Effect of Predictor <span class="math inline">\(x\)</span></strong> <span class="math inline">\((\color{#ff7f00}{\beta_{1j}} x_{ij})\)</span> plus the <strong>Observation Deviation</strong> <span class="math inline">\((e_{ij})\)</span>.</p>
+<p><span class="math inline">\(y_{ij}\)</span> is the <strong>outcome</strong> for observation <span class="math inline">\(i\)</span> in cluster <span class="math inline">\(j\)</span> and equals…<br> …the <strong>Cluster Average</strong> <span class="math inline">\((\beta_{0j})\)</span> (the expected average when <span class="math inline">\(x_{ij}=0\)</span>) plus the <strong>Effect of Predictor <span class="math inline">\(x\)</span></strong> <span class="math inline">\((\beta_{1j} x_{ij})\)</span> plus the <strong>Observation Deviation</strong> <span class="math inline">\((\color{#4daf4a}{e_{ij}})\)</span>.</p>
 </blockquote>
 <div class="fragment">
 <p><span class="math display">\[
 \begin{align}
-\beta_{0j} &amp;= \gamma_{00} + u_{0j},
+\beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0j}},
 \qquad
-u_{0j} \sim \text{Normal}(0, \tau_{00}) \\
-\color{#ff7f00}{\beta_{1j}} &amp;= \color{#ff7f00}{\gamma_{10}}
+\color{#e41a1c}{u_{0j}} \sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}}) \\
+\beta_{1j} &amp;= \color{#377eb8}{\gamma_{10}}
 \end{align}
 \]</span></p>
 <blockquote>
-<p><span class="math inline">\(\color{#ff7f00}{\beta_{1j}}\)</span> is the <strong>Cluster Slope</strong> for cluster <span class="math inline">\(j\)</span> and equals…<br> …the <strong>Fixed Population Slope</strong> <span class="math inline">\((\color{#ff7f00}{\gamma_{10}})\)</span>.<br> We are assuming the effect of <span class="math inline">\(x\)</span> is identical across all clusters.</p>
+<p><span class="math inline">\(\beta_{1j}\)</span> is the <strong>Cluster Slope</strong> for cluster <span class="math inline">\(j\)</span> and equals…<br> …the <strong>Fixed Population Slope</strong> <span class="math inline">\((\color{#377eb8}{\gamma_{10}})\)</span>.<br> We are assuming the effect of <span class="math inline">\(x\)</span> is identical across all clusters.</p>
 </blockquote>
 </div>
 </section>
@@ -688,37 +688,34 @@ u_{0j} \sim \text{Normal}(0, \tau_{00}) \\
 <h2>Students in Schools Example</h2>
 <p><span class="math display">\[
 \begin{align}
-\text{MATH}_{ij} &amp;= \beta_{0j} + \color{#ff7f00}{\beta_{1j}} \text{FEMALE}_{ij} + e_{ij} \\
-\beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + u_{0j} \\
-\color{#ff7f00}{\beta_{1j}} &amp;= \color{#ff7f00}{\gamma_{10}}
+\text{MATH}_{ij} &amp;= \beta_{0j} + \beta_{1j} \text{FEMALE}_{ij} + \color{#4daf4a}{e_{ij}} \\
+\beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0j}} \\
+\beta_{1j} &amp;= \color{#377eb8}{\gamma_{10}}
 \end{align}
 \]</span></p>
 <ul>
 <li><span class="math inline">\(\gamma_{00}\)</span> is the <span class="b blue">fixed intercept</span>: what is the expected math score for a male student (where female = 0)?</li>
-<li><span class="math inline">\(\gamma_{10}\)</span> is the <span class="b orange">fixed slope</span> of FEMALE: do female students have different math scores than male students, assuming this relationship is identical at every school?</li>
+<li><span class="math inline">\(\gamma_{10}\)</span> is the <span class="b blue">fixed slope</span> of FEMALE: do female students have different math scores than male students, assuming this relationship is identical at every school? ## Path Diagram</li>
 </ul>
-</section>
-<section class="slide level2">
-<h2>Path Diagram</h2>
 
 <img data-src="../../diagrams/fixed_slopes_l1.png" class="r-stretch"></section>
 <section class="slide level2 fsmaller">
 <h2>Mixed (or Reduced) Equation</h2>
 <p><span class="math display">\[
 \begin{alignat}{2}
-&amp;\text{L1:} \quad &amp; y_{ij} &amp;= \beta_{0j} + \color{#ff7f00}{\beta_{1j}} x_{ij} + e_{ij} \\
-&amp;\text{L2:} \quad &amp; \beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + u_{0j} \\
-&amp;                 &amp; \color{#ff7f00}{\beta_{1j}} &amp;= \color{#ff7f00}{\gamma_{10}}
+&amp;\text{L1:} \quad &amp; y_{ij} &amp;= \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}} \\
+&amp;\text{L2:} \quad &amp; \beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0j}} \\
+&amp;                 &amp; \beta_{1j} &amp;= \color{#377eb8}{\gamma_{10}}
 \end{alignat}
 \]</span></p>
 <p>Substitute the L2 equations directly into the L1 equation:</p>
 <p><span class="math display">\[
-y_{ij} = (\color{#377eb8}{\gamma_{00}} + u_{0j}) + (\color{#ff7f00}{\gamma_{10}}) x_{ij} + e_{ij}
+y_{ij} = (\color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0j}}) + (\color{#377eb8}{\gamma_{10}}) x_{ij} + \color{#4daf4a}{e_{ij}}
 \]</span></p>
 <div class="fragment">
 <p>Rearrange to group the fixed and random parts:</p>
 <p><span class="math display">\[
-y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#ff7f00}{\gamma_{10}} x_{ij}}_{\text{Fixed}} + \underbrace{u_{0j} + e_{ij}}_{\text{Random}}
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{10}} x_{ij}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}} + \color{#4daf4a}{e_{ij}}}_{\text{Random}}
 \]</span></p>
 </div>
 <div class="fragment">
@@ -775,7 +772,7 @@ SD (Residual)          |        8.14</code></pre>
 </ul>
 <div class="fragment">
 <ul>
-<li>The fixed slope of female <span class="math inline">\((\color{#ff7f00}{\gamma_{10}})\)</span>
+<li>The fixed slope of female <span class="math inline">\((\color{#377eb8}{\gamma_{10}})\)</span>
 <ul>
 <li>The expected difference in math scores for female students compared to male students.</li>
 <li><strong>Significance:</strong> Because <span class="math inline">\(p &lt; .001\)</span>, this slope is statistically significant.</li>
@@ -786,7 +783,7 @@ SD (Residual)          |        8.14</code></pre>
 <section class="slide level2 fsmaller">
 <h2>Interpreting the Random Effects</h2>
 <ul>
-<li>The random intercept SD <span class="math inline">\((\tau_{00})\)</span> is the <strong>Conditional Between-Cluster Spread</strong>
+<li>The random intercept SD <span class="math inline">\((\color{#e41a1c}{\tau_{00}})\)</span> is the <strong>Conditional Between-Cluster Spread</strong>
 <ul>
 <li>The spread of average math scores <em>between</em> schools (specifically, the spread of the <strong>intercepts</strong>).</li>
 <li>This is the spread <em>after</em> accounting for student gender.</li>
@@ -794,7 +791,7 @@ SD (Residual)          |        8.14</code></pre>
 </ul>
 <div class="fragment">
 <ul>
-<li>The L1 residual SD <span class="math inline">\((\sigma)\)</span> is the <strong>Conditional Within-Cluster Spread</strong>
+<li>The L1 residual SD <span class="math inline">\((\color{#4daf4a}{\sigma})\)</span> is the <strong>Conditional Within-Cluster Spread</strong>
 <ul>
 <li>The spread of students’ math scores <em>within</em> their respective schools.</li>
 <li>This represents how much individual students deviate from their expected score after accounting for their gender.</li>
@@ -840,9 +837,8 @@ SD (Residual)          |        8.14</code></pre>
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2 fsmaller">
 <h2>Putting It All Together</h2>
-<p>In practice, applied researchers usually include both L1 and L2 predictors in the same model. We can combine our previous equations into one full model.</p>
-<p><span class="math display">\[
-y_{ij} = \underbrace{\gamma_{00} + \gamma_{01} \mathit{PUBLIC}_j + \gamma_{10} \mathit{FEMALE}_{ij}}_{\text{Fixed}} + \underbrace{u_{0j} + e_{ij}}_{\text{Random}}
+<p>In practice, applied researchers usually include both L1 and L2 predictors in the same model. We can combine our previous equations into one full model. <span class="math display">\[
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} \mathit{PUBLIC}_j + \color{#377eb8}{\gamma_{10}} \mathit{FEMALE}_{ij}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}} + \color{#4daf4a}{e_{ij}}}_{\text{Random}}
 \]</span></p>
 <div class="tc">
 <p><code>math ~ 1 + public + female + (1 | school)</code></p>
@@ -851,9 +847,8 @@ y_{ij} = \underbrace{\gamma_{00} + \gamma_{01} \mathit{PUBLIC}_j + \gamma_{10} \
 <p><strong>Why do this?</strong></p>
 <ol type="1">
 <li><strong>Simultaneous Control:</strong> We can estimate the effect of school type while controlling for student gender (and vice versa).</li>
-<li><strong>Explaining Variance:</strong>
+<li><strong>Explaining Variance:</strong> + <span class="math inline">\(\mathit{PUBLIC}_j\)</span> tries to explain variance <em>between</em> schools (reducing <span class="math inline">\(\tau_{00}\)</span>)
 <ul>
-<li><span class="math inline">\(\mathit{PUBLIC}_j\)</span> tries to explain variance <em>between</em> schools (reducing <span class="math inline">\(\tau_{00}\)</span>)</li>
 <li><span class="math inline">\(\mathit{FEMALE}_{ij}\)</span> tries to explain variance <em>within</em> schools (reducing <span class="math inline">\(\sigma\)</span>)</li>
 </ul></li>
 </ol>
@@ -901,8 +896,8 @@ SD (Residual)          |        8.14</code></pre>
 </ul></li>
 <li><strong>The Random Effects (Variance Components)</strong>
 <ul>
-<li><span class="math inline">\(\tau_{00}\)</span> has decreased compared to the null model because <code>public</code> explained some of the between-school variance.</li>
-<li><span class="math inline">\(\sigma\)</span> has decreased because <code>female</code> explained some of the within-school variance.</li>
+<li><span class="math inline">\(\color{#e41a1c}{\tau_{00}}\)</span> has decreased compared to the null model because <code>public</code> explained some of the between-school variance.</li>
+<li><span class="math inline">\(\color{#4daf4a}{\sigma}\)</span> has decreased because <code>female</code> explained some of the within-school variance.</li>
 </ul></li>
 </ul>
 
