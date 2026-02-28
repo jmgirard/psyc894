@@ -1,0 +1,29 @@
+pagetitle: "Multilevel Modeling"
+author-meta: "Jeffrey Girard"
+semester: "Spring 2026"
+course: "PSYC 894"
+
+navbar: false
+sidebar: false
+page-footer: false
+
+filters:
+  - jmgirard/lordicon
+
+format:
+  revealjs:
+    css: ../../styles.css
+    include-after-body: ../../format-outputs.html
+    slide-number: true
+    show-slide-number: all
+    preview-links: false
+    progress: true
+    history: true
+    hash-type: number
+    theme: default
+    code-block-background: true
+    highlight-style: zenburn
+    code-link: false
+    code-copy: true
+    code-line-numbers: false
+    controls: true

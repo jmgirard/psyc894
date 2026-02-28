@@ -5,6 +5,9 @@ project:
 
 execute:
   freeze: auto
+  echo: true
+  eval: true
+  collapse: false
 
 website:
   title: "PSYC894"
