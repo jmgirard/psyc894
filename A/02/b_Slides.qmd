@@ -51,7 +51,7 @@ library(sandwich)
 
 data("penguins", "mtcars", "cars", "airquality")
 
-theme_set(theme_bw(base_size = 30))
+theme_set(theme_bw(base_size = 20))
 ```
 
 :::{.fsmaller}
@@ -153,7 +153,7 @@ The expected change in the slope of one predictor for an increase of 1 in the ot
 
 ```{r}
 #| fig-asp: 1
-#| fig-width: 8
+#| fig-width: 7
 #| output-location: column
 
 pred_ccmf <- estimate_relation(
@@ -179,7 +179,7 @@ plot(pred_ccmf) +
 
 ```{r}
 #| fig-asp: 1
-#| fig-width: 9
+#| fig-width: 7
 #| output-location: column
 
 pred_ccmb <- estimate_relation(
@@ -308,7 +308,7 @@ The adjustment to the flipper slope for Gentoos compared to Adelies.<br />
 
 ```{r}
 #| fig-asp: 1
-#| fig-width: 8.5
+#| fig-width: 7
 #| output-location: column
 
 pred_cdmf <- estimate_relation(
@@ -483,7 +483,7 @@ plot(pred_line, show_data = TRUE)
 ```{r}
 #| echo: false
 #| fig-asp: 1
-#| fig-width: 6.5
+#| fig-width: 7
 #| ref.label: "model-vis"
 ```
 :::
@@ -543,7 +543,7 @@ plot(pred_poly, show_data = TRUE)
 ```{r}
 #| echo: false
 #| fig-asp: 1
-#| fig-width: 6.5
+#| fig-width: 7
 #| ref.label: "model-poly"
 ```
 :::
@@ -599,7 +599,7 @@ plot(pred_cars, show_data = TRUE)
 ```{r}
 #| echo: false
 #| fig-asp: 1
-#| fig-width: 6.5
+#| fig-width: 7
 #| ref.label: "model-hetero"
 ```
 :::
@@ -691,7 +691,7 @@ plot(pred_ozone, show_data = TRUE)
 ```{r}
 #| echo: false
 #| fig-asp: 1
-#| fig-width: 6.5
+#| fig-width: 7
 #| ref.label: "model-norm"
 ```
 :::

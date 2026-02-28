@@ -210,7 +210,6 @@ ggplot(df_simpson, aes(x, y)) +
   geom_point(aes(color = as.factor(group)), alpha = 0.6) +
   geom_smooth(method = "lm", se = FALSE, color = "black", linetype = "dashed") + # Naive fit
   geom_smooth(aes(group = group, color = as.factor(group)), method = "lm", se = FALSE) + # Cluster fit
-  annotate("text", x = 40, y = -5, label = "Naive Global Fit (Negative)", fontface = "italic") +
   theme_minimal(base_size = 20) +
   theme(legend.position = "none") +
   labs(x = "Physical Activity", y = "Heart Rate", title = "Within (Positive) vs. Between (Negative)")
