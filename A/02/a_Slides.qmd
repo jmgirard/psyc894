@@ -181,7 +181,7 @@ compare_parameters(csr_f, csr_f_z, select = "{estimate}{stars}")
 
 ```{r}
 #| fig-asp: 1
-#| fig-width: 6
+#| fig-width: 7
 #| output-location: column
 
 pred_csrf <- estimate_relation(
@@ -195,12 +195,12 @@ plot(pred_csrf)
 
 ```{r}
 #| fig-asp: 1
-#| fig-width: 6.5
+#| fig-width: 7
 #| output-location: column
 
 # Use the black-and-white theme and
-# use 30pt font for all future plots
-theme_set(theme_bw(base_size = 30))
+# use 20pt font for all future plots
+theme_set(theme_bw(base_size = 20))
 
 plot(
   pred_csrf, 
@@ -330,6 +330,7 @@ Notice that Bill Depth was significant on its own (`csr_b`), but loses significa
 :::{.column width="50%"}
 ```{r}
 #| fig-asp: 0.75
+#| fig-width: 7
 
 pred_csrf <- estimate_relation(
   model = csr_f, by = "flipper_len"
@@ -341,6 +342,7 @@ plot(pred_csrf)
 :::{.column width="50%"}
 ```{r}
 #| fig-asp: 0.75
+#| fig-width: 7
 
 pred_cmrf <- estimate_relation(
   model = cmr_fb, by = "flipper_len"
@@ -357,6 +359,7 @@ plot(pred_cmrf)
 :::{.column width="50%"}
 ```{r}
 #| fig-asp: 0.75
+#| fig-width: 7
 
 pred_csrb <- estimate_relation(
   model = csr_b, by = "bill_dep"
@@ -368,6 +371,7 @@ plot(pred_csrb)
 :::{.column width="50%"}
 ```{r}
 #| fig-asp: 0.75
+#| fig-width: 7
 
 pred_cmrb <- estimate_relation(
   model = cmr_fb, by = "bill_dep"
@@ -518,7 +522,7 @@ pred_dsrs
 
 ```{r}
 #| fig-asp: 1
-#| fig-width: 6.5
+#| fig-width: 7
 #| output-location: column
 
 plot(pred_dsrs) +
@@ -580,6 +584,7 @@ model_parameters(mmr_fs)
 
 ```{r}
 #| fig-asp: 1
+#| fig-width: 7
 #| output-location: column
 
 pred_mmrf <- estimate_relation(
@@ -606,7 +611,7 @@ pred_mmrs
 
 ```{r}
 #| fig-asp: 1
-#| fig-width: 6.5
+#| fig-width: 7
 #| output-location: column
 
 plot(pred_mmrs) +
