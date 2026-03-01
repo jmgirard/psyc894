@@ -291,7 +291,7 @@ $$
 
 ## Path Diagram
 
-![](../../diagrams/random_intercepts_full.png)
+![](../../diagrams/random_intercepts.png)
 
 ## Mixed (or Reduced) Equation {.fsmaller}
 

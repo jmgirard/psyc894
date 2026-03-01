@@ -34,14 +34,15 @@ title: "Week 07: Random Slopes Models"
 ## [07b] Cross-level Interactions
 
 ### Topics
-- A
-- B
+- Conceptual Foundations: Cross-level Interactions
+- Application and Interpretation: Fitting and Interpreting Models
 
 ### File Downloads
 - [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
 
 ### Readings
-- [Aguinis, Gottfredson, \& Culpepper (2013)](https://canvas.ku.edu/courses/182539/pages/07a-random-slopes-2?module_item_id=4317566){target="_blank"}
+- [Aguinis, Gottfredson, \& Culpepper (2013)](https://canvas.ku.edu/courses/182539/pages/07b-cross-level-interactions-+-lab-2){target="_blank"}
+- [Heisig \& Schaeffer (2019)](https://canvas.ku.edu/courses/182539/pages/07b-cross-level-interactions-+-lab-2){target="_blank"}
 
 
 ### Slides

@@ -49,8 +49,8 @@ website:
           - icon: shuffle
             text: "Week 07: Random Slopes"
             href: B/07/index.html
-          - icon: translate
-            text: "Week 08: Translation Activity"
+          - icon: align-center
+            text: "Week 08: Centering and Degrouping"
             href: B/08/index.html
       - text: "Unit C"
         menu:

@@ -171,7 +171,7 @@ $$
 - $\gamma_{01}$ is the [fixed slope]{.b .blue} of PUBLIC: do public schools have higher average math scores than private schools?
 ## Path Diagram
 
-![](../../diagrams/fixed_slopes_l2_full.png)
+![](../../diagrams/fixed_slopes_L2.png)
 
 ## Mixed (or Reduced) Equation {.fsmaller}
 
@@ -443,7 +443,7 @@ $$
 - $\gamma_{10}$ is the [fixed slope]{.b .blue} of FEMALE: do female students have different math scores than male students, assuming this relationship is identical at every school?
 ## Path Diagram
 
-![](../../diagrams/fixed_slopes_l1.png)
+![](../../diagrams/fixed_slopes_L1.png)
 
 ## Mixed (or Reduced) Equation {.fsmaller}
 
@@ -598,7 +598,7 @@ $$
 
 ## Combined Path Diagram
 
-![](../../diagrams/fixed_slopes_combined.png)
+![](../../diagrams/fixed_slopes_L1L2.png)
 
 ## Fitting the Combined Model {.fsmaller}
 

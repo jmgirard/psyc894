@@ -342,8 +342,8 @@ $$
 :::{.tc}
 `y ~ 1 + x + (1 + x | cluster)`
 
-where the *1 + x* part is fixed<br>
-and the *(1 + x | cluster)* part is random
+where the [1 + x]{.blue} part is fixed<br>
+and the [(1 + x | cluster)]{.red} part is random
 :::
 
 :::{.fragment}
@@ -354,31 +354,11 @@ and the *(1 + x | cluster)* part is random
 :::
 :::
 
-## Roadmap
-
-::: {.columns .pv4}
-
-::: {.column width="60%"}
-1. Conceptual Foundations
-    + *Defining Models and Assumptions*
-
-2. Application and Interpretation
-    + *Fitting and Visualizing Models*
-    
-:::
-
-::: {.column .tc .pv4 width="40%"}
-{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
-:::
-
-:::
-
 # Application and Interpretation
 
 ## Setup
 
 ```{r}
-#| echo: true
 #| message: false
 #| replace_path: ["../../data/", ""]
 
@@ -394,8 +374,6 @@ glimpse(dat)
 ## Fitting the Model {.fsmaller}
 
 ```{r fit}
-#| echo: true
-
 fit <- lmer(
   formula = math ~ 1 + female + (1 + female | school), 
   data = dat,
@@ -483,8 +461,6 @@ How do applied researchers actually use $\tau_{10}$? It depends on the context.
 These are called Empirical Bayes (EB) Estimates.
 
 ```{r}
-#| echo: true
-
 estimate_grouplevel(fit, type = "random") # u_0j and u_1j
 ```
 
@@ -493,8 +469,6 @@ estimate_grouplevel(fit, type = "random") # u_0j and u_1j
 These are called Best Linear Unbiased Predictions (BLUPs).
 
 ```{r}
-#| echo: true
-
 estimate_grouplevel(fit, type = "total") # beta_0j and beta_1j
 ```
 
@@ -503,8 +477,6 @@ estimate_grouplevel(fit, type = "total") # beta_0j and beta_1j
 These are estimates for *the average school* in the population.
 
 ```{r}
-#| echo: true
-
 rel <- estimate_relation(fit, by = "female")
 plot(rel)
 ```
