@@ -1,0 +1,58 @@
+---
+title: "Lab 07: Random Slopes"
+format: 
+  html:
+    toc: true
+---
+
+## Setup and Data Preparation
+
+First, load the necessary packages (e.g., `tidyverse`, `lme4`, and `easystats`) and your data. You will be using the "smiling.csv" dataset for the entirety of this lab. It is a subset of real data from Campbell, Girard, McDuff, \& Rosengren ([2025](https://doi.org/10.1177/10949968251360683)). Be sure to format `sex` and `nation` as factors. Also, create a new variable called `gdp` by applying the `standardize()` function to the `gdp_percap_ppp` variable. This will prevent model convergence warnings and make the slope easier to interpret.
+
+## Part I: Random Slopes for Level-1 Predictors
+
+For this section, we will allow the effect of a Level-1 predictor to vary across our clusters. 
+
+### Question 1: Fitting a Random Slope Model
+In previous labs, we assumed the slope for our Level-1 predictor was identical across all clusters. Now, we will let that slope vary across nations by adding a Level-2 deviation.
+
+- **1a.** Fit a model predicting `smile` with a fixed slope for `sex` and a random intercept and random slope for `sex` by `nation`. Use the generic formula `y ~ 1 + x + (1 + x | cluster)` using the `lmer()` function. Assign this model to an object.
+
+- **1b.** Use the `model_parameters()` function to view your results. Interpret the random slope standard deviation ($\tau_{11}$). Specifically, what does this value tell us about the spread of sex differences across nations?
+
+### Question 2: Extracting Random Effects
+We can extract the specific estimates for each cluster to see how they differ from the overall population average.
+
+- **2a.** Derive the cluster deviations using `estimate_grouplevel(fit, type = "random")`. Look up the specific `(Intercept)` and `sex` deviations for the `"USA"`. Does the USA have a larger or smaller sex difference than the global average? *(Hint: Recall that the global fixed effect for males is negative. Think mathematically about how adding a positive deviation changes the absolute magnitude of a negative slope.)*
+
+- **2b.** Look at your model output to find the correlation between the random intercept and random slope ($\tau_{10}$). What is this value? Drawing on the lecture material, explain why it is generally important to estimate this correlation parameter even if it is not your primary research question.
+
+## Part II: Predictions and Shrinkage
+
+### Question 3: Best Linear Unbiased Predictions
+
+- **3a.** Extract the Best Linear Unbiased Predictions (BLUPs) using `estimate_grouplevel(fit, type = "total")`. Look up the specific total predictions for "JPN". What are the total estimated intercept and total estimated sex slope specifically for Japan?
+
+- **3b.** Explain the concept of shrinkage or partial pooling in your own words. Why is the spread of our sample predictions always smaller than the estimated population spread?
+
+### Question 4: Visualizing Effects
+
+- **4a.** Visualize the fixed effects for the average nation using your multilevel model. Extract the relation using `estimate_relation()` and plot it.
+
+- **4b.** If you were to plot the cluster-specific predictions, the lines for each nation would no longer be parallel. Why does including a random slope cause this visual change compared to a model with only random intercepts?
+
+## Part III: Cross-Level Interactions
+
+For this final section, we will test whether a Level-2 predictor can explain the variability we observed in our Level-1 random slopes. 
+
+### Question 5: Fitting a Cross-Level Interaction
+
+- **5a.** Fit a model testing whether a nation's wealth (`gdp`) moderates the effect of `sex` on `smile`. Include a fixed interaction between `gdp` and `sex`, and be sure to retain the random intercept and random slope by `nation`. Use the generic formula `y ~ 1 + z * x + (1 + x | cluster)` as your guide.
+
+- **5b.** Explain why it is absolutely necessary to include the random slope for the Level-1 predictor (`sex`) when testing this cross-level interaction. What happens to your Type I error rate if you omit it?
+
+### Question 6: Interpreting the Interaction
+
+- **6a.** Interpret the fixed interaction effect ($\gamma_{11}$). Does the sex difference in smiling significantly differ depending on a nation's GDP?
+
+- **6b.** Visualize the fixed effects of the cross-level interaction using your multilevel model. Extract the relation using `estimate_relation()`, specifying both `gdp` and `sex` in the `by` argument, and plot it. How does this visual output support your conclusion from 6a?
