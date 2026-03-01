@@ -355,7 +355,7 @@ y_{ij} = \beta_{0j} + \color{#4daf4a}{e_{ij}},
 <li><span class="math inline">\(\gamma_{01}\)</span> is the <span class="b blue">fixed slope</span> of PUBLIC: do public schools have higher average math scores than private schools? ## Path Diagram</li>
 </ul>
 
-<img data-src="../../diagrams/fixed_slopes_l2_full.png" class="r-stretch"></section>
+<img data-src="../../diagrams/fixed_slopes_L2.png" class="r-stretch"></section>
 <section class="slide level2 fsmaller">
 <h2>Mixed (or Reduced) Equation</h2>
 <p><span class="math display">\[
@@ -519,8 +519,8 @@ school | 6     | (Intercept) |        2.56 | 1.73 | [ -0.83,  5.95]</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.138 [0.115, 0.171]
-  Unadjusted ICC: 0.138 [0.115, 0.170]</code></pre>
+    Adjusted ICC: 0.138 [0.118, 0.161]
+  Unadjusted ICC: 0.138 [0.118, 0.161]</code></pre>
 </div>
 </div>
 <div title="Why does this matter?">
@@ -698,7 +698,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}},
 <li><span class="math inline">\(\gamma_{10}\)</span> is the <span class="b blue">fixed slope</span> of FEMALE: do female students have different math scores than male students, assuming this relationship is identical at every school? ## Path Diagram</li>
 </ul>
 
-<img data-src="../../diagrams/fixed_slopes_l1.png" class="r-stretch"></section>
+<img data-src="../../diagrams/fixed_slopes_L1.png" class="r-stretch"></section>
 <section class="slide level2 fsmaller">
 <h2>Mixed (or Reduced) Equation</h2>
 <p><span class="math display">\[
@@ -816,8 +816,8 @@ SD (Residual)          |        8.14</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code># Intraclass Correlation Coefficient
 
-    Adjusted ICC: 0.137 [0.117, 0.160]
-  Unadjusted ICC: 0.136 [0.116, 0.159]</code></pre>
+    Adjusted ICC: 0.137 [0.117, 0.155]
+  Unadjusted ICC: 0.136 [0.116, 0.155]</code></pre>
 </div>
 </div>
 </div>
@@ -857,7 +857,7 @@ y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}}
 <section class="slide level2">
 <h2>Combined Path Diagram</h2>
 
-<img data-src="../../diagrams/fixed_slopes_combined.png" class="r-stretch"></section>
+<img data-src="../../diagrams/fixed_slopes_L1L2.png" class="r-stretch"></section>
 <section class="slide level2 fsmaller">
 <h2>Fitting the Combined Model</h2>
 <div class="cell">

@@ -18,7 +18,7 @@
     "href": "schedule.html#unit-b",
     "title": "Course Schedule",
     "section": "Unit B",
-    "text": "Unit B\n\nWeek 05: Random Intercept Models\nWeek 06: Random Slope Models\nWeek 07: Cross-level Interactions\nWeek 08: Translation Activity"
+    "text": "Unit B\n\nWeek 05: Instructor Out Sick\nWeek 06: Random Intercepts and Fixed Slopes\nWeek 07: Random Slopes and Cross-level Interactions\nWeek 08: Centering and Degrouping"
   },
   {
     "objectID": "schedule.html#unit-c",
@@ -53,7 +53,7 @@
     "href": "B/07/index.html#b-cross-level-interactions",
     "title": "Week 07: Random Slopes Models",
     "section": "[07b] Cross-level Interactions",
-    "text": "[07b] Cross-level Interactions\n\nTopics\n\nA\nB\n\n\n\nFile Downloads\n\nheck2011.csv\n\n\n\nReadings\n\nAguinis, Gottfredson, & Culpepper (2013)\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\n  «  Week 06\n\n  Week 08  »"
+    "text": "[07b] Cross-level Interactions\n\nTopics\n\nConceptual Foundations: Cross-level Interactions\nApplication and Interpretation: Fitting and Interpreting Models\n\n\n\nFile Downloads\n\nheck2011.csv\n\n\n\nReadings\n\nAguinis, Gottfredson, & Culpepper (2013)\nHeisig & Schaeffer (2019)\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\n  «  Week 06\n\n  Week 08  »"
   },
   {
     "objectID": "B/06/assignment.html",

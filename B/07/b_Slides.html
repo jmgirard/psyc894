@@ -6,7 +6,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-cda0bb3ae8bf36564267672919c60290.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-cda0bb3ae8bf36564267672919c60290.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
   <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="Jeffrey Girard">
@@ -28,6 +29,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-0b5db92d115c8c04db4ce50e7f546384.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -137,8 +202,2180 @@
 <p><img data-src="../../img/city-girl.svg" class="absolute" style="bottom: 30px; right: 0px; width: 400px; "></p>
 </section>
 
+<section class="slide level2">
+<h2>Roadmap</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ol type="1">
+<li>Conceptual Foundations
+<ul>
+<li><em>Cross-level Interactions</em></li>
+</ul></li>
+<li>Application and Interpretation
+<ul>
+<li><em>Fitting and Interpreting Models</em></li>
+</ul></li>
+</ol>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Conceptual Foundations</h1>
+
+</section>
+<section class="slide level2 fsmaller">
+<h2>Interactions</h2>
+<ul>
+<li>Interaction (moderation) effects allow the effect (i.e., slope) of a predictor to depend on the values of other predictors.
+<ul>
+<li>We simply estimate a new slope for the <span class="b blue">product</span> of the predictors.</li>
+<li>In week 02, we did this for predictors in single-level models.</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>We also used tools to aid interpretation.
+<ul>
+<li>Spotlight plots via <code>estimate_relation()</code>.</li>
+<li>Contrast analyses via <code>estimate_contrasts()</code>.</li>
+<li>Simple slopes analysis via <code>estimate_slopes()</code>.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Interactions Equation</h2>
+<ul>
+<li>Add a slope for the product of two predictors.
+<ul>
+<li><span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \beta_2 z_i + \color{red}{\beta_3 x_i z_i} + e_{i}\)</span></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>We can reorganize this equation using algebra.
+<ul>
+<li><span class="math inline">\(y_i = \beta_0 + (\beta_1 + \color{red}{\beta_3 z_i}) \color{red}{x_i} + \beta_2 z_i + e_i\)</span></li>
+<li><span class="math inline">\(\beta_1\)</span> is the simple slope of <span class="math inline">\(x_i\)</span> and <span class="math inline">\(\beta_3\)</span> is the interaction effect.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>The total slope of <span class="math inline">\(x_i\)</span> is now <span class="math inline">\((\beta_1 + \beta_3 m_i)\)</span>.
+<ul>
+<li>It thus depends on the value of <span class="math inline">\(z_i\)</span>.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Moderation is <span class="b blue">symmetrical</span>: the slope of <span class="math inline">\(z_i\)</span> also depends on <span class="math inline">\(x_i\)</span>.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Cross-level Interactions</h2>
+<ul>
+<li>But what if your predictors are on different levels?</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>We can make this work using <span class="b blue">cross-level interactions</span>.
+<ul>
+<li>Do L1 relationships depend on L2 predictors?</li>
+<li><em>How do aspects of the cluster (e.g., school) influence<br> within-cluster (e.g., student-level) relationships?</em></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>This allows us to treat the cluster as a moderator.
+<ul>
+<li><em><span class="b green">Why</span> are relationships stronger in some clusters than others?</em></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Example Cross-level Questions</h2>
+<ul>
+<li><em>Is the difference between male and female smiling greater in nations that are more religious (vs.&nbsp;those that are less religious)?</em>
+<ul>
+<li><strong>L1:</strong> <span class="math inline">\(x_{ij}\)</span> = participant’s sex, <span class="math inline">\(y_{ij}\)</span> = participant’s smiling</li>
+<li><strong>L2:</strong> <span class="math inline">\(z_j\)</span> = nation’s religiousness</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><em>Is the relationship between homework and math scores stronger in schools with after-school programs (vs.&nbsp;those without)?</em>
+<ul>
+<li><strong>L1:</strong> <span class="math inline">\(x_{ij}\)</span> = student’s homework time, <span class="math inline">\(y_{ij}\)</span> = student’s math score</li>
+<li><strong>L2:</strong> <span class="math inline">\(z_j\)</span> = school’s after-school program status</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Same-Level Interactions</h2>
+<ul>
+<li>Multilevel models are not restricted to cross-level interactions.</li>
+<li>You can also include interactions between predictors at the same level.</li>
+<li><strong>Level 1 Interaction:</strong>
+<ul>
+<li>Fixed effects: <code>math ~ 1 + homework * motivation</code></li>
+</ul></li>
+<li><strong>Random Slopes for L1 Interactions:</strong>
+<ul>
+<li>Maximal syntax: <code>+ (1 + homework * motivation | school)</code></li>
+<li><em>Warning: This estimates a massive random effects matrix and may cause convergence issues.</em></li>
+</ul></li>
+<li><strong>Level 2 Interaction:</strong>
+<ul>
+<li><code>math ~ 1 + public * funding + (1 | school)</code></li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2 fsmaller">
+<h2>A Note on Predictors Today</h2>
+<ol type="1">
+<li>For today’s examples, we are strictly using <strong>categorical (dummy-coded) predictors</strong>.</li>
+<li>Because dummy codes (0 and 1) have an inherently meaningful zero (the reference group), our model intercepts remain easy to interpret.</li>
+<li>If we were using <em>continuous</em> predictors, we would need to scale them carefully so that their zero values make sense.</li>
+<li>We will learn how to do that next week (using <strong>centering</strong> and <strong>degrouping</strong>) before we apply cross-level interactions to continuous variables.</li>
+</ol>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Multilevel Equation Part 1</h2>
+<ul>
+<li>We will accomplish this by adding to the random slope equation</li>
+</ul>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[
+y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}}
+\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[
+\begin{align}
+\beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}} \\
+\beta_{1j} &amp;= \color{#377eb8}{\gamma_{10}} + \underbrace{\color{#377eb8}{\gamma_{11}} z_j}_{\text{New}} + \color{#e41a1c}{u_{1j}}
+\end{align}
+\]</span></p>
+<div class="fragment">
+<ul>
+<li>The slope <span class="math inline">\(\beta_{1j}\)</span> thus now depends on the value of <span class="math inline">\(z_j\)</span></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Multilevel Equation Part 2</h2>
+<p>As we add random effects (e.g., <span class="math inline">\(u_{1j}\)</span>), we assume they form a multivariate normal distribution with 0 means and estimated SDs (e.g., <span class="math inline">\(\tau_{00}\)</span> and <span class="math inline">\(\tau_{11}\)</span>) and correlations (e.g., <span class="math inline">\(\tau_{10}\)</span>).</p>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
+\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[
+\begin{bmatrix}\color{#e41a1c}{u_{0j}}\\ \color{#e41a1c}{u_{1j}}\end{bmatrix} \sim \text{MVN}\left(\begin{bmatrix}0\\0\end{bmatrix}, \begin{bmatrix}\color{#e41a1c}{\tau_{00}} &amp; \\ \color{#e41a1c}{\tau_{10}} &amp; \color{#e41a1c}{\tau_{11}}\end{bmatrix}\right)
+\]</span></p>
+</section>
+<section class="slide level2">
+<h2>Path Diagram</h2>
+
+<img data-src="../../diagrams/cross_level_interaction.png" class="r-stretch"></section>
+<section class="slide level2 fsmaller">
+<h2>Mixed (or Reduced) Equation</h2>
+<p><span class="math display">\[
+\begin{alignat}{2}
+&amp;\text{L1:} \quad &amp; y_{ij} &amp;= \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}} \\
+&amp;\text{L2:} \quad &amp; \beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}} \\
+&amp;                 &amp; \beta_{1j} &amp;= \color{#377eb8}{\gamma_{10}} + \color{#377eb8}{\gamma_{11}} z_j + \color{#e41a1c}{u_{1j}}
+\end{alignat}
+\]</span></p>
+<p>Substitute the L2 equations directly into the L1 equation:</p>
+<p><span class="math display">\[
+y_{ij} = (\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}}) + (\color{#377eb8}{\gamma_{10}} + \color{#377eb8}{\gamma_{11}} z_j + \color{#e41a1c}{u_{1j}}) x_{ij} + \color{#4daf4a}{e_{ij}}
+\]</span></p>
+<div class="fragment">
+<p>Rearrange to group the fixed and random parts:</p>
+<p><span class="math display">\[
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#377eb8}{\gamma_{10}} x_{ij} + \color{#377eb8}{\gamma_{11}} z_j x_{ij}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}} + \color{#e41a1c}{u_{1j}} x_{ij}}_{\text{Random}} + \color{#4daf4a}{e_{ij}}
+\]</span></p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Formula</h2>
+<p><span class="math display">\[
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#377eb8}{\gamma_{10}} x_{ij} + \color{#377eb8}{\gamma_{11}} z_j x_{ij}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}} + \color{#e41a1c}{u_{1j}} x_{ij}}_{\text{(Random)}} + \color{#4daf4a}{e_{ij}}
+\]</span></p>
+<p><strong>Generic</strong></p>
+<div class="tc">
+<p><code>y ~ 1 + z * x + (1 + x | cluster)</code></p>
+<p>where the <span class="blue">1 + x * z</span> part is fixed<br> and the <span class="red">(1 + x | cluster)</span> part is random</p>
+</div>
+<div class="fragment">
+<p><strong>Example</strong></p>
+<div class="tc">
+<p><code>math ~ 1 + public * female + (1 + female | school)</code></p>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>The Importance of Random Slopes</h2>
+<ul>
+<li>When testing a cross-level interaction, you <strong>must</strong> include the random slope for the Level 1 predictor.</li>
+<li>If you omit the random slope (e.g., using <code>(1 | school)</code> instead of <code>(1 + female | school)</code>), the model assumes the Level 2 predictor perfectly explains all slope variance.</li>
+<li>This results in standard errors that are too small and severely inflates your Type I error rate.</li>
+<li><strong>Rule of Thumb:</strong> If a Level 1 predictor <span class="math inline">\(x_{ij}\)</span> interacts with a Level 2 predictor <span class="math inline">\(z_j\)</span>, <span class="math inline">\(x_{ij}\)</span> needs a random slope.</li>
+</ul>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Application and Interpretation</h1>
+
+</section>
+<section class="slide level2">
+<h2>Setup</h2>
+<div class="cell" data-replace_path="[&quot;../../data/&quot;,&quot;&quot;]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"heck2011.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">school =</span> <span class="fu">factor</span>(school), <span class="at">female =</span> <span class="fu">factor</span>(female), <span class="at">public =</span> <span class="fu">factor</span>(public))</span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 6,871
+Columns: 7
+$ school  &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2,…
+$ student &lt;dbl&gt; 6701, 6702, 6703, 6704, 6705, 6706, 6707, 6708, 6709, 6710, 67…
+$ female  &lt;fct&gt; 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ ses     &lt;dbl&gt; 0.586, 0.304, -0.544, -0.848, 0.001, -0.106, -0.330, -0.891, 0…
+$ math    &lt;dbl&gt; 47.1400, 63.6100, 57.7100, 53.9000, 58.0100, 59.8700, 62.5556,…
+$ puniv   &lt;dbl&gt; 0.08333333, 0.08333333, 0.08333333, 0.08333333, 0.08333333, 0.…
+$ public  &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Fitting the Model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lmer</span>(math <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> public <span class="sc">*</span> female <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> female <span class="sc">|</span> school), <span class="at">data =</span> dat)</span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter               | Coefficient |   SE |         95% CI | t(6863) |      p
+--------------------------------------------------------------------------------
+(Intercept)             |       57.79 | 0.42 | [56.97, 58.62] |  137.47 | &lt; .001
+public [1]              |        0.65 | 0.49 | [-0.31,  1.61] |    1.33 | 0.185 
+female [1]              |       -0.61 | 0.42 | [-1.44,  0.21] |   -1.45 | 0.146 
+public [1] × female [1] |       -0.81 | 0.49 | [-1.78,  0.16] |   -1.64 | 0.102 
+
+# Random Effects
+
+Parameter                       | Coefficient
+---------------------------------------------
+SD (Intercept: school)          |        3.34
+SD (female1: school)            |        1.69
+Cor (Intercept~female1: school) |       -0.24
+SD (Residual)                   |        8.10</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Interpreting the Fixed Effects</h2>
+<ul>
+<li>The fixed intercept <span class="math inline">\((\gamma_{00})\)</span> is…
+<ul>
+<li>The average male student’s math score at the average private school (i.e., double reference group)</li>
+<li>This value is significantly different from zero</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>The fixed simple slope of public <span class="math inline">\((\gamma_{01})\)</span> is…
+<ul>
+<li>The difference between public and private schools’ average intercepts (i.e., average male student’s math scores)</li>
+<li>Not significantly different from zero</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Interpreting the Fixed Effects</h2>
+<ul>
+<li>The fixed simple slope of female <span class="math inline">\((\gamma_{10})\)</span> is…
+<ul>
+<li>The difference between female and male students’ average math scores at the average private school</li>
+<li>Not significantly different from zero</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>The fixed public-by-female interaction <span class="math inline">\((\gamma_{11})\)</span> is…
+<ul>
+<li>The difference in the female-male sex difference in math scores between the average public and private school</li>
+<li>Not significantly different from zero</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Interpreting the Random Effects 1</h2>
+<ul>
+<li>The random intercept SD <span class="math inline">\((\tau_{00})\)</span> is…
+<ul>
+<li>The spread of the random intercept deviations</li>
+<li>How much do male averages vary between private schools?</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>The random slope (of female) SD <span class="math inline">\((\tau_{11})\)</span> is…
+<ul>
+<li>The spread of the random slope deviations</li>
+<li>How much do sex differences vary between schools (after accounting for public status)?</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Interpreting the Random Effects 2</h2>
+<ul>
+<li>The correlation between deviations <span class="math inline">\((\tau_{10})\)</span> is…
+<ul>
+<li>The relationship between <span class="math inline">\(u_{0j}\)</span> and <span class="math inline">\(u_{1j}\)</span></li>
+<li>Schools with higher average male math scores tend to have more negative slopes (i.e., stronger sex differences)</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>The L1 residual SD <span class="math inline">\((\sigma)\)</span> is…
+<ul>
+<li>The spread of the residuals at the lowest model level</li>
+<li>The spread of students’ math scores <em>within</em> schools<br> (after accounting for sex and public status)</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Random Effect Deviations</h2>
+<p>These are called Empirical Bayes (EB) Estimates.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_grouplevel</span>(fit, <span class="at">type =</span> <span class="st">"random"</span>) <span class="co"># u_0j and u_1j</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Group  | Level | Parameter   | Coefficient |   SE |          95% CI
+-------------------------------------------------------------------
+school | 1     | (Intercept) |        1.15 | 2.05 | [ -2.87,  5.17]
+school | 1     | female [1]  |       -0.31 | 1.59 | [ -3.43,  2.80]
+school | 2     | (Intercept) |        4.03 | 1.86 | [  0.37,  7.68]
+school | 2     | female1     |       -0.50 | 1.65 | [ -3.74,  2.75]
+school | 3     | (Intercept) |       -7.16 | 1.87 | [-10.83, -3.49]
+school | 3     | female1     |       -0.26 | 1.55 | [ -3.30,  2.78]
+school | 4     | (Intercept) |        5.50 | 2.20 | [  1.19,  9.80]
+school | 4     | female1     |        0.83 | 1.65 | [ -2.40,  4.06]
+school | 5     | (Intercept) |       -6.47 | 1.83 | [-10.06, -2.87]
+school | 5     | female1     |       -0.86 | 1.55 | [ -3.90,  2.18]
+school | 6     | (Intercept) |        1.93 | 1.88 | [ -1.76,  5.62]
+school | 6     | female1     |        1.25 | 1.56 | [ -1.80,  4.31]
+school | 7     | (Intercept) |        0.12 | 1.88 | [ -3.56,  3.81]
+school | 7     | female1     |       -0.77 | 1.56 | [ -3.83,  2.29]
+school | 8     | (Intercept) |        2.66 | 1.61 | [ -0.49,  5.81]
+school | 8     | female1     |        0.71 | 1.49 | [ -2.21,  3.64]
+school | 9     | (Intercept) |       -1.47 | 1.92 | [ -5.25,  2.30]
+school | 9     | female1     |       -0.84 | 1.56 | [ -3.89,  2.22]
+school | 10    | (Intercept) |        2.77 | 1.78 | [ -0.72,  6.26]
+school | 10    | female1     |        0.41 | 1.53 | [ -2.59,  3.41]
+school | 11    | (Intercept) |       -1.26 | 1.72 | [ -4.64,  2.12]
+school | 11    | female1     |        0.14 | 1.57 | [ -2.93,  3.21]
+school | 12    | (Intercept) |       -1.97 | 2.09 | [ -6.06,  2.12]
+school | 12    | female1     |        0.45 | 1.59 | [ -2.66,  3.57]
+school | 13    | (Intercept) |        0.77 | 1.98 | [ -3.12,  4.65]
+school | 13    | female1     |        0.01 | 1.57 | [ -3.07,  3.09]
+school | 14    | (Intercept) |       -0.45 | 2.03 | [ -4.43,  3.52]
+school | 14    | female1     |        1.20 | 1.58 | [ -1.90,  4.29]
+school | 15    | (Intercept) |        4.33 | 1.73 | [  0.94,  7.72]
+school | 15    | female1     |        0.08 | 1.53 | [ -2.92,  3.08]
+school | 16    | (Intercept) |       -1.09 | 2.06 | [ -5.12,  2.94]
+school | 16    | female1     |       -0.56 | 1.58 | [ -3.67,  2.54]
+school | 17    | (Intercept) |       -2.07 | 1.80 | [ -5.59,  1.45]
+school | 17    | female1     |       -0.48 | 1.54 | [ -3.50,  2.53]
+school | 18    | (Intercept) |        3.71 | 1.97 | [ -0.14,  7.57]
+school | 18    | female1     |       -0.67 | 1.57 | [ -3.75,  2.40]
+school | 19    | (Intercept) |        0.12 | 1.91 | [ -3.62,  3.85]
+school | 19    | female1     |        0.13 | 1.57 | [ -2.94,  3.20]
+school | 20    | (Intercept) |        1.51 | 2.10 | [ -2.60,  5.62]
+school | 20    | female1     |       -0.32 | 1.59 | [ -3.44,  2.80]
+school | 21    | (Intercept) |        1.37 | 1.81 | [ -2.18,  4.91]
+school | 21    | female1     |        0.79 | 1.53 | [ -2.22,  3.79]
+school | 22    | (Intercept) |       -1.24 | 2.05 | [ -5.26,  2.78]
+school | 22    | female1     |       -0.09 | 1.59 | [ -3.21,  3.02]
+school | 23    | (Intercept) |        1.50 | 1.93 | [ -2.29,  5.28]
+school | 23    | female1     |        0.55 | 1.58 | [ -2.54,  3.64]
+school | 24    | (Intercept) |        0.63 | 2.00 | [ -3.30,  4.56]
+school | 24    | female1     |       -0.07 | 1.57 | [ -3.16,  3.01]
+school | 25    | (Intercept) |       -1.14 | 1.77 | [ -4.61,  2.33]
+school | 25    | female1     |       -1.36 | 1.54 | [ -4.37,  1.66]
+school | 26    | (Intercept) |        2.02 | 1.76 | [ -1.44,  5.48]
+school | 26    | female1     |        0.91 | 1.55 | [ -2.13,  3.95]
+school | 27    | (Intercept) |       -3.03 | 1.80 | [ -6.55,  0.49]
+school | 27    | female1     |       -0.11 | 1.54 | [ -3.13,  2.90]
+school | 28    | (Intercept) |        5.63 | 1.71 | [  2.27,  8.99]
+school | 28    | female1     |       -1.06 | 1.52 | [ -4.05,  1.92]
+school | 29    | (Intercept) |        1.64 | 1.94 | [ -2.15,  5.44]
+school | 29    | female1     |       -0.05 | 1.57 | [ -3.12,  3.02]
+school | 30    | (Intercept) |       -1.04 | 1.81 | [ -4.58,  2.50]
+school | 30    | female1     |       -1.00 | 1.53 | [ -4.01,  2.00]
+school | 31    | (Intercept) |       -0.08 | 1.87 | [ -3.74,  3.59]
+school | 31    | female1     |       -1.72 | 1.55 | [ -4.75,  1.31]
+school | 32    | (Intercept) |        3.51 | 1.42 | [  0.73,  6.29]
+school | 32    | female1     |        0.39 | 1.43 | [ -2.42,  3.20]
+school | 33    | (Intercept) |       -4.49 | 1.67 | [ -7.76, -1.21]
+school | 33    | female1     |       -0.06 | 1.53 | [ -3.07,  2.94]
+school | 34    | (Intercept) |       -0.35 | 1.79 | [ -3.86,  3.15]
+school | 34    | female1     |       -0.44 | 1.55 | [ -3.47,  2.59]
+school | 35    | (Intercept) |        2.34 | 1.96 | [ -1.51,  6.18]
+school | 35    | female1     |       -0.34 | 1.59 | [ -3.44,  2.77]
+school | 36    | (Intercept) |       -3.50 | 2.13 | [ -7.66,  0.67]
+school | 36    | female1     |       -0.47 | 1.60 | [ -3.60,  2.65]
+school | 37    | (Intercept) |        2.33 | 1.91 | [ -1.40,  6.07]
+school | 37    | female1     |        0.66 | 1.57 | [ -2.41,  3.73]
+school | 38    | (Intercept) |       -1.20 | 2.09 | [ -5.29,  2.89]
+school | 38    | female1     |       -0.82 | 1.59 | [ -3.94,  2.30]
+school | 39    | (Intercept) |        0.33 | 1.78 | [ -3.15,  3.82]
+school | 39    | female1     |       -0.89 | 1.53 | [ -3.90,  2.11]
+school | 40    | (Intercept) |       -3.43 | 1.98 | [ -7.31,  0.45]
+school | 40    | female1     |       -0.31 | 1.57 | [ -3.39,  2.77]
+school | 41    | (Intercept) |        1.66 | 1.69 | [ -1.64,  4.97]
+school | 41    | female1     |        0.56 | 1.51 | [ -2.40,  3.53]
+school | 42    | (Intercept) |        0.29 | 2.10 | [ -3.82,  4.40]
+school | 42    | female1     |       -0.02 | 1.59 | [ -3.13,  3.10]
+school | 43    | (Intercept) |        0.65 | 1.97 | [ -3.21,  4.51]
+school | 43    | female1     |        0.75 | 1.57 | [ -2.33,  3.82]
+school | 44    | (Intercept) |        3.17 | 1.89 | [ -0.53,  6.87]
+school | 44    | female1     |        0.27 | 1.55 | [ -2.77,  3.31]
+school | 45    | (Intercept) |        2.13 | 1.72 | [ -1.25,  5.51]
+school | 45    | female1     |    7.48e-03 | 1.55 | [ -3.02,  3.04]
+school | 46    | (Intercept) |       -0.66 | 1.84 | [ -4.27,  2.95]
+school | 46    | female1     |        0.54 | 1.55 | [ -2.49,  3.57]
+school | 47    | (Intercept) |       -4.54 | 1.97 | [ -8.40, -0.69]
+school | 47    | female1     |        0.69 | 1.57 | [ -2.38,  3.77]
+school | 48    | (Intercept) |       -0.73 | 1.99 | [ -4.64,  3.17]
+school | 48    | female1     |        0.39 | 1.60 | [ -2.74,  3.52]
+school | 49    | (Intercept) |        0.08 | 1.81 | [ -3.47,  3.64]
+school | 49    | female1     |       -0.55 | 1.55 | [ -3.58,  2.48]
+school | 50    | (Intercept) |       -4.04 | 1.99 | [ -7.95, -0.13]
+school | 50    | female1     |       -0.52 | 1.60 | [ -3.65,  2.61]
+school | 51    | (Intercept) |        1.95 | 2.22 | [ -2.39,  6.30]
+school | 51    | female1     |        0.35 | 1.62 | [ -2.81,  3.52]
+school | 52    | (Intercept) |        3.00 | 1.99 | [ -0.89,  6.90]
+school | 52    | female1     |       -0.09 | 1.58 | [ -3.19,  3.01]
+school | 53    | (Intercept) |        2.29 | 1.79 | [ -1.21,  5.80]
+school | 53    | female1     |       -1.04 | 1.55 | [ -4.07,  2.00]
+school | 54    | (Intercept) |        4.85 | 1.88 | [  1.16,  8.54]
+school | 54    | female1     |       -0.49 | 1.59 | [ -3.60,  2.63]
+school | 55    | (Intercept) |       -6.41 | 1.92 | [-10.18, -2.64]
+school | 55    | female1     |       -1.50 | 1.56 | [ -4.56,  1.55]
+school | 56    | (Intercept) |       -0.91 | 2.07 | [ -4.97,  3.14]
+school | 56    | female1     |        0.06 | 1.59 | [ -3.05,  3.17]
+school | 57    | (Intercept) |        0.48 | 1.88 | [ -3.20,  4.17]
+school | 57    | female1     |       -0.26 | 1.57 | [ -3.33,  2.82]
+school | 58    | (Intercept) |        0.25 | 1.94 | [ -3.54,  4.04]
+school | 58    | female1     |        0.45 | 1.57 | [ -2.62,  3.52]
+school | 59    | (Intercept) |        0.93 | 1.79 | [ -2.58,  4.43]
+school | 59    | female1     |       -0.01 | 1.55 | [ -3.05,  3.02]
+school | 60    | (Intercept) |       -3.84 | 1.99 | [ -7.75,  0.07]
+school | 60    | female1     |        0.60 | 1.58 | [ -2.49,  3.69]
+school | 61    | (Intercept) |        1.97 | 1.73 | [ -1.42,  5.36]
+school | 61    | female1     |       -1.10 | 1.53 | [ -4.10,  1.90]
+school | 62    | (Intercept) |       -8.75 | 2.04 | [-12.76, -4.75]
+school | 62    | female1     |        0.59 | 1.58 | [ -2.51,  3.69]
+school | 63    | (Intercept) |        1.06 | 1.79 | [ -2.45,  4.56]
+school | 63    | female1     |        0.17 | 1.55 | [ -2.86,  3.20]
+school | 64    | (Intercept) |        0.87 | 1.88 | [ -2.82,  4.56]
+school | 64    | female1     |       -0.13 | 1.56 | [ -3.18,  2.93]
+school | 65    | (Intercept) |        3.79 | 1.93 | [  0.01,  7.58]
+school | 65    | female1     |       -0.21 | 1.58 | [ -3.30,  2.88]
+school | 66    | (Intercept) |       -1.46 | 1.81 | [ -5.00,  2.09]
+school | 66    | female1     |       -0.22 | 1.56 | [ -3.27,  2.83]
+school | 67    | (Intercept) |        1.89 | 1.99 | [ -2.01,  5.79]
+school | 67    | female1     |       -0.21 | 1.58 | [ -3.31,  2.89]
+school | 68    | (Intercept) |       -0.52 | 2.03 | [ -4.49,  3.46]
+school | 68    | female1     |        0.70 | 1.58 | [ -2.39,  3.80]
+school | 69    | (Intercept) |       -3.47 | 2.00 | [ -7.40,  0.45]
+school | 69    | female1     |       -0.31 | 1.57 | [ -3.39,  2.78]
+school | 70    | (Intercept) |        4.77 | 2.00 | [  0.85,  8.70]
+school | 70    | female1     |        0.13 | 1.57 | [ -2.96,  3.21]
+school | 71    | (Intercept) |       -1.54 | 1.94 | [ -5.34,  2.25]
+school | 71    | female1     |       -0.63 | 1.57 | [ -3.71,  2.44]
+school | 72    | (Intercept) |       -5.51 | 1.82 | [ -9.08, -1.93]
+school | 72    | female1     |       -0.02 | 1.54 | [ -3.03,  3.00]
+school | 73    | (Intercept) |       -0.79 | 1.74 | [ -4.20,  2.63]
+school | 73    | female1     |        0.57 | 1.56 | [ -2.48,  3.62]
+school | 74    | (Intercept) |        5.19 | 1.89 | [  1.49,  8.90]
+school | 74    | female1     |        0.06 | 1.55 | [ -2.99,  3.10]
+school | 75    | (Intercept) |       -0.47 | 1.81 | [ -4.01,  3.07]
+school | 75    | female1     |        0.93 | 1.57 | [ -2.15,  4.01]
+school | 76    | (Intercept) |       -0.53 | 1.91 | [ -4.26,  3.21]
+school | 76    | female1     |        1.26 | 1.57 | [ -1.81,  4.33]
+school | 77    | (Intercept) |        4.37 | 1.57 | [  1.30,  7.44]
+school | 77    | female1     |        0.11 | 1.50 | [ -2.82,  3.04]
+school | 78    | (Intercept) |       -1.12 | 2.09 | [ -5.21,  2.97]
+school | 78    | female1     |       -0.06 | 1.59 | [ -3.19,  3.06]
+school | 79    | (Intercept) |       -2.62 | 2.05 | [ -6.64,  1.40]
+school | 79    | female1     |       -0.23 | 1.59 | [ -3.35,  2.88]
+school | 80    | (Intercept) |        4.35 | 1.74 | [  0.94,  7.77]
+school | 80    | female1     |        0.14 | 1.56 | [ -2.92,  3.19]
+school | 81    | (Intercept) |       -2.51 | 2.06 | [ -6.54,  1.52]
+school | 81    | female1     |       -0.13 | 1.58 | [ -3.23,  2.98]
+school | 82    | (Intercept) |        1.69 | 1.75 | [ -1.74,  5.13]
+school | 82    | female1     |       -0.78 | 1.53 | [ -3.78,  2.22]
+school | 83    | (Intercept) |        1.81 | 1.55 | [ -1.23,  4.85]
+school | 83    | female1     |        1.40 | 1.47 | [ -1.47,  4.28]
+school | 84    | (Intercept) |        3.11 | 2.05 | [ -0.91,  7.14]
+school | 84    | female1     |        0.12 | 1.59 | [ -3.00,  3.23]
+school | 85    | (Intercept) |        0.33 | 1.97 | [ -3.53,  4.18]
+school | 85    | female1     |        0.78 | 1.57 | [ -2.29,  3.86]
+school | 86    | (Intercept) |       -1.39 | 1.79 | [ -4.89,  2.10]
+school | 86    | female1     |        0.12 | 1.56 | [ -2.94,  3.17]
+school | 87    | (Intercept) |        2.16 | 1.96 | [ -1.68,  6.01]
+school | 87    | female1     |       -0.24 | 1.57 | [ -3.32,  2.85]
+school | 88    | (Intercept) |        1.96 | 1.73 | [ -1.43,  5.35]
+school | 88    | female1     |       -0.57 | 1.53 | [ -3.58,  2.43]
+school | 89    | (Intercept) |        0.42 | 2.17 | [ -3.83,  4.68]
+school | 89    | female1     |        0.04 | 1.60 | [ -3.10,  3.19]
+school | 90    | (Intercept) |        3.59 | 1.78 | [  0.10,  7.07]
+school | 90    | female1     |       -0.41 | 1.53 | [ -3.40,  2.58]
+school | 91    | (Intercept) |        0.19 | 1.83 | [ -3.40,  3.79]
+school | 91    | female1     |       -0.21 | 1.55 | [ -3.25,  2.83]
+school | 92    | (Intercept) |        2.50 | 1.94 | [ -1.29,  6.30]
+school | 92    | female1     |        0.06 | 1.57 | [ -3.02,  3.13]
+school | 93    | (Intercept) |       -2.46 | 1.57 | [ -5.53,  0.61]
+school | 93    | female1     |        0.71 | 1.48 | [ -2.19,  3.61]
+school | 94    | (Intercept) |        1.94 | 2.06 | [ -2.09,  5.97]
+school | 94    | female1     |        0.16 | 1.58 | [ -2.95,  3.26]
+school | 95    | (Intercept) |       -0.32 | 1.75 | [ -3.75,  3.12]
+school | 95    | female1     |        0.23 | 1.53 | [ -2.77,  3.23]
+school | 96    | (Intercept) |        1.70 | 1.99 | [ -2.21,  5.60]
+school | 96    | female1     |    7.79e-03 | 1.60 | [ -3.12,  3.14]
+school | 97    | (Intercept) |        3.30 | 1.75 | [ -0.14,  6.73]
+school | 97    | female1     |        0.07 | 1.53 | [ -2.93,  3.07]
+school | 98    | (Intercept) |        0.21 | 1.88 | [ -3.48,  3.90]
+school | 98    | female1     |        0.17 | 1.59 | [ -2.94,  3.29]
+school | 99    | (Intercept) |       -0.94 | 2.13 | [ -5.11,  3.22]
+school | 99    | female1     |        0.38 | 1.60 | [ -2.74,  3.51]
+school | 100   | (Intercept) |        0.99 | 1.72 | [ -2.39,  4.36]
+school | 100   | female1     |       -0.84 | 1.55 | [ -3.87,  2.19]
+school | 101   | (Intercept) |       -0.04 | 1.82 | [ -3.62,  3.53]
+school | 101   | female1     |       -0.08 | 1.54 | [ -3.10,  2.93]
+school | 102   | (Intercept) |       -0.13 | 1.98 | [ -4.01,  3.76]
+school | 102   | female1     |        0.35 | 1.57 | [ -2.73,  3.43]
+school | 103   | (Intercept) |        7.01 | 1.93 | [  3.21, 10.80]
+school | 103   | female1     |       -0.38 | 1.59 | [ -3.50,  2.74]
+school | 104   | (Intercept) |        0.21 | 2.05 | [ -3.81,  4.23]
+school | 104   | female1     |        0.33 | 1.59 | [ -2.78,  3.45]
+school | 105   | (Intercept) |        1.34 | 1.86 | [ -2.29,  4.98]
+school | 105   | female1     |        0.14 | 1.56 | [ -2.92,  3.20]
+school | 106   | (Intercept) |       -4.74 | 1.74 | [ -8.14, -1.33]
+school | 106   | female1     |        0.72 | 1.52 | [ -2.27,  3.71]
+school | 107   | (Intercept) |        5.41 | 1.85 | [  1.77,  9.04]
+school | 107   | female1     |        0.66 | 1.58 | [ -2.43,  3.75]
+school | 108   | (Intercept) |        1.00 | 1.81 | [ -2.55,  4.54]
+school | 108   | female1     |       -1.12 | 1.56 | [ -4.16,  1.93]
+school | 109   | (Intercept) |        4.08 | 1.91 | [  0.34,  7.81]
+school | 109   | female1     |        0.07 | 1.57 | [ -3.00,  3.14]
+school | 110   | (Intercept) |       -1.59 | 1.88 | [ -5.28,  2.09]
+school | 110   | female1     |       -0.29 | 1.57 | [ -3.37,  2.78]
+school | 111   | (Intercept) |       -1.47 | 1.86 | [ -5.12,  2.17]
+school | 111   | female1     |        0.42 | 1.55 | [ -2.62,  3.47]
+school | 112   | (Intercept) |        0.50 | 1.74 | [ -2.91,  3.91]
+school | 112   | female1     |        1.57 | 1.52 | [ -1.42,  4.56]
+school | 113   | (Intercept) |        1.05 | 1.66 | [ -2.21,  4.31]
+school | 113   | female1     |        0.26 | 1.50 | [ -2.68,  3.20]
+school | 114   | (Intercept) |       -1.61 | 1.86 | [ -5.26,  2.03]
+school | 114   | female1     |       -0.52 | 1.60 | [ -3.66,  2.61]
+school | 115   | (Intercept) |        3.18 | 2.09 | [ -0.91,  7.27]
+school | 115   | female1     |       -0.12 | 1.59 | [ -3.23,  3.00]
+school | 116   | (Intercept) |       -8.40 | 1.82 | [-11.98, -4.83]
+school | 116   | female1     |       -0.10 | 1.54 | [ -3.12,  2.92]
+school | 117   | (Intercept) |       -2.48 | 2.05 | [ -6.50,  1.54]
+school | 117   | female1     |        0.54 | 1.59 | [ -2.58,  3.65]
+school | 118   | (Intercept) |       -0.88 | 1.99 | [ -4.78,  3.02]
+school | 118   | female1     |        0.84 | 1.58 | [ -2.26,  3.94]
+school | 119   | (Intercept) |        1.88 | 2.05 | [ -2.14,  5.90]
+school | 119   | female1     |        0.33 | 1.59 | [ -2.79,  3.44]
+school | 120   | (Intercept) |        3.60 | 1.83 | [  0.01,  7.19]
+school | 120   | female1     |        0.40 | 1.55 | [ -2.65,  3.44]
+school | 121   | (Intercept) |        0.68 | 1.91 | [ -3.07,  4.43]
+school | 121   | female1     |       -0.46 | 1.56 | [ -3.52,  2.60]
+school | 122   | (Intercept) |       -3.28 | 2.06 | [ -7.31,  0.75]
+school | 122   | female1     |       -0.25 | 1.58 | [ -3.35,  2.86]
+school | 123   | (Intercept) |        0.09 | 1.84 | [ -3.52,  3.70]
+school | 123   | female1     |        0.70 | 1.55 | [ -2.33,  3.73]
+school | 124   | (Intercept) |        1.42 | 2.06 | [ -2.61,  5.45]
+school | 124   | female1     |        0.72 | 1.58 | [ -2.39,  3.82]
+school | 125   | (Intercept) |       -1.62 | 1.86 | [ -5.27,  2.03]
+school | 125   | female1     |        0.82 | 1.55 | [ -2.22,  3.86]
+school | 126   | (Intercept) |       -0.27 | 1.65 | [ -3.50,  2.97]
+school | 126   | female1     |       -0.41 | 1.50 | [ -3.36,  2.54]
+school | 127   | (Intercept) |        2.90 | 2.02 | [ -1.06,  6.86]
+school | 127   | female1     |    7.65e-03 | 1.59 | [ -3.11,  3.13]
+school | 128   | (Intercept) |        0.39 | 1.77 | [ -3.08,  3.86]
+school | 128   | female1     |        0.11 | 1.54 | [ -2.91,  3.12]
+school | 129   | (Intercept) |       -2.81 | 1.79 | [ -6.32,  0.69]
+school | 129   | female1     |        0.52 | 1.55 | [ -2.51,  3.55]
+school | 130   | (Intercept) |       -1.18 | 2.02 | [ -5.14,  2.78]
+school | 130   | female1     |       -0.14 | 1.58 | [ -3.23,  2.96]
+school | 131   | (Intercept) |       -1.13 | 1.79 | [ -4.63,  2.37]
+school | 131   | female1     |        0.33 | 1.58 | [ -2.77,  3.43]
+school | 132   | (Intercept) |       -3.06 | 2.03 | [ -7.04,  0.92]
+school | 132   | female1     |       -0.30 | 1.58 | [ -3.39,  2.80]
+school | 133   | (Intercept) |        4.17 | 1.73 | [  0.78,  7.56]
+school | 133   | female1     |       -0.35 | 1.59 | [ -3.47,  2.77]
+school | 134   | (Intercept) |        0.90 | 1.96 | [ -2.94,  4.74]
+school | 134   | female1     |       -0.61 | 1.57 | [ -3.68,  2.46]
+school | 135   | (Intercept) |       -4.98 | 1.69 | [ -8.28, -1.67]
+school | 135   | female1     |        0.86 | 1.54 | [ -2.16,  3.88]
+school | 136   | (Intercept) |        0.15 | 1.99 | [ -3.76,  4.06]
+school | 136   | female1     |       -1.04 | 1.58 | [ -4.13,  2.05]
+school | 137   | (Intercept) |        0.54 | 1.81 | [ -3.01,  4.10]
+school | 137   | female1     |       -0.51 | 1.55 | [ -3.54,  2.52]
+school | 138   | (Intercept) |       -0.03 | 2.17 | [ -4.29,  4.22]
+school | 138   | female1     |       -0.23 | 1.60 | [ -3.37,  2.91]
+school | 139   | (Intercept) |       -1.89 | 2.00 | [ -5.82,  2.04]
+school | 139   | female1     |        1.37 | 1.57 | [ -1.72,  4.45]
+school | 140   | (Intercept) |        6.10 | 1.79 | [  2.58,  9.61]
+school | 140   | female1     |       -0.66 | 1.53 | [ -3.66,  2.33]
+school | 141   | (Intercept) |        1.68 | 2.06 | [ -2.35,  5.71]
+school | 141   | female1     |       -0.20 | 1.58 | [ -3.30,  2.91]
+school | 142   | (Intercept) |        2.70 | 1.77 | [ -0.77,  6.17]
+school | 142   | female1     |       -0.16 | 1.54 | [ -3.18,  2.85]
+school | 143   | (Intercept) |        1.85 | 2.03 | [ -2.13,  5.82]
+school | 143   | female1     |        0.86 | 1.58 | [ -2.24,  3.95]
+school | 144   | (Intercept) |       -1.53 | 1.88 | [ -5.21,  2.15]
+school | 144   | female1     |        0.38 | 1.57 | [ -2.70,  3.46]
+school | 145   | (Intercept) |        0.04 | 1.82 | [ -3.54,  3.61]
+school | 145   | female1     |        0.04 | 1.54 | [ -2.98,  3.06]
+school | 146   | (Intercept) |        0.23 | 1.69 | [ -3.09,  3.54]
+school | 146   | female1     |        0.85 | 1.53 | [ -2.15,  3.84]
+school | 147   | (Intercept) |        0.23 | 1.82 | [ -3.34,  3.81]
+school | 147   | female1     |        0.05 | 1.54 | [ -2.97,  3.07]
+school | 148   | (Intercept) |       -3.66 | 1.85 | [ -7.30, -0.03]
+school | 148   | female1     |       -0.51 | 1.58 | [ -3.60,  2.58]
+school | 149   | (Intercept) |       -0.99 | 1.84 | [ -4.60,  2.62]
+school | 149   | female1     |        1.30 | 1.55 | [ -1.73,  4.33]
+school | 150   | (Intercept) |        3.17 | 1.62 | [ -0.01,  6.35]
+school | 150   | female1     |       -0.39 | 1.65 | [ -3.63,  2.84]
+school | 151   | (Intercept) |       -2.92 | 1.89 | [ -6.62,  0.79]
+school | 151   | female1     |        0.35 | 1.55 | [ -2.69,  3.39]
+school | 152   | (Intercept) |        3.21 | 1.98 | [ -0.68,  7.09]
+school | 152   | female1     |        0.58 | 1.57 | [ -2.50,  3.65]
+school | 153   | (Intercept) |        6.72 | 1.91 | [  2.99, 10.46]
+school | 153   | female1     |       -0.08 | 1.57 | [ -3.15,  2.99]
+school | 154   | (Intercept) |       -1.66 | 1.97 | [ -5.52,  2.20]
+school | 154   | female1     |        0.40 | 1.61 | [ -2.75,  3.55]
+school | 155   | (Intercept) |       -3.58 | 1.84 | [ -7.19,  0.04]
+school | 155   | female1     |        1.38 | 1.55 | [ -1.65,  4.41]
+school | 156   | (Intercept) |        3.71 | 1.88 | [  0.02,  7.40]
+school | 156   | female1     |       -0.25 | 1.59 | [ -3.36,  2.86]
+school | 157   | (Intercept) |        1.41 | 1.85 | [ -2.22,  5.05]
+school | 157   | female1     |        0.25 | 1.58 | [ -2.84,  3.34]
+school | 158   | (Intercept) |        1.82 | 1.81 | [ -1.73,  5.38]
+school | 158   | female1     |       -0.68 | 1.55 | [ -3.71,  2.35]
+school | 159   | (Intercept) |       -0.11 | 1.83 | [ -3.70,  3.47]
+school | 159   | female1     |        0.45 | 1.57 | [ -2.61,  3.52]
+school | 160   | (Intercept) |        1.57 | 2.17 | [ -2.68,  5.83]
+school | 160   | female1     |        0.49 | 1.60 | [ -2.65,  3.64]
+school | 161   | (Intercept) |       -2.65 | 1.93 | [ -6.44,  1.13]
+school | 161   | female1     |        0.69 | 1.58 | [ -2.40,  3.78]
+school | 162   | (Intercept) |       -0.06 | 2.02 | [ -4.02,  3.90]
+school | 162   | female1     |       -0.77 | 1.58 | [ -3.87,  2.33]
+school | 163   | (Intercept) |       -2.49 | 1.93 | [ -6.28,  1.29]
+school | 163   | female1     |        0.15 | 1.58 | [ -2.94,  3.24]
+school | 164   | (Intercept) |    7.95e-03 | 1.79 | [ -3.50,  3.51]
+school | 164   | female1     |        0.04 | 1.55 | [ -2.99,  3.07]
+school | 165   | (Intercept) |       -1.00 | 2.13 | [ -5.17,  3.16]
+school | 165   | female1     |       -0.65 | 1.60 | [ -3.78,  2.47]
+school | 166   | (Intercept) |       -3.60 | 1.97 | [ -7.45,  0.26]
+school | 166   | female1     |        0.04 | 1.61 | [ -3.11,  3.19]
+school | 167   | (Intercept) |        0.68 | 2.13 | [ -3.50,  4.86]
+school | 167   | female1     |        0.12 | 1.61 | [ -3.03,  3.27]
+school | 168   | (Intercept) |        1.55 | 1.81 | [ -2.00,  5.09]
+school | 168   | female1     |        0.11 | 1.56 | [ -2.94,  3.16]
+school | 169   | (Intercept) |       -0.42 | 2.05 | [ -4.44,  3.60]
+school | 169   | female1     |       -0.59 | 1.59 | [ -3.71,  2.52]
+school | 170   | (Intercept) |        0.28 | 1.93 | [ -3.52,  4.07]
+school | 170   | female1     |       -0.49 | 1.59 | [ -3.61,  2.63]
+school | 171   | (Intercept) |       -0.69 | 1.50 | [ -3.64,  2.26]
+school | 171   | female1     |        0.03 | 1.44 | [ -2.79,  2.85]
+school | 172   | (Intercept) |        0.33 | 2.02 | [ -3.63,  4.30]
+school | 172   | female1     |       -0.30 | 1.58 | [ -3.40,  2.81]
+school | 173   | (Intercept) |        4.22 | 1.83 | [  0.63,  7.81]
+school | 173   | female1     |       -1.15 | 1.58 | [ -4.25,  1.96]
+school | 174   | (Intercept) |       -1.85 | 2.02 | [ -5.81,  2.11]
+school | 174   | female1     |        0.28 | 1.59 | [ -2.84,  3.40]
+school | 175   | (Intercept) |        1.17 | 2.02 | [ -2.79,  5.14]
+school | 175   | female1     |       -0.18 | 1.58 | [ -3.28,  2.92]
+school | 176   | (Intercept) |        1.49 | 1.91 | [ -2.26,  5.24]
+school | 176   | female1     |       -0.34 | 1.56 | [ -3.40,  2.72]
+school | 177   | (Intercept) |       -0.35 | 2.00 | [ -4.28,  3.58]
+school | 177   | female1     |        0.14 | 1.57 | [ -2.95,  3.22]
+school | 178   | (Intercept) |        4.98 | 1.97 | [  1.12,  8.84]
+school | 178   | female1     |       -0.62 | 1.66 | [ -3.86,  2.63]
+school | 179   | (Intercept) |       -1.90 | 1.79 | [ -5.40,  1.60]
+school | 179   | female1     |       -0.83 | 1.56 | [ -3.89,  2.23]
+school | 180   | (Intercept) |        1.03 | 1.87 | [ -2.64,  4.70]
+school | 180   | female1     |       -0.06 | 1.55 | [ -3.10,  2.97]
+school | 181   | (Intercept) |        0.33 | 1.69 | [ -2.98,  3.63]
+school | 181   | female1     |        0.26 | 1.54 | [ -2.76,  3.28]
+school | 182   | (Intercept) |        3.01 | 1.86 | [ -0.63,  6.65]
+school | 182   | female1     |       -0.08 | 1.56 | [ -3.14,  2.98]
+school | 183   | (Intercept) |        1.25 | 2.13 | [ -2.92,  5.42]
+school | 183   | female1     |        0.11 | 1.60 | [ -3.02,  3.24]
+school | 184   | (Intercept) |       -0.87 | 1.81 | [ -4.41,  2.68]
+school | 184   | female1     |        0.85 | 1.56 | [ -2.20,  3.90]
+school | 185   | (Intercept) |       -5.61 | 1.99 | [ -9.51, -1.71]
+school | 185   | female1     |        0.20 | 1.58 | [ -2.90,  3.30]
+school | 186   | (Intercept) |       -5.05 | 1.93 | [ -8.83, -1.26]
+school | 186   | female1     |       -0.25 | 1.58 | [ -3.34,  2.84]
+school | 187   | (Intercept) |       -0.84 | 1.98 | [ -4.72,  3.05]
+school | 187   | female1     |       -0.63 | 1.57 | [ -3.70,  2.45]
+school | 188   | (Intercept) |        2.74 | 2.02 | [ -1.22,  6.70]
+school | 188   | female1     |        0.86 | 1.58 | [ -2.24,  3.96]
+school | 189   | (Intercept) |       -3.15 | 1.69 | [ -6.46,  0.15]
+school | 189   | female1     |       -1.36 | 1.50 | [ -4.30,  1.59]
+school | 190   | (Intercept) |       -1.72 | 2.03 | [ -5.70,  2.25]
+school | 190   | female1     |        1.52 | 1.58 | [ -1.58,  4.62]
+school | 191   | (Intercept) |       -0.80 | 2.03 | [ -4.78,  3.18]
+school | 191   | female1     |       -0.15 | 1.58 | [ -3.25,  2.94]
+school | 192   | (Intercept) |        3.48 | 1.59 | [  0.36,  6.60]
+school | 192   | female1     |       -0.43 | 1.65 | [ -3.66,  2.81]
+school | 193   | (Intercept) |       -2.59 | 1.99 | [ -6.49,  1.30]
+school | 193   | female1     |       -0.50 | 1.58 | [ -3.60,  2.60]
+school | 194   | (Intercept) |        2.81 | 2.09 | [ -1.28,  6.90]
+school | 194   | female1     |        0.21 | 1.59 | [ -2.91,  3.33]
+school | 195   | (Intercept) |        0.30 | 1.76 | [ -3.16,  3.76]
+school | 195   | female1     |        0.73 | 1.53 | [ -2.26,  3.72]
+school | 196   | (Intercept) |       -1.50 | 1.99 | [ -5.40,  2.41]
+school | 196   | female1     |        0.85 | 1.58 | [ -2.24,  3.93]
+school | 197   | (Intercept) |       -8.27 | 1.91 | [-12.00, -4.53]
+school | 197   | female1     |        0.41 | 1.55 | [ -2.64,  3.46]
+school | 198   | (Intercept) |       -1.60 | 1.76 | [ -5.06,  1.86]
+school | 198   | female1     |       -0.07 | 1.53 | [ -3.07,  2.92]
+school | 199   | (Intercept) |        0.26 | 1.84 | [ -3.35,  3.87]
+school | 199   | female1     |       -0.92 | 1.55 | [ -3.95,  2.11]
+school | 200   | (Intercept) |       -3.45 | 1.76 | [ -6.91,  0.00]
+school | 200   | female1     |        1.93 | 1.57 | [ -1.14,  5.01]
+school | 201   | (Intercept) |        0.30 | 1.93 | [ -3.49,  4.08]
+school | 201   | female1     |        1.32 | 1.58 | [ -1.76,  4.41]
+school | 202   | (Intercept) |        2.88 | 1.59 | [ -0.23,  5.98]
+school | 202   | female1     |        0.57 | 1.47 | [ -2.31,  3.44]
+school | 203   | (Intercept) |        0.12 | 1.99 | [ -3.78,  4.02]
+school | 203   | female1     |       -0.31 | 1.58 | [ -3.41,  2.79]
+school | 204   | (Intercept) |        0.85 | 2.06 | [ -3.20,  4.89]
+school | 204   | female1     |       -0.01 | 1.59 | [ -3.13,  3.11]
+school | 205   | (Intercept) |       -1.83 | 1.62 | [ -5.00,  1.34]
+school | 205   | female1     |       -1.17 | 1.50 | [ -4.11,  1.76]
+school | 206   | (Intercept) |       -1.56 | 2.00 | [ -5.49,  2.37]
+school | 206   | female1     |        0.02 | 1.57 | [ -3.06,  3.11]
+school | 207   | (Intercept) |       -0.33 | 1.83 | [ -3.93,  3.26]
+school | 207   | female1     |        0.17 | 1.58 | [ -2.94,  3.28]
+school | 208   | (Intercept) |       -2.76 | 1.69 | [ -6.07,  0.56]
+school | 208   | female1     |       -0.21 | 1.53 | [ -3.20,  2.78]
+school | 209   | (Intercept) |        2.80 | 1.82 | [ -0.78,  6.37]
+school | 209   | female1     |        0.49 | 1.54 | [ -2.53,  3.51]
+school | 210   | (Intercept) |       -4.57 | 1.67 | [ -7.84, -1.30]
+school | 210   | female1     |        1.31 | 1.53 | [ -1.69,  4.31]
+school | 211   | (Intercept) |       -2.41 | 1.94 | [ -6.21,  1.38]
+school | 211   | female1     |        1.71 | 1.57 | [ -1.37,  4.78]
+school | 212   | (Intercept) |       -3.65 | 1.81 | [ -7.19, -0.10]
+school | 212   | female1     |        0.05 | 1.56 | [ -2.99,  3.10]
+school | 213   | (Intercept) |        2.82 | 1.87 | [ -0.85,  6.49]
+school | 213   | female1     |       -0.26 | 1.55 | [ -3.29,  2.78]
+school | 214   | (Intercept) |       -3.99 | 1.96 | [ -7.83, -0.15]
+school | 214   | female1     |        0.67 | 1.57 | [ -2.42,  3.75]
+school | 215   | (Intercept) |        0.72 | 1.81 | [ -2.83,  4.26]
+school | 215   | female1     |       -0.47 | 1.56 | [ -3.52,  2.58]
+school | 216   | (Intercept) |        1.28 | 1.99 | [ -2.62,  5.18]
+school | 216   | female1     |        0.49 | 1.58 | [ -2.61,  3.59]
+school | 217   | (Intercept) |        2.87 | 1.99 | [ -1.04,  6.77]
+school | 217   | female1     |        0.34 | 1.58 | [ -2.74,  3.43]
+school | 218   | (Intercept) |       -0.38 | 1.92 | [ -4.15,  3.40]
+school | 218   | female1     |       -0.84 | 1.56 | [ -3.90,  2.22]
+school | 219   | (Intercept) |        0.23 | 2.09 | [ -3.86,  4.32]
+school | 219   | female1     |       -1.07 | 1.59 | [ -4.19,  2.05]
+school | 220   | (Intercept) |       -5.54 | 2.09 | [ -9.63, -1.45]
+school | 220   | female1     |        0.19 | 1.59 | [ -2.93,  3.31]
+school | 221   | (Intercept) |        3.28 | 2.03 | [ -0.70,  7.25]
+school | 221   | female1     |        0.04 | 1.58 | [ -3.05,  3.14]
+school | 222   | (Intercept) |       -2.80 | 1.84 | [ -6.41,  0.80]
+school | 222   | female1     |       -0.66 | 1.54 | [ -3.68,  2.36]
+school | 223   | (Intercept) |       -5.25 | 1.97 | [ -9.11, -1.40]
+school | 223   | female1     |       -0.80 | 1.57 | [ -3.88,  2.27]
+school | 224   | (Intercept) |        1.90 | 2.00 | [ -2.02,  5.82]
+school | 224   | female1     |        0.15 | 1.58 | [ -2.94,  3.24]
+school | 225   | (Intercept) |       -3.51 | 1.79 | [ -7.01,  0.00]
+school | 225   | female1     |       -0.48 | 1.55 | [ -3.51,  2.55]
+school | 226   | (Intercept) |        3.32 | 2.02 | [ -0.64,  7.28]
+school | 226   | female1     |        0.35 | 1.58 | [ -2.75,  3.45]
+school | 227   | (Intercept) |       -1.00 | 2.04 | [ -5.01,  3.00]
+school | 227   | female1     |       -0.51 | 1.58 | [ -3.61,  2.60]
+school | 228   | (Intercept) |        0.52 | 1.99 | [ -3.39,  4.43]
+school | 228   | female1     |       -0.60 | 1.58 | [ -3.69,  2.49]
+school | 229   | (Intercept) |        2.54 | 1.74 | [ -0.88,  5.96]
+school | 229   | female1     |       -0.15 | 1.56 | [ -3.20,  2.90]
+school | 230   | (Intercept) |        1.75 | 1.99 | [ -2.16,  5.65]
+school | 230   | female1     |       -0.57 | 1.60 | [ -3.70,  2.56]
+school | 231   | (Intercept) |       -2.33 | 1.99 | [ -6.24,  1.58]
+school | 231   | female1     |       -0.09 | 1.58 | [ -3.18,  3.00]
+school | 232   | (Intercept) |       -0.51 | 1.86 | [ -4.15,  3.12]
+school | 232   | female1     |        0.78 | 1.56 | [ -2.28,  3.84]
+school | 233   | (Intercept) |        0.42 | 1.99 | [ -3.49,  4.32]
+school | 233   | female1     |        0.23 | 1.60 | [ -2.90,  3.35]
+school | 234   | (Intercept) |        0.80 | 1.94 | [ -3.00,  4.59]
+school | 234   | female1     |        0.38 | 1.57 | [ -2.69,  3.45]
+school | 235   | (Intercept) |        2.98 | 1.78 | [ -0.51,  6.47]
+school | 235   | female1     |        0.08 | 1.53 | [ -2.92,  3.08]
+school | 236   | (Intercept) |       -0.97 | 1.83 | [ -4.57,  2.62]
+school | 236   | female1     |        0.78 | 1.55 | [ -2.26,  3.82]
+school | 237   | (Intercept) |       -1.76 | 1.82 | [ -5.33,  1.82]
+school | 237   | female1     |       -0.67 | 1.54 | [ -3.68,  2.34]
+school | 238   | (Intercept) |        0.33 | 2.09 | [ -3.76,  4.42]
+school | 238   | female1     |        0.46 | 1.59 | [ -2.65,  3.58]
+school | 239   | (Intercept) |       -2.84 | 1.65 | [ -6.07,  0.40]
+school | 239   | female1     |       -0.09 | 1.50 | [ -3.03,  2.86]
+school | 240   | (Intercept) |        3.30 | 2.02 | [ -0.66,  7.26]
+school | 240   | female1     |       -0.31 | 1.58 | [ -3.41,  2.79]
+school | 241   | (Intercept) |        4.56 | 2.10 | [  0.45,  8.67]
+school | 241   | female1     |       -0.20 | 1.59 | [ -3.32,  2.92]
+school | 242   | (Intercept) |       -0.59 | 2.00 | [ -4.52,  3.34]
+school | 242   | female1     |       -0.12 | 1.57 | [ -3.21,  2.97]
+school | 243   | (Intercept) |       -5.00 | 2.09 | [ -9.09, -0.91]
+school | 243   | female1     |       -0.17 | 1.59 | [ -3.29,  2.95]
+school | 244   | (Intercept) |        0.88 | 2.02 | [ -3.08,  4.84]
+school | 244   | female1     |        1.11 | 1.58 | [ -1.99,  4.21]
+school | 245   | (Intercept) |        2.09 | 1.76 | [ -1.37,  5.55]
+school | 245   | female1     |        0.10 | 1.55 | [ -2.94,  3.14]
+school | 246   | (Intercept) |       -6.49 | 2.02 | [-10.45, -2.53]
+school | 246   | female1     |       -0.21 | 1.59 | [ -3.33,  2.91]
+school | 247   | (Intercept) |       -1.76 | 1.68 | [ -5.04,  1.53]
+school | 247   | female1     |        0.58 | 1.52 | [ -2.40,  3.56]
+school | 248   | (Intercept) |        1.33 | 1.99 | [ -2.56,  5.23]
+school | 248   | female1     |        0.17 | 1.58 | [ -2.93,  3.27]
+school | 249   | (Intercept) |       -4.29 | 1.99 | [ -8.19, -0.39]
+school | 249   | female1     |        0.74 | 1.58 | [ -2.37,  3.84]
+school | 250   | (Intercept) |       -3.27 | 1.42 | [ -6.05, -0.50]
+school | 250   | female1     |       -1.26 | 1.45 | [ -4.10,  1.58]
+school | 251   | (Intercept) |        2.79 | 1.81 | [ -0.75,  6.33]
+school | 251   | female1     |       -1.02 | 1.57 | [ -4.10,  2.06]
+school | 252   | (Intercept) |        4.49 | 1.89 | [  0.78,  8.19]
+school | 252   | female1     |        0.15 | 1.55 | [ -2.90,  3.20]
+school | 253   | (Intercept) |       -2.49 | 1.86 | [ -6.14,  1.16]
+school | 253   | female1     |        1.42 | 1.55 | [ -1.62,  4.46]
+school | 254   | (Intercept) |       -2.45 | 1.75 | [ -5.88,  0.97]
+school | 254   | female1     |        0.21 | 1.58 | [ -2.89,  3.30]
+school | 255   | (Intercept) |        0.47 | 2.06 | [ -3.56,  4.50]
+school | 255   | female1     |        0.20 | 1.58 | [ -2.91,  3.31]
+school | 256   | (Intercept) |        0.48 | 1.95 | [ -3.34,  4.30]
+school | 256   | female1     |        0.26 | 1.62 | [ -2.91,  3.43]
+school | 257   | (Intercept) |        5.61 | 2.20 | [  1.30,  9.92]
+school | 257   | female1     |        0.84 | 1.65 | [ -2.38,  4.07]
+school | 258   | (Intercept) |        0.53 | 1.99 | [ -3.37,  4.44]
+school | 258   | female1     |        0.64 | 1.58 | [ -2.45,  3.72]
+school | 259   | (Intercept) |       -3.43 | 1.91 | [ -7.16,  0.31]
+school | 259   | female1     |       -1.25 | 1.58 | [ -4.35,  1.85]
+school | 260   | (Intercept) |       -0.98 | 1.99 | [ -4.87,  2.92]
+school | 260   | female1     |       -0.78 | 1.58 | [ -3.89,  2.32]
+school | 261   | (Intercept) |       -0.91 | 1.99 | [ -4.82,  2.99]
+school | 261   | female1     |       -0.38 | 1.58 | [ -3.47,  2.71]
+school | 262   | (Intercept) |        3.98 | 1.80 | [  0.46,  7.50]
+school | 262   | female1     |       -0.77 | 1.54 | [ -3.78,  2.25]
+school | 263   | (Intercept) |       -0.53 | 1.86 | [ -4.18,  3.11]
+school | 263   | female1     |       -0.57 | 1.55 | [ -3.62,  2.47]
+school | 264   | (Intercept) |       -3.63 | 1.93 | [ -7.42,  0.15]
+school | 264   | female1     |       -0.99 | 1.58 | [ -4.08,  2.10]
+school | 265   | (Intercept) |       -1.95 | 1.91 | [ -5.70,  1.79]
+school | 265   | female1     |       -0.74 | 1.56 | [ -3.80,  2.32]
+school | 266   | (Intercept) |       -2.69 | 1.83 | [ -6.27,  0.90]
+school | 266   | female1     |       -0.86 | 1.57 | [ -3.92,  2.21]
+school | 267   | (Intercept) |        0.64 | 2.05 | [ -3.38,  4.67]
+school | 267   | female1     |       -0.01 | 1.59 | [ -3.13,  3.10]
+school | 268   | (Intercept) |        2.27 | 2.05 | [ -1.75,  6.29]
+school | 268   | female1     |       -0.25 | 1.59 | [ -3.36,  2.87]
+school | 269   | (Intercept) |       -2.46 | 1.99 | [ -6.37,  1.45]
+school | 269   | female1     |        0.82 | 1.58 | [ -2.27,  3.90]
+school | 270   | (Intercept) |        2.05 | 1.61 | [ -1.10,  5.20]
+school | 270   | female1     |        0.13 | 1.49 | [ -2.80,  3.05]
+school | 271   | (Intercept) |        2.50 | 1.83 | [ -1.10,  6.09]
+school | 271   | female1     |       -0.73 | 1.55 | [ -3.78,  2.31]
+school | 272   | (Intercept) |       -1.06 | 2.17 | [ -5.32,  3.19]
+school | 272   | female1     |        0.52 | 1.60 | [ -2.62,  3.66]
+school | 273   | (Intercept) |       -0.37 | 1.99 | [ -4.28,  3.54]
+school | 273   | female1     |       -0.03 | 1.60 | [ -3.16,  3.10]
+school | 274   | (Intercept) |        3.83 | 1.82 | [  0.25,  7.40]
+school | 274   | female1     |       -0.96 | 1.54 | [ -3.98,  2.06]
+school | 275   | (Intercept) |        4.57 | 1.79 | [  1.07,  8.08]
+school | 275   | female1     |       -0.04 | 1.55 | [ -3.07,  2.99]
+school | 276   | (Intercept) |       -1.31 | 1.97 | [ -5.17,  2.55]
+school | 276   | female1     |    5.84e-03 | 1.61 | [ -3.14,  3.15]
+school | 277   | (Intercept) |       -0.22 | 1.91 | [ -3.96,  3.51]
+school | 277   | female1     |        0.49 | 1.55 | [ -2.56,  3.54]
+school | 278   | (Intercept) |        1.65 | 1.91 | [ -2.09,  5.38]
+school | 278   | female1     |        0.06 | 1.55 | [ -2.99,  3.10]
+school | 279   | (Intercept) |        0.89 | 1.80 | [ -2.63,  4.41]
+school | 279   | female1     |       -0.26 | 1.54 | [ -3.28,  2.75]
+school | 280   | (Intercept) |        0.42 | 1.59 | [ -2.69,  3.52]
+school | 280   | female1     |       -0.64 | 1.49 | [ -3.57,  2.28]
+school | 281   | (Intercept) |        5.08 | 1.76 | [  1.62,  8.54]
+school | 281   | female1     |       -0.09 | 1.55 | [ -3.13,  2.95]
+school | 282   | (Intercept) |        5.42 | 1.27 | [  2.94,  7.90]
+school | 282   | female1     |       -0.67 | 1.65 | [ -3.90,  2.56]
+school | 283   | (Intercept) |       -2.10 | 1.81 | [ -5.65,  1.46]
+school | 283   | female1     |        0.52 | 1.55 | [ -2.51,  3.55]
+school | 284   | (Intercept) |        2.19 | 1.49 | [ -0.74,  5.11]
+school | 284   | female1     |       -1.58 | 1.47 | [ -4.46,  1.30]
+school | 285   | (Intercept) |       -1.45 | 2.06 | [ -5.49,  2.58]
+school | 285   | female1     |       -0.43 | 1.58 | [ -3.54,  2.67]
+school | 286   | (Intercept) |       -1.42 | 1.78 | [ -4.91,  2.07]
+school | 286   | female1     |    4.79e-03 | 1.53 | [ -3.00,  3.01]
+school | 287   | (Intercept) |       -3.30 | 1.85 | [ -6.93,  0.34]
+school | 287   | female1     |       -0.80 | 1.54 | [ -3.82,  2.23]
+school | 288   | (Intercept) |        3.51 | 1.81 | [ -0.03,  7.06]
+school | 288   | female1     |        0.37 | 1.56 | [ -2.68,  3.42]
+school | 289   | (Intercept) |       -0.84 | 2.02 | [ -4.80,  3.12]
+school | 289   | female1     |       -0.20 | 1.58 | [ -3.30,  2.90]
+school | 290   | (Intercept) |       -2.34 | 1.75 | [ -5.76,  1.08]
+school | 290   | female1     |       -0.75 | 1.54 | [ -3.77,  2.27]
+school | 291   | (Intercept) |       -0.64 | 1.80 | [ -4.16,  2.88]
+school | 291   | female1     |       -1.00 | 1.54 | [ -4.02,  2.01]
+school | 292   | (Intercept) |       -1.40 | 1.97 | [ -5.26,  2.46]
+school | 292   | female1     |        0.15 | 1.57 | [ -2.93,  3.22]
+school | 293   | (Intercept) |       -2.12 | 1.81 | [ -5.67,  1.42]
+school | 293   | female1     |        0.49 | 1.56 | [ -2.56,  3.54]
+school | 294   | (Intercept) |        0.43 | 2.13 | [ -3.74,  4.59]
+school | 294   | female1     |        1.25 | 1.60 | [ -1.87,  4.38]
+school | 295   | (Intercept) |       -5.36 | 1.99 | [ -9.26, -1.46]
+school | 295   | female1     |        0.21 | 1.58 | [ -2.89,  3.32]
+school | 296   | (Intercept) |        1.57 | 1.88 | [ -2.11,  5.25]
+school | 296   | female1     |       -0.14 | 1.57 | [ -3.22,  2.94]
+school | 297   | (Intercept) |       -6.76 | 1.93 | [-10.55, -2.97]
+school | 297   | female1     |       -0.13 | 1.59 | [ -3.25,  2.99]
+school | 298   | (Intercept) |        0.53 | 2.05 | [ -3.49,  4.55]
+school | 298   | female1     |       -0.43 | 1.59 | [ -3.55,  2.68]
+school | 299   | (Intercept) |       -0.02 | 1.96 | [ -3.87,  3.82]
+school | 299   | female1     |        1.65 | 1.57 | [ -1.44,  4.73]
+school | 300   | (Intercept) |       -0.98 | 1.52 | [ -3.95,  1.99]
+school | 300   | female1     |        0.57 | 1.51 | [ -2.39,  3.54]
+school | 301   | (Intercept) |       -2.60 | 1.99 | [ -6.50,  1.30]
+school | 301   | female1     |       -0.30 | 1.58 | [ -3.40,  2.80]
+school | 302   | (Intercept) |       -2.33 | 2.10 | [ -6.44,  1.78]
+school | 302   | female1     |       -1.06 | 1.59 | [ -4.18,  2.05]
+school | 303   | (Intercept) |        4.53 | 1.97 | [  0.67,  8.39]
+school | 303   | female1     |        0.19 | 1.57 | [ -2.88,  3.27]
+school | 304   | (Intercept) |        2.32 | 1.93 | [ -1.47,  6.11]
+school | 304   | female1     |       -0.70 | 1.59 | [ -3.82,  2.42]
+school | 305   | (Intercept) |       -2.18 | 1.96 | [ -6.02,  1.66]
+school | 305   | female1     |        0.69 | 1.59 | [ -2.42,  3.80]
+school | 306   | (Intercept) |       -2.68 | 1.77 | [ -6.15,  0.79]
+school | 306   | female1     |       -0.06 | 1.54 | [ -3.07,  2.96]
+school | 307   | (Intercept) |        1.94 | 1.81 | [ -1.60,  5.48]
+school | 307   | female1     |       -0.06 | 1.57 | [ -3.14,  3.02]
+school | 308   | (Intercept) |        1.39 | 1.91 | [ -2.36,  5.14]
+school | 308   | female1     |       -0.61 | 1.60 | [ -3.75,  2.53]
+school | 309   | (Intercept) |        0.66 | 1.89 | [ -3.05,  4.37]
+school | 309   | female1     |        0.71 | 1.55 | [ -2.34,  3.76]
+school | 310   | (Intercept) |       -1.92 | 1.99 | [ -5.82,  1.97]
+school | 310   | female1     |        0.65 | 1.58 | [ -2.45,  3.75]
+school | 311   | (Intercept) |        4.37 | 1.87 | [  0.70,  8.04]
+school | 311   | female1     |        0.07 | 1.55 | [ -2.97,  3.10]
+school | 312   | (Intercept) |       -1.32 | 2.09 | [ -5.41,  2.77]
+school | 312   | female1     |        1.32 | 1.59 | [ -1.80,  4.43]
+school | 313   | (Intercept) |       -3.41 | 1.96 | [ -7.26,  0.43]
+school | 313   | female1     |        0.24 | 1.57 | [ -2.85,  3.32]
+school | 314   | (Intercept) |        0.54 | 1.84 | [ -3.07,  4.15]
+school | 314   | female1     |       -0.55 | 1.55 | [ -3.58,  2.48]
+school | 315   | (Intercept) |        1.28 | 2.10 | [ -2.82,  5.39]
+school | 315   | female1     |       -0.86 | 1.59 | [ -3.98,  2.26]
+school | 316   | (Intercept) |       -4.43 | 1.83 | [ -8.02, -0.85]
+school | 316   | female1     |        0.87 | 1.57 | [ -2.20,  3.94]
+school | 317   | (Intercept) |        1.40 | 1.99 | [ -2.50,  5.31]
+school | 317   | female1     |       -1.06 | 1.58 | [ -4.15,  2.03]
+school | 318   | (Intercept) |    9.58e-03 | 2.05 | [ -4.01,  4.03]
+school | 318   | female1     |       -0.28 | 1.59 | [ -3.39,  2.84]
+school | 319   | (Intercept) |       -0.58 | 2.14 | [ -4.77,  3.62]
+school | 319   | female1     |        0.33 | 1.60 | [ -2.80,  3.47]
+school | 320   | (Intercept) |        2.23 | 2.09 | [ -1.86,  6.32]
+school | 320   | female1     |       -0.58 | 1.59 | [ -3.70,  2.53]
+school | 321   | (Intercept) |        1.68 | 1.56 | [ -1.37,  4.73]
+school | 321   | female1     |       -1.06 | 1.47 | [ -3.95,  1.82]
+school | 322   | (Intercept) |       -0.26 | 1.91 | [ -4.00,  3.48]
+school | 322   | female1     |       -0.07 | 1.56 | [ -3.12,  2.98]
+school | 323   | (Intercept) |        0.95 | 1.96 | [ -2.89,  4.79]
+school | 323   | female1     |        0.11 | 1.59 | [ -3.00,  3.22]
+school | 324   | (Intercept) |        0.59 | 1.81 | [ -2.95,  4.13]
+school | 324   | female1     |        1.54 | 1.53 | [ -1.47,  4.55]
+school | 325   | (Intercept) |        2.95 | 1.80 | [ -0.57,  6.47]
+school | 325   | female1     |        0.26 | 1.54 | [ -2.75,  3.28]
+school | 326   | (Intercept) |        0.65 | 1.96 | [ -3.19,  4.50]
+school | 326   | female1     |       -1.55 | 1.57 | [ -4.62,  1.52]
+school | 327   | (Intercept) |        2.79 | 2.06 | [ -1.24,  6.82]
+school | 327   | female1     |        0.70 | 1.58 | [ -2.41,  3.80]
+school | 328   | (Intercept) |        3.98 | 1.82 | [  0.41,  7.56]
+school | 328   | female1     |        0.03 | 1.54 | [ -2.99,  3.05]
+school | 329   | (Intercept) |        3.53 | 1.93 | [ -0.26,  7.31]
+school | 329   | female1     |        0.25 | 1.58 | [ -2.83,  3.34]
+school | 330   | (Intercept) |       -3.74 | 1.83 | [ -7.33, -0.14]
+school | 330   | female1     |        0.18 | 1.55 | [ -2.86,  3.23]
+school | 331   | (Intercept) |        0.49 | 2.07 | [ -3.57,  4.54]
+school | 331   | female1     |        0.05 | 1.59 | [ -3.06,  3.16]
+school | 332   | (Intercept) |        0.22 | 1.91 | [ -3.52,  3.97]
+school | 332   | female1     |       -0.21 | 1.56 | [ -3.27,  2.85]
+school | 333   | (Intercept) |        1.99 | 1.53 | [ -1.01,  4.98]
+school | 333   | female1     |        0.77 | 1.52 | [ -2.22,  3.75]
+school | 334   | (Intercept) |        2.47 | 2.09 | [ -1.62,  6.56]
+school | 334   | female1     |       -0.05 | 1.59 | [ -3.17,  3.07]
+school | 335   | (Intercept) |        4.23 | 1.86 | [  0.59,  7.86]
+school | 335   | female1     |        0.04 | 1.56 | [ -3.02,  3.10]
+school | 336   | (Intercept) |       -0.91 | 1.74 | [ -4.32,  2.50]
+school | 336   | female1     |        0.82 | 1.52 | [ -2.17,  3.81]
+school | 337   | (Intercept) |        0.03 | 1.81 | [ -3.52,  3.57]
+school | 337   | female1     |       -0.31 | 1.53 | [ -3.32,  2.70]
+school | 338   | (Intercept) |       -1.23 | 1.93 | [ -5.02,  2.55]
+school | 338   | female1     |       -0.43 | 1.58 | [ -3.52,  2.66]
+school | 339   | (Intercept) |       -4.74 | 1.81 | [ -8.28, -1.19]
+school | 339   | female1     |       -0.09 | 1.56 | [ -3.13,  2.96]
+school | 340   | (Intercept) |       -4.65 | 1.91 | [ -8.39, -0.90]
+school | 340   | female1     |        0.45 | 1.60 | [ -2.69,  3.59]
+school | 341   | (Intercept) |        2.41 | 1.82 | [ -1.16,  5.99]
+school | 341   | female1     |       -0.21 | 1.54 | [ -3.23,  2.81]
+school | 342   | (Intercept) |       -2.92 | 1.93 | [ -6.70,  0.87]
+school | 342   | female1     |        0.39 | 1.58 | [ -2.70,  3.47]
+school | 343   | (Intercept) |        2.48 | 1.97 | [ -1.38,  6.34]
+school | 343   | female1     |       -0.04 | 1.57 | [ -3.11,  3.04]
+school | 344   | (Intercept) |        0.19 | 1.86 | [ -3.45,  3.84]
+school | 344   | female1     |       -1.41 | 1.55 | [ -4.45,  1.64]
+school | 345   | (Intercept) |        0.26 | 1.86 | [ -3.39,  3.91]
+school | 345   | female1     |        0.22 | 1.55 | [ -2.82,  3.27]
+school | 346   | (Intercept) |        1.41 | 1.86 | [ -2.24,  5.05]
+school | 346   | female1     |       -0.73 | 1.55 | [ -3.78,  2.31]
+school | 347   | (Intercept) |        0.16 | 2.02 | [ -3.80,  4.12]
+school | 347   | female1     |       -0.28 | 1.58 | [ -3.39,  2.82]
+school | 348   | (Intercept) |        3.80 | 1.97 | [ -0.05,  7.66]
+school | 348   | female1     |        1.16 | 1.57 | [ -1.92,  4.23]
+school | 349   | (Intercept) |        0.47 | 2.05 | [ -3.55,  4.49]
+school | 349   | female1     |       -0.59 | 1.59 | [ -3.70,  2.52]
+school | 350   | (Intercept) |        0.30 | 1.69 | [ -3.02,  3.62]
+school | 350   | female1     |       -0.04 | 1.65 | [ -3.28,  3.20]
+school | 351   | (Intercept) |        1.09 | 1.86 | [ -2.55,  4.72]
+school | 351   | female1     |        0.16 | 1.56 | [ -2.90,  3.22]
+school | 352   | (Intercept) |        2.74 | 2.09 | [ -1.35,  6.83]
+school | 352   | female1     |        1.12 | 1.59 | [ -1.99,  4.24]
+school | 353   | (Intercept) |        1.61 | 1.91 | [ -2.12,  5.34]
+school | 353   | female1     |       -0.86 | 1.58 | [ -3.96,  2.24]
+school | 354   | (Intercept) |        3.05 | 1.56 | [ -0.00,  6.10]
+school | 354   | female1     |       -0.07 | 1.49 | [ -2.99,  2.84]
+school | 355   | (Intercept) |       -0.16 | 1.61 | [ -3.31,  2.99]
+school | 355   | female1     |       -0.38 | 1.51 | [ -3.34,  2.57]
+school | 356   | (Intercept) |        1.44 | 1.91 | [ -2.29,  5.18]
+school | 356   | female1     |       -0.04 | 1.58 | [ -3.14,  3.06]
+school | 357   | (Intercept) |        0.52 | 1.72 | [ -2.86,  3.90]
+school | 357   | female1     |       -0.96 | 1.55 | [ -3.99,  2.07]
+school | 358   | (Intercept) |       -0.42 | 1.99 | [ -4.33,  3.48]
+school | 358   | female1     |        0.02 | 1.60 | [ -3.11,  3.15]
+school | 359   | (Intercept) |        0.17 | 1.96 | [ -3.68,  4.01]
+school | 359   | female1     |       -0.87 | 1.59 | [ -3.98,  2.23]
+school | 360   | (Intercept) |       -2.51 | 2.02 | [ -6.47,  1.45]
+school | 360   | female1     |       -0.02 | 1.58 | [ -3.12,  3.07]
+school | 361   | (Intercept) |       -1.84 | 1.76 | [ -5.30,  1.62]
+school | 361   | female1     |        0.42 | 1.57 | [ -2.65,  3.50]
+school | 362   | (Intercept) |       -5.93 | 1.81 | [ -9.48, -2.37]
+school | 362   | female1     |       -0.60 | 1.55 | [ -3.62,  2.43]
+school | 363   | (Intercept) |       -5.06 | 2.02 | [ -9.02, -1.10]
+school | 363   | female1     |        1.50 | 1.59 | [ -1.61,  4.62]
+school | 364   | (Intercept) |       -2.85 | 2.05 | [ -6.87,  1.17]
+school | 364   | female1     |       -0.12 | 1.59 | [ -3.23,  3.00]
+school | 365   | (Intercept) |        2.38 | 1.92 | [ -1.37,  6.14]
+school | 365   | female1     |       -0.29 | 1.66 | [ -3.54,  2.95]
+school | 366   | (Intercept) |        2.74 | 1.78 | [ -0.75,  6.23]
+school | 366   | female1     |       -0.85 | 1.53 | [ -3.85,  2.15]
+school | 367   | (Intercept) |        2.09 | 1.75 | [ -1.35,  5.53]
+school | 367   | female1     |       -0.59 | 1.53 | [ -3.59,  2.41]
+school | 368   | (Intercept) |        4.96 | 2.00 | [  1.03,  8.89]
+school | 368   | female1     |       -0.36 | 1.57 | [ -3.44,  2.73]
+school | 369   | (Intercept) |        4.64 | 2.06 | [  0.61,  8.67]
+school | 369   | female1     |       -0.01 | 1.58 | [ -3.12,  3.09]
+school | 370   | (Intercept) |       -2.49 | 1.83 | [ -6.08,  1.11]
+school | 370   | female1     |        0.71 | 1.55 | [ -2.33,  3.75]
+school | 371   | (Intercept) |       -4.08 | 1.91 | [ -7.82, -0.35]
+school | 371   | female1     |        0.35 | 1.57 | [ -2.73,  3.42]
+school | 372   | (Intercept) |       -0.96 | 1.96 | [ -4.80,  2.89]
+school | 372   | female1     |   -4.09e-04 | 1.57 | [ -3.09,  3.08]
+school | 373   | (Intercept) |        0.79 | 1.85 | [ -2.85,  4.42]
+school | 373   | female1     |        0.85 | 1.54 | [ -2.17,  3.88]
+school | 374   | (Intercept) |        1.97 | 1.91 | [ -1.76,  5.71]
+school | 374   | female1     |       -0.81 | 1.55 | [ -3.86,  2.24]
+school | 375   | (Intercept) |       -2.92 | 2.03 | [ -6.89,  1.06]
+school | 375   | female1     |       -0.01 | 1.58 | [ -3.11,  3.08]
+school | 376   | (Intercept) |        1.17 | 1.91 | [ -2.56,  4.91]
+school | 376   | female1     |        0.18 | 1.58 | [ -2.92,  3.28]
+school | 377   | (Intercept) |       -2.15 | 1.74 | [ -5.55,  1.26]
+school | 377   | female1     |       -0.14 | 1.52 | [ -3.13,  2.84]
+school | 378   | (Intercept) |       -1.65 | 2.09 | [ -5.74,  2.44]
+school | 378   | female1     |       -0.22 | 1.59 | [ -3.34,  2.90]
+school | 379   | (Intercept) |        0.61 | 2.04 | [ -3.40,  4.62]
+school | 379   | female1     |       -0.02 | 1.58 | [ -3.12,  3.08]
+school | 380   | (Intercept) |        0.74 | 1.78 | [ -2.75,  4.23]
+school | 380   | female1     |        0.20 | 1.53 | [ -2.80,  3.20]
+school | 381   | (Intercept) |        3.14 | 1.72 | [ -0.24,  6.52]
+school | 381   | female1     |       -0.82 | 1.55 | [ -3.85,  2.21]
+school | 382   | (Intercept) |       -4.50 | 1.75 | [ -7.93, -1.07]
+school | 382   | female1     |        1.54 | 1.52 | [ -1.44,  4.52]
+school | 383   | (Intercept) |       -6.15 | 2.09 | [-10.24, -2.06]
+school | 383   | female1     |        0.89 | 1.59 | [ -2.23,  4.00]
+school | 384   | (Intercept) |        0.47 | 1.86 | [ -3.17,  4.10]
+school | 384   | female1     |       -0.54 | 1.56 | [ -3.60,  2.52]
+school | 385   | (Intercept) |       -3.61 | 1.81 | [ -7.16, -0.07]
+school | 385   | female1     |        0.74 | 1.56 | [ -2.31,  3.79]
+school | 386   | (Intercept) |        1.22 | 1.81 | [ -2.32,  4.77]
+school | 386   | female1     |       -0.13 | 1.56 | [ -3.18,  2.92]
+school | 387   | (Intercept) |       -3.63 | 1.98 | [ -7.52,  0.25]
+school | 387   | female1     |       -0.27 | 1.57 | [ -3.35,  2.81]
+school | 388   | (Intercept) |        0.22 | 1.89 | [ -3.49,  3.92]
+school | 388   | female1     |        1.02 | 1.55 | [ -2.02,  4.06]
+school | 389   | (Intercept) |       -0.48 | 1.99 | [ -4.39,  3.42]
+school | 389   | female1     |        0.06 | 1.58 | [ -3.03,  3.15]
+school | 390   | (Intercept) |        3.92 | 1.77 | [  0.45,  7.39]
+school | 390   | female1     |       -0.48 | 1.65 | [ -3.72,  2.76]
+school | 391   | (Intercept) |       -2.04 | 1.78 | [ -5.53,  1.45]
+school | 391   | female1     |        0.21 | 1.53 | [ -2.80,  3.21]
+school | 392   | (Intercept) |        1.94 | 1.73 | [ -1.45,  5.34]
+school | 392   | female1     |       -0.24 | 1.65 | [ -3.48,  3.00]
+school | 393   | (Intercept) |       -1.46 | 1.79 | [ -4.95,  2.04]
+school | 393   | female1     |       -0.14 | 1.56 | [ -3.20,  2.91]
+school | 394   | (Intercept) |       -3.20 | 1.85 | [ -6.84,  0.43]
+school | 394   | female1     |       -0.52 | 1.58 | [ -3.60,  2.57]
+school | 395   | (Intercept) |        3.32 | 1.96 | [ -0.52,  7.16]
+school | 395   | female1     |       -0.37 | 1.57 | [ -3.46,  2.71]
+school | 396   | (Intercept) |       -1.88 | 1.78 | [ -5.37,  1.60]
+school | 396   | female1     |        0.01 | 1.53 | [ -2.99,  3.01]
+school | 397   | (Intercept) |        0.53 | 1.99 | [ -3.38,  4.43]
+school | 397   | female1     |       -0.32 | 1.60 | [ -3.45,  2.81]
+school | 398   | (Intercept) |        0.96 | 1.77 | [ -2.52,  4.43]
+school | 398   | female1     |       -0.12 | 1.65 | [ -3.36,  3.12]
+school | 399   | (Intercept) |       -3.94 | 2.22 | [ -8.29,  0.41]
+school | 399   | female1     |        0.84 | 1.62 | [ -2.33,  4.01]
+school | 400   | (Intercept) |       -0.11 | 1.75 | [ -3.54,  3.33]
+school | 400   | female1     |       -0.64 | 1.53 | [ -3.65,  2.36]
+school | 401   | (Intercept) |        0.64 | 1.85 | [ -2.99,  4.28]
+school | 401   | female1     |        0.11 | 1.58 | [ -2.98,  3.20]
+school | 402   | (Intercept) |       -2.54 | 2.14 | [ -6.73,  1.65]
+school | 402   | female1     |       -0.63 | 1.60 | [ -3.76,  2.51]
+school | 403   | (Intercept) |        2.40 | 1.88 | [ -1.29,  6.09]
+school | 403   | female1     |        0.49 | 1.59 | [ -2.62,  3.60]
+school | 404   | (Intercept) |        1.68 | 1.93 | [ -2.11,  5.46]
+school | 404   | female1     |       -0.33 | 1.58 | [ -3.42,  2.76]
+school | 405   | (Intercept) |   -1.85e-03 | 1.96 | [ -3.84,  3.84]
+school | 405   | female1     |        0.02 | 1.59 | [ -3.08,  3.13]
+school | 406   | (Intercept) |        0.57 | 1.77 | [ -2.90,  4.04]
+school | 406   | female1     |       -0.38 | 1.54 | [ -3.40,  2.63]
+school | 407   | (Intercept) |       -0.28 | 1.99 | [ -4.18,  3.62]
+school | 407   | female1     |       -1.15 | 1.58 | [ -4.25,  1.95]
+school | 408   | (Intercept) |       -1.96 | 2.02 | [ -5.92,  2.00]
+school | 408   | female1     |       -0.34 | 1.58 | [ -3.44,  2.76]
+school | 409   | (Intercept) |       -6.48 | 1.94 | [-10.27, -2.68]
+school | 409   | female1     |        1.18 | 1.57 | [ -1.89,  4.25]
+school | 410   | (Intercept) |       -0.44 | 2.04 | [ -4.44,  3.57]
+school | 410   | female1     |       -0.50 | 1.58 | [ -3.60,  2.61]
+school | 411   | (Intercept) |        0.88 | 1.67 | [ -2.39,  4.15]
+school | 411   | female1     |        1.39 | 1.53 | [ -1.61,  4.39]
+school | 412   | (Intercept) |        0.66 | 1.81 | [ -2.90,  4.21]
+school | 412   | female1     |       -0.47 | 1.55 | [ -3.49,  2.56]
+school | 413   | (Intercept) |        1.70 | 1.82 | [ -1.88,  5.28]
+school | 413   | female1     |       -0.26 | 1.54 | [ -3.28,  2.76]
+school | 414   | (Intercept) |       -0.52 | 1.88 | [ -4.21,  3.17]
+school | 414   | female1     |        0.09 | 1.56 | [ -2.97,  3.14]
+school | 415   | (Intercept) |        3.70 | 2.02 | [ -0.26,  7.66]
+school | 415   | female1     |        0.56 | 1.64 | [ -2.66,  3.77]
+school | 416   | (Intercept) |        1.16 | 1.96 | [ -2.68,  5.00]
+school | 416   | female1     |       -0.47 | 1.57 | [ -3.56,  2.61]
+school | 417   | (Intercept) |       -5.77 | 2.07 | [ -9.82, -1.71]
+school | 417   | female1     |       -0.55 | 1.59 | [ -3.66,  2.56]
+school | 418   | (Intercept) |       -1.49 | 1.57 | [ -4.57,  1.59]
+school | 418   | female1     |        1.08 | 1.52 | [ -1.90,  4.06]
+school | 419   | (Intercept) |       -2.44 | 1.71 | [ -5.80,  0.92]
+school | 419   | female1     |        0.15 | 1.52 | [ -2.83,  3.14]</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Random Effect Predictions</h2>
+<p>These are called Best Linear Unbiased Predictions (BLUPs).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_grouplevel</span>(fit, <span class="at">type =</span> <span class="st">"total"</span>) <span class="co"># beta_0j and beta_1j</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Group  | Level | Parameter   | Coefficient
+------------------------------------------
+school | 1     | (Intercept) |       58.94
+school | 1     | female1     |       -0.93
+school | 2     | (Intercept) |       61.82
+school | 2     | female1     |       -1.11
+school | 3     | (Intercept) |       50.63
+school | 3     | female1     |       -0.87
+school | 4     | (Intercept) |       63.29
+school | 4     | female1     |        0.21
+school | 5     | (Intercept) |       51.33
+school | 5     | female1     |       -1.47
+school | 6     | (Intercept) |       59.72
+school | 6     | female1     |        0.64
+school | 7     | (Intercept) |       57.92
+school | 7     | female1     |       -1.38
+school | 8     | (Intercept) |       60.46
+school | 8     | female1     |        0.10
+school | 9     | (Intercept) |       56.32
+school | 9     | female1     |       -1.45
+school | 10    | (Intercept) |       60.56
+school | 10    | female1     |       -0.20
+school | 11    | (Intercept) |       56.53
+school | 11    | female1     |       -0.47
+school | 12    | (Intercept) |       55.83
+school | 12    | female1     |       -0.16
+school | 13    | (Intercept) |       58.56
+school | 13    | female1     |       -0.60
+school | 14    | (Intercept) |       57.34
+school | 14    | female1     |        0.58
+school | 15    | (Intercept) |       62.12
+school | 15    | female1     |       -0.53
+school | 16    | (Intercept) |       56.70
+school | 16    | female1     |       -1.18
+school | 17    | (Intercept) |       55.72
+school | 17    | female1     |       -1.09
+school | 18    | (Intercept) |       61.51
+school | 18    | female1     |       -1.29
+school | 19    | (Intercept) |       57.91
+school | 19    | female1     |       -0.48
+school | 20    | (Intercept) |       59.31
+school | 20    | female1     |       -0.93
+school | 21    | (Intercept) |       59.16
+school | 21    | female1     |        0.17
+school | 22    | (Intercept) |       56.55
+school | 22    | female1     |       -0.70
+school | 23    | (Intercept) |       59.29
+school | 23    | female1     |       -0.07
+school | 24    | (Intercept) |       58.42
+school | 24    | female1     |       -0.69
+school | 25    | (Intercept) |       56.65
+school | 25    | female1     |       -1.97
+school | 26    | (Intercept) |       59.82
+school | 26    | female1     |        0.29
+school | 27    | (Intercept) |       54.76
+school | 27    | female1     |       -0.73
+school | 28    | (Intercept) |       63.43
+school | 28    | female1     |       -1.68
+school | 29    | (Intercept) |       59.44
+school | 29    | female1     |       -0.66
+school | 30    | (Intercept) |       56.75
+school | 30    | female1     |       -1.62
+school | 31    | (Intercept) |       57.72
+school | 31    | female1     |       -2.33
+school | 32    | (Intercept) |       61.31
+school | 32    | female1     |       -0.22
+school | 33    | (Intercept) |       53.31
+school | 33    | female1     |       -0.68
+school | 34    | (Intercept) |       57.44
+school | 34    | female1     |       -1.05
+school | 35    | (Intercept) |       60.13
+school | 35    | female1     |       -0.95
+school | 36    | (Intercept) |       54.30
+school | 36    | female1     |       -1.09
+school | 37    | (Intercept) |       60.12
+school | 37    | female1     |        0.04
+school | 38    | (Intercept) |       56.59
+school | 38    | female1     |       -1.43
+school | 39    | (Intercept) |       58.13
+school | 39    | female1     |       -1.51
+school | 40    | (Intercept) |       54.36
+school | 40    | female1     |       -0.92
+school | 41    | (Intercept) |       59.45
+school | 41    | female1     |       -0.05
+school | 42    | (Intercept) |       58.08
+school | 42    | female1     |       -0.63
+school | 43    | (Intercept) |       58.44
+school | 43    | female1     |        0.13
+school | 44    | (Intercept) |       60.96
+school | 44    | female1     |       -0.34
+school | 45    | (Intercept) |       59.93
+school | 45    | female1     |       -0.61
+school | 46    | (Intercept) |       57.14
+school | 46    | female1     |       -0.08
+school | 47    | (Intercept) |       53.25
+school | 47    | female1     |        0.08
+school | 48    | (Intercept) |       57.06
+school | 48    | female1     |       -0.22
+school | 49    | (Intercept) |       57.87
+school | 49    | female1     |       -1.17
+school | 50    | (Intercept) |       53.75
+school | 50    | female1     |       -1.13
+school | 51    | (Intercept) |       59.75
+school | 51    | female1     |       -0.26
+school | 52    | (Intercept) |       60.80
+school | 52    | female1     |       -0.70
+school | 53    | (Intercept) |       60.08
+school | 53    | female1     |       -1.65
+school | 54    | (Intercept) |       62.65
+school | 54    | female1     |       -1.10
+school | 55    | (Intercept) |       51.39
+school | 55    | female1     |       -2.12
+school | 56    | (Intercept) |       56.88
+school | 56    | female1     |       -0.56
+school | 57    | (Intercept) |       58.28
+school | 57    | female1     |       -0.87
+school | 58    | (Intercept) |       58.05
+school | 58    | female1     |       -0.17
+school | 59    | (Intercept) |       58.72
+school | 59    | female1     |       -0.63
+school | 60    | (Intercept) |       53.95
+school | 60    | female1     |       -0.01
+school | 61    | (Intercept) |       59.76
+school | 61    | female1     |       -1.71
+school | 62    | (Intercept) |       49.04
+school | 62    | female1     |       -0.02
+school | 63    | (Intercept) |       58.85
+school | 63    | female1     |       -0.44
+school | 64    | (Intercept) |       58.66
+school | 64    | female1     |       -0.74
+school | 65    | (Intercept) |       61.59
+school | 65    | female1     |       -0.82
+school | 66    | (Intercept) |       56.34
+school | 66    | female1     |       -0.83
+school | 67    | (Intercept) |       59.69
+school | 67    | female1     |       -0.83
+school | 68    | (Intercept) |       57.28
+school | 68    | female1     |        0.09
+school | 69    | (Intercept) |       54.32
+school | 69    | female1     |       -0.92
+school | 70    | (Intercept) |       62.57
+school | 70    | female1     |       -0.48
+school | 71    | (Intercept) |       56.25
+school | 71    | female1     |       -1.25
+school | 72    | (Intercept) |       52.29
+school | 72    | female1     |       -0.63
+school | 73    | (Intercept) |       57.01
+school | 73    | female1     |       -0.04
+school | 74    | (Intercept) |       62.99
+school | 74    | female1     |       -0.56
+school | 75    | (Intercept) |       57.32
+school | 75    | female1     |        0.32
+school | 76    | (Intercept) |       57.27
+school | 76    | female1     |        0.65
+school | 77    | (Intercept) |       62.17
+school | 77    | female1     |       -0.50
+school | 78    | (Intercept) |       56.67
+school | 78    | female1     |       -0.68
+school | 79    | (Intercept) |       55.17
+school | 79    | female1     |       -0.85
+school | 80    | (Intercept) |       62.15
+school | 80    | female1     |       -0.48
+school | 81    | (Intercept) |       55.29
+school | 81    | female1     |       -0.74
+school | 82    | (Intercept) |       59.49
+school | 82    | female1     |       -1.39
+school | 83    | (Intercept) |       59.60
+school | 83    | female1     |        0.79
+school | 84    | (Intercept) |       60.91
+school | 84    | female1     |       -0.49
+school | 85    | (Intercept) |       58.12
+school | 85    | female1     |        0.17
+school | 86    | (Intercept) |       56.40
+school | 86    | female1     |       -0.50
+school | 87    | (Intercept) |       59.96
+school | 87    | female1     |       -0.85
+school | 88    | (Intercept) |       59.75
+school | 88    | female1     |       -1.18
+school | 89    | (Intercept) |       58.22
+school | 89    | female1     |       -0.57
+school | 90    | (Intercept) |       61.38
+school | 90    | female1     |       -1.02
+school | 91    | (Intercept) |       57.99
+school | 91    | female1     |       -0.82
+school | 92    | (Intercept) |       60.30
+school | 92    | female1     |       -0.56
+school | 93    | (Intercept) |       55.33
+school | 93    | female1     |        0.10
+school | 94    | (Intercept) |       59.73
+school | 94    | female1     |       -0.45
+school | 95    | (Intercept) |       57.48
+school | 95    | female1     |       -0.39
+school | 96    | (Intercept) |       59.49
+school | 96    | female1     |       -0.61
+school | 97    | (Intercept) |       61.09
+school | 97    | female1     |       -0.55
+school | 98    | (Intercept) |       58.01
+school | 98    | female1     |       -0.44
+school | 99    | (Intercept) |       56.85
+school | 99    | female1     |       -0.23
+school | 100   | (Intercept) |       58.78
+school | 100   | female1     |       -1.45
+school | 101   | (Intercept) |       57.75
+school | 101   | female1     |       -0.70
+school | 102   | (Intercept) |       57.67
+school | 102   | female1     |       -0.26
+school | 103   | (Intercept) |       64.80
+school | 103   | female1     |       -1.00
+school | 104   | (Intercept) |       58.00
+school | 104   | female1     |       -0.28
+school | 105   | (Intercept) |       59.14
+school | 105   | female1     |       -0.47
+school | 106   | (Intercept) |       53.06
+school | 106   | female1     |        0.11
+school | 107   | (Intercept) |       63.20
+school | 107   | female1     |        0.05
+school | 108   | (Intercept) |       58.79
+school | 108   | female1     |       -1.73
+school | 109   | (Intercept) |       61.87
+school | 109   | female1     |       -0.54
+school | 110   | (Intercept) |       56.20
+school | 110   | female1     |       -0.91
+school | 111   | (Intercept) |       56.32
+school | 111   | female1     |       -0.19
+school | 112   | (Intercept) |       58.29
+school | 112   | female1     |        0.95
+school | 113   | (Intercept) |       58.84
+school | 113   | female1     |       -0.36
+school | 114   | (Intercept) |       56.18
+school | 114   | female1     |       -1.14
+school | 115   | (Intercept) |       60.98
+school | 115   | female1     |       -0.73
+school | 116   | (Intercept) |       49.39
+school | 116   | female1     |       -0.71
+school | 117   | (Intercept) |       55.31
+school | 117   | female1     |       -0.08
+school | 118   | (Intercept) |       56.92
+school | 118   | female1     |        0.23
+school | 119   | (Intercept) |       59.67
+school | 119   | female1     |       -0.29
+school | 120   | (Intercept) |       61.39
+school | 120   | female1     |       -0.22
+school | 121   | (Intercept) |       58.48
+school | 121   | female1     |       -1.07
+school | 122   | (Intercept) |       54.52
+school | 122   | female1     |       -0.86
+school | 123   | (Intercept) |       57.88
+school | 123   | female1     |        0.09
+school | 124   | (Intercept) |       59.21
+school | 124   | female1     |        0.10
+school | 125   | (Intercept) |       56.18
+school | 125   | female1     |        0.21
+school | 126   | (Intercept) |       57.53
+school | 126   | female1     |       -1.02
+school | 127   | (Intercept) |       60.69
+school | 127   | female1     |       -0.61
+school | 128   | (Intercept) |       58.19
+school | 128   | female1     |       -0.50
+school | 129   | (Intercept) |       54.98
+school | 129   | female1     |       -0.09
+school | 130   | (Intercept) |       56.61
+school | 130   | female1     |       -0.75
+school | 131   | (Intercept) |       56.66
+school | 131   | female1     |       -0.29
+school | 132   | (Intercept) |       54.74
+school | 132   | female1     |       -0.91
+school | 133   | (Intercept) |       61.97
+school | 133   | female1     |       -0.96
+school | 134   | (Intercept) |       58.69
+school | 134   | female1     |       -1.22
+school | 135   | (Intercept) |       52.81
+school | 135   | female1     |        0.25
+school | 136   | (Intercept) |       57.95
+school | 136   | female1     |       -1.65
+school | 137   | (Intercept) |       58.34
+school | 137   | female1     |       -1.12
+school | 138   | (Intercept) |       57.76
+school | 138   | female1     |       -0.84
+school | 139   | (Intercept) |       55.90
+school | 139   | female1     |        0.76
+school | 140   | (Intercept) |       63.89
+school | 140   | female1     |       -1.28
+school | 141   | (Intercept) |       59.47
+school | 141   | female1     |       -0.81
+school | 142   | (Intercept) |       60.50
+school | 142   | female1     |       -0.78
+school | 143   | (Intercept) |       59.64
+school | 143   | female1     |        0.24
+school | 144   | (Intercept) |       56.26
+school | 144   | female1     |       -0.23
+school | 145   | (Intercept) |       57.83
+school | 145   | female1     |       -0.57
+school | 146   | (Intercept) |       58.02
+school | 146   | female1     |        0.23
+school | 147   | (Intercept) |       58.03
+school | 147   | female1     |       -0.56
+school | 148   | (Intercept) |       54.13
+school | 148   | female1     |       -1.13
+school | 149   | (Intercept) |       56.80
+school | 149   | female1     |        0.69
+school | 150   | (Intercept) |       60.97
+school | 150   | female1     |       -1.00
+school | 151   | (Intercept) |       54.88
+school | 151   | female1     |       -0.27
+school | 152   | (Intercept) |       61.00
+school | 152   | female1     |       -0.04
+school | 153   | (Intercept) |       64.52
+school | 153   | female1     |       -0.69
+school | 154   | (Intercept) |       56.13
+school | 154   | female1     |       -0.21
+school | 155   | (Intercept) |       54.22
+school | 155   | female1     |        0.77
+school | 156   | (Intercept) |       61.50
+school | 156   | female1     |       -0.86
+school | 157   | (Intercept) |       59.21
+school | 157   | female1     |       -0.36
+school | 158   | (Intercept) |       59.62
+school | 158   | female1     |       -1.29
+school | 159   | (Intercept) |       57.68
+school | 159   | female1     |       -0.16
+school | 160   | (Intercept) |       59.37
+school | 160   | female1     |       -0.12
+school | 161   | (Intercept) |       55.14
+school | 161   | female1     |        0.08
+school | 162   | (Intercept) |       57.73
+school | 162   | female1     |       -1.38
+school | 163   | (Intercept) |       55.30
+school | 163   | female1     |       -0.47
+school | 164   | (Intercept) |       57.80
+school | 164   | female1     |       -0.57
+school | 165   | (Intercept) |       56.79
+school | 165   | female1     |       -1.27
+school | 166   | (Intercept) |       54.20
+school | 166   | female1     |       -0.57
+school | 167   | (Intercept) |       58.47
+school | 167   | female1     |       -0.49
+school | 168   | (Intercept) |       59.34
+school | 168   | female1     |       -0.50
+school | 169   | (Intercept) |       57.37
+school | 169   | female1     |       -1.21
+school | 170   | (Intercept) |       58.07
+school | 170   | female1     |       -1.10
+school | 171   | (Intercept) |       57.10
+school | 171   | female1     |       -0.58
+school | 172   | (Intercept) |       58.13
+school | 172   | female1     |       -0.91
+school | 173   | (Intercept) |       62.01
+school | 173   | female1     |       -1.76
+school | 174   | (Intercept) |       55.94
+school | 174   | female1     |       -0.33
+school | 175   | (Intercept) |       58.97
+school | 175   | female1     |       -0.80
+school | 176   | (Intercept) |       59.28
+school | 176   | female1     |       -0.95
+school | 177   | (Intercept) |       57.45
+school | 177   | female1     |       -0.47
+school | 178   | (Intercept) |       62.77
+school | 178   | female1     |       -1.23
+school | 179   | (Intercept) |       55.89
+school | 179   | female1     |       -1.44
+school | 180   | (Intercept) |       58.82
+school | 180   | female1     |       -0.68
+school | 181   | (Intercept) |       58.12
+school | 181   | female1     |       -0.35
+school | 182   | (Intercept) |       60.80
+school | 182   | female1     |       -0.69
+school | 183   | (Intercept) |       59.04
+school | 183   | female1     |       -0.50
+school | 184   | (Intercept) |       56.93
+school | 184   | female1     |        0.24
+school | 185   | (Intercept) |       52.18
+school | 185   | female1     |       -0.41
+school | 186   | (Intercept) |       52.74
+school | 186   | female1     |       -0.87
+school | 187   | (Intercept) |       56.96
+school | 187   | female1     |       -1.24
+school | 188   | (Intercept) |       60.54
+school | 188   | female1     |        0.25
+school | 189   | (Intercept) |       54.64
+school | 189   | female1     |       -1.97
+school | 190   | (Intercept) |       56.07
+school | 190   | female1     |        0.91
+school | 191   | (Intercept) |       56.99
+school | 191   | female1     |       -0.76
+school | 192   | (Intercept) |       61.27
+school | 192   | female1     |       -1.04
+school | 193   | (Intercept) |       55.20
+school | 193   | female1     |       -1.11
+school | 194   | (Intercept) |       60.61
+school | 194   | female1     |       -0.40
+school | 195   | (Intercept) |       58.09
+school | 195   | female1     |        0.12
+school | 196   | (Intercept) |       56.30
+school | 196   | female1     |        0.23
+school | 197   | (Intercept) |       49.52
+school | 197   | female1     |       -0.20
+school | 198   | (Intercept) |       56.20
+school | 198   | female1     |       -0.69
+school | 199   | (Intercept) |       58.05
+school | 199   | female1     |       -1.53
+school | 200   | (Intercept) |       54.34
+school | 200   | female1     |        1.32
+school | 201   | (Intercept) |       58.09
+school | 201   | female1     |        0.71
+school | 202   | (Intercept) |       60.67
+school | 202   | female1     |       -0.05
+school | 203   | (Intercept) |       57.91
+school | 203   | female1     |       -0.92
+school | 204   | (Intercept) |       58.64
+school | 204   | female1     |       -0.63
+school | 205   | (Intercept) |       55.96
+school | 205   | female1     |       -1.79
+school | 206   | (Intercept) |       56.23
+school | 206   | female1     |       -0.59
+school | 207   | (Intercept) |       57.46
+school | 207   | female1     |       -0.44
+school | 208   | (Intercept) |       55.04
+school | 208   | female1     |       -0.82
+school | 209   | (Intercept) |       60.59
+school | 209   | female1     |       -0.12
+school | 210   | (Intercept) |       53.22
+school | 210   | female1     |        0.70
+school | 211   | (Intercept) |       55.38
+school | 211   | female1     |        1.09
+school | 212   | (Intercept) |       54.15
+school | 212   | female1     |       -0.56
+school | 213   | (Intercept) |       60.61
+school | 213   | female1     |       -0.87
+school | 214   | (Intercept) |       53.80
+school | 214   | female1     |        0.06
+school | 215   | (Intercept) |       58.51
+school | 215   | female1     |       -1.08
+school | 216   | (Intercept) |       59.07
+school | 216   | female1     |       -0.13
+school | 217   | (Intercept) |       60.66
+school | 217   | female1     |       -0.27
+school | 218   | (Intercept) |       57.42
+school | 218   | female1     |       -1.45
+school | 219   | (Intercept) |       58.03
+school | 219   | female1     |       -1.68
+school | 220   | (Intercept) |       52.25
+school | 220   | female1     |       -0.42
+school | 221   | (Intercept) |       61.07
+school | 221   | female1     |       -0.57
+school | 222   | (Intercept) |       54.99
+school | 222   | female1     |       -1.27
+school | 223   | (Intercept) |       52.54
+school | 223   | female1     |       -1.42
+school | 224   | (Intercept) |       59.69
+school | 224   | female1     |       -0.47
+school | 225   | (Intercept) |       54.29
+school | 225   | female1     |       -1.09
+school | 226   | (Intercept) |       61.11
+school | 226   | female1     |       -0.26
+school | 227   | (Intercept) |       56.79
+school | 227   | female1     |       -1.12
+school | 228   | (Intercept) |       58.31
+school | 228   | female1     |       -1.21
+school | 229   | (Intercept) |       60.33
+school | 229   | female1     |       -0.77
+school | 230   | (Intercept) |       59.54
+school | 230   | female1     |       -1.18
+school | 231   | (Intercept) |       55.46
+school | 231   | female1     |       -0.70
+school | 232   | (Intercept) |       57.28
+school | 232   | female1     |        0.17
+school | 233   | (Intercept) |       58.21
+school | 233   | female1     |       -0.39
+school | 234   | (Intercept) |       58.59
+school | 234   | female1     |       -0.24
+school | 235   | (Intercept) |       60.77
+school | 235   | female1     |       -0.53
+school | 236   | (Intercept) |       56.82
+school | 236   | female1     |        0.17
+school | 237   | (Intercept) |       56.04
+school | 237   | female1     |       -1.28
+school | 238   | (Intercept) |       58.13
+school | 238   | female1     |       -0.15
+school | 239   | (Intercept) |       54.96
+school | 239   | female1     |       -0.70
+school | 240   | (Intercept) |       61.09
+school | 240   | female1     |       -0.92
+school | 241   | (Intercept) |       62.35
+school | 241   | female1     |       -0.81
+school | 242   | (Intercept) |       57.21
+school | 242   | female1     |       -0.73
+school | 243   | (Intercept) |       52.80
+school | 243   | female1     |       -0.78
+school | 244   | (Intercept) |       58.68
+school | 244   | female1     |        0.50
+school | 245   | (Intercept) |       59.88
+school | 245   | female1     |       -0.51
+school | 246   | (Intercept) |       51.30
+school | 246   | female1     |       -0.82
+school | 247   | (Intercept) |       56.04
+school | 247   | female1     |       -0.03
+school | 248   | (Intercept) |       59.13
+school | 248   | female1     |       -0.45
+school | 249   | (Intercept) |       53.51
+school | 249   | female1     |        0.12
+school | 250   | (Intercept) |       54.52
+school | 250   | female1     |       -1.87
+school | 251   | (Intercept) |       60.58
+school | 251   | female1     |       -1.63
+school | 252   | (Intercept) |       62.28
+school | 252   | female1     |       -0.46
+school | 253   | (Intercept) |       55.31
+school | 253   | female1     |        0.81
+school | 254   | (Intercept) |       55.34
+school | 254   | female1     |       -0.41
+school | 255   | (Intercept) |       58.26
+school | 255   | female1     |       -0.41
+school | 256   | (Intercept) |       58.27
+school | 256   | female1     |       -0.36
+school | 257   | (Intercept) |       63.40
+school | 257   | female1     |        0.23
+school | 258   | (Intercept) |       58.33
+school | 258   | female1     |        0.02
+school | 259   | (Intercept) |       54.37
+school | 259   | female1     |       -1.86
+school | 260   | (Intercept) |       56.82
+school | 260   | female1     |       -1.40
+school | 261   | (Intercept) |       56.88
+school | 261   | female1     |       -0.99
+school | 262   | (Intercept) |       61.78
+school | 262   | female1     |       -1.38
+school | 263   | (Intercept) |       57.26
+school | 263   | female1     |       -1.19
+school | 264   | (Intercept) |       54.16
+school | 264   | female1     |       -1.60
+school | 265   | (Intercept) |       55.84
+school | 265   | female1     |       -1.35
+school | 266   | (Intercept) |       55.11
+school | 266   | female1     |       -1.47
+school | 267   | (Intercept) |       58.44
+school | 267   | female1     |       -0.62
+school | 268   | (Intercept) |       60.07
+school | 268   | female1     |       -0.86
+school | 269   | (Intercept) |       55.33
+school | 269   | female1     |        0.20
+school | 270   | (Intercept) |       59.84
+school | 270   | female1     |       -0.49
+school | 271   | (Intercept) |       60.29
+school | 271   | female1     |       -1.35
+school | 272   | (Intercept) |       56.73
+school | 272   | female1     |       -0.09
+school | 273   | (Intercept) |       57.42
+school | 273   | female1     |       -0.64
+school | 274   | (Intercept) |       61.62
+school | 274   | female1     |       -1.57
+school | 275   | (Intercept) |       62.37
+school | 275   | female1     |       -0.66
+school | 276   | (Intercept) |       56.48
+school | 276   | female1     |       -0.61
+school | 277   | (Intercept) |       57.57
+school | 277   | female1     |       -0.12
+school | 278   | (Intercept) |       59.44
+school | 278   | female1     |       -0.56
+school | 279   | (Intercept) |       58.68
+school | 279   | female1     |       -0.87
+school | 280   | (Intercept) |       58.21
+school | 280   | female1     |       -1.26
+school | 281   | (Intercept) |       62.88
+school | 281   | female1     |       -0.71
+school | 282   | (Intercept) |       63.21
+school | 282   | female1     |       -1.28
+school | 283   | (Intercept) |       55.69
+school | 283   | female1     |       -0.10
+school | 284   | (Intercept) |       59.98
+school | 284   | female1     |       -2.20
+school | 285   | (Intercept) |       56.34
+school | 285   | female1     |       -1.05
+school | 286   | (Intercept) |       56.37
+school | 286   | female1     |       -0.61
+school | 287   | (Intercept) |       54.50
+school | 287   | female1     |       -1.41
+school | 288   | (Intercept) |       61.31
+school | 288   | female1     |       -0.25
+school | 289   | (Intercept) |       56.96
+school | 289   | female1     |       -0.81
+school | 290   | (Intercept) |       55.45
+school | 290   | female1     |       -1.36
+school | 291   | (Intercept) |       57.16
+school | 291   | female1     |       -1.62
+school | 292   | (Intercept) |       56.40
+school | 292   | female1     |       -0.46
+school | 293   | (Intercept) |       55.67
+school | 293   | female1     |       -0.12
+school | 294   | (Intercept) |       58.22
+school | 294   | female1     |        0.64
+school | 295   | (Intercept) |       52.43
+school | 295   | female1     |       -0.40
+school | 296   | (Intercept) |       59.36
+school | 296   | female1     |       -0.75
+school | 297   | (Intercept) |       51.03
+school | 297   | female1     |       -0.74
+school | 298   | (Intercept) |       58.32
+school | 298   | female1     |       -1.05
+school | 299   | (Intercept) |       57.77
+school | 299   | female1     |        1.03
+school | 300   | (Intercept) |       56.81
+school | 300   | female1     |       -0.04
+school | 301   | (Intercept) |       55.19
+school | 301   | female1     |       -0.92
+school | 302   | (Intercept) |       55.47
+school | 302   | female1     |       -1.68
+school | 303   | (Intercept) |       62.32
+school | 303   | female1     |       -0.42
+school | 304   | (Intercept) |       60.11
+school | 304   | female1     |       -1.32
+school | 305   | (Intercept) |       55.61
+school | 305   | female1     |        0.08
+school | 306   | (Intercept) |       55.11
+school | 306   | female1     |       -0.67
+school | 307   | (Intercept) |       59.73
+school | 307   | female1     |       -0.67
+school | 308   | (Intercept) |       59.18
+school | 308   | female1     |       -1.22
+school | 309   | (Intercept) |       58.45
+school | 309   | female1     |        0.10
+school | 310   | (Intercept) |       55.87
+school | 310   | female1     |        0.04
+school | 311   | (Intercept) |       62.16
+school | 311   | female1     |       -0.55
+school | 312   | (Intercept) |       56.48
+school | 312   | female1     |        0.70
+school | 313   | (Intercept) |       54.38
+school | 313   | female1     |       -0.38
+school | 314   | (Intercept) |       58.33
+school | 314   | female1     |       -1.17
+school | 315   | (Intercept) |       59.08
+school | 315   | female1     |       -1.47
+school | 316   | (Intercept) |       53.36
+school | 316   | female1     |        0.26
+school | 317   | (Intercept) |       59.20
+school | 317   | female1     |       -1.67
+school | 318   | (Intercept) |       57.80
+school | 318   | female1     |       -0.89
+school | 319   | (Intercept) |       57.22
+school | 319   | female1     |       -0.28
+school | 320   | (Intercept) |       60.02
+school | 320   | female1     |       -1.20
+school | 321   | (Intercept) |       59.47
+school | 321   | female1     |       -1.68
+school | 322   | (Intercept) |       57.54
+school | 322   | female1     |       -0.69
+school | 323   | (Intercept) |       58.74
+school | 323   | female1     |       -0.51
+school | 324   | (Intercept) |       58.38
+school | 324   | female1     |        0.93
+school | 325   | (Intercept) |       60.74
+school | 325   | female1     |       -0.35
+school | 326   | (Intercept) |       58.45
+school | 326   | female1     |       -2.16
+school | 327   | (Intercept) |       60.59
+school | 327   | female1     |        0.08
+school | 328   | (Intercept) |       61.77
+school | 328   | female1     |       -0.58
+school | 329   | (Intercept) |       61.32
+school | 329   | female1     |       -0.36
+school | 330   | (Intercept) |       54.06
+school | 330   | female1     |       -0.43
+school | 331   | (Intercept) |       58.28
+school | 331   | female1     |       -0.56
+school | 332   | (Intercept) |       58.02
+school | 332   | female1     |       -0.83
+school | 333   | (Intercept) |       59.78
+school | 333   | female1     |        0.15
+school | 334   | (Intercept) |       60.26
+school | 334   | female1     |       -0.66
+school | 335   | (Intercept) |       62.02
+school | 335   | female1     |       -0.57
+school | 336   | (Intercept) |       56.88
+school | 336   | female1     |        0.21
+school | 337   | (Intercept) |       57.82
+school | 337   | female1     |       -0.92
+school | 338   | (Intercept) |       56.56
+school | 338   | female1     |       -1.04
+school | 339   | (Intercept) |       53.05
+school | 339   | female1     |       -0.70
+school | 340   | (Intercept) |       53.15
+school | 340   | female1     |       -0.16
+school | 341   | (Intercept) |       60.21
+school | 341   | female1     |       -0.82
+school | 342   | (Intercept) |       54.87
+school | 342   | female1     |       -0.23
+school | 343   | (Intercept) |       60.27
+school | 343   | female1     |       -0.65
+school | 344   | (Intercept) |       57.99
+school | 344   | female1     |       -2.02
+school | 345   | (Intercept) |       58.06
+school | 345   | female1     |       -0.39
+school | 346   | (Intercept) |       59.20
+school | 346   | female1     |       -1.35
+school | 347   | (Intercept) |       57.95
+school | 347   | female1     |       -0.90
+school | 348   | (Intercept) |       61.60
+school | 348   | female1     |        0.54
+school | 349   | (Intercept) |       58.26
+school | 349   | female1     |       -1.20
+school | 350   | (Intercept) |       58.10
+school | 350   | female1     |       -0.65
+school | 351   | (Intercept) |       58.88
+school | 351   | female1     |       -0.45
+school | 352   | (Intercept) |       60.53
+school | 352   | female1     |        0.51
+school | 353   | (Intercept) |       59.40
+school | 353   | female1     |       -1.47
+school | 354   | (Intercept) |       60.84
+school | 354   | female1     |       -0.69
+school | 355   | (Intercept) |       57.63
+school | 355   | female1     |       -1.00
+school | 356   | (Intercept) |       59.24
+school | 356   | female1     |       -0.65
+school | 357   | (Intercept) |       58.31
+school | 357   | female1     |       -1.58
+school | 358   | (Intercept) |       57.37
+school | 358   | female1     |       -0.60
+school | 359   | (Intercept) |       57.96
+school | 359   | female1     |       -1.49
+school | 360   | (Intercept) |       55.28
+school | 360   | female1     |       -0.64
+school | 361   | (Intercept) |       55.96
+school | 361   | female1     |       -0.19
+school | 362   | (Intercept) |       51.87
+school | 362   | female1     |       -1.21
+school | 363   | (Intercept) |       52.74
+school | 363   | female1     |        0.89
+school | 364   | (Intercept) |       54.94
+school | 364   | female1     |       -0.73
+school | 365   | (Intercept) |       60.18
+school | 365   | female1     |       -0.91
+school | 366   | (Intercept) |       60.53
+school | 366   | female1     |       -1.46
+school | 367   | (Intercept) |       59.88
+school | 367   | female1     |       -1.20
+school | 368   | (Intercept) |       62.75
+school | 368   | female1     |       -0.97
+school | 369   | (Intercept) |       62.44
+school | 369   | female1     |       -0.62
+school | 370   | (Intercept) |       55.31
+school | 370   | female1     |        0.10
+school | 371   | (Intercept) |       53.71
+school | 371   | female1     |       -0.27
+school | 372   | (Intercept) |       56.84
+school | 372   | female1     |       -0.61
+school | 373   | (Intercept) |       58.58
+school | 373   | female1     |        0.24
+school | 374   | (Intercept) |       59.77
+school | 374   | female1     |       -1.42
+school | 375   | (Intercept) |       54.88
+school | 375   | female1     |       -0.62
+school | 376   | (Intercept) |       58.97
+school | 376   | female1     |       -0.44
+school | 377   | (Intercept) |       55.65
+school | 377   | female1     |       -0.76
+school | 378   | (Intercept) |       56.14
+school | 378   | female1     |       -0.83
+school | 379   | (Intercept) |       58.40
+school | 379   | female1     |       -0.64
+school | 380   | (Intercept) |       58.54
+school | 380   | female1     |       -0.41
+school | 381   | (Intercept) |       60.94
+school | 381   | female1     |       -1.43
+school | 382   | (Intercept) |       53.30
+school | 382   | female1     |        0.93
+school | 383   | (Intercept) |       51.64
+school | 383   | female1     |        0.27
+school | 384   | (Intercept) |       58.26
+school | 384   | female1     |       -1.16
+school | 385   | (Intercept) |       54.18
+school | 385   | female1     |        0.13
+school | 386   | (Intercept) |       59.02
+school | 386   | female1     |       -0.74
+school | 387   | (Intercept) |       54.16
+school | 387   | female1     |       -0.89
+school | 388   | (Intercept) |       58.01
+school | 388   | female1     |        0.41
+school | 389   | (Intercept) |       57.31
+school | 389   | female1     |       -0.55
+school | 390   | (Intercept) |       61.71
+school | 390   | female1     |       -1.10
+school | 391   | (Intercept) |       55.76
+school | 391   | female1     |       -0.41
+school | 392   | (Intercept) |       59.74
+school | 392   | female1     |       -0.85
+school | 393   | (Intercept) |       56.34
+school | 393   | female1     |       -0.76
+school | 394   | (Intercept) |       54.59
+school | 394   | female1     |       -1.13
+school | 395   | (Intercept) |       61.11
+school | 395   | female1     |       -0.99
+school | 396   | (Intercept) |       55.91
+school | 396   | female1     |       -0.60
+school | 397   | (Intercept) |       58.32
+school | 397   | female1     |       -0.94
+school | 398   | (Intercept) |       58.75
+school | 398   | female1     |       -0.73
+school | 399   | (Intercept) |       53.85
+school | 399   | female1     |        0.23
+school | 400   | (Intercept) |       57.69
+school | 400   | female1     |       -1.26
+school | 401   | (Intercept) |       58.44
+school | 401   | female1     |       -0.51
+school | 402   | (Intercept) |       55.25
+school | 402   | female1     |       -1.24
+school | 403   | (Intercept) |       60.19
+school | 403   | female1     |       -0.12
+school | 404   | (Intercept) |       59.47
+school | 404   | female1     |       -0.94
+school | 405   | (Intercept) |       57.79
+school | 405   | female1     |       -0.59
+school | 406   | (Intercept) |       58.36
+school | 406   | female1     |       -0.99
+school | 407   | (Intercept) |       57.51
+school | 407   | female1     |       -1.77
+school | 408   | (Intercept) |       55.84
+school | 408   | female1     |       -0.95
+school | 409   | (Intercept) |       51.32
+school | 409   | female1     |        0.57
+school | 410   | (Intercept) |       57.35
+school | 410   | female1     |       -1.11
+school | 411   | (Intercept) |       58.67
+school | 411   | female1     |        0.78
+school | 412   | (Intercept) |       58.45
+school | 412   | female1     |       -1.08
+school | 413   | (Intercept) |       59.49
+school | 413   | female1     |       -0.87
+school | 414   | (Intercept) |       57.27
+school | 414   | female1     |       -0.53
+school | 415   | (Intercept) |       61.49
+school | 415   | female1     |       -0.06
+school | 416   | (Intercept) |       58.96
+school | 416   | female1     |       -1.08
+school | 417   | (Intercept) |       52.03
+school | 417   | female1     |       -1.16
+school | 418   | (Intercept) |       56.31
+school | 418   | female1     |        0.46
+school | 419   | (Intercept) |       55.36
+school | 419   | female1     |       -0.46</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Plotting the Fixed Effects</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>rel <span class="ot">&lt;-</span> <span class="fu">estimate_relation</span>(fit, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"female"</span>, <span class="st">"public"</span>))</span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"><div class="fsmaller">
+<p>These are estimates for the <em>average school</em> in the population.</p>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Visualizing the Random Slopes</h2>
+
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Contrast Analysis</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(fit, <span class="at">contrast =</span> <span class="st">"female"</span>, <span class="at">by =</span> <span class="st">"public"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Marginal Contrasts Analysis
+
+Level1 | Level2 | public | Difference |   SE |         95% CI | t(6863) |      p
+--------------------------------------------------------------------------------
+1      | 0      | 0      |      -0.61 | 0.42 | [-1.44,  0.21] |   -1.45 |  0.146
+1      | 0      | 1      |      -1.42 | 0.26 | [-1.92, -0.92] |   -5.53 | &lt; .001
+
+Variable predicted: math
+Predictors contrasted: female
+Predictors averaged: school
+p-values are uncorrected.</code></pre>
+</div>
+</div>
+<div class="fsmaller">
+<p>The sex difference is significant in <em>public</em> but not in <em>private</em> schools.</p>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Interpretation Part 1</h2>
+<ul>
+<li>Last week, we regressed math on female with random slopes.
+<ul>
+<li><code>math ~ 1 + female + (1 + female | school)</code></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Males tended to score higher than females at the average school.
+<ul>
+<li><span class="math inline">\(\gamma_{10} = -1.20, p&lt;.001\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>But the sex difference (random slopes) varied between schools.
+<ul>
+<li><span class="math inline">\(\tau_{11} = 1.70\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>So some schools had larger sex differences than others.
+<ul>
+<li>Can we explain this variability with L2 predictors?</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Interpretation Part 2</h2>
+<ul>
+<li>This week, we tested whether a school’s sex difference in math scores was significantly related to its public vs private status.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>We did this using a cross-level public-by-female interaction.
+<ul>
+<li><code>math ~ 1 + public * female + (1 + female | school)</code></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Sex differences <em>did not</em> differ between public and private schools.
+<ul>
+<li><span class="math inline">\(\gamma_{11} = -0.81, p=.102\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Don’t misinterpret the <em>simple</em> slope of female as its <em>main/partial</em> effect.</p>
+</div>
+</div>
+</div>
+</div>
 
 
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
