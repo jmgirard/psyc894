@@ -29,6 +29,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-0b5db92d115c8c04db4ce50e7f546384.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -131,7 +195,7 @@
 
 <section class="title-slide slide level1 my-title center">
 <h1><span class="blue">Multilevel Modeling</span></h1>
-<p>Random Slopes</p>
+<p>Centering and Degrouping</p>
 <div class="my-grey">
 <p><span>Spring 2026 | CLAS | PSYC 894</span><br> <span>Jeffrey M. Girard | Lecture 08a</span></p>
 </div>
@@ -143,21 +207,668 @@
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ol type="1">
-<li>X
+<li>Conceptual Foundations
 <ul>
-<li><em>X</em></li>
+<li><em>Centering and Standardizing</em></li>
+<li><em>Manifest Decomposition</em></li>
 </ul></li>
-<li>Y
+<li>Applications and Interpretation
 <ul>
-<li><em>Y</em></li>
+<li><em>Data Preparation</em></li>
+<li><em>Model Building</em></li>
 </ul></li>
 </ol>
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Conceptual Foundations</h1>
 
 </section>
+<section class="slide level2 fsmaller">
+<h2>The Need for a Meaningful Zero</h2>
+<ul>
+<li>The intercept is the expected value of <span class="math inline">\(y\)</span> when all predictors equal zero</li>
+<li>For categorical predictors, zero is the reference group</li>
+<li>For continuous predictors, a value of zero might be mathematically possible but practically meaningless
+<ul>
+<li><em>What does a prediction at age 0 mean when studying adults?</em></li>
+<li><em>If a school cannot have 0 funding, the intercept becomes uninterpretable</em></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>The Solution:</strong> We often transform our continuous predictors so that zero represents a meaningful baseline (usually the mean)</li>
+<li>This is particularly valuable when the intercept is of substantive interest or when the variable is involved in interactions</li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Centering Level 2 Predictors</h2>
+<ul>
+<li>Level 2 predictors represent cluster-level characteristics</li>
+<li>We typically center these using <strong>Grand Mean Centering (GMC)</strong>
+<ul>
+<li>We subtract the overall (grand) mean from each cluster’s score</li>
+<li><span class="math inline">\(z_j^{(c)} = z_j - \bar{z}\)</span></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>Interpretation after GMC:</strong>
+<ul>
+<li>A value of 0 now represents the <em>average cluster</em> in the sample</li>
+<li>Positive values are above and negative values are below average</li>
+<li>The intercept becomes the expected outcome for an average cluster</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Standardizing Level 2 Predictors</h2>
+<ul>
+<li>Sometimes we want our predictors to be on a standardized scale</li>
+<li>For Level 2 variables, this process is (or should be) straightforward
+<ul>
+<li>We subtract the grand mean and divide by the grand standard deviation</li>
+<li><span class="math inline">\(z_j^{(s)} = \frac{z_j - \bar{z}}{SD(z)}\)</span></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>Interpretation after Standardizing:</strong>
+<ul>
+<li>A value of 0 still represents the <em>average cluster</em></li>
+<li>A value of 1 represents a cluster that is 1 SD above the mean</li>
+<li>The slope tells us the expected change in <span class="math inline">\(y\)</span> for a 1-SD increase in <span class="math inline">\(z\)</span></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>The Problem with Level 1 Predictors</h2>
+<ul>
+<li>Level 1 predictors like student socioeconomic status (SES) are trickier</li>
+<li>A student’s raw SES score actually contains two different pieces of information rolled into one:
+<ol type="1">
+<li><strong>Within-Cluster Variance:</strong> How wealthy is this student compared to their classmates? (The “Frog Pond” effect)</li>
+<li><strong>Between-Cluster Variance:</strong> How wealthy is the school this student attends? (The Compositional effect)</li>
+</ol></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>If we just enter raw L1 SES into the model, the software estimates a single slope that aggressively blends these two effects together</li>
+<li>This is called a <strong>conflated effect</strong> and it can severely bias our results</li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Multilevel Fallacies and Paradoxes</h2>
+<p>If we ignore this and report the conflated effect anyway, we risk falling into:</p>
+<ul>
+<li><strong>The Ecological Fallacy:</strong> Assuming that relationships observed at the group level (L2) automatically apply to individuals (L1)</li>
+<li><strong>The Atomistic Fallacy:</strong> Assuming that relationships observed at the individual level (L1) automatically apply to groups (L2)</li>
+<li><strong>Simpson’s Paradox:</strong> The relationship at the aggregate level (L2) is entirely different compared to the relationship at the individual level (L1)</li>
+</ul>
+<blockquote>
+<p>“If the model does not properly account for the fact that there are different relationships between the predictor and the outcome at different levels, we end up with <span class="b dark-red">a slope that is an uninterpretable blend</span> of the within-person and between-person slopes.” — <em>Hamaker &amp; Muthén (2020)</em></p>
+</blockquote>
+</section>
+<section class="slide level2">
+<h2>Visualizing Simpson’s Paradox</h2>
+
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section class="slide level2 fsmaller">
+<h2>Manifest Decomposition (Degrouping)</h2>
+<ul>
+<li>To fix this, we “degroup” the L1 predictor into two new variables</li>
+</ul>
+<div class="fragment">
+<ol type="1">
+<li><strong>The Between-Cluster Component (L2)</strong>
+<ul>
+<li>We calculate the mean of the L1 variable for each cluster</li>
+<li><span class="math inline">\(x_j^{(b)}\)</span> represents the school’s raw average SES</li>
+</ul></li>
+<li><strong>The Within-Cluster Component (L1)</strong>
+<ul>
+<li>We subtract the cluster mean from the student’s raw score</li>
+<li>This specific math is called <strong>Cluster Mean Centering (CMC)</strong></li>
+<li><span class="math inline">\(x_{ij}^{(wc)} = x_{ij} - x_j^{(b)}\)</span></li>
+<li>This represents the student’s relative standing <em>within</em> their school</li>
+</ul></li>
+</ol>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>The Magic of Orthogonality</h2>
+<ul>
+<li>There is a hidden mathematical benefit to Manifest Decomposition</li>
+<li>Because we calculate <span class="math inline">\(x_{ij}^{(wc)}\)</span> by subtracting the cluster mean, the sum of these within-cluster scores is exactly 0 for every school</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>What this means mathematically:</strong>
+<ul>
+<li>The between-cluster component <span class="math inline">\(x_j^{(b)}\)</span> and the within-cluster component <span class="math inline">\(x_{ij}^{(wc)}\)</span> are orthogonal, i.e., completely uncorrelated (<span class="math inline">\(r = 0\)</span>)</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Why this matters practically:</strong>
+<ul>
+<li>In regression, correlated predictors compete for explained variance</li>
+<li>Because our components are orthogonal, they do not compete</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Do We Always Need Both Components?</h2>
+<ul>
+<li>What if you only care about the within-cluster effect? Can you just use cluster mean centering (CMC) and ignore the cluster means?</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>Statistically:</strong> Yes. Using only the CMC variable will give you an unbiased estimate of the purely within-cluster slope</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Practically:</strong> Leaving the cluster means out is usually a missed opportunity!
+<ul>
+<li>Including the between-cluster component <span class="math inline">\(x_j^{(b)}\)</span> helps explain Level 2 variance and improve the model</li>
+<li>It allows you to estimate the <strong>between-cluster effect</strong>. This tells you if attending a wealthy school provides a unique benefit <em>above and beyond</em> a student’s individual wealth</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Standardizing Level 1 Predictors</h2>
+<ul>
+<li>What if we want to standardize a Level 1 predictor?</li>
+<li>We must be careful not to re-conflate the variance we just separated</li>
+<li><strong>The Rule:</strong> Standardize Level 1 variables <em>only after</em> degrouping them</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>The <strong>between-cluster component</strong> <span class="math inline">\(x_j^{(bs)}\)</span> is standardized using the mean and SD of the unique cluster means</li>
+<li>The <strong>within-cluster component</strong> <span class="math inline">\(x_{ij}^{(ws)}\)</span> is standardized using a mean of 0 and the pooled within-cluster SD</li>
+<li>This ensures a 1-unit change accurately represents a 1-SD shift at the correct level of analysis</li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>What About Standardizing Y?</h2>
+<ul>
+<li>In standard regression (OLS), we often standardize both predictors and the outcome to get fully standardized coefficients</li>
+<li>In multilevel modeling, we typically <strong>only standardize the predictors</strong> and leave the outcome (<span class="math inline">\(y\)</span>) in its raw metric</li>
+</ul>
+<div class="fragment">
+<p><strong>Why do we leave Y raw?</strong></p>
+<ul>
+<li>The variability of <span class="math inline">\(y\)</span> is partitioned across multiple levels (e.g., within-cluster <span class="math inline">\(\sigma\)</span> and between-cluster <span class="math inline">\(\tau_{00}\)</span>)</li>
+<li>Standardizing <span class="math inline">\(y\)</span> globally distorts this variance partitioning and makes the random effects very difficult to interpret</li>
+<li>By only standardizing our predictors, we get “partially standardized” slopes: <em>A 1-SD increase in the predictor leads to a <span class="math inline">\(\gamma\)</span> unit change in the raw outcome</em></li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Best Practice Recommendations</h2>
+<p>Here is a summary checklist for continuous variables in multilevel models.</p>
+<ol type="1">
+<li><strong>The Outcome Variable:</strong> Leave the outcome <span class="math inline">\((y)\)</span> in its raw, uncentered metric so variance components remain interpretable</li>
+<li><strong>Meaningful Intercepts:</strong> Transform continuous predictors when 0 is not naturally meaningful or when the variable is involved in interactions</li>
+<li><strong>Level 2 Predictors:</strong> Grand mean center or standardize directly</li>
+<li><strong>Level 1 Predictors:</strong> Degroup into between-cluster and within-cluster components</li>
+<li><strong>Standardizing L1:</strong> Degroup first, then standardize the resulting components independently</li>
+<li><strong>Random Slopes:</strong> If you are testing cross-level or compositional interactions, the Level 1 component must have a random slope</li>
+</ol>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Data Preparation</h1>
+
+</section>
+<section class="slide level2 fsmaller">
+<h2>The Weighting Problem</h2>
+<p>When we work with Level 1 data (one row per student), Level 2 variables (like school funding or proportion going to university) are repeated for every student in that school</p>
+<div class="fragment">
+<p>If we simply run <code>center(puniv)</code> on this dataset, the software calculates the mean across all <em>rows</em>, not all <em>schools</em></p>
+</div>
+<div class="fragment">
+<p><strong>Why is this a problem?</strong></p>
+<ul>
+<li>It weights the grand mean and standard deviation by cluster size</li>
+<li>A school with 1,000 students pulls the mean 10 times harder than a school with 100 students!</li>
+<li>The resulting variables are biased toward larger clusters and no longer represent the typical school</li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>The “Split, Transform, Join” Workflow</h2>
+<p>To safely center and standardize our variables without size bias, we need to explicitly separate our data by level</p>
+<div class="fragment">
+<ol type="1">
+<li><strong>Split:</strong> Create a dataset with exactly one row per cluster (Level 2)</li>
+<li><strong>Transform (L2):</strong> Safely apply Grand Mean Centering and Standardizing to this unweighted data</li>
+<li><strong>Join:</strong> Merge these perfect Level 2 variables back into the Level 1 variables</li>
+<li><strong>Transform (L1):</strong> Safely apply Cluster Mean Centering and Standardizing to the Level 1 variables</li>
+</ol>
+</div>
+</section>
+<section class="slide level2">
+<h2>Step 1: Prep the Level 2 Data</h2>
+<div class="fsmaller">
+<p>First, we load our data and create a Level 2 dataset. We grab our L2 predictor (<em>puniv</em>) and calculate the raw cluster mean for our L1 predictor (<em>ses_b</em>)</p>
+</div>
+<div class="cell" data-replace_path="[&quot;../../data/&quot;,&quot;&quot;]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>dat_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"heck2011.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">school =</span> <span class="fu">factor</span>(school))</span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>dat_l2 <span class="ot">&lt;-</span> dat_raw <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> school,</span>
+<span id="cb1-9"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">puniv =</span> <span class="fu">first</span>(puniv), </span>
+<span id="cb1-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">ses_b =</span> <span class="fu">mean</span>(ses, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-11"><a aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment fsmaller">
+<p>Because this dataset has exactly one row per school, we can safely center and standardize without weighting biases!</p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Step 1: Transform the Level 2 Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>dat_l2 <span class="ot">&lt;-</span> dat_l2 <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Apply Grand Mean Centering and Standardizing to L2</span></span>
+<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">puniv_c =</span> <span class="fu">center</span>(puniv),</span>
+<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">ses_bc  =</span> <span class="fu">center</span>(ses_b),</span>
+<span id="cb2-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">puniv_s =</span> <span class="fu">standardize</span>(puniv),</span>
+<span id="cb2-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">ses_bs  =</span> <span class="fu">standardize</span>(ses_b)</span>
+<span id="cb2-8"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dat_l2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 419
+Columns: 7
+$ school  &lt;fct&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,…
+$ puniv   &lt;dbl&gt; 0.08333333, 1.00000000, 0.33333333, 1.00000000, 1.00000000, 1.…
+$ ses_b   &lt;dbl&gt; -0.2667500, 0.6799231, -0.5480000, 0.8159412, -0.3892941, 0.25…
+$ puniv_c &lt;dw_trnsf&gt; -0.7816475, 0.1350191, -0.5316475, 0.1350191, 0.1350191, …
+$ ses_bc  &lt;dw_trnsf&gt; -0.2862979, 0.6603752, -0.5675479, 0.7963933, -0.4088420,…
+$ puniv_s &lt;dw_trnsf&gt; -2.8454676, 0.4915165, -1.9353811, 0.4915165, 0.4915165, …
+$ ses_bs  &lt;dw_trnsf&gt; -0.5883235, 1.3570281, -1.1662739, 1.6365364, -0.8401436,…</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Step 2: Prep the Level 1 Data</h2>
+<div class="fsmaller">
+<p>Next, take the original L1 data and join our new L2 data into it</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat_raw <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Drop the raw L2 variable to avoid duplicates during the join</span></span>
+<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>puniv) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(dat_l2, <span class="at">by =</span> <span class="st">"school"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment fsmaller">
+<p>Finally, we calculate the within-cluster component. Because cluster-mean-centered scores always sum to zero within a cluster, <code>standardize()</code> automatically calculates the correct pooled within-cluster standard deviation.</p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Step 2: Transform the Level 1 Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">ses_wc =</span> ses <span class="sc">-</span> ses_b, </span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">ses_ws =</span> <span class="fu">standardize</span>(ses_wc) </span>
+<span id="cb5-5"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-6"><a aria-hidden="true" tabindex="-1"></a>dat <span class="sc">|&gt;</span> <span class="fu">select</span>(school, ses_b, ses, ses_wc, ses_ws) <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 6,871
+Columns: 5
+$ school &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+$ ses_b  &lt;dbl&gt; -0.2667500, -0.2667500, -0.2667500, -0.2667500, -0.2667500, -0.…
+$ ses    &lt;dbl&gt; 0.586, 0.304, -0.544, -0.848, 0.001, -0.106, -0.330, -0.891, 0.…
+$ ses_wc &lt;dbl&gt; 0.852750000, 0.570750000, -0.277250000, -0.581250000, 0.2677500…
+$ ses_ws &lt;dw_trnsf&gt; 1.409368976, 0.943297969, -0.458220520, -0.960651677, 0.44…</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Model Building</h1>
+
+</section>
+<section class="slide level2 fsmaller">
+<h2>Model 1: Establishing Main Effects</h2>
+<ul>
+<li>Let’s predict math scores using student wealth <em>and</em> school wealth</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>The Predictors:</strong>
+<ul>
+<li><code>ses_wc</code>: The student’s relative wealth compared to their peers</li>
+<li><code>ses_bc</code>: The school’s overall average wealth</li>
+<li><code>puniv_c</code>: The school’s university attendance rate (as an L2 covariate)</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>The Goal:</strong>
+<ul>
+<li>By including both SES components, we avoid the conflated effect problem and can tease apart the unique effects of both components</li>
+<li>We will also compare the use of centered and standardized predictors</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Model 1C: Path Diagram</h2>
+
+<img data-src="../../diagrams/degrouped_covariate.png" class="r-stretch"></section>
+<section class="slide level2 fsmaller">
+<h2>Model 1C: Centered Equations</h2>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[
+y_{ij} = \beta_{0j} + \beta_{1j} x_{ij}^{(wc)} + \color{#4daf4a}{e_{ij}}
+\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[
+\begin{align}
+\beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_j^{(bc)} + \color{#377eb8}{\gamma_{02}} z_j^{(c)} + \color{#e41a1c}{u_{0j}} \\
+\beta_{1j} &amp;= \color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1j}}
+\end{align}
+\]</span></p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\gamma_{10}\)</span> is the fixed within-cluster effect</li>
+<li><span class="math inline">\(\gamma_{01}\)</span> is the fixed between-cluster effect</li>
+<li><span class="math inline">\(\gamma_{02}\)</span> is the fixed effect of our L2 covariate</li>
+</ul>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Model 1C: Mixed Equation</h2>
+<p>Substitute the L2 equations directly into the L1 equation:</p>
+<p><span class="math display">\[
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_j^{(bc)} + \color{#377eb8}{\gamma_{02}} z_j^{(c)} + \color{#377eb8}{\gamma_{10}} x_{ij}^{(wc)}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}} + \color{#e41a1c}{u_{1j}} x_{ij}^{(wc)}}_{\text{Random}} + \color{#4daf4a}{e_{ij}}
+\]</span></p>
+<p><strong>Formula Syntax</strong></p>
+<div class="tc">
+<p><code>y ~ 1 + x_between + x_within + z_l2 + (1 + x_within | cluster)</code></p>
+</div>
+<div class="fragment">
+<p><strong>Our Example</strong></p>
+<div class="tc">
+<p><code>math ~ 1 + ses_bc + ses_wc + puniv_c + (1 + ses_wc | school)</code></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Model 1C: Fitting the Model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>fit1c <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  math <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> ses_bc <span class="sc">+</span> ses_wc <span class="sc">+</span> puniv_c <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> ses_wc <span class="sc">|</span> school), </span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit1c, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter   | Coefficient |   SE |         95% CI | t(6863) |      p
+--------------------------------------------------------------------
+(Intercept) |       57.66 | 0.12 | [57.42, 57.90] |  470.53 | &lt; .001
+ses bc      |        5.60 | 0.26 | [ 5.09,  6.11] |   21.54 | &lt; .001
+ses wc      |        3.19 | 0.17 | [ 2.86,  3.51] |   19.14 | &lt; .001
+puniv c     |        1.52 | 0.47 | [ 0.60,  2.43] |    3.25 | 0.001 </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Model 1C: Interpretation</h2>
+<p>Because our predictors are centered, the coefficients represent changes in raw math points for a 1-unit increase in the raw predictor</p>
+<ul>
+<li><p><strong>Intercept (57.66):</strong> The expected math score for an average student (<em>ses_wc</em>&nbsp;=&nbsp;0) at an average school (<em>ses_bc</em>&nbsp;=&nbsp;0 and <em>puniv_c</em>&nbsp;=&nbsp;0)</p></li>
+<li><p><strong>ses_bc (5.60):</strong> Controlling for student wealth and university attendance, a 1-unit increase in a school’s overall SES is associated with a 5.60 point increase in math</p></li>
+<li><p><strong>ses_wc (3.19):</strong> Controlling for school factors, a 1-unit increase in a student’s relative wealth is associated with a 3.19 point increase in math</p></li>
+<li><p><strong>puniv_c (1.52):</strong> Controlling for school and student SES, a 1-unit increase in the university attendance rate (e.g., from 10% to 11%) is associated with a 1.52 point increase in math</p></li>
+</ul>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Model 1S: Standardized Equations</h2>
+<p>The structure remains identical, but we swap in the <strong>standardized</strong> components</p>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[
+y_{ij} = \beta_{0j} + \beta_{1j} x_{ij}^{(ws)} + \color{#4daf4a}{e_{ij}}
+\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[
+\begin{align}
+\beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_j^{(bs)} + \color{#377eb8}{\gamma_{02}} z_j^{(s)} + \color{#e41a1c}{u_{0j}} \\
+\beta_{1j} &amp;= \color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1j}}
+\end{align}
+\]</span></p>
+<div class="fragment">
+<p>Because our inputs are standardized, the resulting gammas will tell us the expected change in math points for a <strong>1-SD</strong> increase in the predictors.</p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Model 1S: The Standardized Model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>fit1s <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  math <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> ses_bs <span class="sc">+</span> ses_ws <span class="sc">+</span> puniv_s <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> ses_ws <span class="sc">|</span> school), </span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit1s, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter   | Coefficient |   SE |         95% CI | t(6863) |      p
+--------------------------------------------------------------------
+(Intercept) |       57.66 | 0.12 | [57.42, 57.90] |  470.52 | &lt; .001
+ses bs      |        2.73 | 0.13 | [ 2.48,  2.98] |   21.54 | &lt; .001
+ses ws      |        1.93 | 0.10 | [ 1.73,  2.12] |   19.14 | &lt; .001
+puniv s     |        0.42 | 0.13 | [ 0.17,  0.67] |    3.25 | 0.001 </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Model 1S: Interpretation</h2>
+<p>Because our predictors are standardized and our outcome is raw, the coefficients represent changes in raw math points for a <strong>1-SD</strong> increase.</p>
+<ul>
+<li><strong>Intercept (57.66):</strong> The expected math score for an average student (<em>ses_ws</em>&nbsp;=&nbsp;0) at an average school (<em>ses_bs</em>&nbsp;=&nbsp;0 and <em>puniv_s</em>&nbsp;=&nbsp;0)</li>
+<li><strong>ses_bs (2.73):</strong> Controlling for student wealth and university attendance, a 1-SD increase in a school’s overall SES is associated with a 2.73 point increase in math</li>
+<li><strong>ses_ws (1.93):</strong> Controlling for school factors, a 1-SD increase in a student’s relative wealth is associated with a 1.93 point increase in math</li>
+<li><strong>puniv_s (0.42):</strong> Controlling for school and student SES, a 1-SD increase in university attendance rate is associated with a 0.42 point increase in math</li>
+</ul>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Model 2: Moving to Moderation</h2>
+<ul>
+<li>In Model 1, we established the main effects. We know that being relatively wealthy is beneficial (the within-cluster effect) and attending a wealthy school is beneficial (the between-cluster effect)</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>A New Question:</strong> Does the <em>benefit</em> of relative wealth depend on the overall wealth of the school?
+<ul>
+<li><em>In other words, does being the richest kid in school matter more if you are at a poor school versus a wealthy school?</em></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>To test this, we can allow the school’s average SES to moderate the slope of the student’s relative SES (for simplicity, we will also drop <em>puniv</em> here)</li>
+<li>Because both the predictor and the moderator originate from the same variable, this is often called a <strong>compositional interaction</strong> or <strong>self-moderation</strong></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Model 2C: Path Diagram</h2>
+
+<img data-src="../../diagrams/self_moderation.png" class="r-stretch"></section>
+<section class="slide level2 fsmaller">
+<h2>Model 2C: Centered Equations</h2>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[
+y_{ij} = \beta_{0j} + \beta_{1j} x_{ij}^{(wc)} + \color{#4daf4a}{e_{ij}}
+\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[
+\begin{align}
+\beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_j^{(bc)} + \color{#e41a1c}{u_{0j}} \\
+\beta_{1j} &amp;= \color{#377eb8}{\gamma_{10}} + \underbrace{\color{#377eb8}{\gamma_{11}} x_j^{(bc)}}_{\text{New}} + \color{#e41a1c}{u_{1j}}
+\end{align}
+\]</span></p>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Model 2C: Mixed Equation</h2>
+<p>Substitute the L2 equations directly into the L1 equation:</p>
+<p><span class="math display">\[
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_j^{(bc)} + \color{#377eb8}{\gamma_{10}} x_{ij}^{(wc)} + \color{#377eb8}{\gamma_{11}} x_j^{(bc)} x_{ij}^{(wc)}}_{\text{Fixed}} + \dots
+\]</span> <span class="math display">\[
+\dots + \underbrace{\color{#e41a1c}{u_{0j}} + \color{#e41a1c}{u_{1j}} x_{ij}^{(wc)}}_{\text{Random}} + \color{#4daf4a}{e_{ij}}
+\]</span></p>
+<p><strong>Formula Syntax</strong></p>
+<div class="tc">
+<p><code>y ~ 1 + x_between * x_within + (1 + x_within | cluster)</code></p>
+</div>
+<div class="fragment">
+<p><strong>Our Example</strong></p>
+<div class="tc">
+<p><code>math ~ 1 + ses_bc * ses_wc + (1 + ses_wc | school)</code></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Model 2C: Centered Interaction</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>fit2c <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>  math <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> ses_bc <span class="sc">*</span> ses_wc <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> ses_wc <span class="sc">|</span> school), </span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit2c, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter       | Coefficient |   SE |         95% CI | t(6863) |      p
+------------------------------------------------------------------------
+(Intercept)     |       57.67 | 0.12 | [57.42, 57.91] |  465.72 | &lt; .001
+ses bc          |        5.88 | 0.25 | [ 5.39,  6.38] |   23.25 | &lt; .001
+ses wc          |        3.17 | 0.17 | [ 2.84,  3.50] |   18.84 | &lt; .001
+ses bc × ses wc |       -0.29 | 0.37 | [-1.02,  0.45] |   -0.77 | 0.444 </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Model 2C: Interpretation</h2>
+<ul>
+<li><strong>Intercept (57.67):</strong> The expected math score for an average-SES student (<em>ses_wc</em> = 0) at an average-SES school (<em>ses_bc</em> = 0)</li>
+<li><strong>ses_bc (5.88):</strong> For a student with average relative wealth, a 1-unit increase in their school’s average SES is associated with a 5.88 point increase in math</li>
+<li><strong>ses_wc (3.17):</strong> At an average-SES school, a 1-unit increase in a student’s relative wealth is associated with a 3.17 point increase in math</li>
+<li><strong>ses_bc <span class="math inline">\(\times\)</span> ses_wc (–0.29):</strong> The interaction is near zero and non-significant. The benefit of being relatively wealthy compared to your peers operates similarly regardless of whether you attend a poor school or a wealthy school</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Model 2C: Visualizing the Interaction</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">estimate_relation</span>(fit2c, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"ses_wc"</span>, <span class="st">"ses_bc=[quartiles]"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Model 2C: Simple Slopes Analysis</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit2c, <span class="at">trend =</span> <span class="st">"ses_wc"</span>, <span class="at">by =</span> <span class="st">"ses_bc=[quartiles]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated Marginal Effects
+
+ses_bc | Slope |   SE |       95% CI | t(6863) |      p
+-------------------------------------------------------
+-0.32  |  3.26 | 0.19 | [2.88, 3.64] |   16.82 | &lt; .001
+-0.03  |  3.18 | 0.17 | [2.85, 3.51] |   19.00 | &lt; .001
+0.28   |  3.09 | 0.21 | [2.68, 3.50] |   14.81 | &lt; .001
+
+Marginal effects estimated for ses_wc
+Type of slope was dY/dX</code></pre>
+</div>
+</div>
+<div class="fragment fsmaller">
+<p>The positive effect of relative SES remains stable and significant across schools with low, medium, and high average SES</p>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Model 2S: Standardized Equations</h2>
+<p>Finally, we compare with standardized (s) predictors</p>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[
+y_{ij} = \beta_{0j} + \beta_{1j} x_{ij}^{(ws)} + \color{#4daf4a}{e_{ij}}
+\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[
+\begin{align}
+\beta_{0j} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_j^{(bs)} + \color{#e41a1c}{u_{0j}} \\
+\beta_{1j} &amp;= \color{#377eb8}{\gamma_{10}} + \color{#377eb8}{\gamma_{11}} x_j^{(bs)} + \color{#e41a1c}{u_{1j}}
+\end{align}
+\]</span></p>
+</section>
+<section class="slide level2">
+<h2>Model 2S: Standardized Interaction</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a>fit2s <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a>  math <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> ses_bs <span class="sc">*</span> ses_ws <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> ses_ws <span class="sc">|</span> school), </span>
+<span id="cb16-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
+<span id="cb16-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit2s, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter       | Coefficient |   SE |         95% CI | t(6863) |      p
+------------------------------------------------------------------------
+(Intercept)     |       57.67 | 0.12 | [57.42, 57.91] |  465.72 | &lt; .001
+ses bs          |        2.86 | 0.12 | [ 2.62,  3.10] |   23.25 | &lt; .001
+ses ws          |        1.92 | 0.10 | [ 1.72,  2.12] |   18.84 | &lt; .001
+ses bs × ses ws |       -0.08 | 0.11 | [-0.30,  0.13] |   -0.77 | 0.444 </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Model 2S: Interpretation</h2>
+<p>Because our predictors are standardized and our outcome is raw, the coefficients represent changes in raw math points for a <strong>1-SD</strong> increase</p>
+<ul>
+<li><strong>Intercept (57.67):</strong> The expected math score for an average student (<em>ses_ws</em>&nbsp;=&nbsp;0) at an average school (<em>ses_bs</em>&nbsp;=&nbsp;0)</li>
+<li><strong>ses_bs (2.86):</strong> For a student with average relative wealth, a 1-SD increase in their school’s average SES is associated with a 2.86 point increase in math</li>
+<li><strong>ses_ws (1.92):</strong> At an average-SES school, a 1-SD increase in a student’s relative wealth is associated with a 1.92 point increase in math</li>
+<li><strong>ses_bs <span class="math inline">\(\times\)</span> ses_ws (–0.08):</strong> For every 1-SD increase in a school’s average SES, the standardized slope of relative SES changes by -0.08. This is non-significant, meaning the lines are practically parallel</li>
+</ul>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
