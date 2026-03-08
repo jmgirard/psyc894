@@ -20,7 +20,7 @@ title: "Week 07: Random Slopes Models"
 ### Slides
 
 ```{=html}
-<iframe class="slide-deck" src="a_Slides.html" title="[06a] Slideshow">
+<iframe class="slide-deck" src="a_Slides.html" title="[07a] Slideshow">
 </iframe>
 ```
 
@@ -47,7 +47,7 @@ title: "Week 07: Random Slopes Models"
 
 ### Slides
 ```{=html}
-<iframe class="slide-deck" src="b_Slides.html" title="[06b] Slideshow">
+<iframe class="slide-deck" src="b_Slides.html" title="[07b] Slideshow">
 </iframe>
 ```
 

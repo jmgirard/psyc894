@@ -1,0 +1,54 @@
+---
+lecture: "08a"
+metadata-files:
+  - ../../_slide-settings.yml
+format:
+  revealjs:
+    theme: default
+---
+
+::: {.my-title}
+# [Multilevel Modeling]{.blue}
+Random Slopes
+
+::: {.my-grey}
+[{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/city-girl.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+```{r setup}
+#| echo: false
+#| message: false
+
+library(tidyverse)
+library(easystats)
+library(patchwork)
+library(here)
+
+source(here("_common.R"))
+
+set_theme(theme_gray(base_size = 20))
+```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+1. X
+    + *X*
+
+2. Y
+    + *Y*
+    
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
