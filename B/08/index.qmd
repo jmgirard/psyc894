@@ -7,8 +7,13 @@ title: "Week 08: Centering and Degrouping"
 ## [08a] Random Slopes
 
 ### Topics
-- X
-- X
+1. Conceptual Foundations
+    + *Centering and Standardizing*
+    + *Manifest Decomposition*
+  
+2. Applications and Interpretation
+    + *Data Preparation*
+    + *Model Building*
 
 ### File Downloads
 - [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
@@ -16,6 +21,8 @@ title: "Week 08: Centering and Degrouping"
 ### Readings
 - [S\&F Chapter 8: Centering Options and Interpretations](https://www.learn-mlms.com/08-module-8.html){target="_blank"}
 - [HMV Sections 4.2: Centering and Standardizing Explanatory Variables](https://canvas.ku.edu/courses/182539/pages/08a-centering-and-degrouping?module_item_id=4317574){target="_blank"}
+- [Enders \& Tofighi (2007)](https://canvas.ku.edu/courses/182539/pages/08a-centering-and-degrouping?module_item_id=4317574){target="_blank"}
+- Advanced: [Hamaker \& Muthén (2020)](https://canvas.ku.edu/courses/182539/pages/08a-centering-and-degrouping?module_item_id=4317574){target="_blank"}
 
 ### Slides
 
