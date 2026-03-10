@@ -1,0 +1,52 @@
+---
+title: "Lab 08: Centering and Degrouping"
+format: 
+  html:
+    toc: true
+---
+
+## Setup 
+
+Load the necessary packages (`tidyverse`, `lme4`, and `easystats`). You will be using the "popular.csv" dataset, which contains data on 2,000 students nested within 100 classes.
+
+## Part I: Data Preparation and Baseline Models
+
+### Question 1: The "Split, Transform, Join" Workflow
+When working with multilevel data, Level 2 variables are repeated for every row in a cluster. If we center or standardize them using the full dataset, the results become biased because larger clusters pull the mean more strongly than smaller ones. To avoid this weighting problem, we use a specific multi-step workflow.
+
+- **1a.** Create a Level 2 dataset with exactly one row per `class`. In this new dataset, calculate the raw cluster mean of `extraversion` (call it `ext_b`) and include the `teacher_exp` variable. Then, apply grand-mean centering and standardization to both variables to create `ext_bc`, `ext_bs`, `teacher_exp_c`, and `teacher_exp_s`.
+- **1b.** Merge these new Level 2 variables back into the original student-level data. Finally, calculate the within-cluster component of extraversion (`ext_wc`) by subtracting the cluster mean from the raw score, and create a standardized version (`ext_ws`). Ensure `class` is formatted as a factor.
+
+### Question 2: The Null Model and ICC
+Before adding predictors, we need to establish how much popularity varies between classrooms.
+
+- **2a.** Fit a null (intercept-only) model predicting peer-rated popularity (`popular_peers`) with a random intercept for `class`. 
+- **2b.** Use `icc()` to find the Intraclass Correlation Coefficient (ICC). Interpret this value: what percentage of the total variance in popularity is due to differences between classrooms?
+
+## Part II: Degrouped Main Effects
+
+### Question 3: Fitting Centered Main Effects
+By "degrouping" extraversion into within-cluster and between-cluster components, we avoid estimating an "uninterpretable blend" of effects.
+
+- **3a.** Fit a model predicting `popular_peers` using centered within-cluster extraversion (`ext_wc`) and centered between-cluster extraversion (`ext_bc`). Include a random intercept and a random slope for `ext_wc` by `class`. Additionally, control for the teacher's experience level (`teacher_exp_c`).
+- **3b.** Interpret the fixed effect for `ext_bc`. Does a classroom's overall level of extraversion significantly predict a student's popularity after controlling for the student's own relative extraversion and the teacher's experience?
+
+### Question 4: Standardized Slopes and Interpretation
+Standardizing predictors allows us to compare the relative strength of Level 1 and Level 2 effects on the same scale.
+
+- **4a.** Re-fit the model from Question 3, but use the **standardized** versions of your predictors (`ext_ws`, `ext_bs`, and `teacher_exp_s`). 
+- **4b.** Interpret the fixed effect for `ext_ws`. Specifically, how many raw points does popularity change for every 1-SD increase in relative extraversion? Explain in your own words why we leave the outcome (`popular_peers`) in its raw metric instead of standardizing it globally.
+
+## Part III: Interactions and Visualizations
+
+### Question 5: Testing Self-Moderation
+We can now test if the effect of student extraversion depends on the average extraversion of the class (a compositional interaction).
+
+- **5a.** Fit a model testing the interaction between standardized within-cluster extraversion (`ext_ws`) and standardized between-cluster extraversion (`ext_bs`). Retain `teacher_exp_s` as a covariate and keep the random slope for `ext_ws`.
+- **5b.** Explain why it is absolutely necessary to include the random slope for the Level 1 predictor (`ext_ws`) when testing this cross-level interaction. What happens to your error rates if you omit it?
+
+### Question 6: Probing Contextual Effects
+Visuals and slope analysis clarify whether the relationship at Level 1 is consistent across different Level 2 contexts.
+
+- **6a.** Use `estimate_relation()` to visualize the interaction from Question 5. Plot the relationship between `ext_ws` and popularity at different levels (quartiles) of `ext_bs`. 
+- **6b.** Use `estimate_slopes()` to probe the interaction from Question 5. Calculate the trend of `ext_ws` across different quartiles of `ext_bs`. Based on the results, does the relationship between individual extraversion and popularity remain significant across all classroom contexts?
