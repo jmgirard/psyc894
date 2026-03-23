@@ -1,0 +1,22 @@
+graph LR
+    %% Styling classes
+    classDef better fill:#d4edda,stroke:#28a745,stroke-width:2px,color:#000
+    classDef same fill:#f8f9fa,stroke:#6c757d,stroke-width:2px,stroke-dasharray: 5 5,color:#6c757d
+    classDef final fill:#cce5ff,stroke:#004085,stroke-width:3px,color:#000
+
+    %% Nodes using standard strings for perfect centering and box sizing
+    S1["Step 1:<br/>Null Model"]:::better
+    S2["Step 2:<br/>Add L1 Predictors"]:::better
+    S3["Step 3:<br/>Add L2 Predictors"]:::better
+    S4A["Step 4a:<br/>Add Random Slope<br/>female"]:::same
+    S4B["Step 4b:<br/>Add Random Slope<br/>ses_within"]:::final
+    S5A["Step 5a:<br/>Add Interaction<br/>public"]:::same
+    S5B["Step 5b:<br/>Add Interaction<br/>puniv"]:::same
+
+    %% Flow and Labels
+    S1 -->|Better| S2
+    S2 -->|Better| S3
+    S3 -->|Not Helpful| S4A
+    S3 -->|Better| S4B
+    S4B -->|Not Helpful| S5A
+    S4B -->|Not Helpful| S5B

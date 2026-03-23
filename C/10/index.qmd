@@ -1,0 +1,52 @@
+---
+title: "Week 10: Model Comparison"
+---
+
+<!-- 10a -->
+
+## [10a] Model Comparison
+
+### Topics
+1. Model Comparison
+    + *Deviance and Nesting*
+    + *LRT and Information Criteria*
+  
+2. Modeling Approach
+    + *Simple to Complex*
+    + *Sequential Comparisons*
+
+### File Downloads
+- [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
+
+### Readings
+- [HMV Section 3.4: Significance Testing and Model Comparison](https://canvas.ku.edu/courses/182539/pages/10a-model-comparison){target="_blank"}
+- [HMV Section 4.1: Analysis Strategy](https://canvas.ku.edu/courses/182539/pages/10a-model-comparison){target="_blank"}
+- [Brown (2021): An Introduction to Linear Mixed-Effects Modeling in R](https://canvas.ku.edu/courses/182539/pages/10a-model-comparison){target="_blank"}
+
+### Slides
+
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[10a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+
+<!-- 10b -->
+
+## [10b] No Class
+
+Instructor is traveling
+
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../09/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 09</a>
+
+  <a href="../11/index.html" class="btn btn-primary" role="button">Week 11&nbsp;&nbsp;&raquo;</a>
+</div>
+```

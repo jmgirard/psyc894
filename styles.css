@@ -395,3 +395,21 @@ kbd {
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
 }
+
+/* Container to make multiple code/span elements look like one block */
+.formula-block {
+  background-color: #333333; /* Matches your existing code background */
+  padding: 2px 9px;
+  border-radius: 4px;
+  display: inline-block;
+  font-family: monospace; /* Ensures non-code text still looks like code */
+  color: #FFFFFF;
+}
+
+/* Strip individual styling from code tags inside the container */
+.formula-block code {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
