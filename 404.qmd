@@ -22,7 +22,7 @@ The following weeks are ready for viewing:
 :::
 :::{.column width="50%"}
 - [x] Week 09
-- [ ] Week 10
+- [x] Week 10
 - [ ] Week 11
 - [ ] Week 12
 - [ ] Week 13
