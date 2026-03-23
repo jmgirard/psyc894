@@ -35,6 +35,27 @@
     "text": "Unit D\n\nWeek 13: Troubleshooting and Bayes\nWeek 14: Advanced Previews\nWeek 15: Project Work\nWeek 16: Project Work"
   },
   {
+    "objectID": "C/10/index.html",
+    "href": "C/10/index.html",
+    "title": "Week 10: Model Comparison",
+    "section": "",
+    "text": "Model Comparison\n\nDeviance and Nesting\nLRT and Information Criteria\n\nModeling Approach\n\nSimple to Complex\nSequential Comparisons\n\n\n\n\n\n\nheck2011.csv\n\n\n\n\n\nHMV Section 3.4: Significance Testing and Model Comparison\nHMV Section 4.1: Analysis Strategy\nBrown (2021): An Introduction to Linear Mixed-Effects Modeling in R\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+  },
+  {
+    "objectID": "C/10/index.html#a-model-comparison",
+    "href": "C/10/index.html#a-model-comparison",
+    "title": "Week 10: Model Comparison",
+    "section": "",
+    "text": "Model Comparison\n\nDeviance and Nesting\nLRT and Information Criteria\n\nModeling Approach\n\nSimple to Complex\nSequential Comparisons\n\n\n\n\n\n\nheck2011.csv\n\n\n\n\n\nHMV Section 3.4: Significance Testing and Model Comparison\nHMV Section 4.1: Analysis Strategy\nBrown (2021): An Introduction to Linear Mixed-Effects Modeling in R\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+  },
+  {
+    "objectID": "C/10/index.html#b-no-class",
+    "href": "C/10/index.html#b-no-class",
+    "title": "Week 10: Model Comparison",
+    "section": "[10b] No Class",
+    "text": "[10b] No Class\nInstructor is traveling\n\n\n  «  Week 09\n\n  Week 11  »"
+  },
+  {
     "objectID": "C/09/index.html",
     "href": "C/09/index.html",
     "title": "Week 09: Spring Break",
@@ -347,14 +368,14 @@
     "href": "B/08/index.html",
     "title": "Week 08: Centering and Degrouping",
     "section": "",
-    "text": "Conceptual Foundations\n\nCentering and Standardizing\nManifest Decomposition\n\nApplications and Interpretation\n\nData Preparation\nModel Building\n\n\n\n\n\n\nheck2011.csv\n\n\n\n\n\nS&F Chapter 8: Centering Options and Interpretations\nHMV Sections 4.2: Centering and Standardizing Explanatory Variables\nEnders & Tofighi (2007)\nAdvanced: Hamaker & Muthén (2020)\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+    "text": "Conceptual Foundations\n\nCentering and Standardizing\nManifest Decomposition\n\nApplications and Interpretation\n\nData Preparation\nModel Building\n\n\n\n\n\n\nheck2011.csv\n\n\n\n\n\nS&F Chapter 8: Centering Options and Interpretations\nHMV Section 4.2: Centering and Standardizing Explanatory Variables\nEnders & Tofighi (2007)\nAdvanced: Hamaker & Muthén (2020)\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
   },
   {
-    "objectID": "B/08/index.html#a-random-slopes",
-    "href": "B/08/index.html#a-random-slopes",
+    "objectID": "B/08/index.html#a-centering-and-degrouping",
+    "href": "B/08/index.html#a-centering-and-degrouping",
     "title": "Week 08: Centering and Degrouping",
     "section": "",
-    "text": "Conceptual Foundations\n\nCentering and Standardizing\nManifest Decomposition\n\nApplications and Interpretation\n\nData Preparation\nModel Building\n\n\n\n\n\n\nheck2011.csv\n\n\n\n\n\nS&F Chapter 8: Centering Options and Interpretations\nHMV Sections 4.2: Centering and Standardizing Explanatory Variables\nEnders & Tofighi (2007)\nAdvanced: Hamaker & Muthén (2020)\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+    "text": "Conceptual Foundations\n\nCentering and Standardizing\nManifest Decomposition\n\nApplications and Interpretation\n\nData Preparation\nModel Building\n\n\n\n\n\n\nheck2011.csv\n\n\n\n\n\nS&F Chapter 8: Centering Options and Interpretations\nHMV Section 4.2: Centering and Standardizing Explanatory Variables\nEnders & Tofighi (2007)\nAdvanced: Hamaker & Muthén (2020)\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
   },
   {
     "objectID": "B/08/index.html#b-no-class",
