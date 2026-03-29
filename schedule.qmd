@@ -18,11 +18,11 @@ toc: false
 ## Unit C
 - Week 09: *Spring Break*
 - Week 10: Model Comparison
-- Week 11: Longitudinal Analyses
-- Week 12: Diagnostics and Reporting
+- Week 11: Longitudinal Analysis 1
+- Week 12: Longitudinal Analysis 2
 
 ## Unit D
-- Week 13: Troubleshooting and Bayes
-- Week 14: Advanced Previews
+- Week 13: Troubleshooting
+- Week 14: Practical Matters
 - Week 15: Project Work
 - Week 16: Project Work
