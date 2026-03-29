@@ -35,6 +35,27 @@
     "text": "Unit D\n\nWeek 13: Troubleshooting and Bayes\nWeek 14: Advanced Previews\nWeek 15: Project Work\nWeek 16: Project Work"
   },
   {
+    "objectID": "C/11/index.html",
+    "href": "C/11/index.html",
+    "title": "Week 11: Longitudinal Data",
+    "section": "",
+    "text": "The Repeated Measures Logic\n\nThe Averaging Approach\nThe Multilevel Approach\n\nLongitudinal Fluctuation\n\nContinuous Predictors\nLongitudinal Degrouping\n\n\n\n\n\n\nintell_sim.csv\n\n\n\n\n\nS&F Chapter 9: Multilevel modeling with repeated measures data\nHMV Chapter 5: Analyzing Longitudinal Data\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+  },
+  {
+    "objectID": "C/11/index.html#a-repeated-measures",
+    "href": "C/11/index.html#a-repeated-measures",
+    "title": "Week 11: Longitudinal Data",
+    "section": "",
+    "text": "The Repeated Measures Logic\n\nThe Averaging Approach\nThe Multilevel Approach\n\nLongitudinal Fluctuation\n\nContinuous Predictors\nLongitudinal Degrouping\n\n\n\n\n\n\nintell_sim.csv\n\n\n\n\n\nS&F Chapter 9: Multilevel modeling with repeated measures data\nHMV Chapter 5: Analyzing Longitudinal Data\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+  },
+  {
+    "objectID": "C/11/index.html#b-longitudinal-growth",
+    "href": "C/11/index.html#b-longitudinal-growth",
+    "title": "Week 11: Longitudinal Data",
+    "section": "[11b] Longitudinal Growth",
+    "text": "[11b] Longitudinal Growth\n\nTopics\n\nA\n\na\nb\n\nB\n\na\nb\n\n\n\n\nFile Downloads\n\nheck2011.csv\n\n\n\nReadings\n\nHMV Chapter 5: Analyzing Longitudinal Data\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\n  «  Week 10\n\n  Week 12  »"
+  },
+  {
     "objectID": "C/10/index.html",
     "href": "C/10/index.html",
     "title": "Week 10: Model Comparison",
