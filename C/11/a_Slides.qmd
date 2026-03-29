@@ -41,13 +41,13 @@ options(width = 120)
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-1. The Repeated Measures Logic
-    + *The Averaging Approach*
-    + *The Multilevel Approach*
+1. Within-Person Variance
+    + *Trial-level Analysis*
+    + *Task-by-Person Effects*
   
-2. Longitudinal Fluctuation
-    + *Continuous Predictors*
-    + *Longitudinal Degrouping*
+2. The Structure of Error
+    + *Autocorrelation Tests*
+    + *Drift vs. White Noise*
     
 :::
 
