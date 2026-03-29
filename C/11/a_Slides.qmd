@@ -242,6 +242,17 @@ estimate_relation(fit_mlm, by = "icontrol") |> plot()
 :::
 :::
 
+## Unconditional ICC
+
+```{r}
+fit0 <- glmmTMB(performance ~ 1 + (1 | subject), data = intell)
+icc(fit0)
+```
+
+:::{.fsmaller .mt4}
+The ICC tells us the proportion of total variance in performance that is attributable to stable differences between people. The remaining variance (1&nbsp;&minus;&nbsp;ICC) is the within-person variability across trials.
+:::
+
 # Adding L1 Predictors
 
 ## The "Many Tasks" Example
