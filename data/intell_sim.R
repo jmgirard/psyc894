@@ -1,26 +1,35 @@
-set.seed(123)
-
 # Load packages
-library(MASS)  # for mvrnorm
 library(tidyverse)
+library(MASS)
+conflicted::conflict_prefer("select", "dplyr")
+set.seed(123)
 
 # Parameters
 n_participants <- 150
 n_tasks <- 4
-task_names <- c("verb_reason", "work_memory", "perc_reason", "proc_speed")
+n_trials_per_task <- 3
+total_trials <- n_tasks * n_trials_per_task
+task_names <- c("Verbal Reasoning", "Working Memory", "Perceptual Reasoning", "Processing Speed")
 
-# Create long-format dataset
-df <- expand.grid(id = 1:n_participants, task = factor(task_names, levels = task_names))
+# Create dataset based on trials first
+df <- expand.grid(trial = 1:total_trials, subject = 1:n_participants)
+
+# Randomly assign tasks to trials for each subject (3 of each task per person)
+df <- df |>
+  mutate(
+    .by = subject,
+    task = sample(rep(factor(task_names, levels = task_names), times = n_trials_per_task))
+  )
 
 # Participant-level predictor
 participant_data <- data.frame(
-  id = 1:n_participants,
+  subject = 1:n_participants,
   icontrol = rnorm(n_participants, mean = 0, sd = 1)
 )
-df <- df %>% left_join(participant_data, by = "id") |> as_tibble()
+df <- df |> left_join(participant_data, by = "subject") |> as_tibble()
 
 # Dummy codes for tasks (reference = task1)
-df <- df %>%
+df <- df |>
   mutate(
     memory = ifelse(task == task_names[[2]], 1, 0),
     perceptual = ifelse(task == task_names[[3]], 1, 0),
@@ -28,7 +37,7 @@ df <- df %>%
   )
 
 # Fixed effects
-intercept <- 50
+intercept <- 10
 b_wm <- 5
 b_pr <- -3
 b_ps <- 0
@@ -36,7 +45,6 @@ b_icontrol <- 4
 b_icontrol_wm <- 2  # interaction effect
 
 # Random effects: intercept + slopes for task2, task3, task4
-# 4-dimensional multivariate normal: intercept, task2, task3, task4
 rand_effects_cov <- matrix(c(
   25,  3,  3,  3,
   3, 10,  2,  2,
@@ -47,14 +55,31 @@ rand_effects_cov <- matrix(c(
 rand_effects <- MASS::mvrnorm(n = n_participants, mu = rep(0, 4), Sigma = rand_effects_cov)
 colnames(rand_effects) <- c("ri", "rs_wm", "rs_pr", "rs_ps")
 
-rand_df <- data.frame(id = 1:n_participants, rand_effects)
-df <- df %>% left_join(rand_df, by = "id")
+rand_df <- data.frame(subject = 1:n_participants, rand_effects)
+df <- df |> left_join(rand_df, by = "subject")
 
-# Residual error
-df$error <- rnorm(nrow(df), mean = 0, sd = 3)
+# Autoregressive Error generation (now across 12 trials)
+sigma <- 3
+rho <- 0.45 # Moderate autocorrelation
+times <- 1:total_trials
+H <- abs(outer(times, times, "-"))
+V <- sigma^2 * (rho^H)
+
+# Generate AR1 errors
+ar1_errors <- mvrnorm(n = n_participants, mu = rep(0, total_trials), Sigma = V)
+
+# Format and join errors
+ar1_df <- data.frame(subject = 1:n_participants, ar1_errors)
+colnames(ar1_df)[2:(total_trials + 1)] <- paste0("err_", 1:total_trials)
+ar1_long <- ar1_df |>
+  pivot_longer(cols = starts_with("err_"), names_to = "trial_char", values_to = "error") |>
+  mutate(trial = as.integer(str_extract(trial_char, "\\d+"))) |>
+  select(subject, trial, error)
+
+df <- df |> left_join(ar1_long, by = c("subject", "trial"))
 
 # Outcome variable
-df <- df %>%
+df <- df |>
   mutate(
     performance = intercept +
       b_wm * memory +
@@ -69,4 +94,9 @@ df <- df %>%
       error
   )
 
-write_csv(df |> select(-c(ri:error)), "data/intell_sim.csv")
+out <-
+  df |>
+  select(subject, icontrol, trial, task, performance) |>
+  arrange(subject, trial)
+
+out |> write_csv(file = "data/intell_sim.csv")

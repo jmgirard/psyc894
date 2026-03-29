@@ -1,0 +1,75 @@
+---
+title: "Week 11: Longitudinal Data"
+---
+
+<!-- Lecture a -->
+
+## [11a] Repeated Measures
+
+### Topics
+1. The Repeated Measures Logic
+    + *The Averaging Approach*
+    + *The Multilevel Approach*
+  
+2. Longitudinal Fluctuation
+    + *Continuous Predictors*
+    + *Longitudinal Degrouping*
+
+### File Downloads
+- [intell_sim.csv](../../data/intell_sim.csv){download="intell_sim.csv"}
+
+### Readings
+- [S\&F Chapter 9: Multilevel modeling with repeated measures data](https://www.learn-mlms.com/09-module-9.html){target="_blank"}
+- [HMV Chapter 5: Analyzing Longitudinal Data](https://canvas.ku.edu/courses/182539/pages/11a-repeated-measures?module_item_id=4317585){target="_blank"}
+
+### Slides
+
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[11a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+
+<!-- Lecture b -->
+
+## [11b] Longitudinal Growth
+
+### Topics
+1. A
+    + *a*
+    + *b*
+  
+2. B
+    + *a*
+    + *b*
+
+### File Downloads
+- [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
+
+### Readings
+- [HMV Chapter 5: Analyzing Longitudinal Data](https://canvas.ku.edu/courses/182539/pages/11a-repeated-measures?module_item_id=4317585){target="_blank"}
+
+### Slides
+
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[11b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../10/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 10</a>
+
+  <a href="../12/index.html" class="btn btn-primary" role="button">Week 12&nbsp;&nbsp;&raquo;</a>
+</div>
+```

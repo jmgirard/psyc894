@@ -1,0 +1,514 @@
+---
+lecture: "11a"
+metadata-files:
+  - ../../_slide-settings.yml
+format:
+  revealjs:
+    theme: default
+---
+
+::: {.my-title}
+# [Multilevel Modeling]{.blue}
+Repeated Measures
+
+::: {.my-grey}
+[{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/city-girl.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+```{r setup}
+#| echo: false
+#| message: false
+
+library(tidyverse)
+library(easystats)
+library(patchwork)
+library(here)
+library(glmmTMB)
+
+source(here("_common.R"))
+
+set_theme(theme_gray(base_size = 24))
+
+options(width = 120)
+```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+1. The Repeated Measures Logic
+    + *The Averaging Approach*
+    + *The Multilevel Approach*
+  
+2. Longitudinal Fluctuation
+    + *Continuous Predictors*
+    + *Longitudinal Degrouping*
+    
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+# Repeated Measures
+
+## Overview
+
+- Repeated measures designs are ubiquitous in social science
+    + e.g., completing multiple trials of a task
+    + e.g., responding to within-person experimental conditions
+    + e.g., answering daily diary surveys
+    
+:::{.fragment}
+- These are perfect applications for multilevel modeling
+    + Instead of individuals (L1) within larger units (L2)...
+    + ...we have observations (L1) within individuals (L2)
+
+:::
+
+## The Base Example
+
+**Main Variables**
+
+- Outcomes = `performance` (numeric score on a trial)
+- L2 Predictor = `icontrol` (trait inhibitory control)
+
+**Research Question**
+
+- Does a person's trait *inhibitory control* predict their average *intellectual performance* across multiple trials?
+
+## Example Data
+
+```{r}
+#| message: false
+#| replace_path: ["../../data/", ""]
+
+library(tidyverse)
+library(glmmTMB)
+library(easystats)
+
+intell <- read_csv("../../data/intell_sim.csv")
+glimpse(intell)
+```
+
+:::{.fsmaller}
+Each of 150 (fake) subjects completed 12 experimental trials.
+:::
+
+## The Aggregation Approach
+
+:::{.fsmaller}
+Historically, researchers would simply average the L1 observations to create a single L2 score for each person, then run a standard linear regression.
+:::
+
+```{r}
+# Collapse L1 to L2
+intell_avg <- 
+  intell |> 
+  summarize(
+    .by = subject,
+    icontrol = first(icontrol),
+    perf_avg = mean(performance, na.rm = TRUE)
+  )
+# Fit single-level model
+fit_avg <- lm(perf_avg ~ icontrol, data = intell_avg)
+model_parameters(fit_avg)
+```
+
+## Why Multilevel is Better
+
+:::{.fsmaller}
+- **Information Loss:** Averaging collapses all L1 variance into a single point.
+    + We lose the ability to analyze within-person fluctuation or add L1 predictors.
+- **Unbalanced Data:** If some subjects have missing trials, simple aggregation ignores the sample size differences.
+    + A mean based on 2 trials is treated exactly the same as a mean based on 10 trials.
+- **Reliability Weighting:** MLM uses partial pooling (shrinkage).
+    + Estimates for subjects with fewer or more variable observations are mathematically pulled closer to the group average to prevent overfitting.
+
+:::
+
+## Multilevel Equation
+
+:::{.tc .b}
+Level One (Observation)
+:::
+
+$$
+\begin{align}
+y_{ij} &= \beta_{0j} + \color{#4daf4a}{e_{ij}} \\
+\color{#4daf4a}{e_{ij}} &\sim \text{Normal}(0, \color{#4daf4a}{\sigma})
+\end{align}
+$$
+
+:::{.tc .b}
+Level Two (Cluster)
+:::
+
+$$
+\begin{align}
+\beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_{j} +  \color{#e41a1c}{u_{0j}} \\
+\color{#e41a1c}{u_{0j}} &\sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}})
+\end{align}
+$$
+
+## Path Diagram
+![](../../diagrams/repeated_measures.png)
+
+
+
+## Mixed (or Reduced) Equation
+
+$$
+\begin{alignat}{2}
+&\text{L1:} \quad & y_{ij} &= \beta_{0j} + \color{#4daf4a}{e_{ij}} \\
+&\text{L2:} \quad & \beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}} \\
+\end{alignat}
+$$
+
+Substitute the L2 equations directly into the L1 equation:
+
+$$
+y_{ij} = (\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}}) + \color{#4daf4a}{e_{ij}}
+$$
+
+:::{.fragment}
+Rearrange to group the fixed and random parts:
+
+$$
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}}}_{\text{Random}} + \color{#4daf4a}{e_{ij}}
+$$
+:::
+
+## Formula
+
+$$
+y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}}}_{\text{(Random)}} + \color{#4daf4a}{e_{ij}}
+$$
+
+**Generic**
+
+:::{.tc}
+`y ~ 1 + z + (1 | cluster)`
+
+where the [1 + z]{.blue} part is fixed<br>
+and the [(1 | cluster)]{.red} part is random
+:::
+
+:::{.fragment}
+**Example**
+
+:::{.tc}
+`performance ~ 1 + icontrol + (1 | subject)`
+:::
+:::
+
+## Fitting the Model
+
+```{r}
+fit_mlm <- glmmTMB(
+  formula = performance ~ 1 + icontrol + (1 | subject),
+  data = intell
+)
+model_parameters(fit_mlm, effects = "all")
+```
+
+## Visualizing the Results
+
+```{r}
+estimate_relation(fit_mlm, by = "icontrol") |> plot()
+```
+
+
+## Interpreting the Model
+
+:::{.fsmaller}
+**Fixed Effects (The Average Trend)**
+
+- `(Intercept)` ($\gamma_{00}$): The expected performance on a trial for a subject with an inhibitory control score of 0.
+- `icontrol` ($\gamma_{01}$): The expected difference in average performance between subjects who differ by 1 unit in inhibitory control.
+
+:::{.fragment}
+**Random Effects (The Variance)**
+
+- `SD (Intercept)` ($\tau_{00}$): The standard deviation of the true person-specific means around the overall regression line (L2 variance).
+- `SD (Residual)` ($\sigma$): The standard deviation of the individual trials around the person-specific means (L1 variance).
+:::
+:::
+
+# Adding L1 Predictors
+
+## The "Many Tasks" Example
+
+:::{.fsmaller}
+We can expand our model by adding predictors at Level 1. What if those repeated trials actually came from four different experimental tasks?
+
+**Updated Variables**
+
+- Outcomes = `performance` (numeric)
+- L1 Predictors = `task` (factor with 4 levels)
+- L2 Predictors = `icontrol` (numeric)
+
+**Research Question**
+
+- Some theories say inhibitory control increases all aspects of intellectual performance, while others say it only improves working memory.
+:::
+
+## Multilevel Equation Part 1
+
+:::{.tc .b}
+Level One (Observation)
+:::
+
+$$y_{ij} = \beta_{0j} + \beta_{1j} \text{TASK2}_{ij} + \beta_{2j} \text{TASK3}_{ij} + \beta_{3j} \text{TASK4}_{ij} + \color{#4daf4a}{e_{ij}}$$
+
+:::{.tc .b}
+Level Two (Cluster)
+:::
+
+$$\begin{align}
+\beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{0j}} \\
+\beta_{1j} &= \color{#377eb8}{\gamma_{10}} + \color{#377eb8}{\gamma_{11}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{1j}} \\
+\beta_{2j} &= \color{#377eb8}{\gamma_{20}} + \color{#377eb8}{\gamma_{21}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{2j}} \\
+\beta_{3j} &= \color{#377eb8}{\gamma_{30}} + \color{#377eb8}{\gamma_{31}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{3j}} \\
+\end{align}$$
+
+## Multilevel Equation Part 2
+
+:::{.tc .b}
+Level One (Observation)
+:::
+
+$$
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
+$$
+
+:::{.tc .b}
+Level Two (Cluster)
+:::
+
+$$\begin{bmatrix}
+\color{#e41a1c}{u_{0j}}\\ 
+\color{#e41a1c}{u_{1j}}\\ 
+\color{#e41a1c}{u_{2j}}\\ 
+\color{#e41a1c}{u_{3j}}
+\end{bmatrix} 
+\sim \text{MVN}\left(
+\begin{bmatrix}
+0\\
+0\\
+0\\
+0
+\end{bmatrix}, 
+\begin{bmatrix}
+\color{#e41a1c}{\tau_{00}} & & & \\ 
+\color{#e41a1c}{\tau_{10}} & \color{#e41a1c}{\tau_{11}} & & \\
+\color{#e41a1c}{\tau_{20}} & \color{#e41a1c}{\tau_{21}} & \color{#e41a1c}{\tau_{22}} & \\
+\color{#e41a1c}{\tau_{30}} & \color{#e41a1c}{\tau_{31}} & \color{#e41a1c}{\tau_{32}} & \color{#e41a1c}{\tau_{33}}
+\end{bmatrix}
+\right)$$
+
+## Path Diagram
+
+![](../../diagrams/repeated_measures2.png)
+
+## Mixed (or Reduced) Equation {.smaller}
+
+Substitute the L2 equations directly into the L1 equation:
+
+$$\begin{align}
+y_{ij} &= (\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{0j}}) \\
+&\quad + (\color{#377eb8}{\gamma_{10}} + \color{#377eb8}{\gamma_{11}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{1j}})\text{TASK2}_{ij} \\
+&\quad + (\color{#377eb8}{\gamma_{20}} + \color{#377eb8}{\gamma_{21}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{2j}})\text{TASK3}_{ij} \\
+&\quad + (\color{#377eb8}{\gamma_{30}} + \color{#377eb8}{\gamma_{31}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{3j}})\text{TASK4}_{ij} + \color{#4daf4a}{e_{ij}}
+\end{align}$$
+
+:::{.fragment}
+Rearrange to group the fixed and random parts:
+
+$$\begin{align}
+y_{ij} &= \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}}\text{ICTL}_{j} + \color{#377eb8}{\gamma_{10}}\text{TASK2}_{ij} + \dots + \color{#377eb8}{\gamma_{31}}\text{ICTL}_{j}\text{TASK4}_{ij}}_{\text{Fixed}} \\
+&\quad + \underbrace{\color{#e41a1c}{u_{0j}} + \color{#e41a1c}{u_{1j}}\text{TASK2}_{ij} + \color{#e41a1c}{u_{2j}}\text{TASK3}_{ij} + \color{#e41a1c}{u_{3j}}\text{TASK4}_{ij}}_{\text{Random}} + \color{#4daf4a}{e_{ij}}
+\end{align}$$
+:::
+
+## Formula
+
+**Generic**
+
+:::{.tc}
+`y ~ 1 + w * z + (1 + w | cluster)`
+
+where the [1 + w * z]{.blue} part is fixed<br>
+and the [(1 + w | cluster)]{.red} part is random
+:::
+
+:::{.fragment}
+**Example**
+
+:::{.tc}
+`performance ~ 1 + task * icontrol`<br>
+`+ (1 + task | subject)`
+:::
+:::
+
+## Fitting the Model
+
+:::{.fsmaller}
+```{r}
+fit1 <- glmmTMB(
+  formula = performance ~ 1 + task * icontrol + (1 + task | subject),
+  data = intell
+)
+model_parameters(fit1, effects = "fixed")
+```
+:::
+
+## Simple Slopes Analysis
+
+```{r}
+#| message: false
+
+estimate_slopes(fit1, trend = "icontrol", by = "task")
+```
+
+## Visualize Results
+
+```{r}
+estimate_relation(fit1, by = c("icontrol", "task")) |> plot()
+```
+
+## Interpreting Results
+
+:::{.fsmaller}
+1. Inhibitory control was positively associated with performance in *all four* tasks (see simple slopes analysis), which supports the first theory.
+
+:::{.fragment}
+2. However, the effect was strongest by far in the working memory task, as evidenced in the marginal effects plot. This may explain where the second theory came from.
+
+:::
+:::{.fragment}
+3. These (fake) results suggest a hybrid theory where inhibitory control helps everything somewhat, but helps working memory the most.
+
+:::
+:::
+
+# Addressing Autocorrelation
+
+## The Independence Assumption
+
+- MLM assumes that the Level 1 residuals ($e_{ij}$) are independent **after** accounting for the cluster variances ($u_{0j}$).
+- But what if the observations happen in a sequence over time?
+- Even among observations in the same cluster, trials that are closer together in time might be more similar to one another.
+- This creates **autocorrelation**, violating our assumption.
+
+## Incorporating Time
+
+:::{.fsmaller}
+To test for and model this, we need a variable that represents the sequence of observations. Luckily, our dataset has a `trial` column that tracks the randomized order in which the tasks were completed by each subject.
+:::
+
+```{r}
+intell |> print(n = 6)
+```
+
+## Checking Autocorrelation
+
+We can perform a formal test on the residuals of our model to see if this sequence matters.
+
+```{r}
+check_autocorrelation(fit1)
+```
+
+:::{.fragment .pv4}
+Because this flags a violation, we should refit the model and explicitly account for the correlation between adjacent trials.
+:::
+
+## Partitioning the Error
+
+:::{.fsmaller}
+Previously, we only had one L1 error term ($e_{ij}$). To fix the autocorrelation, we add a new "Time Drift" component ($v_{ij}$):
+
+$$y_{ij} = \text{Fixed} + \text{Random} + \color{#4daf4a}{(v_{ij} + e_{ij})}$$
+
+:::{.fragment}
+- **White Noise:** The independent, unpredictable noise for a specific trial.
+$$\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma_e})$$
+
+- **Time Drift:** Error that correlates with adjacent trials. Adding this requires two new parameters: the SD of the drift ($\sigma_v$) and the lag-1 correlation ($\rho$).
+$$\color{#4daf4a}{\mathbf{v}_j} \sim \text{AR1}(0, \color{#4daf4a}{\sigma_v}, \color{#4daf4a}{\rho})$$
+    
+:::
+:::
+
+## Fitting the AR(1) Model
+
+In `glmmTMB`, we handle this by simply adding an `ar1()` term to our random effects. The software will automatically estimate the Time Drift ($v_{ij}$) alongside the Random Static ($e_{ij}$).
+
+```{r}
+fit_ar1 <- glmmTMB(
+  formula = performance ~ 
+    1 + task * icontrol +             # fixed effects
+    (1 + task | subject) +            # random effects
+    ar1(factor(trial) + 0 | subject), # autocorrelation
+  data = intell
+)
+```
+
+## Comparing Fixed Effects
+
+```{r}
+compare_parameters(fit1, fit_ar1, effects = "fixed", select = "{estimate} ({se})")
+```
+
+:::{.fsmaller}
+Our estimates have shifted. Accounting for autocorrelation re-weights the data, treating correlated adjacent trials as partially redundant.
+:::
+
+## Did the model improve?
+
+```{r}
+test_lrt(fit1, fit_ar1)
+```
+
+:::{.fsmaller .pv4}
+**Yes!** Adding the two parameters for the Time Drift (the variance and $\rho$ correlation) resulted in a significant improvement to model fit
+:::
+
+## What was the actual Time Drift?
+
+```{r}
+VarCorr(fit_ar1)
+```
+
+:::{.fragment .fsmaller .mt4}
+- **SD (`factor(trial)1`)**: This is $\color{#4daf4a}{\sigma_v}$ (2.81), the SD of the time drift.
+- **Corr (`ar1`)**: This is $\color{#4daf4a}{\rho}$ (0.61). Because this is an AR(1) model, this single number represents the correlation between *any* two adjacent trials.
+:::
+
+## A Warning About AR(1)
+
+Discrete AR(1) models make a massive assumption:<br>
+**Time intervals are equally spaced.**
+
+:::{.fragment}
+- In a lab setting, Trials 1, 2, and 3 often occur back-to-back.<br>
+The "distance" between each step is identical.
+- But what happens in the real world?
+    + A subject completes Survey 1 at 9:00 AM.
+    + They complete Survey 2 at 10:30 AM (1.5 hours later).
+    + They complete Survey 3 at 6:00 PM (7.5 hours later).
+    
+:::
+
+## The Continuous Time Problem
+
+- If we just label those EMA surveys as `factor(survey_number)` levels 1, 2, and 3...
+- ...the AR(1) model will blindly treat the 1.5-hour jump exactly the same as the 7.5-hour jump (a 1-step $\rho$ correlation).
+- **Next Lecture:** We will dive into Longitudinal Data and learn how to use continuous-time autocorrelation structures (like Spatial Exponential) to handle messy, real-world time!
