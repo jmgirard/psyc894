@@ -438,6 +438,22 @@ SD (Residual)           |        4.71</code></pre>
 </ul>
 </div>
 </div>
+</section>
+<section class="slide level2">
+<h2>Unconditional ICC</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>fit0 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(performance <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> subject), <span class="at">data =</span> intell)</span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">icc</span>(fit0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.731
+  Unadjusted ICC: 0.731</code></pre>
+</div>
+</div>
+<div class="fsmaller mt4">
+<p>The ICC tells us the proportion of total variance in performance that is attributable to stable differences between people. The remaining variance (1&nbsp;−&nbsp;ICC) is the within-person variability across trials.</p>
+</div>
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
@@ -547,11 +563,11 @@ y_{ij} &amp;= \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_
 <h2>Fitting the Model</h2>
 <div class="fsmaller">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
-<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> performance <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> task <span class="sc">*</span> icontrol <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> task <span class="sc">|</span> subject),</span>
-<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> intell</span>
-<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit1, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> performance <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> task <span class="sc">*</span> icontrol <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> task <span class="sc">|</span> subject),</span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> intell</span>
+<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit1, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Fixed Effects
 
@@ -572,7 +588,7 @@ task [Working Memory] × icontrol   |        2.07 | 0.38 | [ 1.32, 2.83] |  5.39
 <section class="slide level2">
 <h2>Simple Slopes Analysis</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit1, <span class="at">trend =</span> <span class="st">"icontrol"</span>, <span class="at">by =</span> <span class="st">"task"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit1, <span class="at">trend =</span> <span class="st">"icontrol"</span>, <span class="at">by =</span> <span class="st">"task"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Estimated Marginal Effects
 
@@ -591,10 +607,10 @@ Type of slope was dY/dX</code></pre>
 <section class="slide level2">
 <h2>Visualize Results</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_relation</span>(fit1, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"icontrol"</span>, <span class="st">"task"</span>)) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_relation</span>(fit1, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"icontrol"</span>, <span class="st">"task"</span>)) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Interpreting Results</h2>
 <div class="fsmaller">
@@ -633,7 +649,7 @@ Type of slope was dY/dX</code></pre>
 <p>To test for and model this, we need a variable that represents the sequence of observations. Luckily, our dataset has a <code>trial</code> column that tracks the randomized order in which the tasks were completed by each subject.</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>intell <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a>intell <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,800 × 5
   subject icontrol trial task                 performance
@@ -652,7 +668,7 @@ Type of slope was dY/dX</code></pre>
 <h2>Checking Autocorrelation</h2>
 <p>We can perform a formal test on the residuals of our model to see if this sequence matters.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_autocorrelation</span>(fit1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_autocorrelation</span>(fit1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: Autocorrelated residuals detected (p &lt; .001).</code></pre>
 </div>
@@ -678,19 +694,19 @@ Type of slope was dY/dX</code></pre>
 <h2>Fitting the AR(1) Model</h2>
 <p>In <code>glmmTMB</code>, we handle this by simply adding an <code>ar1()</code> term to our random effects. The software will automatically estimate the Time Drift (<span class="math inline">\(v_{ij}\)</span>) alongside the Random Static (<span class="math inline">\(e_{ij}\)</span>).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>fit_ar1 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
-<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> performance <span class="sc">~</span> </span>
-<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span> <span class="sc">+</span> task <span class="sc">*</span> icontrol <span class="sc">+</span>             <span class="co"># fixed effects</span></span>
-<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">+</span> task <span class="sc">|</span> subject) <span class="sc">+</span>            <span class="co"># random effects</span></span>
-<span id="cb17-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">ar1</span>(<span class="fu">factor</span>(trial) <span class="sc">+</span> <span class="dv">0</span> <span class="sc">|</span> subject), <span class="co"># autocorrelation</span></span>
-<span id="cb17-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> intell</span>
-<span id="cb17-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>fit_ar1 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb19-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> performance <span class="sc">~</span> </span>
+<span id="cb19-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span> <span class="sc">+</span> task <span class="sc">*</span> icontrol <span class="sc">+</span>             <span class="co"># fixed effects</span></span>
+<span id="cb19-4"><a aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">+</span> task <span class="sc">|</span> subject) <span class="sc">+</span>            <span class="co"># random effects</span></span>
+<span id="cb19-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">ar1</span>(<span class="fu">factor</span>(trial) <span class="sc">+</span> <span class="dv">0</span> <span class="sc">|</span> subject), <span class="co"># autocorrelation</span></span>
+<span id="cb19-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> intell</span>
+<span id="cb19-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section class="slide level2">
 <h2>Comparing Fixed Effects</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">compare_parameters</span>(fit1, fit_ar1, <span class="at">effects =</span> <span class="st">"fixed"</span>, <span class="at">select =</span> <span class="st">"{estimate} ({se})"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">compare_parameters</span>(fit1, fit_ar1, <span class="at">effects =</span> <span class="st">"fixed"</span>, <span class="at">select =</span> <span class="st">"{estimate} ({se})"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Parameter                          |        fit1 |     fit_ar1
 --------------------------------------------------------------
@@ -713,7 +729,7 @@ Observations                       |        1800 |        1800</code></pre>
 <section class="slide level2">
 <h2>Did the model improve?</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">test_lrt</span>(fit1, fit_ar1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">test_lrt</span>(fit1, fit_ar1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Likelihood-Ratio-Test (LRT) for Model Comparison (ML-estimator)
 
@@ -730,7 +746,7 @@ fit_ar1 | glmmTMB | 21 |       2 | 205.58 | &lt; .001</code></pre>
 <section class="slide level2">
 <h2>What was the actual Time Drift?</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">VarCorr</span>(fit_ar1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">VarCorr</span>(fit_ar1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Conditional model:
