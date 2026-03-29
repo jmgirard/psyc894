@@ -20,7 +20,8 @@ title: "Week 11: Longitudinal Data"
 
 ### Readings
 - [S\&F Chapter 9: Multilevel modeling with repeated measures data](https://www.learn-mlms.com/09-module-9.html){target="_blank"}
-- [HMV Chapter 5: Analyzing Longitudinal Data](https://canvas.ku.edu/courses/182539/pages/11a-repeated-measures?module_item_id=4317585){target="_blank"}
+- [Brauer \& Curtin (2018)](https://canvas.ku.edu/courses/182539/pages/11a-repeated-measures){target="_blank"}
+- [Hoffman Chapter 4](https://canvas.ku.edu/courses/182539/pages/11a-repeated-measures){target="_blank"}
 
 ### Slides
 
@@ -36,19 +37,19 @@ title: "Week 11: Longitudinal Data"
 
 <!-- Lecture b -->
 
-## [11b] Longitudinal Data
+## [11b] Longitudinal Analysis
 
 ### Topics
-1. A
+1. Longitudinal Fluctuation
     + *a*
     + *b*
   
-2. B
+2. Longitudinal Change
     + *a*
     + *b*
 
 ### File Downloads
-- [heck2011.csv](../../data/heck2011.csv){download="heck2011.csv"}
+- A
 
 ### Readings
 - [HMV Chapter 5: Analyzing Longitudinal Data](https://canvas.ku.edu/courses/182539/pages/11a-repeated-measures?module_item_id=4317585){target="_blank"}
