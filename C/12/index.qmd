@@ -1,0 +1,76 @@
+---
+title: "Week 12: Longitudinal Analysis 2"
+---
+
+<!-- Lecture a -->
+
+## [12a] Linear Growth Curves
+
+### Topics
+1. Topic 1
+    + *Subtopic a*
+    + *Subtopic b*
+  
+2. Topic 2
+    + *Subtopic a*
+    + *Subtopic b*
+
+### File Downloads
+- A
+
+### Readings
+- [S\&F Chapter 10: Multilevel modeling with longitudinal data](https://www.learn-mlms.com/10-module-10.html){target="_blank"}
+- [Hox et al. (2012): Growth Curve Modeling from a MLM Perspective](https://canvas.ku.edu/courses/182539/pages/11a-repeated-measures?module_item_id=4317585){target="_blank}
+
+### Slides
+
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[12a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+
+<!-- Lecture b -->
+
+## [12b] Nonlinear Growth Curves
+
+### Topics
+1. Topic 1
+    + *Subtopic a*
+    + *Subtopic b*
+  
+2. Topic 2
+    + *Subtopic a*
+    + *Subtopic b*
+
+### File Downloads
+- A
+
+### Readings
+- A
+
+
+### Slides
+
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[12b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../11/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 11</a>
+
+  <a href="../../D/13/index.html" class="btn btn-primary" role="button">Week 13&nbsp;&nbsp;&raquo;</a>
+</div>
+```

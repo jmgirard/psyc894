@@ -61,18 +61,18 @@ website:
             text: "Week 10: Model Comparison"
             href: C/10/index.html
           - icon: alarm
-            text: "Week 11: Longitudinal Analyses"
+            text: "Week 11: Longitudinal Analysis 1"
             href: C/11/index.html
-          - icon: journal-medical
-            text: "Week 12: Diagnostics and Reporting"
+          - icon: calendar3
+            text: "Week 12: Longitudinal Analysis 2"
             href: C/12/index.html
       - text: "Unit D"
         menu:
           - icon: gear
-            text: "Week 13: Troubleshooting and Bayes"
+            text: "Week 13: Troubleshooting"
             href: D/13/index.html
-          - icon: building-up
-            text: "Week 14: Advanced Previews"
+          - icon: journal-medical
+            text: "Week 14: Practical Matters"
             href: D/14/index.html
           - icon: briefcase
             text: "Week 15: Project Work"

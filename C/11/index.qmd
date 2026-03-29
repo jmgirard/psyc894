@@ -1,5 +1,5 @@
 ---
-title: "Week 11: Longitudinal Data"
+title: "Week 11: Longitudinal Analysis 1"
 ---
 
 <!-- Lecture a -->
@@ -37,23 +37,22 @@ title: "Week 11: Longitudinal Data"
 
 <!-- Lecture b -->
 
-## [11b] Longitudinal Analysis
+## [11b] Longitudinal Fluctuation
 
 ### Topics
-1. Longitudinal Fluctuation
-    + *a*
-    + *b*
+1. Topic 1
+    + *Subtopic a*
+    + *Subtopic b*
   
-2. Longitudinal Change
-    + *a*
-    + *b*
+2. Topic 2
+    + *Subtopic a*
+    + *Subtopic b*
 
 ### File Downloads
 - A
 
 ### Readings
 - [HMV Chapter 5: Analyzing Longitudinal Data](https://canvas.ku.edu/courses/182539/pages/11a-repeated-measures?module_item_id=4317585){target="_blank"}
-- [Hox et al. (2012): Growth Curve Modeling from a MLM Perspective](https://canvas.ku.edu/courses/182539/pages/11a-repeated-measures?module_item_id=4317585){target="_blank}
 
 ### Slides
 
