@@ -32,6 +32,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-53e3d2ac1773787e2a3f577cd3a68c1f.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -134,7 +198,7 @@
 
 <section class="title-slide slide level1 my-title center">
 <h1><span class="blue">Multilevel Modeling</span></h1>
-<p>Longitudinal Analysis</p>
+<p>Longitudinal Fluctuation</p>
 <div class="my-grey">
 <p><span>Spring 2026 | CLAS | PSYC 894</span><br> <span>Jeffrey M. Girard | Lecture 11b</span></p>
 </div>
@@ -148,21 +212,507 @@
 <ol type="1">
 <li>Longitudinal Fluctuation
 <ul>
-<li><em>A</em></li>
-<li><em>B</em></li>
+<li><em>Longitudinal Taxonomy</em></li>
+<li><em>State vs.&nbsp;Trait Predictors</em></li>
 </ul></li>
-<li>Longitudinal Change
+<li>Advanced Applications
 <ul>
-<li><em>A</em></li>
-<li><em>B</em></li>
+<li><em>State–Trait Automoderation</em></li>
+<li><em>Spatial Exponential Errors</em></li>
 </ul></li>
 </ol>
 </div><div class="column tc pv4" style="width:40%;">
 <p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
-
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Longitudinal Concepts</h1>
 
 </section>
+<section class="slide level2">
+<h2>Taxonomy of Longitudinal Models</h2>
+<div class="fsmaller">
+<ul>
+<li><span class="b blue">Fluctuation Models:</span> The outcome rises and falls around a stable baseline. There is no systematic long-term trajectory. (Covered this week)
+<ul>
+<li><em>Example: Daily mood, daily stress, heart rate.</em></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><span class="b red">Growth Curve Models:</span> The outcome systematically changes over time,<br> e.g., increasing, decreasing, or curving. (Covered next week)
+<ul>
+<li><em>Example: Child vocabulary acquisition, therapy outcomes.</em></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Lagged Change Models:</strong> We care about how the outcome at Time <em>t</em> predicts the outcome at Time <em>t+1</em>. (Not covered in this course, difficult with MLM)
+<ul>
+<li><em>Example: Does poor sleep tonight predict lower mood tomorrow?</em></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Visualizing Fluctuation and Growth</h2>
+
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-1-1.png" width="1056" class="r-stretch"></section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Modeling Fluctuation</h1>
+
+</section>
+<section class="slide level2">
+<h2>Overview</h2>
+<ul>
+<li>Fluctuation models are perfect for Ecological Momentary Assessment (EMA) or daily diary designs.</li>
+<li>We want to know how temporary changes in a predictor (a state) relate to temporary changes in an outcome.</li>
+<li>To do this correctly, we must decompose our Level 1 predictors.</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>The EMA Example</h2>
+<p><strong>Main Variables</strong></p>
+<ul>
+<li>Outcome = <code>performance</code> (numeric score on a daily task)</li>
+<li>Predictor = <code>stress</code> (self-reported daily stress)</li>
+<li>Time = <code>studyday</code> (the day of the study)</li>
+</ul>
+<p><strong>Research Question</strong></p>
+<ul>
+<li>Does a person’s <em>daily stress</em> (state) predict their <em>daily performance</em>, and does their <em>average stress</em> (trait) predict their <em>average performance</em>?</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Example Data</h2>
+<div class="cell" data-replace_path="[&quot;../../data/&quot;,&quot;&quot;]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmmTMB)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>ema <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"ema_sim.csv"</span>)</span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ema)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 984
+Columns: 4
+$ subject     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2…
+$ studyday    &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 8, 9, 11, 12, 13, 14, 2, 4, 6, 7, 8, 9, …
+$ performance &lt;dbl&gt; 2.5176277, 2.7333135, 0.7773803, 4.6899620, 1.4511123, 10.…
+$ stress      &lt;dbl&gt; 7.905561, 6.861336, 7.377380, 5.361727, 7.055506, 5.036938…</code></pre>
+</div>
+</div>
+<div class="fsmaller">
+<ul>
+<li>We plan to predict <code>performance</code> (L1) from <code>stress</code> (L1) for each subject.</li>
+<li>Notice the jumps in <code>studyday</code>. Participants may not respond <em>every</em> day.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>L1 Predictor Decomposition</h2>
+<div class="fsmaller">
+<p>If we use <code>stress</code> as a predictor, its slope will be an <em>uninterpretable blend</em> of the within-person and between-person effects. We must first decompose it!</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>ema_prep <span class="ot">&lt;-</span> ema <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> subject,</span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">stress_b =</span> <span class="fu">mean</span>(stress, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="co"># Trait (L2)</span></span>
+<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">stress_w =</span> stress <span class="sc">-</span> stress_b           <span class="co"># State (L1)</span></span>
+<span id="cb3-6"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 984 × 6
+  subject studyday performance stress stress_b stress_w
+    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1       1        1       2.52    7.91     6.41    1.50 
+2       1        2       2.73    6.86     6.41    0.455
+3       1        3       0.777   7.38     6.41    0.971
+# ℹ 981 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>How important was this?</h2>
+<div class="fsmaller">
+<p>Calculating the predictor’s ICC can help us understand its multilevel structure</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>fit_stress <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(stress <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> subject), <span class="at">data =</span> ema)</span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">icc</span>(fit_stress)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.644
+  Unadjusted ICC: 0.644</code></pre>
+</div>
+</div>
+<div class="fsmaller mt4">
+<ul>
+<li><strong>ICC near 0:</strong> The variable is almost entirely a <em>state</em>. Everyone has the same baseline, and all the action is in day-to-day fluctuation.</li>
+<li><strong>ICC near 1:</strong> The variable is almost entirely a <em>trait</em>. People differ from one another, but their daily scores never change from their baseline.</li>
+<li><strong>ICC in between:</strong> The variable has meaningful variance at both levels.<br>We <strong>must</strong> decompose it to avoid an uninterpretable, blended slope.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Multilevel Equation</h2>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[y_{ti} = \beta_{0i} + \beta_{1i} x_{ti}^{(w)} + \color{#4daf4a}{e_{ti}}\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[\begin{align}
+\beta_{0i} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_{i}^{(b)} +  \color{#e41a1c}{u_{0i}} \\
+\beta_{1i} &amp;= \color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1i}}
+\end{align}\]</span></p>
+</section>
+<section class="slide level2">
+<h2>Path Diagram</h2>
+
+<img data-src="../../diagrams/fluctuation1.png" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Mixed (or Reduced) Equation</h2>
+<p>Substitute the L2 equations directly into the L1 equation:</p>
+<p><span class="math display">\[y_{ti} = (\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_{i}^{(b)} + \color{#e41a1c}{u_{0i}}) + (\color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1i}}) x_{ti}^{(w)} + \color{#4daf4a}{e_{ti}}\]</span></p>
+<div class="fragment">
+<p>Distribute and rearrange to group the fixed and random parts:</p>
+<p><span class="math display">\[y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_{i}^{(b)} + \color{#377eb8}{\gamma_{10}} x_{ti}^{(w)}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} x_{ti}^{(w)}}_{\text{Random}} + \color{#4daf4a}{e_{ti}}\]</span></p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Formula</h2>
+<div class="fsmaller">
+<p><span class="math display">\[y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_{i}^{(b)} + \color{#377eb8}{\gamma_{10}} x_{ti}^{(w)}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} x_{ti}^{(w)}}_{\text{(Random)}} + \color{#4daf4a}{e_{ti}}\]</span></p>
+<p><strong>Generic</strong></p>
+<div class="tc">
+<p><code>y ~ 1 + x_b + x_w + (1 + x_w | cluster)</code></p>
+<p>where the <span class="blue">1 + x_b + x_w</span> part is fixed<br> and the <span class="red">(1 + x_w | cluster)</span> part is random</p>
+</div>
+<div class="fragment">
+<p><strong>Example</strong></p>
+<div class="tc">
+<p><code>performance ~ 1 + stress_b + stress_w</code><br> <code>+ (1 + stress_w | subject)</code></p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Fitting the Model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>fit_base <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> performance <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> stress_b <span class="sc">+</span> stress_w <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> stress_w <span class="sc">|</span> subject),</span>
+<span id="cb7-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ema_prep</span>
+<span id="cb7-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_base, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter   | Coefficient |   SE |         95% CI |      z |      p
+-------------------------------------------------------------------
+(Intercept) |       11.26 | 1.82 | [ 7.70, 14.82] |   6.20 | &lt; .001
+stress b    |       -2.17 | 0.36 | [-2.88, -1.46] |  -5.99 | &lt; .001
+stress w    |       -2.44 | 0.11 | [-2.65, -2.23] | -22.78 | &lt; .001</code></pre>
+</div>
+</div>
+<div class="fsmaller fragment mt4">
+<p>Both traits and states matter. People with higher average stress perform worse overall <span class="math inline">\((\gamma_{01}=-2.06)\)</span>. Additionally, on days when a person is more stressed than their own baseline, their performance drops further <span class="math inline">\((\gamma_{10}=-0.96)\)</span>.</p>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Interpreting the Random Effects</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_base, <span class="at">effects =</span> <span class="st">"random"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Random Effects
+
+Parameter                         | Coefficient | 95% CI
+--------------------------------------------------------
+SD (Intercept: subject)           |        4.94 |       
+SD (stress_w: subject)            |        0.64 |       
+Cor (Intercept~stress_w: subject) |        0.01 |       
+SD (Residual)                     |        2.78 |       </code></pre>
+</div>
+</div>
+<ul>
+<li><code>SD (Intercept)</code> (<span class="math inline">\(\tau_{00}=4.94\)</span>): Even after accounting for trait stress, there is substantial variation in people’s baseline performance.</li>
+<li><code>SD (stress_w)</code> (<span class="math inline">\(\tau_{11}=0.64\)</span>): The penalty for a stressful day is not identical for everyone. Some people are more reactive to daily stress than others.</li>
+<li><code>Cor (Intercept~stress_w)</code> (<span class="math inline">\(\tau_{10}=0.01\)</span>): There is virtually no correlation between baseline performance and stress reactivity.</li>
+<li><code>SD (Residual)</code> (<span class="math inline">\(\sigma=2.78\)</span>): The remaining daily fluctuation in performance that is not explained by state stress.</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Visualizing Random Effects</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_relation</span>(fit_base, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"stress_w"</span>, <span class="st">"subject=[sample 6]"</span>)) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Auto-Moderation</h1>
+
+</section>
+<section class="slide level2">
+<h2>Stress Reactivity</h2>
+<div class="fsmaller">
+<p>Now that we have separated stress into Trait (L2) and State (L1) components, we can ask a more complex theoretical question.</p>
+<div class="fragment mt4">
+<blockquote>
+<p>Does a person’s average stress level (Trait) moderate their reactivity to daily stress fluctuations (State)?</p>
+</blockquote>
+</div>
+<div class="fragment mt4">
+<p><em>Hypothesis: People who are chronically stressed may lack the coping resources to handle bad days. Therefore, the negative effect of daily stress on performance will be even stronger (steeper) for individuals with high average stress.</em></p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Multilevel Equation</h2>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[y_{ti} = \beta_{0i} + \beta_{1i} x_{ti}^{(w)} + \color{#4daf4a}{e_{ti}}\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[\begin{align}
+\beta_{0i} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_{i}^{(b)} +  \color{#e41a1c}{u_{0i}} \\
+\beta_{1i} &amp;= \color{#377eb8}{\gamma_{10}} + \underbrace{\color{#377eb8}{\gamma_{11}} x_{i}^{(b)}}_{\text{New}} + \color{#e41a1c}{u_{1i}}
+\end{align}\]</span></p>
+</section>
+<section class="slide level2">
+<h2>Path Diagram</h2>
+
+<img data-src="../../diagrams/fluctuation2.png" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Fitting the Model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>fit_auto <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> performance <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> stress_b <span class="sc">*</span> stress_w <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> stress_w <span class="sc">|</span> subject),</span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ema_prep</span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_auto, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter           | Coefficient |   SE |         95% CI |     z |      p
+--------------------------------------------------------------------------
+(Intercept)         |       11.32 | 1.61 | [ 8.17, 14.47] |  7.05 | &lt; .001
+stress b            |       -2.18 | 0.32 | [-2.80, -1.56] | -6.89 | &lt; .001
+stress w            |       -0.71 | 0.32 | [-1.34, -0.08] | -2.22 | 0.026 
+stress b × stress w |       -0.35 | 0.06 | [-0.47, -0.23] | -5.63 | &lt; .001</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Simple Slopes Analysis</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit_auto, <span class="at">slope =</span> <span class="st">"stress_w"</span>, <span class="at">by =</span> <span class="st">"stress_b=[quartiles]"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated Marginal Effects
+
+stress_b | Slope |   SE |         95% CI |      z |      p
+----------------------------------------------------------
+3.94     | -2.09 | 0.11 | [-2.31, -1.87] | -18.53 | &lt; .001
+4.74     | -2.37 | 0.09 | [-2.56, -2.19] | -25.01 | &lt; .001
+5.93     | -2.79 | 0.11 | [-3.01, -2.57] | -24.79 | &lt; .001
+
+Marginal effects estimated for stress_w
+Type of slope was dY/dX</code></pre>
+</div>
+</div>
+<div class="fsmaller">
+<p>The performance cost of daily (state) stress is largest for those with higher average (trait) stress. There is evidence of a “compounding” effect.</p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Visualizing the Model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_relation</span>(fit_auto, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"stress_w"</span>, <span class="st">"stress_b=[quartiles]"</span>)) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Continuous Time</h1>
+
+</section>
+<section class="slide level2">
+<h2>The Unequal Time Problem</h2>
+<div class="fsmaller">
+<ul>
+<li>In the last lecture, we used an AR(1) structure to handle autocorrelation.</li>
+<li>Discrete AR(1) assumes that the time interval between step 1 and step 2 is identical to the interval between step 2 and step 3.</li>
+<li>In EMA and daily diary research, this is almost never true. Participants miss surveys, or surveys are triggered randomly.</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a>ema_prep <span class="sc">|&gt;</span> <span class="fu">filter</span>(subject <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="fu">pull</span>(studyday)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  1  2  3  4  5  6  8  9 11 12 13 14</code></pre>
+</div>
+</div>
+<div class="fsmaller">
+<p>A discrete AR(1) model would treat the jump from Day 6 to Day 8 exactly the same as the jump from Day 1 to Day 2.</p>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>The Spatial Exponential Model</h2>
+<div class="fsmaller">
+<ul>
+<li>Just like our discrete AR(1) model, we partition the error into white noise <span class="math inline">\((e_{ti})\)</span> and autocorrelated error <span class="math inline">\((v_{ti})\)</span>.</li>
+<li>However, the Spatial Exponential structure calculates the <strong>true time gap</strong> between any two observations (<span class="math inline">\(t\)</span> and <span class="math inline">\(t'\)</span>) to handle unequal intervals.</li>
+</ul>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\color{#4daf4a}{\mathbf{v}_i} \sim \text{EXP}(0, \color{#4daf4a}{\sigma_v}, \color{#4daf4a}{\rho})\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\text{Corr}(v_{ti}, v_{t'i}) = \color{#4daf4a}{\rho}^{|t - t'|}\]</span></p>
+<div class="fsmaller">
+<ul>
+<li>If <span class="math inline">\(\rho = 0.5\)</span> and the gap is <strong>1 day</strong>, the correlation is <span class="math inline">\(0.5^1 = 0.50\)</span>.</li>
+<li>If the gap is <strong>3 days</strong>, the correlation decays to <span class="math inline">\(0.5^3 = 0.125\)</span>.</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Prepping the Time Factor</h2>
+<div class="fsmaller">
+<p>To use the <code>exp()</code> covariance structure in <code>glmmTMB</code>, we need to convert our numeric time variable into a special sorted factor using <code>numFactor()</code>.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>ema_clean <span class="ot">&lt;-</span> </span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>  ema_prep <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Sort by studyday within subjects</span></span>
+<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(subject, studyday) <span class="sc">|&gt;</span> </span>
+<span id="cb20-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create a numFactor for exp()</span></span>
+<span id="cb20-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">numFactor</span>(studyday)) <span class="sc">|&gt;</span> </span>
+<span id="cb20-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 984 × 7
+  subject studyday performance stress stress_b stress_w time 
+    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;
+1       1        1       2.52    7.91     6.41    1.50  (1)  
+2       1        2       2.73    6.86     6.41    0.455 (2)  
+3       1        3       0.777   7.38     6.41    0.971 (3)  
+4       1        4       4.69    5.36     6.41   -1.04  (4)  
+# ℹ 980 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Fitting the Exponential Model</h2>
+<div class="fsmaller">
+<p>Instead of <code>ar1()</code>, we simply add the <code>exp()</code> term to the formula.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>fit_exp <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> performance <span class="sc">~</span> </span>
+<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span> <span class="sc">+</span> stress_b <span class="sc">*</span> stress_w <span class="sc">+</span>  <span class="co"># fixed Effects</span></span>
+<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">+</span> stress_w <span class="sc">|</span> subject) <span class="sc">+</span> <span class="co"># random Effects</span></span>
+<span id="cb22-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="fu">exp</span>(<span class="dv">0</span> <span class="sc">+</span> time <span class="sc">|</span> subject),   <span class="co"># exp by time (no intercept)</span></span>
+<span id="cb22-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> ema_clean</span>
+<span id="cb22-7"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_exp, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter           | Coefficient |   SE |         95% CI |     z |      p
+--------------------------------------------------------------------------
+(Intercept)         |       11.57 | 1.60 | [ 8.44, 14.71] |  7.24 | &lt; .001
+stress b            |       -2.23 | 0.31 | [-2.84, -1.61] | -7.07 | &lt; .001
+stress w            |       -0.90 | 0.28 | [-1.46, -0.35] | -3.18 | 0.001 
+stress b × stress w |       -0.31 | 0.05 | [-0.42, -0.20] | -5.65 | &lt; .001</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2 smaller">
+<h2>Exponential Parameters</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">VarCorr</span>(fit_exp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Conditional model:
+ Groups    Name        Std.Dev. Corr                                                      
+ subject   (Intercept) 4.72949                                                            
+           stress_w    0.47192  -0.035                                                    
+ subject.1 time(1)     2.93399                                                            
+           time(2)     2.93399  0.646                                                     
+           time(3)     2.93399  0.417  0.646                                              
+           time(4)     2.93399  0.269  0.417 0.646                                        
+           time(5)     2.93399  0.174  0.269 0.417 0.646                                  
+           time(6)     2.93399  0.112  0.174 0.269 0.417 0.646                            
+           time(7)     2.93399  0.072  0.112 0.174 0.269 0.417 0.646                      
+           time(8)     2.93399  0.047  0.072 0.112 0.174 0.269 0.417 0.646                
+           time(9)     2.93399  0.030  0.047 0.072 0.112 0.174 0.269 0.417 0.646          
+           time(10)    2.93399  0.020  0.030 0.047 0.072 0.112 0.174 0.269 0.417 0.646    
+           ...         ...      ...    ...   ...   ...   ...   ...   ...   ...   ...   ...
+ Residual              0.93007                                                            </code></pre>
+</div>
+</div>
+<ul>
+<li><span class="math inline">\(\color{#4daf4a}{\sigma_v}=2.96431\)</span>: The magnitude of the drift</li>
+<li><span class="math inline">\(\color{#4daf4a}{\rho}=0.645\)</span>: The carryover (or memory) of the drift</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>The Exponential Decay in Action</h2>
+<div class="fsmaller">
+<p>Look closely at the correlation matrix for <code>subject.1</code>. The model calculates a baseline 1-day correlation (<span class="math inline">\(\rho\)</span>) of <strong>0.645</strong>.</p>
+</div>
+<div class="fragment fsmaller">
+<p>Because we used <code>exp()</code>, the correlation for a gap of <span class="math inline">\(t\)</span> days is exactly <span class="math inline">\(\rho^t\)</span>.</p>
+<ul>
+<li><strong>1-Day Gap</strong> (e.g., Day 1 to Day 2): <span class="math inline">\(\rho^1 = 0.645\)</span></li>
+<li><strong>2-Day Gap</strong> (e.g., Day 1 to Day 3): <span class="math inline">\(0.645^2 = 0.416\)</span></li>
+<li><strong>3-Day Gap</strong> (e.g., Day 1 to Day 4): <span class="math inline">\(0.645^3 = 0.269\)</span></li>
+<li><strong>4-Day Gap</strong> (e.g., Day 1 to Day 5): <span class="math inline">\(0.645^4 = 0.173\)</span></li>
+</ul>
+<p>The model automatically handles the missing days by applying the correct mathematical decay to the gaps!</p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Visualizing the Decay</h2>
+
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Did the Exponential Decay Help?</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">test_lrt</span>(fit_auto, fit_exp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Likelihood-Ratio-Test (LRT) for Model Comparison (ML-estimator)
+
+Name     |   Model | df | df_diff |   Chi2 |      p
+---------------------------------------------------
+fit_auto | glmmTMB |  8 |         |        |       
+fit_exp  | glmmTMB | 10 |       2 | 199.61 | &lt; .001</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">compare_performance</span>(fit_auto, fit_exp, <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">"AIC"</span>, <span class="st">"BIC"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Comparison of Model Performance Indices
+
+Name     |   Model |  AIC (weights) |  BIC (weights)
+----------------------------------------------------
+fit_auto | glmmTMB | 5182.6 (&lt;.001) | 5221.8 (&lt;.001)
+fit_exp  | glmmTMB | 4987.0 (&gt;.999) | 5035.9 (&gt;.999)</code></pre>
+</div>
+</div>
+
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
