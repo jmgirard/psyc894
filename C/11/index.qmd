@@ -40,19 +40,20 @@ title: "Week 11: Longitudinal Analysis 1"
 ## [11b] Longitudinal Fluctuation
 
 ### Topics
-1. Topic 1
-    + *Subtopic a*
-    + *Subtopic b*
+1. Longitudinal Fluctuation
+    + *Longitudinal Taxonomy*
+    + *State vs. Trait Predictors*
   
-2. Topic 2
-    + *Subtopic a*
-    + *Subtopic b*
+2. Advanced Applications
+    + *State--Trait Automoderation*
+    + *Spatial Exponential Errors*
 
 ### File Downloads
-- A
+- [ema_sim.csv](../../data/ema_sim.csv){download="ema_sim.csv"}
 
 ### Readings
-- [HMV Chapter 5: Analyzing Longitudinal Data](https://canvas.ku.edu/courses/182539/pages/11a-repeated-measures?module_item_id=4317585){target="_blank"}
+- [HMV Chapter 5: Analyzing Longitudinal Data](https://canvas.ku.edu/courses/182539/pages/11b-longitudinal-fluctuation-+-lab?module_item_id=4317586){target="_blank"}
+- [Hoffman Chapter 1: Introduction to the Analysis of Longitudinal Data](https://canvas.ku.edu/courses/182539/pages/11b-longitudinal-fluctuation-+-lab?module_item_id=4317586)
 
 ### Slides
 

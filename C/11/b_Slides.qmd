@@ -9,7 +9,7 @@ format:
 
 ::: {.my-title}
 # [Multilevel Modeling]{.blue}
-Longitudinal Analysis
+Longitudinal Fluctuation
 
 ::: {.my-grey}
 [{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
@@ -31,9 +31,9 @@ library(glmmTMB)
 
 source(here("_common.R"))
 
-set_theme(theme_gray(base_size = 24))
+set_theme(theme_gray(base_size = 20))
 
-options(width = 120)
+options(width = 80)
 ```
 
 ## Roadmap
@@ -42,16 +42,480 @@ options(width = 120)
 
 ::: {.column width="60%"}
 1. Longitudinal Fluctuation
-    + *A*
-    + *B*
+    + *Longitudinal Taxonomy*
+    + *State vs. Trait Predictors*
   
-2. Longitudinal Change
-    + *A*
-    + *B*
+2. Advanced Applications
+    + *State--Trait Automoderation*
+    + *Spatial Exponential Errors*
     
 :::
 
 ::: {.column .tc .pv4 width="40%"}
 {{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
 :::
+
 :::
+
+# Longitudinal Concepts
+
+## Taxonomy of Longitudinal Models
+
+:::{.fsmaller}
+- [Fluctuation Models:]{.b .blue} The outcome rises and falls around a stable baseline. There is no systematic long-term trajectory. (Covered this week)
+    + *Example: Daily mood, daily stress, heart rate.*
+
+:::{.fragment}
+- [Growth Curve Models:]{.b .red} The outcome systematically changes over time,<br>
+e.g., increasing, decreasing, or curving. (Covered next week)
+    + *Example: Child vocabulary acquisition, therapy outcomes.*
+    
+:::
+
+:::{.fragment}
+- **Lagged Change Models:** We care about how the outcome at Time *t* predicts the outcome at Time *t+1*. (Not covered in this course, difficult with MLM)
+    + *Example: Does poor sleep tonight predict lower mood tomorrow?*
+    
+:::
+:::
+
+## Visualizing Fluctuation and Growth
+
+```{r}
+#| echo: false
+#| fig-width: 11
+#| fig-height: 5
+
+set.seed(12345)
+time_pts <- 1:15
+
+# 1. Simulate Fluctuation Data
+fluct_data <- data.frame(
+  time = time_pts,
+  baseline = 50, 
+  observed = 50 + rnorm(length(time_pts), mean = 0, sd = 8)
+)
+
+# 2. Simulate Growth Data
+growth_data <- data.frame(
+  time = time_pts,
+  baseline = 30 + 3 * time_pts, 
+  observed = 30 + 3 * time_pts + rnorm(length(time_pts), mean = 0, sd = 4)
+)
+
+# Plot 1: Fluctuation
+p_fluct <- ggplot(fluct_data, aes(x = time)) +
+  # Draw the stable baseline (trait)
+  geom_hline(yintercept = 50, linetype = "dashed", color = "gray60", linewidth = 0.8) +
+  # Draw the residuals (within-person fluctuation)
+  geom_segment(aes(xend = time, y = baseline, yend = observed), 
+               color = "#357EDD", linewidth = 1.5) +
+  # Draw the observed points
+  geom_point(aes(y = observed), size = 3, color = "black") +
+  scale_y_continuous(limits = c(20, 80)) +
+  theme_classic(base_size = 20) +
+  labs(
+    title = "Fluctuation",
+    subtitle = "Focus: Predicting the deviations",
+    x = "Time",
+    y = "Outcome"
+  )
+
+# Plot 2: Growth
+p_growth <- ggplot(growth_data, aes(x = time)) +
+  # Draw the residuals (within-person fluctuation around the trend)
+  geom_segment(aes(xend = time, y = baseline, yend = observed), 
+               color = "gray80", linewidth = 0.8) +
+  # Draw the changing baseline (trajectory)
+  geom_line(aes(y = baseline), linetype = "dashed", color = "#E7040F", linewidth = 1.2) +
+  # Draw the observed points
+  geom_point(aes(y = observed), size = 3, color = "black") +
+  scale_y_continuous(limits = c(20, 80)) +
+  theme_classic(base_size = 20) +
+  labs(
+    title = "Growth",
+    subtitle = "Focus: Modeling the shape of change",
+    x = "Time",
+    y = "" 
+  )
+
+# Combine
+p_fluct + p_growth
+```
+
+
+# Modeling Fluctuation
+
+## Overview
+
+- Fluctuation models are perfect for Ecological Momentary Assessment (EMA) or daily diary designs.
+- We want to know how temporary changes in a predictor (a state) relate to temporary changes in an outcome.
+- To do this correctly, we must decompose our Level 1 predictors.
+
+## The EMA Example
+
+**Main Variables**
+
+- Outcome = `performance` (numeric score on a daily task)
+- Predictor = `stress` (self-reported daily stress)
+- Time = `studyday` (the day of the study)
+
+**Research Question**
+
+- Does a person's *daily stress* (state) predict their *daily performance*, and does their *average stress* (trait) predict their *average performance*?
+
+## Example Data
+
+```{r}
+#| message: false
+#| replace_path: ["../../data/", ""]
+
+library(tidyverse)
+library(glmmTMB)
+library(easystats)
+
+ema <- read_csv("../../data/ema_sim.csv")
+glimpse(ema)
+```
+
+:::{.fsmaller}
+- We plan to predict `performance` (L1) from `stress` (L1) for each subject.
+- Notice the jumps in `studyday`. Participants may not respond *every* day.
+:::
+
+## L1 Predictor Decomposition
+
+:::{.fsmaller}
+If we use `stress` as a predictor, its slope will be an *uninterpretable blend* of the within-person and between-person effects. We must first decompose it!
+:::
+
+```{r}
+ema_prep <- ema |> 
+  mutate(
+    .by = subject,
+    stress_b = mean(stress, na.rm = TRUE), # Trait (L2)
+    stress_w = stress - stress_b           # State (L1)
+  ) |> 
+  print(n = 3)
+```
+
+## How important was this?
+
+:::{.fsmaller}
+Calculating the predictor's ICC can help us understand its multilevel structure
+:::
+
+```{r}
+fit_stress <- glmmTMB(stress ~ 1 + (1 | subject), data = ema)
+icc(fit_stress)
+```
+
+:::{.fsmaller .mt4}
+- **ICC near 0:** The variable is almost entirely a *state*. Everyone has the same baseline, and all the action is in day-to-day fluctuation.
+- **ICC near 1:** The variable is almost entirely a *trait*. People differ from one another, but their daily scores never change from their baseline.
+- **ICC in between:** The variable has meaningful variance at both levels.<br>We **must** decompose it to avoid an uninterpretable, blended slope.
+
+:::
+
+## Multilevel Equation
+
+:::{.tc .b}
+Level One (Observation)
+:::
+
+$$y_{ti} = \beta_{0i} + \beta_{1i} x_{ti}^{(w)} + \color{#4daf4a}{e_{ti}}$$
+
+:::{.tc .b}
+Level Two (Cluster)
+:::
+
+$$\begin{align}
+\beta_{0i} &= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_{i}^{(b)} +  \color{#e41a1c}{u_{0i}} \\
+\beta_{1i} &= \color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1i}}
+\end{align}$$
+
+## Path Diagram
+
+![](../../diagrams/fluctuation1.png)
+
+## Mixed (or Reduced) Equation
+
+Substitute the L2 equations directly into the L1 equation:
+
+$$y_{ti} = (\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_{i}^{(b)} + \color{#e41a1c}{u_{0i}}) + (\color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1i}}) x_{ti}^{(w)} + \color{#4daf4a}{e_{ti}}$$
+
+:::{.fragment}
+Distribute and rearrange to group the fixed and random parts:
+
+$$y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_{i}^{(b)} + \color{#377eb8}{\gamma_{10}} x_{ti}^{(w)}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} x_{ti}^{(w)}}_{\text{Random}} + \color{#4daf4a}{e_{ti}}$$
+:::
+
+## Formula
+
+:::{.fsmaller}
+$$y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_{i}^{(b)} + \color{#377eb8}{\gamma_{10}} x_{ti}^{(w)}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} x_{ti}^{(w)}}_{\text{(Random)}} + \color{#4daf4a}{e_{ti}}$$
+
+**Generic**
+
+:::{.tc}
+`y ~ 1 + x_b + x_w + (1 + x_w | cluster)`
+
+where the [1 + x_b + x_w]{.blue} part is fixed<br>
+and the [(1 + x_w | cluster)]{.red} part is random
+:::
+
+:::{.fragment}
+**Example**
+
+:::{.tc}
+`performance ~ 1 + stress_b + stress_w`<br>
+`+ (1 + stress_w | subject)`
+:::
+:::
+:::
+
+## Fitting the Model
+
+```{r}
+fit_base <- glmmTMB(
+  formula = performance ~ 1 + stress_b + stress_w + (1 + stress_w | subject),
+  data = ema_prep
+)
+```
+
+```{r}
+model_parameters(fit_base, effects = "fixed")
+```
+
+:::{.fsmaller .fragment .mt4}
+Both traits and states matter. People with higher average stress perform worse overall $(\gamma_{01}=-2.06)$. Additionally, on days when a person is more stressed than their own baseline, their performance drops further $(\gamma_{10}=-0.96)$.
+:::
+
+## Interpreting the Random Effects {.smaller}
+
+```{r}
+model_parameters(fit_base, effects = "random")
+```
+
+- `SD (Intercept)` ($\tau_{00}=4.94$): Even after accounting for trait stress, there is substantial variation in people's baseline performance. 
+- `SD (stress_w)` ($\tau_{11}=0.64$): The penalty for a stressful day is not identical for everyone. Some people are more reactive to daily stress than others.
+- `Cor (Intercept~stress_w)` ($\tau_{10}=0.01$): There is virtually no correlation between baseline performance and stress reactivity.
+- `SD (Residual)` ($\sigma=2.78$): The remaining daily fluctuation in performance that is not explained by state stress.
+
+## Visualizing Random Effects
+
+```{r}
+#| message: false
+#| fig-width: 10
+#| fig-height: 5
+
+estimate_relation(fit_base, by = c("stress_w", "subject=[sample 6]")) |> plot()
+```
+
+# Auto-Moderation
+
+## Stress Reactivity
+
+:::{.fsmaller}
+Now that we have separated stress into Trait (L2) and State (L1) components, we can ask a more complex theoretical question.
+
+:::{.fragment .mt4}
+> Does a person's average stress level (Trait) moderate their reactivity to daily stress fluctuations (State)?
+
+:::
+
+:::{.fragment .mt4}
+*Hypothesis: People who are chronically stressed may lack the coping resources to handle bad days. Therefore, the negative effect of daily stress on performance will be even stronger (steeper) for individuals with high average stress.*
+:::
+:::
+
+## Multilevel Equation
+
+:::{.tc .b}
+Level One (Observation)
+:::
+
+$$y_{ti} = \beta_{0i} + \beta_{1i} x_{ti}^{(w)} + \color{#4daf4a}{e_{ti}}$$
+
+:::{.tc .b}
+Level Two (Cluster)
+:::
+
+$$\begin{align}
+\beta_{0i} &= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_{i}^{(b)} +  \color{#e41a1c}{u_{0i}} \\
+\beta_{1i} &= \color{#377eb8}{\gamma_{10}} + \underbrace{\color{#377eb8}{\gamma_{11}} x_{i}^{(b)}}_{\text{New}} + \color{#e41a1c}{u_{1i}}
+\end{align}$$
+
+## Path Diagram
+
+![](../../diagrams/fluctuation2.png)
+
+## Fitting the Model
+
+```{r}
+fit_auto <- glmmTMB(
+  formula = performance ~ 1 + stress_b * stress_w + (1 + stress_w | subject),
+  data = ema_prep
+)
+model_parameters(fit_auto, effects = "fixed")
+```
+
+## Simple Slopes Analysis
+
+```{r}
+#| message: false
+
+estimate_slopes(fit_auto, slope = "stress_w", by = "stress_b=[quartiles]")
+```
+
+:::{.fsmaller}
+The performance cost of daily (state) stress is largest for those with higher average (trait) stress. There is evidence of a "compounding" effect.
+:::
+
+## Visualizing the Model
+
+```{r}
+estimate_relation(fit_auto, by = c("stress_w", "stress_b=[quartiles]")) |> plot()
+```
+
+# Continuous Time
+
+## The Unequal Time Problem
+
+:::{.fsmaller}
+- In the last lecture, we used an AR(1) structure to handle autocorrelation.
+- Discrete AR(1) assumes that the time interval between step 1 and step 2 is identical to the interval between step 2 and step 3.
+- In EMA and daily diary research, this is almost never true. Participants miss surveys, or surveys are triggered randomly.
+:::
+
+:::{.fragment}
+```{r}
+ema_prep |> filter(subject == 1) |> pull(studyday)
+```
+:::{.fsmaller}
+A discrete AR(1) model would treat the jump from Day 6 to Day 8 exactly the same as the jump from Day 1 to Day 2.
+:::
+:::
+
+## The Spatial Exponential Model
+
+:::{.fsmaller}
+- Just like our discrete AR(1) model, we partition the error into white noise $(e_{ti})$ and autocorrelated error $(v_{ti})$. 
+- However, the Spatial Exponential structure calculates the **true time gap** between any two observations ($t$ and $t'$) to handle unequal intervals.
+:::
+
+:::{.fragment}
+$$\color{#4daf4a}{\mathbf{v}_i} \sim \text{EXP}(0, \color{#4daf4a}{\sigma_v}, \color{#4daf4a}{\rho})$$
+:::
+
+:::{.fragment}
+$$\text{Corr}(v_{ti}, v_{t'i}) = \color{#4daf4a}{\rho}^{|t - t'|}$$
+
+:::{.fsmaller}
+- If $\rho = 0.5$ and the gap is **1 day**, the correlation is $0.5^1 = 0.50$.
+- If the gap is **3 days**, the correlation decays to $0.5^3 = 0.125$.
+:::
+:::
+
+## Prepping the Time Factor
+
+:::{.fsmaller}
+To use the `exp()` covariance structure in `glmmTMB`, we need to convert our numeric time variable into a special sorted factor using `numFactor()`. 
+:::
+
+```{r}
+ema_clean <- 
+  ema_prep |> 
+  # Sort by studyday within subjects
+  arrange(subject, studyday) |> 
+  # Create a numFactor for exp()
+  mutate(time = numFactor(studyday)) |> 
+  print(n = 4)
+```
+
+
+## Fitting the Exponential Model
+
+:::{.fsmaller}
+Instead of `ar1()`, we simply add the `exp()` term to the formula.
+:::
+
+```{r}
+fit_exp <- glmmTMB(
+  formula = performance ~ 
+    1 + stress_b * stress_w +  # fixed Effects
+    (1 + stress_w | subject) + # random Effects
+    exp(0 + time | subject),   # exp by time (no intercept)
+  data = ema_clean
+)
+model_parameters(fit_exp, effects = "fixed")
+```
+
+## Exponential Parameters {.smaller}
+
+```{r}
+#| include: false
+
+options(width = 100)
+```
+
+```{r}
+VarCorr(fit_exp)
+```
+
+```{r}
+#| include: false
+
+options(width = 80)
+```
+
+- $\color{#4daf4a}{\sigma_v}=2.96431$: The magnitude of the drift
+- $\color{#4daf4a}{\rho}=0.645$: The carryover (or memory) of the drift
+
+## The Exponential Decay in Action
+
+:::{.fsmaller}
+Look closely at the correlation matrix for `subject.1`. The model calculates a baseline 1-day correlation ($\rho$) of **0.645**. 
+:::
+
+:::{.fragment .fsmaller}
+Because we used `exp()`, the correlation for a gap of $t$ days is exactly $\rho^t$.
+
+- **1-Day Gap** (e.g., Day 1 to Day 2): $\rho^1 = 0.645$
+- **2-Day Gap** (e.g., Day 1 to Day 3): $0.645^2 = 0.416$
+- **3-Day Gap** (e.g., Day 1 to Day 4): $0.645^3 = 0.269$
+- **4-Day Gap** (e.g., Day 1 to Day 5): $0.645^4 = 0.173$
+
+The model automatically handles the missing days by applying the correct mathematical decay to the gaps!
+:::
+
+## Visualizing the Decay
+
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 5
+
+decay_df <- data.frame(
+  gap = seq(0, 5, by = 0.1),
+  correlation = 0.646^seq(0, 5, by = 0.1)
+)
+
+ggplot(decay_df, aes(x = gap, y = correlation)) +
+  geom_line(color = "#377eb8", linewidth = 1.5) +
+  geom_point(data = data.frame(gap = 0:5, correlation = 0.646^(0:5)), size = 4) +
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2)) +
+  labs(
+    x = "True Time Gap (Days)",
+    y = "Autocorrelation"
+  )
+```
+
+## Did the Exponential Decay Help?
+
+```{r}
+#| message: false
+
+test_lrt(fit_auto, fit_exp)
+compare_performance(fit_auto, fit_exp, metrics = c("AIC", "BIC"))
+```

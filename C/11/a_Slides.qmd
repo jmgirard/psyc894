@@ -31,9 +31,9 @@ library(glmmTMB)
 
 source(here("_common.R"))
 
-set_theme(theme_gray(base_size = 24))
+set_theme(theme_gray(base_size = 20))
 
-options(width = 120)
+options(width = 80)
 ```
 
 ## Roadmap
@@ -142,8 +142,8 @@ Level One (Observation)
 
 $$
 \begin{align}
-y_{ij} &= \beta_{0j} + \color{#4daf4a}{e_{ij}} \\
-\color{#4daf4a}{e_{ij}} &\sim \text{Normal}(0, \color{#4daf4a}{\sigma})
+y_{ti} &= \beta_{0i} + \color{#4daf4a}{e_{ti}} \\
+\color{#4daf4a}{e_{ti}} &\sim \text{Normal}(0, \color{#4daf4a}{\sigma})
 \end{align}
 $$
 
@@ -153,10 +153,14 @@ Level Two (Cluster)
 
 $$
 \begin{align}
-\beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_{j} +  \color{#e41a1c}{u_{0j}} \\
-\color{#e41a1c}{u_{0j}} &\sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}})
+\beta_{0i} &= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_{i} +  \color{#e41a1c}{u_{0i}} \\
+\color{#e41a1c}{u_{0i}} &\sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}})
 \end{align}
 $$
+
+:::{.fsmaller}
+Note that we have changed from $i$ within $j$ to $t$ within $i$
+:::
 
 ## Path Diagram
 ![](../../diagrams/repeated_measures.png)
@@ -167,29 +171,29 @@ $$
 
 $$
 \begin{alignat}{2}
-&\text{L1:} \quad & y_{ij} &= \beta_{0j} + \color{#4daf4a}{e_{ij}} \\
-&\text{L2:} \quad & \beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}} \\
+&\text{L1:} \quad & y_{ti} &= \beta_{0i} + \color{#4daf4a}{e_{ti}} \\
+&\text{L2:} \quad & \beta_{0i} &= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_i + \color{#e41a1c}{u_{0i}} \\
 \end{alignat}
 $$
 
 Substitute the L2 equations directly into the L1 equation:
 
 $$
-y_{ij} = (\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}}) + \color{#4daf4a}{e_{ij}}
+y_{ti} = (\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_i + \color{#e41a1c}{u_{0i}}) + \color{#4daf4a}{e_{ti}}
 $$
 
 :::{.fragment}
 Rearrange to group the fixed and random parts:
 
 $$
-y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}}}_{\text{Random}} + \color{#4daf4a}{e_{ij}}
+y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_i}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}}}_{\text{Random}} + \color{#4daf4a}{e_{ti}}
 $$
 :::
 
 ## Formula
 
 $$
-y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}}}_{\text{(Random)}} + \color{#4daf4a}{e_{ij}}
+y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_i}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}}}_{\text{(Random)}} + \color{#4daf4a}{e_{ti}}
 $$
 
 **Generic**
@@ -222,7 +226,7 @@ model_parameters(fit_mlm, effects = "all")
 ## Visualizing the Results
 
 ```{r}
-estimate_relation(fit_mlm, by = "icontrol") |> plot()
+estimate_relation(fit_mlm, by = "icontrol") |> plot() + labs(y = "performance")
 ```
 
 
@@ -277,17 +281,17 @@ We can expand our model by adding predictors at Level 1. What if those repeated 
 Level One (Observation)
 :::
 
-$$y_{ij} = \beta_{0j} + \beta_{1j} \text{TASK2}_{ij} + \beta_{2j} \text{TASK3}_{ij} + \beta_{3j} \text{TASK4}_{ij} + \color{#4daf4a}{e_{ij}}$$
+$$y_{ti} = \beta_{0i} + \beta_{1i} \text{TASK2}_{ti} + \beta_{2i} \text{TASK3}_{ti} + \beta_{3i} \text{TASK4}_{ti} + \color{#4daf4a}{e_{ti}}$$
 
 :::{.tc .b}
 Level Two (Cluster)
 :::
 
 $$\begin{align}
-\beta_{0j} &= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{0j}} \\
-\beta_{1j} &= \color{#377eb8}{\gamma_{10}} + \color{#377eb8}{\gamma_{11}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{1j}} \\
-\beta_{2j} &= \color{#377eb8}{\gamma_{20}} + \color{#377eb8}{\gamma_{21}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{2j}} \\
-\beta_{3j} &= \color{#377eb8}{\gamma_{30}} + \color{#377eb8}{\gamma_{31}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{3j}} \\
+\beta_{0i} &= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} \text{ICTL}_{i} +  \color{#e41a1c}{u_{0i}} \\
+\beta_{1i} &= \color{#377eb8}{\gamma_{10}} + \color{#377eb8}{\gamma_{11}} \text{ICTL}_{i} +  \color{#e41a1c}{u_{1i}} \\
+\beta_{2i} &= \color{#377eb8}{\gamma_{20}} + \color{#377eb8}{\gamma_{21}} \text{ICTL}_{i} +  \color{#e41a1c}{u_{2i}} \\
+\beta_{3i} &= \color{#377eb8}{\gamma_{30}} + \color{#377eb8}{\gamma_{31}} \text{ICTL}_{i} +  \color{#e41a1c}{u_{3i}} \\
 \end{align}$$
 
 ## Multilevel Equation Part 2
@@ -297,7 +301,7 @@ Level One (Observation)
 :::
 
 $$
-\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
+\color{#4daf4a}{e_{ti}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
 $$
 
 :::{.tc .b}
@@ -305,10 +309,10 @@ Level Two (Cluster)
 :::
 
 $$\begin{bmatrix}
-\color{#e41a1c}{u_{0j}}\\ 
-\color{#e41a1c}{u_{1j}}\\ 
-\color{#e41a1c}{u_{2j}}\\ 
-\color{#e41a1c}{u_{3j}}
+\color{#e41a1c}{u_{0i}}\\ 
+\color{#e41a1c}{u_{1i}}\\ 
+\color{#e41a1c}{u_{2i}}\\ 
+\color{#e41a1c}{u_{3i}}
 \end{bmatrix} 
 \sim \text{MVN}\left(
 \begin{bmatrix}
@@ -334,18 +338,18 @@ $$\begin{bmatrix}
 Substitute the L2 equations directly into the L1 equation:
 
 $$\begin{align}
-y_{ij} &= (\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{0j}}) \\
-&\quad + (\color{#377eb8}{\gamma_{10}} + \color{#377eb8}{\gamma_{11}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{1j}})\text{TASK2}_{ij} \\
-&\quad + (\color{#377eb8}{\gamma_{20}} + \color{#377eb8}{\gamma_{21}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{2j}})\text{TASK3}_{ij} \\
-&\quad + (\color{#377eb8}{\gamma_{30}} + \color{#377eb8}{\gamma_{31}} \text{ICTL}_{j} +  \color{#e41a1c}{u_{3j}})\text{TASK4}_{ij} + \color{#4daf4a}{e_{ij}}
+y_{ti} &= (\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} \text{ICTL}_{i} +  \color{#e41a1c}{u_{0i}}) \\
+&\quad + (\color{#377eb8}{\gamma_{10}} + \color{#377eb8}{\gamma_{11}} \text{ICTL}_{i} +  \color{#e41a1c}{u_{1i}})\text{TASK2}_{ti} \\
+&\quad + (\color{#377eb8}{\gamma_{20}} + \color{#377eb8}{\gamma_{21}} \text{ICTL}_{i} +  \color{#e41a1c}{u_{2i}})\text{TASK3}_{ti} \\
+&\quad + (\color{#377eb8}{\gamma_{30}} + \color{#377eb8}{\gamma_{31}} \text{ICTL}_{i} +  \color{#e41a1c}{u_{3i}})\text{TASK4}_{ti} + \color{#4daf4a}{e_{ti}}
 \end{align}$$
 
 :::{.fragment}
 Rearrange to group the fixed and random parts:
 
 $$\begin{align}
-y_{ij} &= \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}}\text{ICTL}_{j} + \color{#377eb8}{\gamma_{10}}\text{TASK2}_{ij} + \dots + \color{#377eb8}{\gamma_{31}}\text{ICTL}_{j}\text{TASK4}_{ij}}_{\text{Fixed}} \\
-&\quad + \underbrace{\color{#e41a1c}{u_{0j}} + \color{#e41a1c}{u_{1j}}\text{TASK2}_{ij} + \color{#e41a1c}{u_{2j}}\text{TASK3}_{ij} + \color{#e41a1c}{u_{3j}}\text{TASK4}_{ij}}_{\text{Random}} + \color{#4daf4a}{e_{ij}}
+y_{ti} &= \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}}\text{ICTL}_{i} + \color{#377eb8}{\gamma_{10}}\text{TASK2}_{ti} + \dots + \color{#377eb8}{\gamma_{31}}\text{ICTL}_{i}\text{TASK4}_{ti}}_{\text{Fixed}} \\
+&\quad + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}}\text{TASK2}_{ti} + \color{#e41a1c}{u_{2i}}\text{TASK3}_{ti} + \color{#e41a1c}{u_{3i}}\text{TASK4}_{ti}}_{\text{Random}} + \color{#4daf4a}{e_{ti}}
 \end{align}$$
 :::
 
@@ -414,7 +418,7 @@ estimate_relation(fit1, by = c("icontrol", "task")) |> plot()
 
 ## The Independence Assumption
 
-- MLM assumes that the Level 1 residuals ($e_{ij}$) are independent **after** accounting for the cluster variances ($u_{0j}$).
+- MLM assumes that the Level 1 residuals ($e_{ti}$) are independent **after** accounting for the cluster variances ($u_{0i}$).
 - But what if the observations happen in a sequence over time?
 - Even among observations in the same cluster, trials that are closer together in time might be more similar to one another.
 - This creates **autocorrelation**, violating our assumption.
@@ -444,30 +448,45 @@ Because this flags a violation, we should refit the model and explicitly account
 ## Partitioning the Error
 
 :::{.fsmaller}
-Previously, we only had one L1 error term ($e_{ij}$). To fix the autocorrelation, we add a new "Time Drift" component ($v_{ij}$):
+To fix the autocorrelation, we split our unmeasured error into two piles:
 
-$$y_{ij} = \text{Fixed} + \text{Random} + \color{#4daf4a}{(v_{ij} + e_{ij})}$$
+$$y_{ti} = \text{Fixed} + \text{Random} + \color{#4daf4a}{(v_{ti} + e_{ti})}$$
 
 :::{.fragment}
 - **White Noise:** The independent, unpredictable noise for a specific trial.
-$$\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma_e})$$
+$$\color{#4daf4a}{e_{ti}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma_e})$$
+:::
 
-- **Time Drift:** Error that correlates with adjacent trials. Adding this requires two new parameters: the SD of the drift ($\sigma_v$) and the lag-1 correlation ($\rho$).
-$$\color{#4daf4a}{\mathbf{v}_j} \sim \text{AR1}(0, \color{#4daf4a}{\sigma_v}, \color{#4daf4a}{\rho})$$
-    
+:::{.fragment}
+- **Autocorrelated Error:** The portion of the error that correlates with adjacent trials. Adding this requires two new parameters: the *amount* of this error $(\sigma_v)$ and the *strength* of the correlation $(\rho)$.
+$$\color{#4daf4a}{\mathbf{v}_i} \sim \text{AR1}(0, \color{#4daf4a}{\sigma_v}, \color{#4daf4a}{\rho})$$
 :::
 :::
+
+## Prepping the Time Factor
+
+```{r}
+intell <- 
+  intell |> 
+  # Sort by trial within subject
+  arrange(subject, trial) |> 
+  # Create a factor for ar1()
+  mutate(time = factor(trial)) |> 
+  print(n = 6)
+```
 
 ## Fitting the AR(1) Model
 
-In `glmmTMB`, we handle this by simply adding an `ar1()` term to our random effects. The software will automatically estimate the Time Drift ($v_{ij}$) alongside the Random Static ($e_{ij}$).
+:::{.fsmaller}
+In `glmmTMB`, we handle this by simply adding an `ar1()` term to our random effects. The software will automatically estimate $\sigma_v$ and $\rho$ for us.
+:::
 
 ```{r}
 fit_ar1 <- glmmTMB(
   formula = performance ~ 
-    1 + task * icontrol +             # fixed effects
-    (1 + task | subject) +            # random effects
-    ar1(factor(trial) + 0 | subject), # autocorrelation
+    1 + task * icontrol +    # fixed effects
+    (1 + task | subject) +   # random effects
+    ar1(0 + time | subject), # ar1 by time (no intercept)
   data = intell
 )
 ```
@@ -489,18 +508,20 @@ test_lrt(fit1, fit_ar1)
 ```
 
 :::{.fsmaller .pv4}
-**Yes!** Adding the two parameters for the Time Drift (the variance and $\rho$ correlation) resulted in a significant improvement to model fit
+**Yes!** Adding the two parameters for the Autocorrelated Error (the amount and the strength) resulted in a significant improvement to model fit
 :::
 
-## What was the actual Time Drift?
+## AR1 Parameter Estimates
 
 ```{r}
 VarCorr(fit_ar1)
 ```
 
 :::{.fragment .fsmaller .mt4}
-- **SD (`factor(trial)1`)**: This is $\color{#4daf4a}{\sigma_v}$ (2.81), the SD of the time drift.
-- **Corr (`ar1`)**: This is $\color{#4daf4a}{\rho}$ (0.61). Because this is an AR(1) model, this single number represents the correlation between *any* two adjacent trials.
+Look to the `subject.1 time1` row:
+
+- $\color{#4daf4a}{\sigma_v}=2.8056$: The amount of autocorrelated error.
+- $\color{#4daf4a}{\rho}=0.606$: The strength of the autocorrelation.
 :::
 
 ## A Warning About AR(1)
