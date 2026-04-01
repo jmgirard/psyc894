@@ -23,11 +23,11 @@ The following weeks are ready for viewing:
 :::{.column width="50%"}
 - [x] Week 09
 - [x] Week 10
-- [ ] Week 11
+- [x] Week 11
 - [ ] Week 12
 - [ ] Week 13
 - [ ] Week 14
-- [ ] Week 15
-- [ ] Week 16
+- [x] Week 15
+- [x] Week 16
 :::
 :::
