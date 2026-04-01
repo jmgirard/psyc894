@@ -526,21 +526,21 @@ Look to the `subject.1 time1` row:
 
 ## A Warning About AR(1)
 
-Discrete AR(1) models make a massive assumption:<br>
-**Time intervals are equally spaced.**
+:::{.fsmaller}
+Discrete AR(1) models make a key assumption: [Time steps are integers.]{.b .red}
 
 :::{.fragment}
-- In a lab setting, Trials 1, 2, and 3 often occur back-to-back.<br>
-The "distance" between each step is identical.
-- But what happens in the real world?
+- `ar1()` can handle missing observations (e.g., Trial 1, 2, and 4) *if* we carefully format the factor levels to explicitly include the missing Trial 3.
+- But what happens in the real world when time isn't a simple integer sequence?
     + A subject completes Survey 1 at 9:00 AM.
     + They complete Survey 2 at 10:30 AM (1.5 hours later).
     + They complete Survey 3 at 6:00 PM (7.5 hours later).
     
 :::
+:::
 
 ## The Continuous Time Problem
 
-- If we just label those EMA surveys as `factor(survey_number)` levels 1, 2, and 3...
-- ...the AR(1) model will blindly treat the 1.5-hour jump exactly the same as the 7.5-hour jump (a 1-step $\rho$ correlation).
-- **Next Lecture:** We will dive into Longitudinal Data and learn how to use continuous-time autocorrelation structures (like Spatial Exponential) to handle messy, real-world time!
+- Because `ar1()` requires a discrete factor, we can't easily pass it continuous or fractional time gaps (1.5 vs. 7.5 hours).
+- If we just force those surveys into consecutive levels (1, 2, and 3), the AR(1) model blindly treats the 1.5-hour jump exactly the same as the 7.5-hour jump.
+- **Next Lecture:** We will dive into Longitudinal Data and learn how to use continuous-time autocorrelation structures (like Spatial Exponential) to handle real-world fractional time!

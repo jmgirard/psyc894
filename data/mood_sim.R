@@ -18,14 +18,14 @@ generate_subject_data <- function(subj_id) {
   n_obs <- nrow(prompts)
 
   # Assign a specific time of day to each prompt
-  time_ping <- prompts$studyday + sample(daily_fractions, n_obs, replace = TRUE)
-  prompts$time_ping <- time_ping
+  studyday_frac <- prompts$studyday + sample(daily_fractions, n_obs, replace = TRUE)
+  prompts$studyday_frac <- studyday_frac
 
   # True continuous DGP
   rho <- 0.40
   sigma_v <- 2
 
-  dist_mat <- as.matrix(dist(time_ping))
+  dist_mat <- as.matrix(dist(studyday_frac))
   cov_mat <- (sigma_v^2) * (rho ^ dist_mat)
 
   v_ti <- mvrnorm(1, mu = rep(0, n_obs), Sigma = cov_mat)
@@ -54,9 +54,9 @@ mood_sim <- map_dfr(1:n_subjects, generate_subject_data) |>
       (1.5 * workout * (sleep_b - 7)) +
       u_0i +
       (u_1i * workout) +
-      (u_2i * sleep_w) + # Random slope applied
+      (u_2i * sleep_w) +
       v_ti + e_ti
   ) |>
-  dplyr::select(subject, studyday, time_ping, workout, sleep, mood)
+  dplyr::select(subject, studyday, studyday_frac, workout, sleep, mood)
 
 write_csv(mood_sim, "data/mood_sim.csv")

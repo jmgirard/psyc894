@@ -31,7 +31,7 @@ library(glmmTMB)
 
 source(here("_common.R"))
 
-set_theme(theme_gray(base_size = 20))
+set_theme(theme_classic(base_size = 20))
 
 options(width = 80)
 ```
@@ -46,7 +46,7 @@ options(width = 80)
     + *State vs. Trait Predictors*
   
 2. Advanced Applications
-    + *State--Trait Automoderation*
+    + *State-Trait Automoderation*
     + *Spatial Exponential Errors*
     
 :::
@@ -158,7 +158,7 @@ p_fluct + p_growth
 
 - Outcome = `performance` (numeric score on a daily task)
 - Predictor = `stress` (self-reported daily stress)
-- Time = `studyday` (the day of the study)
+- Time = `studyday_frac` (the exact fractional day of the study)
 
 **Research Question**
 
@@ -180,7 +180,7 @@ glimpse(ema)
 
 :::{.fsmaller}
 - We plan to predict `performance` (L1) from `stress` (L1) for each subject.
-- Notice the jumps in `studyday`. Participants may not respond *every* day.
+- Participants are pinged at random hours across the study.
 :::
 
 ## L1 Predictor Decomposition
@@ -213,7 +213,7 @@ icc(fit_stress)
 :::{.fsmaller .mt4}
 - **ICC near 0:** The variable is almost entirely a *state*. Everyone has the same baseline, and all the action is in day-to-day fluctuation.
 - **ICC near 1:** The variable is almost entirely a *trait*. People differ from one another, but their daily scores never change from their baseline.
-- **ICC in between:** The variable has meaningful variance at both levels.<br>We **must** decompose it to avoid an uninterpretable, blended slope.
+- **ICC in between:** The variable has meaningful variance at both levels. We **must** decompose it to avoid an uninterpretable, blended slope.
 
 :::
 
@@ -383,25 +383,24 @@ estimate_relation(fit_auto, by = c("stress_w", "stress_b=[quartiles]")) |> plot(
 ## The Unequal Time Problem
 
 :::{.fsmaller}
-- In the last lecture, we used an AR(1) structure to handle autocorrelation.
-- Discrete AR(1) assumes that the time interval between step 1 and step 2 is identical to the interval between step 2 and step 3.
-- In EMA and daily diary research, this is almost never true. Participants miss surveys, or surveys are triggered randomly.
+- `ar1()` assumes that the time between consecutive steps is identical.
+- In EMA designs, participants may be pinged at different times of day.
 :::
 
 :::{.fragment}
 ```{r}
-ema_prep |> filter(subject == 1) |> pull(studyday)
+ema_prep |> filter(subject == 1) |> print(n = 3)
 ```
+
 :::{.fsmaller}
-A discrete AR(1) model would treat the jump from Day 6 to Day 8 exactly the same as the jump from Day 1 to Day 2.
+The gap between the 9 AM and 2 PM prompts is 5 hours, but the overnight gap is 14 hours. Because discrete `ar1()` just looks at the sequence of steps, it forces the 5-hour gap and the 14-hour gap to have the exact same correlation!
 :::
 :::
 
 ## The Spatial Exponential Model
 
 :::{.fsmaller}
-- Just like our discrete AR(1) model, we partition the error into white noise $(e_{ti})$ and autocorrelated error $(v_{ti})$. 
-- However, the Spatial Exponential structure calculates the **true time gap** between any two observations ($t$ and $t'$) to handle unequal intervals.
+- This covariance structure calculates the **true time gap** $(\Delta t=|t-t'|)$ between any two observations to handle continuous fractional time.
 :::
 
 :::{.fragment}
@@ -409,84 +408,36 @@ $$\color{#4daf4a}{\mathbf{v}_i} \sim \text{EXP}(0, \color{#4daf4a}{\sigma_v}, \c
 :::
 
 :::{.fragment}
-$$\text{Corr}(v_{ti}, v_{t'i}) = \color{#4daf4a}{\rho}^{|t - t'|}$$
+$$\text{Corr}(v_{ti}, v_{t'i}) = \rho^{\Delta t}$$
 
 :::{.fsmaller}
-- If $\rho = 0.5$ and the gap is **1 day**, the correlation is $0.5^1 = 0.50$.
-- If the gap is **3 days**, the correlation decays to $0.5^3 = 0.125$.
+- $\color{#4daf4a}{\sigma_v}$: The amount of autocorrelated error.
+- $\color{#4daf4a}{\rho}$: The strength of the autocorrelation (for a 1-unit time gap).
 :::
 :::
-
-## Prepping the Time Factor
-
-:::{.fsmaller}
-To use the `exp()` covariance structure in `glmmTMB`, we need to convert our numeric time variable into a special sorted factor using `numFactor()`. 
-:::
-
-```{r}
-ema_clean <- 
-  ema_prep |> 
-  # Sort by studyday within subjects
-  arrange(subject, studyday) |> 
-  # Create a numFactor for exp()
-  mutate(time = numFactor(studyday)) |> 
-  print(n = 4)
-```
-
-
-## Fitting the Exponential Model
-
-:::{.fsmaller}
-Instead of `ar1()`, we simply add the `exp()` term to the formula.
-:::
-
-```{r}
-fit_exp <- glmmTMB(
-  formula = performance ~ 
-    1 + stress_b * stress_w +  # fixed Effects
-    (1 + stress_w | subject) + # random Effects
-    exp(0 + time | subject),   # exp by time (no intercept)
-  data = ema_clean
-)
-model_parameters(fit_exp, effects = "fixed")
-```
-
-## Exponential Parameters {.smaller}
-
-```{r}
-#| include: false
-
-options(width = 100)
-```
-
-```{r}
-VarCorr(fit_exp)
-```
-
-```{r}
-#| include: false
-
-options(width = 80)
-```
-
-- $\color{#4daf4a}{\sigma_v}=2.96431$: The magnitude of the drift
-- $\color{#4daf4a}{\rho}=0.645$: The carryover (or memory) of the drift
 
 ## The Exponential Decay in Action
 
 :::{.fsmaller}
-Look closely at the correlation matrix for `subject.1`. The model calculates a baseline 1-day correlation ($\rho$) of **0.645**. 
+Because the correlation structure follows an exponential decay $(\rho^{\Delta t})$, the autocorrelation carrying over from one prompt to the next depends heavily on your baseline 1-day strength $(\rho)$.
+
+:::{.columns}
+:::{.column}
+**Weak Autocorrelation ($\rho = 0.20$)**
+
+- 0.5-Day Gap: $0.20^{0.5} = 0.45$
+- 1.5-Day Gap: $0.20^{1.5} = 0.09$
 :::
 
-:::{.fragment .fsmaller}
-Because we used `exp()`, the correlation for a gap of $t$ days is exactly $\rho^t$.
+:::{.column}
+**Strong Autocorrelation ($\rho = 0.80$)**
 
-- **1-Day Gap** (e.g., Day 1 to Day 2): $\rho^1 = 0.645$
-- **2-Day Gap** (e.g., Day 1 to Day 3): $0.645^2 = 0.416$
-- **3-Day Gap** (e.g., Day 1 to Day 4): $0.645^3 = 0.269$
-- **4-Day Gap** (e.g., Day 1 to Day 5): $0.645^4 = 0.173$
+- 0.5-Day Gap: $0.80^{0.5} = 0.89$
+- 1.5-Day Gap: $0.80^{1.5} = 0.72$
+:::
+:::
 
-The model automatically handles the missing days by applying the correct mathematical decay to the gaps!
+The math automatically scales the correlation dynamically based on the exact fractional distance between observations.
 :::
 
 ## Visualizing the Decay
@@ -496,19 +447,60 @@ The model automatically handles the missing days by applying the correct mathema
 #| fig-width: 10
 #| fig-height: 5
 
-decay_df <- data.frame(
-  gap = seq(0, 5, by = 0.1),
-  correlation = 0.646^seq(0, 5, by = 0.1)
-)
+decay_df <- 
+  expand_grid(
+    gap = seq(0, 5, by = 0.1),
+    rho = seq(0.2, 0.8, by = 0.2)
+  ) |> 
+  mutate(correlation = rho^gap, rho = factor(rho))
 
-ggplot(decay_df, aes(x = gap, y = correlation)) +
-  geom_line(color = "#377eb8", linewidth = 1.5) +
-  geom_point(data = data.frame(gap = 0:5, correlation = 0.646^(0:5)), size = 4) +
+ggplot(decay_df, aes(x = gap, y = correlation, color = rho)) +
+  geom_line(linewidth = 1.5) +
   scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2)) +
+  scale_color_manual(
+    
+    values = c("#bdc9e1", "#74a9cf", "#2b8cbe", "#045a8d")
+  ) +
   labs(
-    x = "True Time Gap (Days)",
-    y = "Autocorrelation"
-  )
+    x = "True Time Gap (Fractional Days)",
+    y = "Autocorrelation",
+    color = "rho (𝜌)"
+  ) +
+  theme_classic(base_size = 20)
+```
+
+## Prepping the Time Factor
+
+:::{.fsmaller}
+To use the `exp()` covariance structure, we need to convert our continuous time variable into a special sorted number factor. 
+:::
+
+```{r}
+ema_clean <- 
+  ema_prep |> 
+  # Sort by exact time within subjects
+  arrange(subject, studyday_frac) |> 
+  # Create a numFactor for exp() using the continuous variable
+  mutate(time = numFactor(studyday_frac)) |> 
+  print(n = 3)
+```
+
+
+## Fitting the Exponential Model
+
+:::{.fsmaller}
+We simply add the `exp()` term and use our continuous time factor.
+:::
+
+```{r}
+fit_exp <- glmmTMB(
+  formula = performance ~ 
+    1 + stress_b * stress_w +       # fixed Effects
+    (1 + stress_w | subject) +      # random Effects
+    exp(0 + time | subject),   # exp by time (no intercept)
+  data = ema_clean
+)
+model_parameters(fit_exp, effects = "fixed")
 ```
 
 ## Did the Exponential Decay Help?
@@ -516,6 +508,8 @@ ggplot(decay_df, aes(x = gap, y = correlation)) +
 ```{r}
 #| message: false
 
+# Compare to our baseline auto-moderation model
 test_lrt(fit_auto, fit_exp)
+
 compare_performance(fit_auto, fit_exp, metrics = c("AIC", "BIC"))
 ```
