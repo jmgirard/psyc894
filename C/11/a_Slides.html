@@ -802,11 +802,12 @@ Conditional model:
 </section>
 <section class="slide level2">
 <h2>A Warning About AR(1)</h2>
-<p>Discrete AR(1) models make a massive assumption:<br> <strong>Time intervals are equally spaced.</strong></p>
+<div class="fsmaller">
+<p>Discrete AR(1) models make a key assumption: <span class="b red">Time steps are integers.</span></p>
 <div class="fragment">
 <ul>
-<li>In a lab setting, Trials 1, 2, and 3 often occur back-to-back.<br> The “distance” between each step is identical.</li>
-<li>But what happens in the real world?
+<li><code>ar1()</code> can handle missing observations (e.g., Trial 1, 2, and 4) <em>if</em> we carefully format the factor levels to explicitly include the missing Trial 3.</li>
+<li>But what happens in the real world when time isn’t a simple integer sequence?
 <ul>
 <li>A subject completes Survey 1 at 9:00 AM.</li>
 <li>They complete Survey 2 at 10:30 AM (1.5 hours later).</li>
@@ -814,13 +815,14 @@ Conditional model:
 </ul></li>
 </ul>
 </div>
+</div>
 </section>
 <section class="slide level2">
 <h2>The Continuous Time Problem</h2>
 <ul>
-<li>If we just label those EMA surveys as <code>factor(survey_number)</code> levels 1, 2, and 3…</li>
-<li>…the AR(1) model will blindly treat the 1.5-hour jump exactly the same as the 7.5-hour jump (a 1-step <span class="math inline">\(\rho\)</span> correlation).</li>
-<li><strong>Next Lecture:</strong> We will dive into Longitudinal Data and learn how to use continuous-time autocorrelation structures (like Spatial Exponential) to handle messy, real-world time!</li>
+<li>Because <code>ar1()</code> requires a discrete factor, we can’t easily pass it continuous or fractional time gaps (1.5 vs.&nbsp;7.5 hours).</li>
+<li>If we just force those surveys into consecutive levels (1, 2, and 3), the AR(1) model blindly treats the 1.5-hour jump exactly the same as the 7.5-hour jump.</li>
+<li><strong>Next Lecture:</strong> We will dive into Longitudinal Data and learn how to use continuous-time autocorrelation structures (like Spatial Exponential) to handle real-world fractional time!</li>
 </ul>
 
 

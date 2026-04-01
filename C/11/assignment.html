@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lab 11: Multilevel Modeling (Repeated Measures &amp; Fluctuation) – PSYC894</title>
+<title>Lab 11: Longitudinal Analysis 1 – PSYC894</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -106,35 +106,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -296,13 +267,12 @@ window.Quarto = {
    
   <ul>
   <li><a href="#understanding-time-in-this-lab" id="toc-understanding-time-in-this-lab" class="nav-link active" data-scroll-target="#understanding-time-in-this-lab">Understanding Time in this Lab</a></li>
-  <li><a href="#data-prep-0.5-pts" id="toc-data-prep-0.5-pts" class="nav-link" data-scroll-target="#data-prep-0.5-pts">1. Data Prep (0.5 pts)</a></li>
+  <li><a href="#data-prep-1.0-pts" id="toc-data-prep-1.0-pts" class="nav-link" data-scroll-target="#data-prep-1.0-pts">1. Data Prep (1.0 pts)</a></li>
   <li><a href="#base-model-1.0-pts" id="toc-base-model-1.0-pts" class="nav-link" data-scroll-target="#base-model-1.0-pts">2. Base Model (1.0 pts)</a></li>
   <li><a href="#cross-level-interaction-plotting-1.0-pts" id="toc-cross-level-interaction-plotting-1.0-pts" class="nav-link" data-scroll-target="#cross-level-interaction-plotting-1.0-pts">3. Cross-Level Interaction &amp; Plotting (1.0 pts)</a></li>
   <li><a href="#discrete-autocorrelation-1.0-pts" id="toc-discrete-autocorrelation-1.0-pts" class="nav-link" data-scroll-target="#discrete-autocorrelation-1.0-pts">4. Discrete Autocorrelation (1.0 pts)</a></li>
   <li><a href="#spatial-exponential-autocorrelation-1.0-pts" id="toc-spatial-exponential-autocorrelation-1.0-pts" class="nav-link" data-scroll-target="#spatial-exponential-autocorrelation-1.0-pts">5. Spatial Exponential Autocorrelation (1.0 pts)</a></li>
   <li><a href="#final-model-interpretation-1.0-pts" id="toc-final-model-interpretation-1.0-pts" class="nav-link" data-scroll-target="#final-model-interpretation-1.0-pts">6. Final Model Interpretation (1.0 pts)</a></li>
-  <li><a href="#conceptual-application-0.5-pts" id="toc-conceptual-application-0.5-pts" class="nav-link" data-scroll-target="#conceptual-application-0.5-pts">7. Conceptual Application (0.5 pts)</a></li>
   </ul>
 </nav>
     </div>
@@ -311,7 +281,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lab 11: Multilevel Modeling (Repeated Measures &amp; Fluctuation)</h1>
+<h1 class="title">Lab 11: Longitudinal Analysis 1</h1>
 </div>
 
 
@@ -333,39 +303,43 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="understanding-time-in-this-lab">Understanding Time in this Lab</h3>
 <p>Because participants were pinged at random times, the intervals between surveys are highly unequal. We have provided two different ways of representing time in this dataset to handle these complexities:</p>
 <ol type="1">
-<li><strong><code>studyday</code></strong>: This is a whole number (1 to 14) representing which day of the study the participant is on. Even if a participant answered at 8:00 AM on Day 1 and 8:00 PM on Day 2, the “distance” in <code>studyday</code> is treated as exactly 1 unit. We use this for our <strong>Discrete AR(1) model</strong>, which assumes observations happen in an equal-interval sequence.</li>
-<li><strong><code>time_ping</code></strong>: This is a decimal timestamp (e.g., 1.33, 2.80) representing the exact hour of the study. We use this for our <strong>Spatial Exponential model</strong>, which allows the model to calculate the <em>true</em> distance between observations to handle the continuous-time problem.</li>
+<li><code>studyday</code>: This is a whole number (1 to 14) representing which day of the study the participant is on. Even if a participant answered at 8:00 AM on Day 1 and 8:00 PM on Day 2, the “distance” in <code>studyday</code> is treated as exactly 1 unit. We use this for our <strong>Discrete AR(1) model</strong>, which assumes observations happen in an equal-interval sequence.</li>
+<li><code>studyday_frac</code>: This is a decimal timestamp (e.g., 1.33, 2.80) representing the exact hour of the study. We use this for our <strong>Spatial Exponential model</strong>, which allows the model to calculate the <em>true</em> distance between observations to handle the continuous-time problem.</li>
 </ol>
-<p>If we tried to use the messy <code>time_ping</code> decimals in a discrete AR(1) model, the software would treat every unique second as a separate category. This often leads to convergence errors because the model cannot find enough data to fill thousands of empty time slots.</p>
+<p>If we tried to use the messy <code>studyday_frac</code> decimals in a discrete AR(1) model, the software would treat every unique second as a separate category. This often leads to convergence errors because the model cannot find enough data to fill thousands of empty time slots.</p>
 </section>
-<section id="data-prep-0.5-pts" class="level2">
-<h2 class="anchored" data-anchor-id="data-prep-0.5-pts">1. Data Prep (0.5 pts)</h2>
+<section id="data-prep-1.0-pts" class="level2">
+<h2 class="anchored" data-anchor-id="data-prep-1.0-pts">1. Data Prep (1.0 pts)</h2>
 <p>Download the “mood_sim.csv” dataset from Canvas, add it to your project folder, and read it into R as a tibble called <code>dat_raw</code>. Use the code below to prepare the data for analysis. In your Quarto file, annotate this code by adding comments explaining what each step does.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dat_l2 <span class="ot">&lt;-</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  dat_raw <span class="sc">|&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> subject,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sleep_b =</span> <span class="fu">mean</span>(sleep, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">sleep_bc =</span> <span class="fu">center</span>(sleep_b)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  dat_raw <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># COMMENT</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> subject,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sleep_b =</span> <span class="fu">mean</span>(sleep, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># COMMENT</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleep_bc =</span> <span class="fu">center</span>(sleep_b))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  dat_raw <span class="sc">|&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># COMMENT</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(dat_l2, <span class="at">by =</span> <span class="st">"subject"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">sleep_w =</span> sleep <span class="sc">-</span> sleep_b,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">workout =</span> <span class="fu">factor</span>(workout)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(subject, time_ping) <span class="sc">|&gt;</span> </span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">time_discrete =</span> <span class="fu">factor</span>(studyday),</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">time_continuous =</span> <span class="fu">numFactor</span>(time_ping)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># COMMENT</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">sleep_w =</span> sleep <span class="sc">-</span> sleep_b,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># COMMENT</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">workout =</span> <span class="fu">factor</span>(workout)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># COMMENT</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(subject, studyday_frac) <span class="sc">|&gt;</span> </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># COMMENT</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">time_d =</span> <span class="fu">factor</span>(studyday),</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># COMMENT</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">time_c =</span> <span class="fu">numFactor</span>(studyday_frac)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="base-model-1.0-pts" class="level2">
@@ -376,26 +350,22 @@ window.Quarto = {
 <section id="cross-level-interaction-plotting-1.0-pts" class="level2">
 <h2 class="anchored" data-anchor-id="cross-level-interaction-plotting-1.0-pts">3. Cross-Level Interaction &amp; Plotting (1.0 pts)</h2>
 <p>Expand on your model from Part 2 by adding an interaction between the categorical state predictor and the centered trait predictor (<code>workout * sleep_bc</code>). We are testing whether a person’s average sleep moderates the mood benefits of a daily workout.</p>
-<p>Print the parameter summary for this new model. Then, use the <code>easystats</code> package (specifically <code>estimate_relation()</code> and <code>plot()</code>) to visualize this interaction.</p>
+<p>Print the parameter summary for this new model. Then, use the <code>easystats</code> package to visualize this interaction.</p>
 </section>
 <section id="discrete-autocorrelation-1.0-pts" class="level2">
 <h2 class="anchored" data-anchor-id="discrete-autocorrelation-1.0-pts">4. Discrete Autocorrelation (1.0 pts)</h2>
-<p>Using your model from Part 3, account for the sequence of observations by adding a discrete AR(1) structure to your random effects. Make sure you use the <code>time_discrete</code> variable you created during data prep.</p>
+<p>Using your model from Part 3, account for the sequence of observations by adding a discrete AR(1) structure to your random effects. Make sure you use the discrete <code>time_d</code> variable you created during data prep.</p>
 <p><strong>Computation Warning:</strong> <em>Models with autocorrelation structures and random slopes are mathematically complex. It is completely normal for the models from Parts 4 and 5 to take 30 to 60 seconds to run. Please be patient while the optimizer works!</em></p>
 <p>Compare this new Part 4 model to the Part 3 model using a Likelihood Ratio Test (LRT). Did adding the discrete autocorrelation structure improve model fit? <em>(Note: We use an LRT here because the two models are nested).</em></p>
 </section>
 <section id="spatial-exponential-autocorrelation-1.0-pts" class="level2">
 <h2 class="anchored" data-anchor-id="spatial-exponential-autocorrelation-1.0-pts">5. Spatial Exponential Autocorrelation (1.0 pts)</h2>
-<p>Because participants occasionally missed days, the time intervals in this study are not perfectly equally spaced. Fit a final model that swaps out the discrete AR(1) structure for a Spatial Exponential structure (<code>exp()</code>). Make sure you use the <code>time_continuous</code> variable you created during data prep.</p>
+<p>Because participants occasionally missed days, the time intervals in this study are not perfectly equally spaced. Fit a final model that swaps out the discrete AR(1) structure for a Spatial Exponential structure (<code>exp()</code>). Make sure you use the continuous <code>time_c</code> variable you created during data prep.</p>
 <p>Compare this Part 5 model to the Part 4 model using AIC and BIC. Which autocorrelation approach provides a better fit for this data? <em>(Note: We must use AIC/BIC here instead of an LRT because the AR1 and Exponential models are not nested).</em></p>
 </section>
 <section id="final-model-interpretation-1.0-pts" class="level2">
 <h2 class="anchored" data-anchor-id="final-model-interpretation-1.0-pts">6. Final Model Interpretation (1.0 pts)</h2>
 <p>Looking at the parameter tables for your preferred model from Part 5, interpret all of the <strong>fixed</strong> effects (the intercept, the main effects of workout, state sleep, and trait sleep, and the interaction). What does this model tell us about the factors that influence daily mood?</p>
-</section>
-<section id="conceptual-application-0.5-pts" class="level2">
-<h2 class="anchored" data-anchor-id="conceptual-application-0.5-pts">7. Conceptual Application (0.5 pts)</h2>
-<p>Look at the <code>VarCorr()</code> output for your final spatial exponential model to find the autocorrelation strength (<span class="math inline">\(\rho\)</span>). If a participant completes a survey and their next survey happens exactly 2.0 days later, what is the calculated correlation between the autocorrelated errors for those two moments? <em>(Hint: Remember the mathematical property of exponential decay we covered in lecture).</em></p>
 
 
 </section>
