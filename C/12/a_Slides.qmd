@@ -231,18 +231,6 @@ $$
 
 ![](../../diagrams/linear_growth.png)
 
-## Mixed (or Reduced) Equation
-
-Substitute the L2 equations directly into the L1 equation:
-
-$$y_{ti} = (\color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0i}}) + (\color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1i}}) \text{TIME}_{ti} + \color{#4daf4a}{e_{ti}}$$
-
-:::{.fragment}
-Distribute and rearrange to group the fixed and random parts:
-
-$$y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{10}} \text{TIME}_{ti}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} \text{TIME}_{ti}}_{\text{Random}} + \color{#4daf4a}{e_{ti}}$$
-:::
-
 ## Formula
 
 :::{.fsmaller}
