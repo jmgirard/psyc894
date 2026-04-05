@@ -41,14 +41,13 @@ options(width = 75)
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-1. Unconditional Growth Models
+1. Linear Trajectories
     + *Structuring Time*
-    + *Linear Trajectories*
-    + *Nonlinear Trajectories*
+    + *Growth Modeling*
     
-2. Interpreting Curves
-    + *Visualizing Trajectories*
-    + *Articulating the Curve*
+2. Nonlinear Trajectories
+    + *Transforming Time*
+    + *Instantaneous Change*
     
 :::
 
@@ -58,7 +57,7 @@ options(width = 75)
 
 :::
 
-# Unconditional Growth
+# Linear Trajectories
 
 ## Fluctuation vs. Growth
 
@@ -203,6 +202,31 @@ $$\begin{align}
 Notice that time is the only predictor in the model. We are just defining the average starting point ($\color{#377eb8}{\gamma_{00}}$) and the average rate of linear change ($\color{#377eb8}{\gamma_{10}}$), along with how much different people vary around those averages.
 :::
 
+## Multilevel Equation Part 2 {.fsmaller}
+
+:::{.tc .b}
+Level One (Observation)
+:::
+
+$$
+\color{#4daf4a}{e_{ti}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
+$$
+
+:::{.tc .b}
+Level Two (Cluster)
+:::
+
+$$
+\begin{bmatrix}\color{#e41a1c}{u_{0i}}\\ \color{#e41a1c}{u_{1i}}\end{bmatrix} \sim \text{MVN}\left(\begin{bmatrix}0\\0\end{bmatrix}, \begin{bmatrix}\color{#e41a1c}{\tau_{00}} & \\ \color{#e41a1c}{\tau_{10}} & \color{#e41a1c}{\tau_{11}}\end{bmatrix}\right)
+$$
+
+:::{.mt4}
+- $\color{#4daf4a}{\sigma}$: The within-person spread around their own trajectory.
+- $\color{#e41a1c}{\tau_{00}}$: The between-person spread in starting points at baseline.
+- $\color{#e41a1c}{\tau_{11}}$: The between-person spread in the rate of growth over time.
+- $\color{#e41a1c}{\tau_{10}}$: The correlation between a person's starting point and rate of growth.
+:::
+
 ## Path Diagram
 
 ![](../../diagrams/linear_growth.png)
@@ -249,46 +273,189 @@ fit_linear <- glmmTMB(
   formula = vocab ~ 1 + time + (1 + time | subject),
   data = vocab
 )
-model_parameters(fit_linear, effects = "all")
 ```
+
+:::{.fragment}
+```{r}
+model_parameters(fit_linear, effects = "fixed")
+```
+
+:::{.fsmaller}
+- `(Intercept)` ($\gamma_{00}$): The average expected vocabulary score at Baseline.
+- `time` ($\gamma_{10}$): The average expected annual change in vocabulary score.
+:::
+:::
 
 ## Interpreting the Linear Model
 
+```{r}
+model_parameters(fit_linear, effects = "random")
+```
+
 :::{.fsmaller}
-**Fixed Effects (The Average Trajectory)**
-
-- `(Intercept)` ($\gamma_{00}$): The average expected vocabulary score at Baseline (`time = 0`).
-- `time` ($\gamma_{10}$): The average expected change in vocabulary score for every 1-year increase.
-
-:::{.fragment}
-**Random Effects (The Variance)**
-
 - `SD (Intercept)` ($\tau_{00}$): The variation in starting scores among subjects.
 - `SD (time)` ($\tau_{11}$): The variation in the rate of linear growth among subjects.
-- `Cor (Intercept~time)` ($\tau_{10}$): The correlation between starting point and growth rate. A negative correlation suggests that those who start lower tend to grow faster.
+- `Cor (Intercept~time)` ($\tau_{10}$): A negative correlation suggests that those who start lower tend to grow faster.
 :::
+
+## Visualizing Fixed Effects
+
+```{r}
+# Plot the growth curve for the average subject
+estimate_relation(fit_linear, by = "time") |> plot()
+```
+
+## Visualizing Trajectories
+
+```{r}
+# Plot the growth curves for six randomly selected subjects
+estimate_relation(fit_linear, by = c("time", "subject=[sample 6]")) |> plot()
+```
+
+## Linear Slopes
+
+:::{.fsmaller}
+In a linear model, the growth rate stays constant over time. Here, vocab growth is always 8.06 per year with no acceleration or deceleration possible.
 :::
+
+```{r}
+estimate_slopes(fit_linear, trend = "time", by = "time")
+```
+
 
 # Nonlinear Trajectories
 
-## Adding a Curve
-
-- Linear models assume a constant rate of change. 
-- In many developmental or learning processes, growth is rapid at first and then levels off.
-- We can model this by adding a **quadratic effect** (Time squared) to both our fixed and random effects.
-
-## The Multicollinearity Problem
-
-- Using raw polynomials (literally squaring the time variable) introduces massive multicollinearity because Time and Time-Squared are highly correlated.
-- This correlation can cause complex models to crash or fail to converge.
-- **The Solution:** We use **Orthogonal Polynomials**. This mathematical trick transforms our time variable into entirely uncorrelated chunks of variance. 
-- **The Catch:** The coefficients are no longer in real-world units, so we cannot interpret the numbers directly. We only use the summary table to check the *p*-values!
-
-## Formula and Fit (Orthogonal)
+## Beyond Linear Growth
 
 :::{.fsmaller}
-In R, we use the `poly()` function. By default, it generates orthogonal polynomials to protect our model from multicollinearity. 
+- Linear models assume a constant rate of change. They force a straight line through the data.
+- However, human behavior, learning, and biological processes rarely grow at exactly the same speed forever.
+- To allow our trajectories to bend and take on nonlinear shapes, we simply apply **mathematical transformations** to our time variable.
+- Instead of just predicting the outcome from raw Time, we can predict it from the Square of Time, the Logarithm of Time, the Exponentiation of Time, etc.
 :::
+
+## Visualizing the Shapes
+
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 4
+
+set.seed(8675309)
+time_pts <- seq(0, 10, by = 0.5)
+
+# Simulate simple shapes
+sim_shapes <- tibble(
+  time = time_pts,
+  quad_true = 50 - 10 * time + 1 * time^2,  # Adjusted to a U-shape
+  log_true = 20 + 15 * log(time + 1),
+  exp_true = 20 + 0.5 * exp(0.4 * time)
+) |> 
+  mutate(
+    quad_obs = quad_true + rnorm(n(), 0, 3),
+    log_obs = log_true + rnorm(n(), 0, 3),
+    exp_obs = exp_true + rnorm(n(), 0, 3)
+  )
+
+# Plot 1: Quadratic (U-Shape)
+p_quad <- ggplot(sim_shapes, aes(x = time)) +
+  geom_point(aes(y = quad_obs), color = "gray60", size = 2) +
+  geom_line(aes(y = quad_true), color = "#377eb8", linewidth = 1.5) +
+  theme_classic(base_size = 18) +
+  labs(
+    title = "Quadratic", 
+    subtitle = "poly(Time, 2)", 
+    x = "Time", 
+    y = "Outcome"
+  )
+
+# Plot 2: Logarithmic (Learning Curve)
+p_log <- ggplot(sim_shapes, aes(x = time)) +
+  geom_point(aes(y = log_obs), color = "gray60", size = 2) +
+  geom_line(aes(y = log_true), color = "#e41a1c", linewidth = 1.5) +
+  theme_classic(base_size = 18) +
+  labs(
+    title = "Logarithmic", 
+    subtitle = "log(Time+1)", 
+    x = "Time", 
+    y = ""
+  )
+
+# Plot 3: Exponential (Hockey Stick)
+p_exp <- ggplot(sim_shapes, aes(x = time)) +
+  geom_point(aes(y = exp_obs), color = "gray60", size = 2) +
+  geom_line(aes(y = exp_true), color = "#4daf4a", linewidth = 1.5) +
+  theme_classic(base_size = 18) +
+  labs(
+    title = "Exponential", 
+    subtitle = "exp(Time)", 
+    x = "Time", 
+    y = ""
+  )
+
+# Combine using patchwork
+p_quad + p_log + p_exp
+```
+
+:::{.fsmaller}
+- **Quadratic:** acceleration, deceleration, or reversal (e.g., marital satisfaction)
+- **Logarithmic:** rapid early growth that plateaus (e.g., therapy response)
+- **Exponential:** slow early growth that compounds (e.g., viral outbreak)
+:::
+
+## Returning to Our Data
+
+:::{.fsmaller}
+- Let's apply this theory to our `vocab` dataset. We are modeling vocabulary growth in children from Baseline (Age 10) to Year 5 (Age 15).
+- Before we just test every math function in R, we should ask:<br>
+[*Which shapes make theoretical sense for this process?*]{.b .blue}
+
+:::{.fragment .mt4}
+- [Exponential:]{.b .dark-red} Unlikely. Human vocabulary does not compound toward infinity; there are natural cognitive and linguistic ceilings.
+- [Quadratic:]{.b .orange} Possible. Growth might be fast early on and then slow down significantly as they get older and possibly even reverse in old age.
+- [Logarithmic:]{.b .dark-green} Highly likely. Language acquisition often follows a rapid early learning phase that gradually plateaus as ceilings are approached.
+:::
+:::
+
+## Our Testing Plan
+
+:::{.fsmaller}
+- Based on our developmental theory, we will drop the Exponential model.
+- We will formally test a **Quadratic** model and a **Logarithmic** model against our standard **Linear** baseline to see which shape best fits the actual data.
+- Let's start by building the Quadratic model. We need to add a new predictor to our equation: **Time-Squared**.
+:::
+
+## Quadratic Equations
+
+:::{.tc .b}
+Level One (Observation)
+:::
+
+$$y_{ti} = \beta_{0i} + \beta_{1i} \text{TIME}_{ti} + \beta_{2i} \text{TIME}_{ti}^2 + \color{#4daf4a}{e_{ti}}$$
+
+:::{.tc .b}
+Level Two (Cluster)
+:::
+
+$$\begin{align}
+\beta_{0i} &= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0i}} \\
+\beta_{1i} &= \color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1i}} \\
+\beta_{2i} &= \color{#377eb8}{\gamma_{20}} + \color{#e41a1c}{u_{2i}}
+\end{align}$$
+
+## Orthogonal Polynomials
+
+- Using raw polynomials can introduce multicollinearity problems when $\text{TIME}$ and $\text{TIME}^2$ are highly correlated.
+
+:::{.fragment}
+- **The Solution:** We use [Orthogonal Polynomials]{.b .blue} via the `poly()` function to transform our time variable into fully uncorrelated linear and quadratic components.
+:::
+
+:::{.fragment}
+- **The Catch:** The components are centered and re-scaled,<br>so the coefficient values cannot be interpreted normally.
+:::
+
+## Quadratic Modeling
 
 ```{r}
 fit_quad <- glmmTMB(
@@ -298,17 +465,57 @@ fit_quad <- glmmTMB(
 model_parameters(fit_quad, effects = "fixed")
 ```
 
-:::{.fsmaller .mt4}
-**Interpretation:** Do not interpret the `estimate` values. Just look at the *p*-values. Both the linear term and the quadratic term are statistically significant. The trajectory is officially curved.
+:::{.fsmaller .fragment}
+The intercept is the overall average vocabulary score across all time points (due to centering). The significant and positive 1st degree term indicates the overall average growth trend is increasing. The significant and negative 2nd degree term indicates the trajectory is curved downwards (growth is slowing).
 :::
 
-## Logarithmic Growth
+## Quadratic Visualization
+
+```{r}
+# Plot the growth curve for the average subject
+estimate_relation(fit_quad, by = "time") |> plot()
+```
+
+## Quadratic Visualization
+
+```{r}
+# Plot the growth curve for six randomly selected subjects
+estimate_relation(fit_quad, by = c("time", "subject=[sample 6]")) |> plot()
+```
+
+## Quadratic Slopes
 
 :::{.fsmaller}
-- Sometimes a quadratic curve forces an artificial U-shape when we actually just expect continuous, flattening growth like a classic learning curve.
-- A logarithmic curve is perfect for this. 
-- **The Catch:** The log of 0 is mathematically undefined. Because our Baseline is `time = 0`, we must calculate `log(time + 1)`. Conveniently, `log(0 + 1)` equals `0`, keeping our intercept firmly at Baseline!
+In a quadratic model, the growth rate is accelerating or decelerating by a fixed, constant amount per one-unit increase in time. Here, vocab growth is always decelerating by 2.87 per year (see the diff column).
 :::
+
+```{r}
+estimate_slopes(fit_quad, trend = "time", by = "time") |>
+  mutate(diff = diff(c(NA, Slope)))
+```
+
+## Logarithmic Equations
+
+:::{.tc .b}
+Level One (Observation)
+:::
+
+$$y_{ti} = \beta_{0i} + \beta_{1i} \log(\text{TIME}_{ti}+1) + \color{#4daf4a}{e_{ti}}$$
+
+:::{.tc .b}
+Level Two (Cluster)
+:::
+
+$$\begin{align}
+\beta_{0i} &= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0i}} \\
+\beta_{1i} &= \color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1i}}
+\end{align}$$
+
+::: {.aside}
+***Note:*** In R, `log()` defaults to the natural logarithm (base $e$). We add $+1$ to our time variable for two reasons. First, $\log(0)$ is undefined. Second, $\log(1)=0$, which ensures that our intercept still represents the expected outcome at $\text{TIME}=0$.
+:::
+
+## Logarithmic Modeling
 
 ```{r}
 fit_log <- glmmTMB(
@@ -318,7 +525,37 @@ fit_log <- glmmTMB(
 model_parameters(fit_log, effects = "fixed")
 ```
 
-## Which shape fits best?
+:::{.fsmaller .fragment}
+The intercept represents the expected vocabulary score exactly at Baseline (Age 10). The significant and positive logarithmic term indicates that vocabulary size increases over time. This growth is modeled as fastest at the beginning and gradually slowing down over time.
+:::
+
+## Logarithmic Visualization
+
+```{r}
+# Plot the growth curve for the average subject
+estimate_relation(fit_log, by = "time") |> plot()
+```
+
+## Logarithmic Visualization
+
+```{r}
+# Plot the growth curve for six randomly selected subjects
+estimate_relation(fit_log, by = c("time", "subject=[sample 6]")) |> plot()
+```
+
+## Logarithmic Slopes
+
+:::{.fsmaller}
+In a logarithmic model, the growth rate changes non-uniformly over time, following a pattern of diminishing returns. Here, vocab growth decelerates rapidly at first and then more gradually over time (see the diff column).
+:::
+
+```{r}
+estimate_slopes(fit_log, trend = "time", by = "time") |>
+  mutate(diff = diff(c(NA, Slope)))
+```
+
+
+## Model Comparison
 
 ```{r}
 #| message: false
@@ -327,47 +564,13 @@ compare_performance(fit_linear, fit_quad, fit_log, metrics = c("AIC", "BIC"))
 ```
 
 :::{.fsmaller .pv4}
-In our simulated data, the Quadratic model has the lowest AIC and BIC, suggesting it provides the best fit for this specific trajectory. 
+In our simulated data, the Logarithmic time model has the lowest AIC and BIC, suggesting it provides the best fit for this specific process. Note as well that the weights for both metrics are overwhelmingly in favor of this model.
 :::
 
-# Interpreting Curves
+## What about Autocorrelation?
 
-## Visualizing Trajectories
+- In Fluctuation models, it was important to use the AR1 or EXP covariance structure because we had no other way to explain why "today" looked like "yesterday"
 
-- If orthogonal polynomial coefficients are uninterpretable, how do we explain the results?
-- We let `easystats` do the translation for us. Functions like `estimate_relation()` take the abstract math and map it back onto the original, real-world units of our time variable.
+- In Growth models, we have a systematic trend. We expect Year 2 to be related to Year 1 because they both sit on the same developmental path
 
-## The Visual Translation
-
-```{r}
-#| fig-width: 12
-#| fig-height: 5
-
-p1 <- estimate_relation(fit_linear, by = "time") |> plot() + labs(title = "Linear", y = "Vocab")
-p2 <- estimate_relation(fit_quad, by = "time") |> plot() + labs(title = "Quadratic", y = "")
-p3 <- estimate_relation(fit_log, by = "time") |> plot() + labs(title = "Logarithmic", y = "")
-
-p1 + p2 + p3
-```
-
-## Articulating the Curve
-
-- Plots are excellent for visualizing a nonlinear trajectory, but writing the results section requires specific numbers.
-- How do we know exactly *when* the growth flattens out?
-- The `describe_nonlinear()` function calculates the slope at many points along the curve and tells us exactly where the trend is significant.
-
-## Extracting the Narrative
-
-```{r}
-#| message: false
-
-# Generate a dense prediction grid for precise derivative calculations
-pred_curve <- estimate_relation(fit_quad, by = "time", length = 100)
-
-describe_nonlinear(pred_curve, x = "time")
-```
-
-:::{.fsmaller .mt4}
-**Interpreting the Output:**
-The algorithm has partitioned our curve into distinct phases. From Year 0 to roughly Year 3.3, vocabulary increases significantly (the slope is positive and significant). From Year 3.3 to Year 5, the slope is no longer significantly different from zero. The growth has officially plateaued. 
-:::
+- Usually, once the shape of the growth is correctly specified, the remaining residuals are independent enough that we don't need the extra complexity of AR1 or EXP

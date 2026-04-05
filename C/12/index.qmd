@@ -4,19 +4,19 @@ title: "Week 12: Longitudinal Analysis 2"
 
 <!-- Lecture a -->
 
-## [12a] Linear Growth Curves
+## [12a] Characterizing Change
 
 ### Topics
-1. Topic 1
-    + *Subtopic a*
-    + *Subtopic b*
-  
-2. Topic 2
-    + *Subtopic a*
-    + *Subtopic b*
+1. Linear Trajectories
+    + *Structuring Time*
+    + *Growth Modeling*
+    
+2. Nonlinear Trajectories
+    + *Transforming Time*
+    + *Instantaneous Change*
 
 ### File Downloads
-- A
+- [vocab_sim.csv](../../data/vocab_sim.csv){download="vocab_sim.csv"}
 
 ### Readings
 - [S\&F Chapter 10: Multilevel modeling with longitudinal data](https://www.learn-mlms.com/10-module-10.html){target="_blank"}
@@ -36,7 +36,7 @@ title: "Week 12: Longitudinal Analysis 2"
 
 <!-- Lecture b -->
 
-## [12b] Nonlinear Growth Curves
+## [12b] Predicting Change
 
 ### Topics
 1. Topic 1
