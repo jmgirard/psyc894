@@ -6,7 +6,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c6070853b5fc0f07c03ed05933ca4b03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c6070853b5fc0f07c03ed05933ca4b03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
   <meta name="generator" content="quarto-1.9.36">
 
   <meta name="author" content="Jeffrey Girard">
@@ -31,6 +32,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-53e3d2ac1773787e2a3f577cd3a68c1f.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -133,15 +198,532 @@
 
 <section class="title-slide slide level1 my-title center">
 <h1><span class="blue">Multilevel Modeling</span></h1>
-<p>Linear Growth Curves</p>
+<p>Characterizing Change</p>
 <div class="my-grey">
 <p><span>Spring 2026 | CLAS | PSYC 894</span><br> <span>Jeffrey M. Girard | Lecture 12a</span></p>
 </div>
 <p><img data-src="../../img/city-girl.svg" class="absolute" style="bottom: 30px; right: 0px; width: 400px; "></p>
 </section>
 
+<section class="slide level2">
+<h2>Roadmap</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ol type="1">
+<li>Linear Trajectories
+<ul>
+<li><em>Structuring Time</em></li>
+<li><em>Growth Modeling</em></li>
+</ul></li>
+<li>Nonlinear Trajectories
+<ul>
+<li><em>Transforming Time</em></li>
+<li><em>Instantaneous Change</em></li>
+</ul></li>
+</ol>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Linear Trajectories</h1>
+
+</section>
+<section class="slide level2">
+<h2>Fluctuation vs.&nbsp;Growth</h2>
+
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-1-1.png" width="1056" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Modeling the Trajectory</h2>
+<div class="fsmaller">
+<ul>
+<li>In Week 11, we treated the baseline as stable. We were most interested in the observation-specific fluctuations around that baseline.</li>
+<li>Moving forward with longitudinal change models, we are now most interested in the <strong>shape of change</strong> over the entire assessment period.</li>
+<li>We want to know the <em>starting point</em>, the overall <em>trajectory</em>, and the overall <em>shape</em> (e.g., linear, quadratic, or logarithmic).</li>
+<li>To capture this shape, we simply <strong>add a time variable (or variables) to the model as a Level 1 predictor</strong>.</li>
+<li>Random intercepts will allow each participant to have their own starting point and random time slopes will allow each to have their own trajectory.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Centering Time</h2>
+<div class="fsmaller">
+<ul>
+<li>The <strong>intercept</strong> represents the expected outcome when all predictors equal zero. Therefore, we need to be mindful about what zero represents for <em>time</em>.</li>
+<li><em>If we study grades 9 through 12, then using the numbers <code>9</code> to <code>12</code> will result in an intercept corresponding to grade 0, which isn’t very meaningful here.</em></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>We usually <span class="b blue">center</span> time so that <code>0</code> and the intercept represent a meaningful starting point such as the first or baseline assessment in the study.</li>
+<li><em>We can re-code time (by subtracting 9) so that <code>0</code> and the intercept represent grade 9, and <code>1</code>, <code>2</code>, and <code>3</code> represent grades 10, 11, and 12, respectively.</em></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Scaling Time</h2>
+<div class="fsmaller">
+<ul>
+<li>The <strong>slope</strong> of a predictor represents the expected change in the outcome for a 1-unit increase in that predictor. Therefore, we need to be mindful about what a 1-unit increase actually represents for <em>time</em>.</li>
+<li><em>If a 10-year study records time in days (from <code>0</code> to <code>3650</code>), the slope will represent daily growth. This coefficient might be uninterpretable or confusingly small (e.g., a gain of 0.002).</em></li>
+</ul>
+<div class="fragment mt1">
+<ul>
+<li>We usually <span class="b blue">scale</span> time so that <code>1</code> represents a meaningful, intuitive interval like “one year” or “one academic semester”.</li>
+<li><em>We can re-code time (by dividing days by 365) so that <code>1</code> represents a full year. The slope now reflects a much more intuitive gain of 0.73 per year.</em></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Example Data</h2>
+<div class="cell" data-replace_path="[&quot;../../data/&quot;,&quot;&quot;]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>vocab_raw <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"vocab_sim.csv"</span>)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(vocab_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 900
+Columns: 5
+$ subject    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, …
+$ program    &lt;chr&gt; "Intervention", "Intervention", "Intervention", "Inter…
+$ age_months &lt;dbl&gt; 120, 132, 144, 156, 168, 180, 120, 132, 144, 156, 168,…
+$ vocab      &lt;dbl&gt; 45.38913, 59.32121, 72.81737, 82.83264, 88.51938, 93.2…
+$ hours_read &lt;dbl&gt; 3.399861, 2.572877, 1.571513, 2.955250, 3.413900, 3.60…</code></pre>
+</div>
+</div>
+<div class="fsmaller">
+<p>Each of 150 subjects was assessed for vocabulary size annually. Notice that our time variable is <code>age_months</code>, starting at 120 months (10 years old).</p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Preparing the Time Variable</h2>
+<div class="fsmaller">
+<p>If we use <code>age_months</code> as our predictor, our intercept will represent vocabulary at an age of 0 months, and our slope will represent month-to-month growth. We need to fix this!</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>vocab <span class="ot">&lt;-</span> vocab_raw <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="co"># Center at 120 months (Baseline), then scale by 12 (Years)</span></span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">time =</span> (age_months <span class="sc">-</span> <span class="dv">120</span>) <span class="sc">/</span> <span class="dv">12</span></span>
+<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb3-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 900 × 6
+  subject program      age_months vocab hours_read  time
+    &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
+1       1 Intervention        120  45.4       3.40     0
+2       1 Intervention        132  59.3       2.57     1
+3       1 Intervention        144  72.8       1.57     2
+# ℹ 897 more rows</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Multilevel Equation (Linear)</h2>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[y_{ti} = \beta_{0i} + \beta_{1i} \text{TIME}_{ti} + \color{#4daf4a}{e_{ti}}\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[\begin{align}
+\beta_{0i} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0i}} \\
+\beta_{1i} &amp;= \color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1i}}
+\end{align}\]</span></p>
+<div class="fsmaller mt4">
+<p>Notice that time is the only predictor in the model. We are just defining the average starting point (<span class="math inline">\(\color{#377eb8}{\gamma_{00}}\)</span>) and the average rate of linear change (<span class="math inline">\(\color{#377eb8}{\gamma_{10}}\)</span>), along with how much different people vary around those averages.</p>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Multilevel Equation Part 2</h2>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[
+\color{#4daf4a}{e_{ti}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
+\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[
+\begin{bmatrix}\color{#e41a1c}{u_{0i}}\\ \color{#e41a1c}{u_{1i}}\end{bmatrix} \sim \text{MVN}\left(\begin{bmatrix}0\\0\end{bmatrix}, \begin{bmatrix}\color{#e41a1c}{\tau_{00}} &amp; \\ \color{#e41a1c}{\tau_{10}} &amp; \color{#e41a1c}{\tau_{11}}\end{bmatrix}\right)
+\]</span></p>
+<div class="mt4">
+<ul>
+<li><span class="math inline">\(\color{#4daf4a}{\sigma}\)</span>: The within-person spread around their own trajectory.</li>
+<li><span class="math inline">\(\color{#e41a1c}{\tau_{00}}\)</span>: The between-person spread in starting points at baseline.</li>
+<li><span class="math inline">\(\color{#e41a1c}{\tau_{11}}\)</span>: The between-person spread in the rate of growth over time.</li>
+<li><span class="math inline">\(\color{#e41a1c}{\tau_{10}}\)</span>: The correlation between a person’s starting point and rate of growth.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Path Diagram</h2>
+
+<img data-src="../../diagrams/linear_growth.png" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Mixed (or Reduced) Equation</h2>
+<p>Substitute the L2 equations directly into the L1 equation:</p>
+<p><span class="math display">\[y_{ti} = (\color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0i}}) + (\color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1i}}) \text{TIME}_{ti} + \color{#4daf4a}{e_{ti}}\]</span></p>
+<div class="fragment">
+<p>Distribute and rearrange to group the fixed and random parts:</p>
+<p><span class="math display">\[y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{10}} \text{TIME}_{ti}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} \text{TIME}_{ti}}_{\text{Random}} + \color{#4daf4a}{e_{ti}}\]</span></p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Formula</h2>
+<div class="fsmaller">
+<p><span class="math display">\[y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{10}} \text{TIME}_{ti}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} \text{TIME}_{ti}}_{\text{(Random)}} + \color{#4daf4a}{e_{ti}}\]</span></p>
+<p><strong>Generic</strong></p>
+<div class="tc">
+<p><code>y ~ 1 + time + (1 + time | cluster)</code></p>
+<p>where the <span class="blue">1 + time</span> part is fixed<br> and the <span class="red">(1 + time | cluster)</span> part is random</p>
+</div>
+<div class="fragment">
+<p><strong>Example</strong></p>
+<div class="tc">
+<p><code>vocab ~ 1 + time + (1 + time | subject)</code></p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Fitting the Linear Model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a>fit_linear <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> vocab <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> time <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> time <span class="sc">|</span> subject),</span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> vocab</span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_linear, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter   | Coefficient |   SE |         95% CI |     z |      p
+------------------------------------------------------------------
+(Intercept) |       53.33 | 0.56 | [52.23, 54.42] | 95.54 | &lt; .001
+time        |        8.06 | 0.24 | [ 7.59,  8.54] | 33.27 | &lt; .001</code></pre>
+</div>
+</div>
+<div class="fsmaller">
+<ul>
+<li><code>(Intercept)</code> (<span class="math inline">\(\gamma_{00}\)</span>): The average expected vocabulary score at Baseline.</li>
+<li><code>time</code> (<span class="math inline">\(\gamma_{10}\)</span>): The average expected annual change in vocabulary score.</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Interpreting the Linear Model</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_linear, <span class="at">effects =</span> <span class="st">"random"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Random Effects
+
+Parameter                     | Coefficient | 95% CI
+----------------------------------------------------
+SD (Intercept: subject)       |        5.24 |       
+SD (time: subject)            |        2.59 |       
+Cor (Intercept~time: subject) |        0.68 |       
+SD (Residual)                 |        6.06 |       </code></pre>
+</div>
+</div>
+<div class="fsmaller">
+<ul>
+<li><code>SD (Intercept)</code> (<span class="math inline">\(\tau_{00}\)</span>): The variation in starting scores among subjects.</li>
+<li><code>SD (time)</code> (<span class="math inline">\(\tau_{11}\)</span>): The variation in the rate of linear growth among subjects.</li>
+<li><code>Cor (Intercept~time)</code> (<span class="math inline">\(\tau_{10}\)</span>): A negative correlation suggests that those who start lower tend to grow faster.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Visualizing Fixed Effects</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the growth curve for the average subject</span></span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_relation</span>(fit_linear, <span class="at">by =</span> <span class="st">"time"</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Visualizing Trajectories</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the growth curves for six randomly selected subjects</span></span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_relation</span>(fit_linear, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"time"</span>, <span class="st">"subject=[sample 6]"</span>)) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Linear Slopes</h2>
+<div class="fsmaller">
+<p>In a linear model, the growth rate stays constant over time. Here, vocab growth is always 8.06 per year with no acceleration or deceleration possible.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit_linear, <span class="at">trend =</span> <span class="st">"time"</span>, <span class="at">by =</span> <span class="st">"time"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated Marginal Effects
+
+time | Slope |   SE |       95% CI |     z |      p
+---------------------------------------------------
+0    |  8.06 | 0.24 | [7.59, 8.54] | 33.27 | &lt; .001
+1    |  8.06 | 0.24 | [7.59, 8.54] | 33.27 | &lt; .001
+2    |  8.06 | 0.24 | [7.59, 8.54] | 33.27 | &lt; .001
+3    |  8.06 | 0.24 | [7.59, 8.54] | 33.27 | &lt; .001
+4    |  8.06 | 0.24 | [7.59, 8.54] | 33.27 | &lt; .001
+5    |  8.06 | 0.24 | [7.59, 8.54] | 33.27 | &lt; .001
+
+Marginal effects estimated for time
+Type of slope was dY/dX</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Nonlinear Trajectories</h1>
+
+</section>
+<section class="slide level2">
+<h2>Beyond Linear Growth</h2>
+<div class="fsmaller">
+<ul>
+<li>Linear models assume a constant rate of change. They force a straight line through the data.</li>
+<li>However, human behavior, learning, and biological processes rarely grow at exactly the same speed forever.</li>
+<li>To allow our trajectories to bend and take on nonlinear shapes, we simply apply <strong>mathematical transformations</strong> to our time variable.</li>
+<li>Instead of just predicting the outcome from raw Time, we can predict it from the Square of Time, the Logarithm of Time, the Exponentiation of Time, etc.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Visualizing the Shapes</h2>
+
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="1152" class="r-stretch"><div class="fsmaller">
+<ul>
+<li><strong>Quadratic:</strong> acceleration, deceleration, or reversal (e.g., marital satisfaction)</li>
+<li><strong>Logarithmic:</strong> rapid early growth that plateaus (e.g., therapy response)</li>
+<li><strong>Exponential:</strong> slow early growth that compounds (e.g., viral outbreak)</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Returning to Our Data</h2>
+<div class="fsmaller">
+<ul>
+<li>Let’s apply this theory to our <code>vocab</code> dataset. We are modeling vocabulary growth in children from Baseline (Age 10) to Year 5 (Age 15).</li>
+<li>Before we just test every math function in R, we should ask:<br> <span class="b blue"><em>Which shapes make theoretical sense for this process?</em></span></li>
+</ul>
+<div class="fragment mt4">
+<ul>
+<li><span class="b dark-red">Exponential:</span> Unlikely. Human vocabulary does not compound toward infinity; there are natural cognitive and linguistic ceilings.</li>
+<li><span class="b orange">Quadratic:</span> Possible. Growth might be fast early on and then slow down significantly as they get older and possibly even reverse in old age.</li>
+<li><span class="b dark-green">Logarithmic:</span> Highly likely. Language acquisition often follows a rapid early learning phase that gradually plateaus as ceilings are approached.</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Our Testing Plan</h2>
+<div class="fsmaller">
+<ul>
+<li>Based on our developmental theory, we will drop the Exponential model.</li>
+<li>We will formally test a <strong>Quadratic</strong> model and a <strong>Logarithmic</strong> model against our standard <strong>Linear</strong> baseline to see which shape best fits the actual data.</li>
+<li>Let’s start by building the Quadratic model. We need to add a new predictor to our equation: <strong>Time-Squared</strong>.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Quadratic Equations</h2>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[y_{ti} = \beta_{0i} + \beta_{1i} \text{TIME}_{ti} + \beta_{2i} \text{TIME}_{ti}^2 + \color{#4daf4a}{e_{ti}}\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[\begin{align}
+\beta_{0i} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0i}} \\
+\beta_{1i} &amp;= \color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1i}} \\
+\beta_{2i} &amp;= \color{#377eb8}{\gamma_{20}} + \color{#e41a1c}{u_{2i}}
+\end{align}\]</span></p>
+</section>
+<section class="slide level2">
+<h2>Orthogonal Polynomials</h2>
+<ul>
+<li>Using raw polynomials can introduce multicollinearity problems when <span class="math inline">\(\text{TIME}\)</span> and <span class="math inline">\(\text{TIME}^2\)</span> are highly correlated.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><strong>The Solution:</strong> We use <span class="b blue">Orthogonal Polynomials</span> via the <code>poly()</code> function to transform our time variable into fully uncorrelated linear and quadratic components.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>The Catch:</strong> The components are centered and re-scaled,<br>so the coefficient values cannot be interpreted normally.</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+<h2>Quadratic Modeling</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a>fit_quad <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> vocab <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">poly</span>(time, <span class="dv">2</span>) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">poly</span>(time, <span class="dv">2</span>) <span class="sc">|</span> subject),</span>
+<span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> vocab</span>
+<span id="cb14-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_quad, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter         | Coefficient |    SE |            95% CI |      z |      p
+-----------------------------------------------------------------------------
+(Intercept)       |       73.48 |  0.90 | [  71.71,  75.25] |  81.49 | &lt; .001
+time [1st degree] |      413.03 | 12.42 | [ 388.70, 437.37] |  33.27 | &lt; .001
+time [2nd degree] |     -107.38 |  4.65 | [-116.50, -98.26] | -23.08 | &lt; .001</code></pre>
+</div>
+</div>
+<div class="fsmaller fragment">
+<p>The intercept is the overall average vocabulary score across all time points (due to centering). The significant and positive 1st degree term indicates the overall average growth trend is increasing. The significant and negative 2nd degree term indicates the trajectory is curved downwards (growth is slowing).</p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Quadratic Visualization</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the growth curve for the average subject</span></span>
+<span id="cb16-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_relation</span>(fit_quad, <span class="at">by =</span> <span class="st">"time"</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Quadratic Visualization</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the growth curve for six randomly selected subjects</span></span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_relation</span>(fit_quad, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"time"</span>, <span class="st">"subject=[sample 6]"</span>)) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Quadratic Slopes</h2>
+<div class="fsmaller">
+<p>In a quadratic model, the growth rate is accelerating or decelerating by a fixed, constant amount per one-unit increase in time. Here, vocab growth is always decelerating by 2.87 per year (see the diff column).</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit_quad, <span class="at">trend =</span> <span class="st">"time"</span>, <span class="at">by =</span> <span class="st">"time"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> <span class="fu">diff</span>(<span class="fu">c</span>(<span class="cn">NA</span>, Slope)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>time | Slope |   SE |             CI |     z |      p |  diff
+-------------------------------------------------------------
+0    | 15.24 | 0.46 | [14.34, 16.13] | 33.42 | &lt; .001 |      
+1    | 12.37 | 0.35 | [11.67, 13.06] | 34.97 | &lt; .001 | -2.87
+2    |  9.50 | 0.27 | [ 8.97, 10.03] | 35.13 | &lt; .001 | -2.87
+3    |  6.63 | 0.23 | [ 6.18,  7.07] | 29.04 | &lt; .001 | -2.87
+4    |  3.76 | 0.25 | [ 3.27,  4.24] | 15.09 | &lt; .001 | -2.87
+5    |  0.89 | 0.32 | [ 0.26,  1.52] |  2.77 |  0.006 | -2.87</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Logarithmic Equations</h2>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[y_{ti} = \beta_{0i} + \beta_{1i} \log(\text{TIME}_{ti}+1) + \color{#4daf4a}{e_{ti}}\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[\begin{align}
+\beta_{0i} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0i}} \\
+\beta_{1i} &amp;= \color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1i}}
+\end{align}\]</span></p>
+
+<aside><div>
+<p><strong><em>Note:</em></strong> In R, <code>log()</code> defaults to the natural logarithm (base <span class="math inline">\(e\)</span>). We add <span class="math inline">\(+1\)</span> to our time variable for two reasons. First, <span class="math inline">\(\log(0)\)</span> is undefined. Second, <span class="math inline">\(\log(1)=0\)</span>, which ensures that our intercept still represents the expected outcome at <span class="math inline">\(\text{TIME}=0\)</span>.</p>
+</div></aside></section>
+<section class="slide level2">
+<h2>Logarithmic Modeling</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a>fit_log <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> vocab <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">log</span>(time <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">log</span>(time <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">|</span> subject),</span>
+<span id="cb20-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> vocab</span>
+<span id="cb20-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_log, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter      | Coefficient |   SE |         95% CI |     z |      p
+---------------------------------------------------------------------
+(Intercept)    |       47.62 | 0.54 | [46.55, 48.68] | 87.59 | &lt; .001
+time + 1 [log] |       23.59 | 0.69 | [22.24, 24.94] | 34.27 | &lt; .001</code></pre>
+</div>
+</div>
+<div class="fsmaller fragment">
+<p>The intercept represents the expected vocabulary score exactly at Baseline (Age 10). The significant and positive logarithmic term indicates that vocabulary size increases over time. This growth is modeled as fastest at the beginning and gradually slowing down over time.</p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Logarithmic Visualization</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the growth curve for the average subject</span></span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_relation</span>(fit_log, <span class="at">by =</span> <span class="st">"time"</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Logarithmic Visualization</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the growth curve for six randomly selected subjects</span></span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_relation</span>(fit_log, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"time"</span>, <span class="st">"subject=[sample 6]"</span>)) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Logarithmic Slopes</h2>
+<div class="fsmaller">
+<p>In a logarithmic model, the growth rate changes non-uniformly over time, following a pattern of diminishing returns. Here, vocab growth decelerates rapidly at first and then more gradually over time (see the diff column).</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit_log, <span class="at">trend =</span> <span class="st">"time"</span>, <span class="at">by =</span> <span class="st">"time"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff =</span> <span class="fu">diff</span>(<span class="fu">c</span>(<span class="cn">NA</span>, Slope)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>time | Slope |   SE |             CI |     z |      p |   diff
+--------------------------------------------------------------
+0    | 23.59 | 0.69 | [22.24, 24.94] | 34.27 | &lt; .001 |       
+1    | 11.79 | 0.34 | [11.12, 12.47] | 34.27 | &lt; .001 | -11.79
+2    |  7.86 | 0.23 | [ 7.41,  8.31] | 34.27 | &lt; .001 |  -3.93
+3    |  5.90 | 0.17 | [ 5.56,  6.23] | 34.27 | &lt; .001 |  -1.97
+4    |  4.72 | 0.14 | [ 4.45,  4.99] | 34.25 | &lt; .001 |  -1.18
+5    |  3.93 | 0.11 | [ 3.71,  4.16] | 34.27 | &lt; .001 |  -0.79</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Model Comparison</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">compare_performance</span>(fit_linear, fit_quad, fit_log, <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">"AIC"</span>, <span class="st">"BIC"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Comparison of Model Performance Indices
+
+Name       |   Model |  AIC (weights) |  BIC (weights)
+------------------------------------------------------
+fit_linear | glmmTMB | 6323.5 (&lt;.001) | 6352.3 (&lt;.001)
+fit_quad   | glmmTMB | 5860.0 (&lt;.001) | 5908.0 (&lt;.001)
+fit_log    | glmmTMB | 5793.0 (&gt;.999) | 5821.8 (&gt;.999)</code></pre>
+</div>
+</div>
+<div class="fsmaller pv4">
+<p>In our simulated data, the Logarithmic time model has the lowest AIC and BIC, suggesting it provides the best fit for this specific process. Note as well that the weights for both metrics are overwhelmingly in favor of this model.</p>
+</div>
+</section>
+<section class="slide level2">
+<h2>What about Autocorrelation?</h2>
+<ul>
+<li><p>In Fluctuation models, it was important to use the AR1 or EXP covariance structure because we had no other way to explain why “today” looked like “yesterday”</p></li>
+<li><p>In Growth models, we have a systematic trend. We expect Year 2 to be related to Year 1 because they both sit on the same developmental path</p></li>
+<li><p>Usually, once the shape of the growth is correctly specified, the remaining residuals are independent enough that we don’t need the extra complexity of AR1 or EXP</p></li>
+</ul>
 
 
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
