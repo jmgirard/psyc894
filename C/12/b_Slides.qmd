@@ -288,27 +288,29 @@ estimate_relation(fit_combined, by = "read_w") |> plot()
 This plot shows the pure within-person effect. For every hour a child reads above their personal average, their vocabulary score is pushed upward away from their underlying growth curve.
 :::
 
-## Zooming in on Subject 42
+# Building Predictions
+
+## Zooming in on Subject 84
 
 :::{.fsmaller}
-To understand how our model builds a prediction, let's deconstruct the trajectory for a single person. We use `estimate_grouplevel()` to extract Subject 42's specific random effect deviations.
+To understand how our model builds a prediction, let's deconstruct the trajectory for a single person. We use `estimate_grouplevel()` to extract Subject 84's specific random effect deviations.
 :::
 
 ```{r}
 estimate_grouplevel(fit_combined) |> 
-  filter(Level == 42)
+  filter(Level == 84)
 ```
 
 :::{.fsmaller .fragment .mt4}
-They started higher than average (+0.56), grew slower than average (-7.55), and got a larger-than-average boost from reading (+0.54). 
+They started lower than average (--1.78), grew faster than average (+2.43), and got a larger-than-average boost from reading (+0.34). 
 
 We can combine these unique parameters with the fixed effects to calculate their exact trajectory. Let's visualize how this is built layer-by-layer.
 :::
 
-## Step 1: The Level 2 Baseline
+## Step 1: The Baseline (Program A)
 
 :::{.fsmaller}
-First, we plot the smooth, logarithmic trajectory predicted purely by Subject 42's Level 2 characteristics (their program and their personal random effects). This is what we expect if they always read their exact average amount.
+First, we plot the reference group for our model: the average trajectory for all children in **Program A**. If we had no predictors and just an intercept, this is where we would start.
 :::
 
 ```{r}
@@ -317,33 +319,56 @@ First, we plot the smooth, logarithmic trajectory predicted purely by Subject 42
 #| fig-height: 4.5
 
 # Hidden Data Prep
-sub_42 <- vocab2 |> filter(subject == 42)
-preds_base <- estimate_expectation(fit_combined, data = sub_42 |> mutate(read_w = 0))
-preds_adj <- estimate_expectation(fit_combined, data = sub_42)
-plot_data <- sub_42 |> 
+sub_84 <- vocab2 |> filter(subject == 84)
+
+# 1. Baseline Fixed (Program A)
+preds_progA <- estimate_expectation(
+  fit_combined, 
+  data = sub_84 |> mutate(program = "A", read_w = 0), 
+  include_random = FALSE
+)
+
+# 2. Shifted Fixed (Program B)
+preds_progB <- estimate_expectation(
+  fit_combined, 
+  data = sub_84 |> mutate(read_w = 0), 
+  include_random = FALSE
+)
+
+# 3. Fixed + Random L2 (Sub 84 baseline)
+preds_base <- estimate_expectation(fit_combined, data = sub_84 |> mutate(read_w = 0))
+
+# 4. Fixed + Random L2 + L1 (Sub 84 adjusted)
+preds_adj <- estimate_expectation(fit_combined, data = sub_84)
+
+plot_data <- sub_84 |> 
   mutate(
+    progA_curve = preds_progA$Predicted,
+    progB_curve = preds_progB$Predicted,
     base_curve = preds_base$Predicted,
     adj_curve = preds_adj$Predicted,
     observed = preds_adj$Predicted + preds_adj$Residuals
   )
 
 # Plot 1
-p_base <- ggplot(plot_data, aes(x = time)) +
-  geom_line(aes(y = base_curve), color = "gray50", linewidth = 1.2, linetype = "dashed") +
-  scale_y_continuous() +
+p_progA <- ggplot(plot_data, aes(x = time)) +
+  geom_line(aes(y = progA_curve), color = "gray60", 
+            linewidth = 1.5, linetype = "dotted") +
+  scale_y_continuous(breaks = seq(40, 100, 20)) +
+  coord_cartesian(ylim = c(35, 105)) +
   theme_classic(base_size = 18) +
   labs(
     y = "Vocabulary Score", 
     x = "Time (Years from Baseline)"
   )
 
-p_base
+p_progA
 ```
 
-## Step 2: The Level 1 Adjustments
+## Step 2: The Level 2 Shift (Program B)
 
 :::{.fsmaller}
-Next, we apply the Level 1 fluctuations. For every year Subject 42 read more or less than their personal average, the model adjusts the expected trajectory up or down, creating a jagged line.
+Because Subject 84 is in Program B, our model applies the fixed effect parameters ($\gamma_{01}$ and $\gamma_{11}$) to shift their expected starting point up and accelerate their expected curve.
 :::
 
 ```{r}
@@ -351,13 +376,51 @@ Next, we apply the Level 1 fluctuations. For every year Subject 42 read more or 
 #| fig-width: 10
 #| fig-height: 4.5
 
+# Plot 2
+p_progB <- p_progA +
+  geom_line(aes(y = progB_curve), color = "gray40", 
+            linewidth = 1.5, linetype = "dotdash")
+
+p_progB
+```
+
+## Step 3: The Individual Shift (Random)
+
+:::{.fsmaller}
+Next, we apply Subject 84's specific **Random Effects** ($u$). Notice how their personal trajectory shifts away from the Program B average based on their unique, individual starting point and growth rate.
+:::
+
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4.5
+
+# Plot 3
+p_base <- p_progB +
+  geom_line(aes(y = base_curve), color = "gray20", linewidth = 1.5, linetype = "dashed")
+
+p_base
+```
+
+## Step 4: The Level 1 Adjustments
+
+:::{.fsmaller}
+Now we apply the Level 1 fluctuations. For every year Subject 84 read more or less than their personal average, the model adjusts their expected trajectory up or down, creating a jagged line.
+:::
+
+```{r}
+#| echo: false
+#| fig-width: 10
+#| fig-height: 4.5
+
+# Plot 4
 p_adj <- p_base +
-  geom_line(aes(y = adj_curve), color = "#377eb8", linewidth = 1.2)
+  geom_line(aes(y = adj_curve), color = "#377eb8", linewidth = 2)
 
 p_adj
 ```
 
-## Step 3: The Observation Residuals
+## Step 5: The Observation Residuals
 
 :::{.fsmaller}
 Finally, we plot the actual data points. The remaining distance between the jagged, fluctuation-adjusted line and the raw data points represents our final Level 1 residuals ($e_{ti}$).
@@ -368,10 +431,12 @@ Finally, we plot the actual data points. The remaining distance between the jagg
 #| fig-width: 10
 #| fig-height: 4.5
 
+# Plot 5
 p_final <- p_adj +
   geom_segment(aes(xend = time, y = adj_curve, yend = observed), 
-               color = "#e41a1c", linetype = "dashed", linewidth = 0.8) +
-  geom_point(aes(y = observed), size = 4, color = "black")
+               color = "#e41a1c", linetype = "dashed", linewidth = 1.5) +
+  geom_point(aes(y = observed), size = 4, color = "#e41a1c", 
+             fill = "white", shape = 21, stroke = 2)
 
 p_final
 ```
