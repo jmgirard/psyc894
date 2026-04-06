@@ -187,7 +187,7 @@ vocab <- vocab_raw |>
 Level One (Observation)
 :::
 
-$$y_{ti} = \beta_{0i} + \beta_{1i} \text{TIME}_{ti} + \color{#4daf4a}{e_{ti}}$$
+$$y_{ti} = \beta_{0i} + \beta_{1i} T_{ti} + \color{#4daf4a}{e_{ti}}$$
 
 :::{.tc .b}
 Level Two (Cluster)
@@ -229,20 +229,20 @@ $$
 
 ## Path Diagram
 
-![](../../diagrams/linear_growth.png)
+![](../../diagrams/longitudinal_change.png)
 
 ## Formula
 
 :::{.fsmaller}
-$$y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{10}} \text{TIME}_{ti}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} \text{TIME}_{ti}}_{\text{(Random)}} + \color{#4daf4a}{e_{ti}}$$
+$$y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{10}} T_{ti}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} T_{ti}}_{\text{(Random)}} + \color{#4daf4a}{e_{ti}}$$
 
 **Generic**
 
 :::{.tc}
-`y ~ 1 + time + (1 + time | cluster)`
+`y ~ 1 + T + (1 + T | person)`
 
-where the [1 + time]{.blue} part is fixed<br>
-and the [(1 + time | cluster)]{.red} part is random
+where the [1 + T]{.blue} part is fixed<br>
+and the [(1 + T | person)]{.red} part is random
 :::
 
 :::{.fragment}
@@ -419,7 +419,7 @@ p_quad + p_log + p_exp
 Level One (Observation)
 :::
 
-$$y_{ti} = \beta_{0i} + \beta_{1i} \text{TIME}_{ti} + \beta_{2i} \text{TIME}_{ti}^2 + \color{#4daf4a}{e_{ti}}$$
+$$y_{ti} = \beta_{0i} + \beta_{1i} T_{ti} + \beta_{2i} T_{ti}^2 + \color{#4daf4a}{e_{ti}}$$
 
 :::{.tc .b}
 Level Two (Cluster)
@@ -433,7 +433,7 @@ $$\begin{align}
 
 ## Orthogonal Polynomials
 
-- Using raw polynomials can introduce multicollinearity problems when $\text{TIME}$ and $\text{TIME}^2$ are highly correlated.
+- Using raw polynomials can introduce multicollinearity problems when $T$ and $T^2$ are highly correlated.
 
 :::{.fragment}
 - **The Solution:** We use [Orthogonal Polynomials]{.b .blue} via the `poly()` function to transform our time variable into fully uncorrelated linear and quadratic components.
@@ -488,7 +488,7 @@ estimate_slopes(fit_quad, trend = "time", by = "time") |>
 Level One (Observation)
 :::
 
-$$y_{ti} = \beta_{0i} + \beta_{1i} \log(\text{TIME}_{ti}+1) + \color{#4daf4a}{e_{ti}}$$
+$$y_{ti} = \beta_{0i} + \beta_{1i} \log(T_{ti}+1) + \color{#4daf4a}{e_{ti}}$$
 
 :::{.tc .b}
 Level Two (Cluster)
@@ -500,7 +500,7 @@ $$\begin{align}
 \end{align}$$
 
 ::: {.aside}
-***Note:*** In R, `log()` defaults to the natural logarithm (base $e$). We add $+1$ to our time variable for two reasons. First, $\log(0)$ is undefined. Second, $\log(1)=0$, which ensures that our intercept still represents the expected outcome at $\text{TIME}=0$.
+***Note:*** In R, `log()` defaults to the natural logarithm (base $e$). We add $+1$ to our time variable for two reasons. First, $\log(0)$ is undefined. Second, $\log(1)=0$, which ensures that our intercept still represents the expected outcome at $T=0$.
 :::
 
 ## Logarithmic Modeling
@@ -552,7 +552,7 @@ compare_performance(fit_linear, fit_quad, fit_log, metrics = c("AIC", "BIC"))
 ```
 
 :::{.fsmaller .pv4}
-In our simulated data, the Logarithmic time model has the lowest AIC and BIC, suggesting it provides the best fit for this specific process. Note as well that the weights for both metrics are overwhelmingly in favor of this model.
+In our simulated data, the Logarithmic change model has the lowest AIC and BIC, suggesting it provides the best fit for this specific process. Note as well that the weights for both metrics are overwhelmingly in favor of this model.
 :::
 
 ## What about Autocorrelation?

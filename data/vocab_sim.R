@@ -21,14 +21,14 @@ u <- mvrnorm(n = n_subj, mu = rep(0, 5), Sigma = diag(u_vars))
 
 l2_data <- tibble(
   subject = 1:n_subj,
-  program = sample(c("Control", "Intervention"), n_subj, replace = TRUE),
+  program = sample(c("A", "B"), n_subj, replace = TRUE),
   u0 = u[, 1], # Intercept
   u_log = u[, 2], # Primary Growth variation
   u_lin = u[, 3], # Linear helper (Prevents singular fit in fit_linear)
   u_quad = u[, 4], # Quadratic helper (Prevents NPD Hessian in fit_quad)
   u_read = u[, 5]  # Reading variation (For 12b random slope)
 ) |>
-  mutate(prog_num = if_else(program == "Intervention", 1, 0))
+  mutate(prog_num = if_else(program == "B", 1, 0))
 
 # 3. Assemble the Dataset
 vocab_df <- expand_grid(subject = 1:n_subj, time = time_pts) |>
@@ -53,7 +53,7 @@ vocab_df <- expand_grid(subject = 1:n_subj, time = time_pts) |>
       (u_quad * p2) +
       (1.5 + u_read) * hours_read_wp +
       e,
-    program = factor(program, levels = c("Control", "Intervention"))
+    program = factor(program, levels = c("A", "B"))
   ) |>
   dplyr::select(subject, program, age_months, vocab, hours_read)
 

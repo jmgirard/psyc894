@@ -20,7 +20,8 @@ title: "Week 12: Longitudinal Analysis 2"
 
 ### Readings
 - [S\&F Chapter 10: Multilevel modeling with longitudinal data](https://www.learn-mlms.com/10-module-10.html){target="_blank"}
-- [Hox et al. (2012): Growth Curve Modeling from a MLM Perspective](https://canvas.ku.edu/courses/182539/pages/11a-repeated-measures?module_item_id=4317585){target="_blank}
+- [Hoffman Chapter 6: Describing within-person change over time](https://canvas.ku.edu/courses/182539/pages/12a-characterizing-change){target="_blank"}
+- [Hox et al. (2012): Growth Curve Modeling from a MLM Perspective](https://canvas.ku.edu/courses/182539/pages/12a-characterizing-change){target="_blank}
 
 ### Slides
 
@@ -39,19 +40,20 @@ title: "Week 12: Longitudinal Analysis 2"
 ## [12b] Predicting Change
 
 ### Topics
-1. Topic 1
-    + *Subtopic a*
-    + *Subtopic b*
-  
-2. Topic 2
-    + *Subtopic a*
-    + *Subtopic b*
+1. Time-Invariant Predictors
+    + *Explaining the Baseline*
+    + *Explaining the Growth Rate*
+    
+2. Time-Varying Predictors
+    + *Decomposing Predictors*
+    + *Explaining the Fluctuations*
 
 ### File Downloads
-- A
+- [vocab_sim.csv](../../data/vocab_sim.csv){download="vocab_sim.csv"}
 
 ### Readings
-- A
+- [Hoffman Chapter 7: Time-invariant predictors in longitudinal models](https://canvas.ku.edu/courses/182539/pages/12b-predicting-change-+-lab){target="_blank"}
+- [Hoffman Chapter 9: Time-varying predictors in models of within-person change](https://canvas.ku.edu/courses/182539/pages/12b-predicting-change-+-lab){target="_blank"}
 
 
 ### Slides

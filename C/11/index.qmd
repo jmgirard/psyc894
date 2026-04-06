@@ -53,7 +53,9 @@ title: "Week 11: Longitudinal Analysis 1"
 
 ### Readings
 - [HMV Chapter 5: Analyzing Longitudinal Data](https://canvas.ku.edu/courses/182539/pages/11b-longitudinal-fluctuation-+-lab?module_item_id=4317586){target="_blank"}
-- [Hoffman Chapter 1: Introduction to the Analysis of Longitudinal Data](https://canvas.ku.edu/courses/182539/pages/11b-longitudinal-fluctuation-+-lab?module_item_id=4317586)
+- [Hoffman Chapter 1: Introduction to the Analysis of Longitudinal Data](https://canvas.ku.edu/courses/182539/pages/11b-longitudinal-fluctuation-+-lab){target="_blank"}
+- [Hoffman Chapter 4: Describing Within-Person Fluctuation Over Time](https://canvas.ku.edu/courses/182539/pages/11b-longitudinal-fluctuation-+-lab){target="_blank"}
+- [Hoffman Chapter 8: Time-Varying Predictors in Models of Within-Person Fluctuation](https://canvas.ku.edu/courses/182539/pages/11b-longitudinal-fluctuation-+-lab){target="_blank"}
 
 ### Slides
 
