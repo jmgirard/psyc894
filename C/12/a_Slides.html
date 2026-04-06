@@ -286,7 +286,7 @@
 <pre><code>Rows: 900
 Columns: 5
 $ subject    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, …
-$ program    &lt;chr&gt; "Intervention", "Intervention", "Intervention", "Inter…
+$ program    &lt;chr&gt; "B", "B", "B", "B", "B", "B", "A", "A", "A", "A", "A",…
 $ age_months &lt;dbl&gt; 120, 132, 144, 156, 168, 180, 120, 132, 144, 156, 168,…
 $ vocab      &lt;dbl&gt; 45.38913, 59.32121, 72.81737, 82.83264, 88.51938, 93.2…
 $ hours_read &lt;dbl&gt; 3.399861, 2.572877, 1.571513, 2.955250, 3.413900, 3.60…</code></pre>
@@ -310,11 +310,11 @@ $ hours_read &lt;dbl&gt; 3.399861, 2.572877, 1.571513, 2.955250, 3.413900, 3.60�
 <span id="cb3-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 900 × 6
-  subject program      age_months vocab hours_read  time
-    &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
-1       1 Intervention        120  45.4       3.40     0
-2       1 Intervention        132  59.3       2.57     1
-3       1 Intervention        144  72.8       1.57     2
+  subject program age_months vocab hours_read  time
+    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;
+1       1 B              120  45.4       3.40     0
+2       1 B              132  59.3       2.57     1
+3       1 B              144  72.8       1.57     2
 # ℹ 897 more rows</code></pre>
 </div>
 </div>
@@ -324,7 +324,7 @@ $ hours_read &lt;dbl&gt; 3.399861, 2.572877, 1.571513, 2.955250, 3.413900, 3.60�
 <div class="tc b">
 <p>Level One (Observation)</p>
 </div>
-<p><span class="math display">\[y_{ti} = \beta_{0i} + \beta_{1i} \text{TIME}_{ti} + \color{#4daf4a}{e_{ti}}\]</span></p>
+<p><span class="math display">\[y_{ti} = \beta_{0i} + \beta_{1i} T_{ti} + \color{#4daf4a}{e_{ti}}\]</span></p>
 <div class="tc b">
 <p>Level Two (Cluster)</p>
 </div>
@@ -362,15 +362,15 @@ $ hours_read &lt;dbl&gt; 3.399861, 2.572877, 1.571513, 2.955250, 3.413900, 3.60�
 <section class="slide level2">
 <h2>Path Diagram</h2>
 
-<img data-src="../../diagrams/linear_growth.png" class="r-stretch"></section>
+<img data-src="../../diagrams/longitudinal_change.png" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Formula</h2>
 <div class="fsmaller">
-<p><span class="math display">\[y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{10}} \text{TIME}_{ti}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} \text{TIME}_{ti}}_{\text{(Random)}} + \color{#4daf4a}{e_{ti}}\]</span></p>
+<p><span class="math display">\[y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{10}} T_{ti}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} T_{ti}}_{\text{(Random)}} + \color{#4daf4a}{e_{ti}}\]</span></p>
 <p><strong>Generic</strong></p>
 <div class="tc">
-<p><code>y ~ 1 + time + (1 + time | cluster)</code></p>
-<p>where the <span class="blue">1 + time</span> part is fixed<br> and the <span class="red">(1 + time | cluster)</span> part is random</p>
+<p><code>y ~ 1 + T + (1 + T | person)</code></p>
+<p>where the <span class="blue">1 + T</span> part is fixed<br> and the <span class="red">(1 + T | person)</span> part is random</p>
 </div>
 <div class="fragment">
 <p><strong>Example</strong></p>
@@ -529,7 +529,7 @@ Type of slope was dY/dX</code></pre>
 <div class="tc b">
 <p>Level One (Observation)</p>
 </div>
-<p><span class="math display">\[y_{ti} = \beta_{0i} + \beta_{1i} \text{TIME}_{ti} + \beta_{2i} \text{TIME}_{ti}^2 + \color{#4daf4a}{e_{ti}}\]</span></p>
+<p><span class="math display">\[y_{ti} = \beta_{0i} + \beta_{1i} T_{ti} + \beta_{2i} T_{ti}^2 + \color{#4daf4a}{e_{ti}}\]</span></p>
 <div class="tc b">
 <p>Level Two (Cluster)</p>
 </div>
@@ -542,7 +542,7 @@ Type of slope was dY/dX</code></pre>
 <section class="slide level2">
 <h2>Orthogonal Polynomials</h2>
 <ul>
-<li>Using raw polynomials can introduce multicollinearity problems when <span class="math inline">\(\text{TIME}\)</span> and <span class="math inline">\(\text{TIME}^2\)</span> are highly correlated.</li>
+<li>Using raw polynomials can introduce multicollinearity problems when <span class="math inline">\(T\)</span> and <span class="math inline">\(T^2\)</span> are highly correlated.</li>
 </ul>
 <div class="fragment">
 <ul>
@@ -618,7 +618,7 @@ time [2nd degree] |     -107.38 |  4.65 | [-116.50, -98.26] | -23.08 | &lt; .001
 <div class="tc b">
 <p>Level One (Observation)</p>
 </div>
-<p><span class="math display">\[y_{ti} = \beta_{0i} + \beta_{1i} \log(\text{TIME}_{ti}+1) + \color{#4daf4a}{e_{ti}}\]</span></p>
+<p><span class="math display">\[y_{ti} = \beta_{0i} + \beta_{1i} \log(T_{ti}+1) + \color{#4daf4a}{e_{ti}}\]</span></p>
 <div class="tc b">
 <p>Level Two (Cluster)</p>
 </div>
@@ -628,7 +628,7 @@ time [2nd degree] |     -107.38 |  4.65 | [-116.50, -98.26] | -23.08 | &lt; .001
 \end{align}\]</span></p>
 
 <aside><div>
-<p><strong><em>Note:</em></strong> In R, <code>log()</code> defaults to the natural logarithm (base <span class="math inline">\(e\)</span>). We add <span class="math inline">\(+1\)</span> to our time variable for two reasons. First, <span class="math inline">\(\log(0)\)</span> is undefined. Second, <span class="math inline">\(\log(1)=0\)</span>, which ensures that our intercept still represents the expected outcome at <span class="math inline">\(\text{TIME}=0\)</span>.</p>
+<p><strong><em>Note:</em></strong> In R, <code>log()</code> defaults to the natural logarithm (base <span class="math inline">\(e\)</span>). We add <span class="math inline">\(+1\)</span> to our time variable for two reasons. First, <span class="math inline">\(\log(0)\)</span> is undefined. Second, <span class="math inline">\(\log(1)=0\)</span>, which ensures that our intercept still represents the expected outcome at <span class="math inline">\(T=0\)</span>.</p>
 </div></aside></section>
 <section class="slide level2">
 <h2>Logarithmic Modeling</h2>
@@ -702,7 +702,7 @@ fit_log    | glmmTMB | 5793.0 (&gt;.999) | 5821.8 (&gt;.999)</code></pre>
 </div>
 </div>
 <div class="fsmaller pv4">
-<p>In our simulated data, the Logarithmic time model has the lowest AIC and BIC, suggesting it provides the best fit for this specific process. Note as well that the weights for both metrics are overwhelmingly in favor of this model.</p>
+<p>In our simulated data, the Logarithmic change model has the lowest AIC and BIC, suggesting it provides the best fit for this specific process. Note as well that the weights for both metrics are overwhelmingly in favor of this model.</p>
 </div>
 </section>
 <section class="slide level2">

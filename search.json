@@ -39,21 +39,21 @@
     "href": "C/12/index.html",
     "title": "Week 12: Longitudinal Analysis 2",
     "section": "",
-    "text": "Linear Trajectories\n\nStructuring Time\nGrowth Modeling\n\nNonlinear Trajectories\n\nTransforming Time\nInstantaneous Change\n\n\n\n\n\n\nvocab_sim.csv\n\n\n\n\n\nS&F Chapter 10: Multilevel modeling with longitudinal data\nHox et al. (2012): Growth Curve Modeling from a MLM Perspective\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+    "text": "Linear Trajectories\n\nStructuring Time\nGrowth Modeling\n\nNonlinear Trajectories\n\nTransforming Time\nInstantaneous Change\n\n\n\n\n\n\nvocab_sim.csv\n\n\n\n\n\nS&F Chapter 10: Multilevel modeling with longitudinal data\nHoffman Chapter 6: Describing within-person change over time\nHox et al. (2012): Growth Curve Modeling from a MLM Perspective\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
   },
   {
     "objectID": "C/12/index.html#a-characterizing-change",
     "href": "C/12/index.html#a-characterizing-change",
     "title": "Week 12: Longitudinal Analysis 2",
     "section": "",
-    "text": "Linear Trajectories\n\nStructuring Time\nGrowth Modeling\n\nNonlinear Trajectories\n\nTransforming Time\nInstantaneous Change\n\n\n\n\n\n\nvocab_sim.csv\n\n\n\n\n\nS&F Chapter 10: Multilevel modeling with longitudinal data\nHox et al. (2012): Growth Curve Modeling from a MLM Perspective\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+    "text": "Linear Trajectories\n\nStructuring Time\nGrowth Modeling\n\nNonlinear Trajectories\n\nTransforming Time\nInstantaneous Change\n\n\n\n\n\n\nvocab_sim.csv\n\n\n\n\n\nS&F Chapter 10: Multilevel modeling with longitudinal data\nHoffman Chapter 6: Describing within-person change over time\nHox et al. (2012): Growth Curve Modeling from a MLM Perspective\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
   },
   {
     "objectID": "C/12/index.html#b-predicting-change",
     "href": "C/12/index.html#b-predicting-change",
     "title": "Week 12: Longitudinal Analysis 2",
     "section": "[12b] Predicting Change",
-    "text": "[12b] Predicting Change\n\nTopics\n\nTopic 1\n\nSubtopic a\nSubtopic b\n\nTopic 2\n\nSubtopic a\nSubtopic b\n\n\n\n\nFile Downloads\n\nA\n\n\n\nReadings\n\nA\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\n  «  Week 11\n\n  Week 13  »"
+    "text": "[12b] Predicting Change\n\nTopics\n\nTime-Invariant Predictors\n\nExplaining the Baseline\nExplaining the Growth Rate\n\nTime-Varying Predictors\n\nDecomposing Predictors\nExplaining the Fluctuations\n\n\n\n\nFile Downloads\n\nvocab_sim.csv\n\n\n\nReadings\n\nHoffman Chapter 7: Time-invariant predictors in longitudinal models\nHoffman Chapter 9: Time-varying predictors in models of within-person change\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\n  «  Week 11\n\n  Week 13  »"
   },
   {
     "objectID": "C/11/assignment.html",
@@ -536,7 +536,7 @@
     "href": "C/11/index.html#b-longitudinal-fluctuation",
     "title": "Week 11: Longitudinal Analysis 1",
     "section": "[11b] Longitudinal Fluctuation",
-    "text": "[11b] Longitudinal Fluctuation\n\nTopics\n\nLongitudinal Fluctuation\n\nLongitudinal Taxonomy\nState vs. Trait Predictors\n\nAdvanced Applications\n\nState–Trait Automoderation\nSpatial Exponential Errors\n\n\n\n\nFile Downloads\n\nema_sim.csv\n\n\n\nReadings\n\nHMV Chapter 5: Analyzing Longitudinal Data\nHoffman Chapter 1: Introduction to the Analysis of Longitudinal Data\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\n  «  Week 10\n\n  Week 12  »"
+    "text": "[11b] Longitudinal Fluctuation\n\nTopics\n\nLongitudinal Fluctuation\n\nLongitudinal Taxonomy\nState vs. Trait Predictors\n\nAdvanced Applications\n\nState–Trait Automoderation\nSpatial Exponential Errors\n\n\n\n\nFile Downloads\n\nema_sim.csv\n\n\n\nReadings\n\nHMV Chapter 5: Analyzing Longitudinal Data\nHoffman Chapter 1: Introduction to the Analysis of Longitudinal Data\nHoffman Chapter 4: Describing Within-Person Fluctuation Over Time\nHoffman Chapter 8: Time-Varying Predictors in Models of Within-Person Fluctuation\n\n\n\nSlides\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.\n\n\n\n  «  Week 10\n\n  Week 12  »"
   },
   {
     "objectID": "index.html",
