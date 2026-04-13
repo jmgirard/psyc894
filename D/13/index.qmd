@@ -12,18 +12,18 @@ title: "Week 13: Model Evaluation"
     + *Diagnosing Warnings*
     
 2. A Systematic Workflow
-    + *Stage 1: Data Fixes*
-    + *Stage 2: Structural Simplification*
-    + *Stage 3: Algorithmic Adjustments*
+    + *Top-Down Troubleshooting*
+    + *Bayesian Estimation*
 
 ### File Downloads
 - [trouble_sim.csv](../../data/trouble_sim.csv){download="trouble_sim.csv"}
 
 ### Readings
-- [S\&F Chapter 7: Model Estimation Options, Problems, and Troubleshooting](https://www.learn-mlms.com/07-module-7.html){target="_blank"}
-- [Barr et al. (2013)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"}
-- [Brauer \& Curtin (2018)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"}
-- [Matsuchek et al. (2017)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"}
+- [S\&F Chapter 7](https://www.learn-mlms.com/07-module-7.html){target="_blank"} (Troubleshooting)
+- [Brauer \& Curtin (2018)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"} (Troubleshooting, pp. 403--406)
+- [Barr et al. (2013)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"} (Pruning Dilemma)
+- [Matsuchek et al. (2017)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"} (Pruning Dilemma)
+- [Burkner (2017)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"} (Bayesian)
 
 ### Slides
 

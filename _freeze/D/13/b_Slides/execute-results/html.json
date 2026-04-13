@@ -3,9 +3,7 @@
   "result": {
     "engine": "knitr",
     "markdown": "---\nlecture: \"13b\"\nmetadata-files:\n  - ../../_slide-settings.yml\nformat:\n  revealjs:\n    theme: default\n---\n\n::: {.my-title}\n# [Multilevel Modeling]{.blue}\nDiagnostics\n\n::: {.my-grey}\n[{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />\n[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}\n:::\n\n![](../../img/city-girl.svg){.absolute bottom=30 right=0 width=\"400\"}\n:::\n\n\n::: {.cell}\n\n:::\n\n",
-    "supporting": [
-      "b_Slides_files"
-    ],
+    "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

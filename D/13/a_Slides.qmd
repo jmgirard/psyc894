@@ -46,9 +46,8 @@ options(width = 75)
     + *Diagnosing Warnings*
     
 2. A Systematic Workflow
-    + *Stage 1: Data Fixes*
-    + *Stage 2: Structural Simplification*
-    + *Stage 3: Algorithmic Adjustments*
+    + *Top-Down Troubleshooting*
+    + *Bayesian Estimation*
     
 :::
 
@@ -82,6 +81,95 @@ Before diving into specific warnings, we must remember back to Lecture 04b.
 - **The Mountain Analogy:** Imagine a multi-dimensional mountain. The optimizer takes steps to find the absolute highest peak.
 - **The Map and Compass:** The optimizer uses local derivative information (the Gradient and Hessian) to aid in the search.
 - **The Problem:** If the mountain has a flat ridge, multiple peaks, or a boundary it cannot cross, the optimizer gets confused and either throws a warning or silently stops at an invalid parameter value.
+
+## Optimization as Hill Climbing {.fsmaller}
+
+a. Select a random or "best guess" starting value^[We can optionally use a "multi-start" strategy (for multiple climbers)]
+b. Estimate the likelihood of the current value^[Technically, we try to minimize the negative log-likelihood]
+c. Detemine whether to increase or decrease the value^[We can optionally use derivative information (gradient/hessian) here]
+d. Update the current value by some amount (step size)^[We can adjust the step size, which affects speed and pathing]
+e. Repeat steps 2-4 until the change in likelihood is small^[We repeat until convergence or a maximum number of iterations]
+
+## Visual Example 
+
+```{r}
+#| echo: false
+
+likelihood_function <- function(x) {
+  -0.1 * (x - 5)^2 + 
+    3 * exp(-((x - 2)^2) / 0.5) +  # Local peak at x = 2
+    2 * exp(-((x - 8)^2) / 0.8) +  # Local peak at x = 8
+    3
+}
+
+x_vals <- seq(0, 10, length.out = 101)
+
+likelihood_vals <- likelihood_function(x_vals)
+
+df <- tibble(estimate = x_vals, likelihood = likelihood_vals)
+
+ggplot() +
+  geom_line(
+    data = filter(df, estimate <= 2),
+    aes(estimate, likelihood),
+    linewidth = 1.5, 
+    color = "steelblue3"
+  ) +
+  geom_line(
+    data = filter(df, estimate >= 8),
+    aes(estimate, likelihood),
+    linewidth = 1.5, 
+    color = "coral3"
+  ) +
+  geom_point(
+    data = tibble(x = 2, y = likelihood_vals[x_vals == 2]),
+    aes(x, y),
+    color = "steelblue3",
+    size = 5
+  ) +
+  geom_point(
+    data = filter(df, estimate %in% c(0, 5, 10)),
+    aes(estimate, likelihood),
+    size = 6, 
+    color = "black"
+  ) +
+  geom_point(
+    data = tibble(x = 5, y = likelihood_vals[x_vals == 5]),
+    aes(x, y),
+    color = "seagreen",
+    size = 5
+  ) +
+  geom_point(
+    data = tibble(x = 8, y = likelihood_vals[x_vals == 8]),
+    aes(x, y),
+    color = "coral3",
+    size = 5
+  ) +
+  geom_segment(
+    data = tibble(x = -1, xend = 2, y = likelihood_vals[x_vals == 2]),
+    aes(x = x, xend = xend, y = y, yend = y),
+    color = "steelblue3",
+    linewidth = 1,
+    linetype = "dashed"
+  ) +
+  geom_segment(
+    data = tibble(x = -1, xend = 5, y = likelihood_vals[x_vals == 5]),
+    aes(x = x, xend = xend, y = y, yend = y),
+    color = "seagreen",
+    linewidth = 1,
+    linetype = "dashed"
+  ) +
+  geom_segment(
+    data = tibble(x = -1, xend = 8, y = likelihood_vals[x_vals == 8]),
+    aes(x = x, xend = xend, y = y, yend = y),
+    color = "coral3",
+    linewidth = 1,
+    linetype = "dashed"
+  ) +
+  labs(x = "Parameter Estimate", y = "Likelihood") +
+  coord_cartesian(ylim = c(0, 6), xlim = c(0, 10)) +
+  theme_bw(base_size = 36)
+```
 
 ## Setup 
 
@@ -321,8 +409,6 @@ fit_algo <- glmmTMB(
 ```
 :::
 
-# Summary
-
 ## Troubleshooting Cheatsheet {.fsmaller}
 
 When your model throws a convergence warning (or produces boundary estimates), follow this general order of operations:
@@ -335,14 +421,54 @@ When your model throws a convergence warning (or produces boundary estimates), f
     * *Rule:* Protect the focal random slope unless its variance is truly zero.
 3.  **Stage 3: Tweak the Algorithm.** If the model is fully justified but struggling, increase iterations or change the optimizer via `glmmTMBControl()`.
 
-## A Look Ahead: Bayesian Estimation {.fsmaller}
+# Bayes
+
+## Bayesian Estimation {.fsmaller}
 
 Maximum Likelihood Estimation searches for a single highest peak. When the data lacks information, that peak disappears or becomes impossible to find.
 
 :::{.fragment}
 - **The Bayesian Solution:** Instead of finding a single point, Bayesian estimation maps out the entire landscape of probable values.
 - **Priors as Guardrails:** By providing prior information, we can prevent the model from wandering into absurd territory (e.g., negative variances).
-
+- Two popular R packages for Bayesian MLM are \{brms\} and \{rstanarm\}. I personally prefer the former, but the latter is easier to start with.
+- \{rstanarm\} can be be installed from CRAN and chooses reasonable weak priors for you.
+- Both use Stan to perform Markov Chain Monte Carlo (MCMC). 
 :::
 
+## MCMC Overview {.fsmaller}
 
+- **Exploring vs. Climbing:** If MLE is a focused climber racing to find the single highest peak, MCMC is a wanderer exploring the entire mountain range to map its total volume and shape.
+
+- **Volume over Altitude:** MLE fails when a peak is flat or hidden; MCMC succeeds by spending time proportionally: it stays longer in high-probability areas but intentionally visits lower-probability valleys to capture the full range of uncertainty.
+
+- **Sampling over Solving:** Instead of using a compass (derivatives) to find the fastest path "up", MCMC uses a stochastic "random walk" to build a massive collection of representative snapshots of the landscape.
+
+- **The Result:** MLE ends at a single coordinate (the "Best Guess"); MCMC results in a "Posterior Distribution" of thousands of valid guesses that reveal exactly how much we should trust our estimate.
+
+## Example syntax of rstanarm
+
+```{r}
+#| message: false
+#| cache: true
+#| label: bfit
+
+library(rstanarm)
+
+# Problem 3: Boundary Issue on Random Slope SD
+bfit <- stan_lmer(
+  formula = blood_pressure ~ 1 + age_c + (1 + age_c | clinic_id), 
+  data = trouble,
+  chains = 4, # how many explorers to send out in total?
+  cores = 4   # how many explorers to run simultaneously?
+)
+```
+
+## Example output of rstanarm {.fsmaller}
+
+```{r}
+model_parameters(bfit, effects = "all")
+```
+
+- Median and 95% CI are point and interval estimates
+- pd is probability of direction (significant if > 97.5%)
+- Converged if all Rhat < 1.1 and ESS > 400 (i.e., chains &times; 100)
