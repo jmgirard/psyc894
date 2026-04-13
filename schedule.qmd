@@ -22,7 +22,7 @@ toc: false
 - Week 12: Longitudinal Analysis 2
 
 ## Unit D
-- Week 13: Troubleshooting
+- Week 13: Model Evaluation
 - Week 14: Practical Matters
 - Week 15: Project Work
 - Week 16: Project Work
