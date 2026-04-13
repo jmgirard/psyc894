@@ -342,7 +342,6 @@ Maximum Likelihood Estimation searches for a single highest peak. When the data 
 :::{.fragment}
 - **The Bayesian Solution:** Instead of finding a single point, Bayesian estimation maps out the entire landscape of probable values.
 - **Priors as Guardrails:** By providing prior information, we can prevent the model from wandering into absurd territory (e.g., negative variances).
-- **Next Lecture:** We will leave frequentist optimization behind and learn how to fit these complex models using Bayesian frameworks.
 
 :::
 

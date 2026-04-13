@@ -68,8 +68,8 @@ website:
             href: C/12/index.html
       - text: "Unit D"
         menu:
-          - icon: gear
-            text: "Week 13: Troubleshooting"
+          - icon: journal-medical
+            text: "Week 13: Model Evaluation"
             href: D/13/index.html
           - icon: journal-medical
             text: "Week 14: Practical Matters"

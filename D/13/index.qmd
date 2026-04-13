@@ -1,5 +1,5 @@
 ---
-title: "Week 13: Troubleshooting"
+title: "Week 13: Model Evaluation"
 ---
 
 <!-- Lecture a -->
@@ -23,6 +23,7 @@ title: "Week 13: Troubleshooting"
 - [S\&F Chapter 7: Model Estimation Options, Problems, and Troubleshooting](https://www.learn-mlms.com/07-module-7.html){target="_blank"}
 - [Barr et al. (2013)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"}
 - [Brauer \& Curtin (2018)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"}
+- [Matsuchek et al. (2017)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"}
 
 ### Slides
 
@@ -38,7 +39,7 @@ title: "Week 13: Troubleshooting"
 
 <!-- Lecture b -->
 
-## [13b] Bayesian Estimation
+## [13b] Diagnostics
 
 ### Topics
 TBA
