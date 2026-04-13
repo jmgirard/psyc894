@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c6070853b5fc0f07c03ed05933ca4b03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.9.36">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -217,9 +217,8 @@
 </ul></li>
 <li>A Systematic Workflow
 <ul>
-<li><em>Stage 1: Data Fixes</em></li>
-<li><em>Stage 2: Structural Simplification</em></li>
-<li><em>Stage 3: Algorithmic Adjustments</em></li>
+<li><em>Top-Down Troubleshooting</em></li>
+<li><em>Bayesian Estimation</em></li>
 </ul></li>
 </ol>
 </div><div class="column tc pv4" style="width:40%;">
@@ -255,6 +254,20 @@
 <li><strong>The Problem:</strong> If the mountain has a flat ridge, multiple peaks, or a boundary it cannot cross, the optimizer gets confused and either throws a warning or silently stops at an invalid parameter value.</li>
 </ul>
 </section>
+<section class="slide level2 fsmaller">
+<h2>Optimization as Hill Climbing</h2>
+<ol type="a">
+<li>Select a random or “best guess” starting value<sup>1</sup></li>
+<li>Estimate the likelihood of the current value<sup>2</sup></li>
+<li>Detemine whether to increase or decrease the value<sup>3</sup></li>
+<li>Update the current value by some amount (step size)<sup>4</sup></li>
+<li>Repeat steps 2-4 until the change in likelihood is small<sup>5</sup></li>
+</ol>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>We can optionally use a “multi-start” strategy (for multiple climbers)</p></li><li id="fn2"><p>Technically, we try to minimize the negative log-likelihood</p></li><li id="fn3"><p>We can optionally use derivative information (gradient/hessian) here</p></li><li id="fn4"><p>We can adjust the step size, which affects speed and pathing</p></li><li id="fn5"><p>We repeat until convergence or a maximum number of iterations</p></li></ol></aside></section>
+<section class="slide level2">
+<h2>Visual Example</h2>
+
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Setup</h2>
 <div class="cell">
@@ -550,11 +563,6 @@ SD (Residual)             |        5.18 |       </code></pre>
 <span id="cb27-6"><a aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb27-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section></section>
-<section>
-<section class="title-slide slide level1 center">
-<h1>Summary</h1>
-
 </section>
 <section class="slide level2 fsmaller">
 <h2>Troubleshooting Cheatsheet</h2>
@@ -572,19 +580,78 @@ SD (Residual)             |        5.18 |       </code></pre>
 </ul></li>
 <li><strong>Stage 3: Tweak the Algorithm.</strong> If the model is fully justified but struggling, increase iterations or change the optimizer via <code>glmmTMBControl()</code>.</li>
 </ol>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Bayes</h1>
+
 </section>
 <section class="slide level2 fsmaller">
-<h2>A Look Ahead: Bayesian Estimation</h2>
+<h2>Bayesian Estimation</h2>
 <p>Maximum Likelihood Estimation searches for a single highest peak. When the data lacks information, that peak disappears or becomes impossible to find.</p>
 <div class="fragment">
 <ul>
 <li><strong>The Bayesian Solution:</strong> Instead of finding a single point, Bayesian estimation maps out the entire landscape of probable values.</li>
 <li><strong>Priors as Guardrails:</strong> By providing prior information, we can prevent the model from wandering into absurd territory (e.g., negative variances).</li>
+<li>Two popular R packages for Bayesian MLM are {brms} and {rstanarm}. I personally prefer the former, but the latter is easier to start with.</li>
+<li>{rstanarm} can be be installed from CRAN and chooses reasonable weak priors for you.</li>
+<li>Both use Stan to perform Markov Chain Monte Carlo (MCMC).</li>
 </ul>
 </div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>MCMC Overview</h2>
+<ul>
+<li><p><strong>Exploring vs.&nbsp;Climbing:</strong> If MLE is a focused climber racing to find the single highest peak, MCMC is a wanderer exploring the entire mountain range to map its total volume and shape.</p></li>
+<li><p><strong>Volume over Altitude:</strong> MLE fails when a peak is flat or hidden; MCMC succeeds by spending time proportionally: it stays longer in high-probability areas but intentionally visits lower-probability valleys to capture the full range of uncertainty.</p></li>
+<li><p><strong>Sampling over Solving:</strong> Instead of using a compass (derivatives) to find the fastest path “up”, MCMC uses a stochastic “random walk” to build a massive collection of representative snapshots of the landscape.</p></li>
+<li><p><strong>The Result:</strong> MLE ends at a single coordinate (the “Best Guess”); MCMC results in a “Posterior Distribution” of thousands of valid guesses that reveal exactly how much we should trust our estimate.</p></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Example syntax of rstanarm</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstanarm)</span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Problem 3: Boundary Issue on Random Slope SD</span></span>
+<span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a>bfit <span class="ot">&lt;-</span> <span class="fu">stan_lmer</span>(</span>
+<span id="cb28-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> blood_pressure <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> age_c <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> age_c <span class="sc">|</span> clinic_id), </span>
+<span id="cb28-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> trouble,</span>
+<span id="cb28-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">chains =</span> <span class="dv">4</span>, <span class="co"># how many explorers to send out in total?</span></span>
+<span id="cb28-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">cores =</span> <span class="dv">4</span>   <span class="co"># how many explorers to run simultaneously?</span></span>
+<span id="cb28-9"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Example output of rstanarm</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(bfit, <span class="at">effects =</span> <span class="st">"all"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Fixed Effects
+
+Parameter   |    Median |           95% CI |     pd |  Rhat |  ESS |                    Prior
+---------------------------------------------------------------------------------------------
+(Intercept) |    119.54 | [118.86, 120.19] |   100% | 1.001 | 1773 | Normal (119.53 +- 14.01)
+age_c       | -1.90e-03 | [ -0.04,   0.03] | 54.12% | 0.999 | 6766 |    Normal (0.00 +- 1.40)
+
+# Random Effects
+
+Parameter               |   Median |        95% CI |     pd |  Rhat |  ESS
+--------------------------------------------------------------------------
+Sigma (Intercept)       |     4.55 | [ 2.76, 7.59] |   100% | 1.001 | 1563
+Sigma (age_c~Intercept) |     0.02 | [-0.05, 0.10] | 70.97% | 1.000 | 4484
+Sigma (age_c)           | 1.29e-03 | [ 0.00, 0.01] |   100% | 1.001 | 1944</code></pre>
+</div>
+</div>
+<ul>
+<li>Median and 95% CI are point and interval estimates</li>
+<li>pd is probability of direction (significant if &gt; 97.5%)</li>
+<li>Converged if all Rhat &lt; 1.1 and ESS &gt; 400 (i.e., chains × 100)</li>
+</ul>
 
 
 </section></section>
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
