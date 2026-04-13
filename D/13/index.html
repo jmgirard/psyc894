@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lab 07: Random Slopes – PSYC894</title>
+<title>Week 13: Troubleshooting – PSYC894</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -71,35 +71,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -260,21 +231,19 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#setup-and-data-preparation" id="toc-setup-and-data-preparation" class="nav-link active" data-scroll-target="#setup-and-data-preparation">Setup and Data Preparation</a></li>
-  <li><a href="#part-i-random-slopes-for-level-1-predictors" id="toc-part-i-random-slopes-for-level-1-predictors" class="nav-link" data-scroll-target="#part-i-random-slopes-for-level-1-predictors">Part I: Random Slopes for Level-1 Predictors</a>
+  <li><a href="#a-troubleshooting" id="toc-a-troubleshooting" class="nav-link active" data-scroll-target="#a-troubleshooting">[13a] Troubleshooting</a>
   <ul class="collapse">
-  <li><a href="#question-1-fitting-a-random-slope-model" id="toc-question-1-fitting-a-random-slope-model" class="nav-link" data-scroll-target="#question-1-fitting-a-random-slope-model">Question 1: Fitting a Random Slope Model</a></li>
-  <li><a href="#question-2-extracting-random-effects" id="toc-question-2-extracting-random-effects" class="nav-link" data-scroll-target="#question-2-extracting-random-effects">Question 2: Extracting Random Effects</a></li>
+  <li><a href="#topics" id="toc-topics" class="nav-link" data-scroll-target="#topics">Topics</a></li>
+  <li><a href="#file-downloads" id="toc-file-downloads" class="nav-link" data-scroll-target="#file-downloads">File Downloads</a></li>
+  <li><a href="#readings" id="toc-readings" class="nav-link" data-scroll-target="#readings">Readings</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
   </ul></li>
-  <li><a href="#part-ii-predictions-and-shrinkage" id="toc-part-ii-predictions-and-shrinkage" class="nav-link" data-scroll-target="#part-ii-predictions-and-shrinkage">Part II: Predictions and Shrinkage</a>
+  <li><a href="#b-bayesian-estimation" id="toc-b-bayesian-estimation" class="nav-link" data-scroll-target="#b-bayesian-estimation">[13b] Bayesian Estimation</a>
   <ul class="collapse">
-  <li><a href="#question-3-best-linear-unbiased-predictions" id="toc-question-3-best-linear-unbiased-predictions" class="nav-link" data-scroll-target="#question-3-best-linear-unbiased-predictions">Question 3: Best Linear Unbiased Predictions</a></li>
-  <li><a href="#question-4-visualizing-effects" id="toc-question-4-visualizing-effects" class="nav-link" data-scroll-target="#question-4-visualizing-effects">Question 4: Visualizing Effects</a></li>
-  </ul></li>
-  <li><a href="#part-iii-cross-level-interactions" id="toc-part-iii-cross-level-interactions" class="nav-link" data-scroll-target="#part-iii-cross-level-interactions">Part III: Cross-Level Interactions</a>
-  <ul class="collapse">
-  <li><a href="#question-5-fitting-a-cross-level-interaction" id="toc-question-5-fitting-a-cross-level-interaction" class="nav-link" data-scroll-target="#question-5-fitting-a-cross-level-interaction">Question 5: Fitting a Cross-Level Interaction</a></li>
-  <li><a href="#question-6-interpreting-the-interaction" id="toc-question-6-interpreting-the-interaction" class="nav-link" data-scroll-target="#question-6-interpreting-the-interaction">Question 6: Interpreting the Interaction</a></li>
+  <li><a href="#topics-1" id="toc-topics-1" class="nav-link" data-scroll-target="#topics-1">Topics</a></li>
+  <li><a href="#file-downloads-1" id="toc-file-downloads-1" class="nav-link" data-scroll-target="#file-downloads-1">File Downloads</a></li>
+  <li><a href="#readings-1" id="toc-readings-1" class="nav-link" data-scroll-target="#readings-1">Readings</a></li>
+  <li><a href="#slides-1" id="toc-slides-1" class="nav-link" data-scroll-target="#slides-1">Slides</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -284,7 +253,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Lab 07: Random Slopes</h1>
+<h1 class="title">Week 13: Troubleshooting</h1>
 </div>
 
 
@@ -301,63 +270,76 @@ window.Quarto = {
 </header>
 
 
-<section id="setup-and-data-preparation" class="level2">
-<h2 class="anchored" data-anchor-id="setup-and-data-preparation">Setup and Data Preparation</h2>
-<p>First, load the necessary packages (e.g., <code>tidyverse</code>, <code>lme4</code>, and <code>easystats</code>) and your data. You will be using the “smiling.csv” dataset for the entirety of this lab. It is a subset of real data from Campbell, Girard, McDuff, &amp; Rosengren (<a href="https://doi.org/10.1177/10949968251360683">2025</a>). Be sure to format <code>sex</code> and <code>nation</code> as factors. Also, create a new variable called <code>gdp</code> by applying the <code>standardize()</code> function to the <code>gdp_percap_ppp</code> variable. This will prevent model convergence warnings and make the slope easier to interpret.</p>
-</section>
-<section id="part-i-random-slopes-for-level-1-predictors" class="level2">
-<h2 class="anchored" data-anchor-id="part-i-random-slopes-for-level-1-predictors">Part I: Random Slopes for Level-1 Predictors</h2>
-<p>For this section, we will allow the effect of a Level-1 predictor to vary across our clusters.</p>
-<section id="question-1-fitting-a-random-slope-model" class="level3">
-<h3 class="anchored" data-anchor-id="question-1-fitting-a-random-slope-model">Question 1: Fitting a Random Slope Model</h3>
-<p>In previous labs, we assumed the slope for our Level-1 predictor was identical across all clusters. Now, we will let that slope vary across nations by adding a Level-2 deviation.</p>
+<!-- Lecture a -->
+<section id="a-troubleshooting" class="level2">
+<h2 class="anchored" data-anchor-id="a-troubleshooting">[13a] Troubleshooting</h2>
+<section id="topics" class="level3">
+<h3 class="anchored" data-anchor-id="topics">Topics</h3>
+<ol type="1">
+<li>Understanding Non-Convergence
 <ul>
-<li><p><strong>1a.</strong> Fit a model predicting <code>smile</code> with a fixed slope for <code>sex</code> and a random intercept and random slope for <code>sex</code> by <code>nation</code>. Use the generic formula <code>y ~ 1 + x + (1 + x | cluster)</code> using the <code>lmer()</code> function. Assign this model to an object.</p></li>
-<li><p><strong>1b.</strong> Use the <code>model_parameters()</code> function to view your results. Interpret the random slope standard deviation (<span class="math inline">\(\tau_{11}\)</span>). Specifically, what does this value tell us about the spread of sex differences across nations?</p></li>
+<li><em>The Likelihood Surface</em></li>
+<li><em>Diagnosing Warnings</em></li>
+</ul></li>
+<li>A Systematic Workflow
+<ul>
+<li><em>Stage 1: Data Fixes</em></li>
+<li><em>Stage 2: Structural Simplification</em></li>
+<li><em>Stage 3: Algorithmic Adjustments</em></li>
+</ul></li>
+</ol>
+</section>
+<section id="file-downloads" class="level3">
+<h3 class="anchored" data-anchor-id="file-downloads">File Downloads</h3>
+<ul>
+<li><a href="../../data/trouble_sim.csv" download="trouble_sim.csv">trouble_sim.csv</a></li>
 </ul>
 </section>
-<section id="question-2-extracting-random-effects" class="level3">
-<h3 class="anchored" data-anchor-id="question-2-extracting-random-effects">Question 2: Extracting Random Effects</h3>
-<p>We can extract the specific estimates for each cluster to see how they differ from the overall population average.</p>
+<section id="readings" class="level3">
+<h3 class="anchored" data-anchor-id="readings">Readings</h3>
 <ul>
-<li><p><strong>2a.</strong> Derive the cluster deviations using <code>estimate_grouplevel(fit, type = "random")</code>. Look up the specific <code>(Intercept)</code> and <code>sex</code> deviations for the <code>"USA"</code>. Does the USA have a larger or smaller sex difference than the global average? <em>(Hint: Recall that the global fixed effect for males is negative. Think mathematically about how adding a positive deviation changes the absolute magnitude of a negative slope.)</em></p></li>
-<li><p><strong>2b.</strong> Look at your model output to find the correlation between the random intercept and random slope (<span class="math inline">\(\tau_{10}\)</span>). What is this value? Drawing on the lecture material, explain why it is generally important to estimate this correlation parameter even if it is not your primary research question.</p></li>
+<li><a href="https://www.learn-mlms.com/07-module-7.html" target="_blank">S&amp;F Chapter 7: Model Estimation Options, Problems, and Troubleshooting</a></li>
+<li><a href="https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting" target="_blank">Barr et al.&nbsp;(2013)</a></li>
+<li><a href="https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting" target="_blank">Brauer &amp; Curtin (2018)</a></li>
 </ul>
 </section>
-</section>
-<section id="part-ii-predictions-and-shrinkage" class="level2">
-<h2 class="anchored" data-anchor-id="part-ii-predictions-and-shrinkage">Part II: Predictions and Shrinkage</h2>
-<section id="question-3-best-linear-unbiased-predictions" class="level3">
-<h3 class="anchored" data-anchor-id="question-3-best-linear-unbiased-predictions">Question 3: Best Linear Unbiased Predictions</h3>
-<ul>
-<li><p><strong>3a.</strong> Extract the Best Linear Unbiased Predictions (BLUPs) using <code>estimate_grouplevel(fit, type = "total")</code>. Look up the specific total predictions for “JPN”. What are the total estimated intercept and total estimated sex slope specifically for Japan?</p></li>
-<li><p><strong>3b.</strong> Explain the concept of shrinkage or partial pooling in your own words. Why is the spread of our sample predictions always smaller than the estimated population spread?</p></li>
-</ul>
-</section>
-<section id="question-4-visualizing-effects" class="level3">
-<h3 class="anchored" data-anchor-id="question-4-visualizing-effects">Question 4: Visualizing Effects</h3>
-<ul>
-<li><p><strong>4a.</strong> Visualize the fixed effects for the average nation using your multilevel model. Extract the relation using <code>estimate_relation()</code> and plot it.</p></li>
-<li><p><strong>4b.</strong> If you were to plot the cluster-specific predictions, the lines for each nation would no longer be parallel. Why does including a random slope cause this visual change compared to a model with only random intercepts?</p></li>
-</ul>
+<section id="slides" class="level3">
+<h3 class="anchored" data-anchor-id="slides">Slides</h3>
+<iframe class="slide-deck" src="a_Slides.html" title="[13a] Slideshow">
+</iframe>
+<div class="fsmaller">
+<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
+</div>
+<!-- Lecture b -->
 </section>
 </section>
-<section id="part-iii-cross-level-interactions" class="level2">
-<h2 class="anchored" data-anchor-id="part-iii-cross-level-interactions">Part III: Cross-Level Interactions</h2>
-<p>For this final section, we will test whether a Level-2 predictor can explain the variability we observed in our Level-1 random slopes.</p>
-<section id="question-5-fitting-a-cross-level-interaction" class="level3">
-<h3 class="anchored" data-anchor-id="question-5-fitting-a-cross-level-interaction">Question 5: Fitting a Cross-Level Interaction</h3>
-<ul>
-<li><p><strong>5a.</strong> Fit a model testing whether a nation’s wealth (<code>gdp</code>) moderates the effect of <code>sex</code> on <code>smile</code>. Include a fixed interaction between <code>gdp</code> and <code>sex</code>, and be sure to retain the random intercept and random slope by <code>nation</code>. Use the generic formula <code>y ~ 1 + z * x + (1 + x | cluster)</code> as your guide.</p></li>
-<li><p><strong>5b.</strong> Explain why it is absolutely necessary to include the random slope for the Level-1 predictor (<code>sex</code>) when testing this cross-level interaction. What happens to your Type I error rate if you omit it?</p></li>
-</ul>
+<section id="b-bayesian-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="b-bayesian-estimation">[13b] Bayesian Estimation</h2>
+<section id="topics-1" class="level3">
+<h3 class="anchored" data-anchor-id="topics-1">Topics</h3>
+<p>TBA</p>
 </section>
-<section id="question-6-interpreting-the-interaction" class="level3">
-<h3 class="anchored" data-anchor-id="question-6-interpreting-the-interaction">Question 6: Interpreting the Interaction</h3>
-<ul>
-<li><p><strong>6a.</strong> Interpret the fixed interaction effect (<span class="math inline">\(\gamma_{11}\)</span>). Does the sex difference in smiling significantly differ depending on a nation’s GDP?</p></li>
-<li><p><strong>6b.</strong> Visualize the fixed effects of the cross-level interaction using your multilevel model. Extract the relation using <code>estimate_relation()</code>, specifying both <code>gdp</code> and <code>sex</code> in the <code>by</code> argument, and plot it. How does this visual output support your conclusion from 6a?</p></li>
-</ul>
+<section id="file-downloads-1" class="level3">
+<h3 class="anchored" data-anchor-id="file-downloads-1">File Downloads</h3>
+<p>TBA</p>
+</section>
+<section id="readings-1" class="level3">
+<h3 class="anchored" data-anchor-id="readings-1">Readings</h3>
+<p>TBA</p>
+</section>
+<section id="slides-1" class="level3">
+<h3 class="anchored" data-anchor-id="slides-1">Slides</h3>
+<iframe class="slide-deck" src="b_Slides.html" title="[13b] Slideshow">
+</iframe>
+<div class="fsmaller">
+<p>*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.</p>
+</div>
+<!-- Bottom Nav -->
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../../C/12/index.html" class="btn btn-outline-primary" role="button">«&nbsp;&nbsp;Week 12</a>
+
+  <a href="../14/index.html" class="btn btn-primary" role="button">Week 14&nbsp;&nbsp;»</a>
+</div>
 
 
 </section>

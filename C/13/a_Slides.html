@@ -198,9 +198,9 @@
 
 <section class="title-slide slide level1 my-title center">
 <h1><span class="blue">Multilevel Modeling</span></h1>
-<p>Predicting Change</p>
+<p>Troubleshooting</p>
 <div class="my-grey">
-<p><span>Spring 2026 | CLAS | PSYC 894</span><br> <span>Jeffrey M. Girard | Lecture 12b</span></p>
+<p><span>Spring 2026 | CLAS | PSYC 894</span><br> <span>Jeffrey M. Girard | Lecture 13a</span></p>
 </div>
 <p><img data-src="../../img/city-girl.svg" class="absolute" style="bottom: 30px; right: 0px; width: 400px; "></p>
 </section>
@@ -210,15 +210,16 @@
 <div class="columns pv4">
 <div class="column" style="width:60%;">
 <ol type="1">
-<li>Time-Invariant Predictors
+<li>Understanding Non-Convergence
 <ul>
-<li><em>Explaining the Baseline</em></li>
-<li><em>Explaining the Growth Rate</em></li>
+<li><em>The Likelihood Surface</em></li>
+<li><em>Diagnosing Warnings</em></li>
 </ul></li>
-<li>Time-Varying Predictors
+<li>A Systematic Workflow
 <ul>
-<li><em>Decomposing Predictors</em></li>
-<li><em>Explaining the Fluctuations</em></li>
+<li><em>Stage 1: Data Fixes</em></li>
+<li><em>Stage 2: Structural Simplification</em></li>
+<li><em>Stage 3: Algorithmic Adjustments</em></li>
 </ul></li>
 </ol>
 </div><div class="column tc pv4" style="width:40%;">
@@ -227,347 +228,364 @@
 </section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Time-Invariant Predictors</h1>
+<h1>Troubleshooting</h1>
 
 </section>
+<section class="slide level2 fsmaller">
+<h2>Convergence Problems</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li>MLMs are inherently complex and datasets often lack the information needed for extreme parameterization.</li>
+<li>Convergence problems are a routine part of the MLM workflow.</li>
+<li><span class="b dark-red">Do not ignore these warnings!</span> Parameter estimates from non-converged models are mathematically unreliable.</li>
+<li>However, do not despair. Troubleshooting is a systematic process and there are standard steps to fix these issues.</li>
+</ul>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/ghost.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section class="slide level2 fsmaller">
+<h2>The Likelihood Surface</h2>
+<p>Before diving into specific warnings, we must remember back to Lecture 04b.</p>
+<ul>
+<li><strong>Maximum Likelihood Estimation:</strong> The optimizer searches for a combination of parameter values that maximizes the probability of observing the data.</li>
+<li><strong>The Mountain Analogy:</strong> Imagine a multi-dimensional mountain. The optimizer takes steps to find the absolute highest peak.</li>
+<li><strong>The Map and Compass:</strong> The optimizer uses local derivative information (the Gradient and Hessian) to aid in the search.</li>
+<li><strong>The Problem:</strong> If the mountain has a flat ridge, multiple peaks, or a boundary it cannot cross, the optimizer gets confused and either throws a warning or silently stops at an invalid parameter value.</li>
+</ul>
+</section>
 <section class="slide level2">
-<h2>Reviewing the Unconditional Model</h2>
-<div class="fsmaller">
-<p>In 12a, we found that a logarithmic transformation of time best captured the vocabulary growth trajectory in our sample. This is an “unconditional” growth model because it contains no predictors other than time.</p>
-</div>
-<div class="cell" data-replace_path="[&quot;../../data/&quot;,&quot;&quot;]">
+<h2>Setup</h2>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmmTMB)</span>
-<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
-<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>vocab <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"vocab_sim.csv"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Center at Baseline, scale to Years</span></span>
-<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> (age_months <span class="sc">-</span> <span class="dv">120</span>) <span class="sc">/</span> <span class="dv">12</span>)</span>
-<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a aria-hidden="true" tabindex="-1"></a>fit_log <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
-<span id="cb1-10"><a aria-hidden="true" tabindex="-1"></a>  vocab <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">log</span>(time <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">log</span>(time <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">|</span> subject),</span>
-<span id="cb1-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> vocab</span>
-<span id="cb1-12"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
-<section class="slide level2">
-<h2>Explaining the Variance</h2>
-<div class="fsmaller">
-<ul>
-<li><p>Our unconditional model tells us the average <strong>starting point</strong> and the average <strong>rate of growth</strong>. It also tells us that individuals vary around both of those averages. <em>Why are some individuals higher or lower than others?</em></p></li>
-<li><p>We can now add <strong>Level 2 Predictors</strong> to try and explain that variation</p></li>
-<li><p>These are “time-invariant” variables that differ between people but remain constant for a given person over time (e.g., traits, person characteristics)</p></li>
-<li><p>For example, we might want to test if the reading <code>program</code> (A vs.&nbsp;B) affects a child’s starting vocabulary or growth rate</p></li>
-</ul>
-</div>
-</section>
-<section class="slide level2">
-<h2>Equations for Level 2 Predictors</h2>
-<div class="tc b">
-<p>Level One (Observation)</p>
-</div>
-<p><span class="math display">\[y_{ti} = \beta_{0i} + \beta_{1i} T_{ti} + \color{#4daf4a}{e_{ti}}\]</span></p>
-<div class="tc b">
-<p>Level Two (Cluster)</p>
-</div>
-<p><span class="math display">\[\begin{align}
-\beta_{0i} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} w_i + \color{#e41a1c}{u_{0i}} \\
-\beta_{1i} &amp;= \color{#377eb8}{\gamma_{10}} + \color{#377eb8}{\gamma_{11}} w_i + \color{#e41a1c}{u_{1i}}
-\end{align}\]</span></p>
-<div class="fsmaller mt4">
-<p>Note that the L2 variable (<span class="math inline">\(w_i\)</span>) is predicting both the intercept <br>(<span class="math inline">\(\beta_{0i}\)</span>, starting point) and the slope (<span class="math inline">\(\beta_{1i}\)</span>, growth rate).</p>
-</div>
-</section>
-<section class="slide level2">
-<h2>Path Diagram</h2>
-
-<img data-src="../../diagrams/time_invariant.png" class="r-stretch"></section>
-<section class="slide level2">
-<h2>The Linear Formula</h2>
-<div class="fsmaller">
-<ul>
-<li>We have already seen this exact structure…
-<ul>
-<li>This is just a cross-level interaction!</li>
-</ul></li>
-</ul>
-</div>
-<div class="tc">
-<p><strong>Generic Formula</strong></p>
-<p><code>y ~ 1 + w * T + (1 + T | person)</code></p>
-</div>
-<div class="fragment tc">
-<p><strong>Mapping to Our Data</strong></p>
-<p><code>vocab ~ 1 + program * time +</code><br><code>(1 + time | subject)</code></p>
-</div>
-</section>
-<section class="slide level2">
-<h2>Wait a Minute…</h2>
-<div class="fsmaller">
-<p>If we ran that model, we would be asking: <em>“Does the intervention program change the rate at which vocabulary grows in a perfectly straight line forever?”</em></p>
-<div class="fragment mt4">
-<p>But remember what we discovered in Lecture 12a!</p>
-<p>Vocabulary growth in this sample is <strong>not linear</strong>. It follows a rapid early learning phase that gradually plateaus. It is <strong>logarithmic</strong>.</p>
-</div>
-<div class="fragment mt4">
-<p>We don’t have to throw away our Level 2 equations! We just need to swap out raw Time for our logarithmic transformation. Let’s update our formula.</p>
-</div>
-</div>
-</section>
-<section class="slide level2">
-<h2>The Updated Formula</h2>
-<div class="tc">
-<p><strong>Generic Nonlinear Formula</strong></p>
-<p><code>y ~ 1 + w * transform(time) +</code><br><code>(1 + transform(time) | person)</code></p>
-</div>
-<div class="fragment tc">
-<p><strong>Our Specific Model</strong></p>
-<p><code>vocab ~ 1 + program * log(time + 1) +</code><br><code>(1 + log(time + 1) | subject)</code></p>
-</div>
-</section>
-<section class="slide level2">
-<h2>Interpreting L2 Fixed Effects</h2>
-<div class="fsmaller">
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>fit_l2 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
-<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>  vocab <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> program <span class="sc">*</span> <span class="fu">log</span>(time <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">log</span>(time <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">|</span> subject),</span>
-<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> vocab</span>
-<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_l2, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell" data-replace_path="[&quot;../../data/&quot;,&quot;&quot;]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>trouble <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"trouble_sim.csv"</span>)</span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(trouble)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Fixed Effects
-
-Parameter                    | Coefficient |   SE |         95% CI |     z |      p
------------------------------------------------------------------------------------
-(Intercept)                  |       44.88 | 0.71 | [43.48, 46.28] | 62.85 | &lt; .001
-program [B]                  |        5.33 | 1.00 | [ 3.38,  7.28] |  5.35 | &lt; .001
-time + 1 [log]               |       18.57 | 0.80 | [17.00, 20.15] | 23.10 | &lt; .001
-program [B] × time + 1 [log] |        9.77 | 1.12 | [ 7.57, 11.97] |  8.71 | &lt; .001</code></pre>
-</div>
-</div>
-<ul>
-<li><strong>Intercept:</strong> Average starting value in the A group.</li>
-<li><strong>Program effect:</strong> The difference in starting values between groups.</li>
-<li><strong>Time effect:</strong> Average rate of log-growth in the A group.</li>
-<li><strong>Interaction effect:</strong> The difference in log-growth rates between groups.</li>
-</ul>
-</div>
-</section>
-<section class="slide level2">
-<h2>Visualizing L2 Predictors</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_relation</span>(fit_l2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"time"</span>, <span class="st">"program"</span>)) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
-</div>
-<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2">
-<h2>Probing the Interaction</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># What is each group's rate of log-growth?</span></span>
-<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_slopes</span>(fit_l2, <span class="at">trend =</span> <span class="st">"time"</span>, <span class="at">by =</span> <span class="st">"program"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Estimated Marginal Effects
-
-program | Slope |   SE |       95% CI |     z |      p
-------------------------------------------------------
-A       |  5.31 | 0.23 | [4.86, 5.76] | 23.09 | &lt; .001
-B       |  8.10 | 0.22 | [7.66, 8.54] | 36.21 | &lt; .001
-
-Marginal effects estimated for time
-Type of slope was dY/dX</code></pre>
-</div>
-</div>
-</section>
-<section class="slide level2">
-<h2>Point-in-Time Contrasts</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># How much do the groups differ at each time point?</span></span>
-<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_contrasts</span>(fit_l2, <span class="at">contrast =</span> <span class="st">"program"</span>, <span class="at">by =</span> <span class="st">"time"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Marginal Contrasts Analysis
-
-Level1 | Level2 | time | Difference |   SE |         95% CI |     z |      p
-----------------------------------------------------------------------------
-B      | A      |    0 |       5.33 | 1.00 | [ 3.38,  7.28] |  5.35 | &lt; .001
-B      | A      |    1 |      12.11 | 0.99 | [10.16, 14.05] | 12.20 | &lt; .001
-B      | A      |    2 |      16.07 | 1.24 | [13.64, 18.50] | 12.94 | &lt; .001
-B      | A      |    3 |      18.88 | 1.48 | [15.98, 21.78] | 12.77 | &lt; .001
-B      | A      |    4 |      21.06 | 1.68 | [17.76, 24.36] | 12.52 | &lt; .001
-B      | A      |    5 |      22.84 | 1.86 | [19.20, 26.48] | 12.30 | &lt; .001
-
-Variable predicted: vocab
-Predictors contrasted: program
-Predictors averaged: subject (1)
-p-values are uncorrected.</code></pre>
+<pre><code>Rows: 1,000
+Columns: 10
+$ clinic_id       &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ patient_age     &lt;dbl&gt; 63.70958, 44.35302, 53.63128, 56.32863, 54.04268,…
+$ age_c           &lt;dbl&gt; 13.7095845, -5.6469817, 3.6312841, 6.3286260, 4.0…
+$ treatment_group &lt;chr&gt; "Placebo", "Active", "Placebo", "Active", "Placeb…
+$ dosage_kg       &lt;dbl&gt; 0.0012325058, 0.0010524122, 0.0010970733, 0.00103…
+$ stress_score    &lt;dbl&gt; 2.5057807, -2.7792405, -17.2473573, -20.0670494, …
+$ anxiety_score   &lt;dbl&gt; 2.0045560, -2.2234717, -13.7979266, -16.0537544, …
+$ blood_pressure  &lt;dbl&gt; 112.9516, 119.1437, 122.6372, 121.8468, 122.5581,…
+$ viral_load      &lt;dbl&gt; 996950.5, 999036.6, 996092.5, 998228.8, 997705.1,…
+$ cortisol_level  &lt;dbl&gt; 7.976840, 9.969775, 24.169540, 24.377656, 27.9032…</code></pre>
 </div>
 </div>
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Time-Varying Predictors</h1>
+<h1>Stage 1:<br> Data Fixes</h1>
 
 </section>
 <section class="slide level2">
-<h2>Bridging Growth and Fluctuation</h2>
+<h2>Problem 1: Extreme Scaling</h2>
 <div class="fsmaller">
-<ul>
-<li><p>L2 predictors explain differences <em>between</em> trajectories. However, people also deviate from their own expected trajectories from observation to observation.</p></li>
-<li><p>In Lecture 11b, we modeled these observation-specific deviations using fluctuation models. We can bring that same logic into our growth models by adding <strong>L1 Predictors</strong>. These are “time-varying” variables that change over time within an individual.</p></li>
-<li><p>In our data, we tracked how many <code>hours_read</code> each child completed in the weeks prior to their annual assessment. Does reading more than usual predict a bump in vocabulary above the growth curve?</p></li>
-</ul>
-</div>
-</section>
-<section class="slide level2">
-<h2>Decomposing the Predictor</h2>
-<div class="fsmaller">
-<p>Before we add a L1 predictor <span class="math inline">\(x\)</span> to the model, we should decompose it into between- and within-person components <span class="math inline">\(x_i^{(b)}\)</span> and <span class="math inline">\(x_{ti}^{(w)}\)</span></p>
+<p>A frequent warning in <code>glmmTMB</code> is a “non-positive-definite Hessian matrix.” This simply means the optimizer cannot mathematically verify it has found a peak. One common cause is a numerical issue resulting from variables living on vastly different mathematical scales.</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>vocab2 <span class="ot">&lt;-</span> vocab <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">.by =</span> subject,</span>
-<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">read_b =</span> <span class="fu">mean</span>(hours_read),</span>
-<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">read_w =</span> hours_read <span class="sc">-</span> read_b</span>
-<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb9-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 900 × 8
-  subject program age_months vocab hours_read  time read_b read_w
-    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1       1 B              120  45.4       3.40     0   2.92  0.480
-2       1 B              132  59.3       2.57     1   2.92 -0.347
-3       1 B              144  72.8       1.57     2   2.92 -1.35 
-# ℹ 897 more rows</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Try to predict a massive y from a tiny x</span></span>
+<span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a>fit_scaling <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> viral_load <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> dosage_kg <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> clinic_id), </span>
+<span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> trouble</span>
+<span id="cb4-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in finalizeTMB(TMBStruc, obj, fit, h, data.tmb.old): Model
+convergence problem; non-positive-definite Hessian matrix. See
+vignette('troubleshooting')</code></pre>
 </div>
 </div>
 </section>
 <section class="slide level2">
-<h2>Equations for Level 1 Predictors</h2>
-<div class="tc b">
-<p>Level One (Observation)</p>
-</div>
-<p><span class="math display">\[y_{ti} = \beta_{0i} + \beta_{1i} \log(T_{ti}+1) + \beta_{2i} x_{ti}^{(w)} + \color{#4daf4a}{e_{ti}}\]</span></p>
-<div class="tc b">
-<p>Level Two (Cluster)</p>
-</div>
-<p><span class="math display">\[\begin{align}
-\beta_{0i} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} w_i + \color{#377eb8}{\gamma_{02}} x_i^{(b)} + \color{#e41a1c}{u_{0i}} \\
-\beta_{1i} &amp;= \color{#377eb8}{\gamma_{10}} + \color{#377eb8}{\gamma_{11}} w_i + \color{#e41a1c}{u_{1i}} \\
-\beta_{2i} &amp;= \color{#377eb8}{\gamma_{20}} + \color{#e41a1c}{u_{2i}}
-\end{align}\]</span></p>
-</section>
-<section class="slide level2">
-<h2>Formula and Fitting</h2>
+<h2>Detecting Extreme Scaling</h2>
 <div class="fsmaller">
-<p>We add the between-person term as a standard fixed effect. We add the within-person term as a fixed effect, and we also add it to the random effects bracket to allow its effect to vary across subjects.</p>
+<p>Look for means/medians or ranges that are on wildly different scales</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a>trouble <span class="sc">|&gt;</span> <span class="fu">select</span>(viral_load, dosage_kg) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   viral_load        dosage_kg        
+ Min.   : 957078   Min.   :0.0007072  
+ 1st Qu.: 980911   1st Qu.:0.0009333  
+ Median : 997204   Median :0.0009989  
+ Mean   : 995933   Mean   :0.0009995  
+ 3rd Qu.:1008560   3rd Qu.:0.0010658  
+ Max.   :1055910   Max.   :0.0013585  </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Addressing Extreme Scaling</h2>
+<div class="fsmaller">
+<p><strong>The Fix:</strong> We need to get the variables on similar scales. It is recommended to <em>rescale</em> outcomes (to preserve ICC) and <em>standardize</em> predictors. Here, we can divide <code>viral_load</code> by 10,000 to get its mean down from ~1M to ~100.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Fix scaling issues</span></span>
+<span id="cb8-2"><a aria-hidden="true" tabindex="-1"></a>trouble_fix <span class="ot">&lt;-</span> trouble <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">viral_load =</span> viral_load <span class="sc">/</span> <span class="dv">10000</span>,   <span class="co"># y = rescale</span></span>
+<span id="cb8-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">dosage_kg =</span> <span class="fu">standardize</span>(dosage_kg) <span class="co"># x = standardize</span></span>
+<span id="cb8-6"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a>fit_combined <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
-<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> vocab <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fu">log</span>(time <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">*</span> program <span class="sc">+</span> read_b <span class="sc">+</span> read_w <span class="sc">+</span> </span>
-<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>                    (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">log</span>(time <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">+</span> read_w <span class="sc">|</span> subject),</span>
-<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> vocab2</span>
-<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</section>
-<section class="slide level2">
-<h2>Interpreting L1 Fixed Effects</h2>
-<div class="fsmaller">
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_combined, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Refit and check</span></span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a>fit_scaling_fixed <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb9-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> viral_load <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> dosage_kg <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> clinic_id), </span>
+<span id="cb9-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> trouble_fix</span>
+<span id="cb9-5"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_convergence</span>(fit_scaling_fixed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Fixed Effects
-
-Parameter                    | Coefficient |   SE |         95% CI |     z |      p
------------------------------------------------------------------------------------
-(Intercept)                  |       44.09 | 1.23 | [41.68, 46.50] | 35.85 | &lt; .001
-time + 1 [log]               |       18.35 | 0.75 | [16.88, 19.82] | 24.47 | &lt; .001
-program [B]                  |        5.33 | 0.96 | [ 3.45,  7.22] |  5.55 | &lt; .001
-read b                       |        0.20 | 0.21 | [-0.21,  0.61] |  0.97 | 0.333 
-read w                       |        1.55 | 0.12 | [ 1.32,  1.78] | 13.26 | &lt; .001
-time + 1 [log] × program [B] |        9.82 | 1.05 | [ 7.76, 11.88] |  9.36 | &lt; .001</code></pre>
+<pre><code>[1] TRUE</code></pre>
 </div>
 </div>
-<ul>
-<li><code>read_b</code>: The between-person effect is non-significant. Children who generally read more do not necessarily have a higher baseline vocabulary.</li>
-<li><code>read_w</code>: The within-person effect is significant and positive. In years when a child reads more than <em>their own</em> usual amount, their vocabulary score bumps up by about 1.5 points <em>above their expected trajectory</em>.</li>
-</ul>
 </div>
 </section>
 <section class="slide level2">
-<h2>Visualizing the L1 Effect</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_relation</span>(fit_combined, <span class="at">by =</span> <span class="st">"read_w"</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
+<h2>Problem 2: Collinearity</h2>
+<div class="fsmaller">
+<p>The Hessian warning can also be triggered when the optimizer gets stuck on a flat likelihood ridge. A second major cause for this is severe collinearity among predictors, which confuses the optimizer because multiple parameter combinations yield the same model fit.</p>
 </div>
-<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"><div class="fsmaller tc">
-<p>This plot shows the pure within-person effect. For every hour a child reads above their personal average, their vocabulary score is pushed upward away from their underlying growth curve.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Try to predict y from two highly correlated x variables </span></span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>fit_collin <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> cortisol_level <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> stress_score <span class="sc">+</span> anxiety_score <span class="sc">+</span> </span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">+</span> stress_score <span class="sc">+</span> anxiety_score <span class="sc">|</span> clinic_id), </span>
+<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> trouble</span>
+<span id="cb11-6"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in finalizeTMB(TMBStruc, obj, fit, h, data.tmb.old): Model
+convergence problem; non-positive-definite Hessian matrix. See
+vignette('troubleshooting')</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Verifying Collinearity</h2>
+<div class="fsmaller">
+<p>We need to remove the redundant information. It is recommended to check Variance Inflation Factors (VIFs) and then drop one of the collinear predictors. Recall that VIFs of 5+ indicate <em>moderate</em> and 10+ indicate <em>high</em> collinearity.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># NB: I am setting ci = NA only to save space on slide</span></span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_collinearity</span>(fit_collin, <span class="at">ci =</span> <span class="cn">NA</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Check for Multicollinearity
+
+High Correlation
+
+          Term      VIF adj. VIF Tolerance
+  stress_score 3.07e+07  5538.21  3.26e-08
+ anxiety_score 3.07e+07  5538.21  3.26e-08</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Addressing Collinearity</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Drop anxiety_score, refit, and check</span></span>
+<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>fit_collin_fixed <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb15-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> cortisol_level <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> stress_score <span class="sc">+</span> </span>
+<span id="cb15-4"><a aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span> <span class="sc">+</span> stress_score <span class="sc">|</span> clinic_id), </span>
+<span id="cb15-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> trouble</span>
+<span id="cb15-6"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_convergence</span>(fit_collin_fixed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
 </div>
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Building Predictions</h1>
+<h1>Stage 2:<br> Structural Fixes</h1>
 
 </section>
 <section class="slide level2">
-<h2>Zooming in on Subject 84</h2>
+<h2>Problem 3: Overparameterization</h2>
 <div class="fsmaller">
-<p>To understand how our model builds a prediction, let’s deconstruct the trajectory for a single person. We use <code>estimate_grouplevel()</code> to extract Subject 84’s specific random effect deviations.</p>
+<p>A third cause of the Hessian warning is when the optimizer hits a mathematical boundary. However, note that <code>glmmTMB</code> will sometimes converge silently despite this issue! This occurs when a variance is estimated near 0 (e.g., e-13) or a correlation between random effects is near +/- 1.00. The problem is that the model is too complex for the data.</p>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_grouplevel</span>(fit_combined) <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Level <span class="sc">==</span> <span class="dv">84</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Group   | Level | Parameter      | Coefficient |   SE |        95% CI
----------------------------------------------------------------------
-subject | 84    | (Intercept)    |       -1.78 | 2.06 | [-5.82, 2.26]
-subject | 84    | time + 1 [log] |        2.43 | 1.71 | [-0.91, 5.78]
-subject | 84    | read w         |        0.34 | 0.67 | [-0.97, 1.66]</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-hidden="true" tabindex="-1"></a>fit_overparam <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb17-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> blood_pressure <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> age_c <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> age_c <span class="sc">|</span> clinic_id), </span>
+<span id="cb17-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> trouble</span>
+<span id="cb17-4"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in (function (start, objective, gradient = NULL, hessian = NULL, :
+NA/NaN function evaluation</code></pre>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in finalizeTMB(TMBStruc, obj, fit, h, data.tmb.old): Model
+convergence problem; non-positive-definite Hessian matrix. See
+vignette('troubleshooting')</code></pre>
 </div>
-<div class="fsmaller fragment mt4">
-<p>They started lower than average (–1.78), grew faster than average (+2.43), and got a larger-than-average boost from reading (+0.34).</p>
-<p>We can combine these unique parameters with the fixed effects to calculate their exact trajectory. Let’s visualize how this is built layer-by-layer.</p>
 </div>
 </section>
 <section class="slide level2">
-<h2>Step 1: The Baseline (Program A)</h2>
+<h2>Identifying Overparameterization</h2>
 <div class="fsmaller">
-<p>First, we plot the reference group for our model: the average trajectory for all children in <strong>Program A</strong>. If we had no predictors and just an intercept, this is where we would start.</p>
+<p>To figure out if overparameterization caused the warning, you must actively inspect your random effect parameters.</p>
 </div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect random effect parameters</span></span>
+<span id="cb20-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_overparam, <span class="at">effects =</span> <span class="st">"random"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Random Effects
 
-<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+Parameter                        | Coefficient | 95% CI
+-------------------------------------------------------
+SD (Intercept: clinic_id)        |        2.14 |       
+SD (age_c: clinic_id)            |    3.37e-13 |       
+Cor (Intercept~age_c: clinic_id) |       -0.99 |       
+SD (Residual)                    |        5.18 |       </code></pre>
+</div>
+</div>
+<div class="fsmaller">
+<p>Notice the “smoking gun” in the output: the random effect correlation is nearly –1 and the random slope standard deviation is essentially zero.</p>
+</div>
+</section>
 <section class="slide level2">
-<h2>Step 2: The Level 2 Shift (Program B)</h2>
+<h2>Step 1: Remove Covariances</h2>
 <div class="fsmaller">
-<p>Because Subject 84 is in Program B, our model applies the fixed effect parameters (<span class="math inline">\(\gamma_{01}\)</span> and <span class="math inline">\(\gamma_{11}\)</span>) to shift their expected starting point up and accelerate their expected curve.</p>
+<p>We start by simplifying the structure without dropping variables. We force the correlation between the intercept and slope to be zero using <code>diag()</code>.</p>
 </div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a>fit_nocov <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> blood_pressure <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> age_c <span class="sc">+</span> <span class="fu">diag</span>(<span class="dv">1</span> <span class="sc">+</span> age_c <span class="sc">|</span> clinic_id), </span>
+<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> trouble</span>
+<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_nocov, <span class="at">effects =</span> <span class="st">"random"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Random Effects
 
-<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
+Parameter                        | Coefficient | 95% CI
+-------------------------------------------------------
+SD (Intercept: clinic_id)        |        2.14 |       
+SD (age_c: clinic_id)            |    1.42e-16 |       
+Cor (Intercept~age_c: clinic_id) |        0.00 |       
+SD (Residual)                    |        5.18 |       </code></pre>
+</div>
+</div>
+</div>
+</section>
 <section class="slide level2">
-<h2>Step 3: The Individual Shift (Random)</h2>
+<h2>The Zero-Correlation Assumption</h2>
 <div class="fsmaller">
-<p>Next, we apply Subject 84’s specific <strong>Random Effects</strong> (<span class="math inline">\(u\)</span>). Notice how their personal trajectory shifts away from the Program B average based on their unique, individual starting point and growth rate.</p>
+<p>Using <code>diag()</code> is a significant change to your model. It explicitly assumes that the correlations between your random effects are zero (e.g., <span class="math inline">\(\tau_{01}=0\)</span>).</p>
+<ul>
+<li><strong>Pooling Information:</strong> By allowing <span class="math inline">\(r \neq 0\)</span>, the model “pools information” across parameters. Knowing a cluster has a high intercept helps the model estimate its slope. <code>diag()</code> places parameters in “silos,” preventing the model from “borrowing strength” from these relationships.</li>
+<li><strong>Substantive Trade-off:</strong> You may gain model stability but you lose the ability to estimate and interpret the RE correlation(s).</li>
+<li><strong>Statistical Trade-off:</strong> If strong correlation(s) exist, forcing them to zero can bias SEs, though this may be preferable to non-convergence.</li>
+</ul>
 </div>
-
-<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
+</section>
 <section class="slide level2">
-<h2>Step 4: The Level 1 Adjustments</h2>
+<h2>Step 2: Prune Random Slopes</h2>
 <div class="fsmaller">
-<p>Now we apply the Level 1 fluctuations. For every year Subject 84 read more or less than their personal average, the model adjusts their expected trajectory up or down, creating a jagged line.</p>
+<p>In our updated results, the random slope SD was still very close to zero even after setting the RE correlation to zero. The next step may be to drop it (i.e., estimate a fixed slope only, assuming it is the same across all clusters).</p>
 </div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>fit_reduced <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> blood_pressure <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> age_c <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> clinic_id), </span>
+<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> trouble</span>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_reduced, <span class="at">effects =</span> <span class="st">"random"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Random Effects
 
-<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
+Parameter                 | Coefficient | 95% CI
+------------------------------------------------
+SD (Intercept: clinic_id) |        2.14 |       
+SD (Residual)             |        5.18 |       </code></pre>
+</div>
+</div>
+</section>
 <section class="slide level2">
-<h2>Step 5: The Observation Residuals</h2>
+<h2>The Pruning Dilemma</h2>
 <div class="fsmaller">
-<p>Finally, we plot the actual data points. The remaining distance between the jagged, fluctuation-adjusted line and the raw data points represents our final Level 1 residuals (<span class="math inline">\(e_{ti}\)</span>).</p>
+<p>While we simplify to reach convergence, we must be careful with our tests.</p>
+</div>
+<blockquote>
+<p><strong>CRITICAL RULE:</strong> Be extremely cautious when dropping the random slope for the specific fixed-effect predictor you are hypothesis testing.</p>
+</blockquote>
+<div class="fsmaller">
+<ul>
+<li><strong>The Risk:</strong> If a true random slope exists but you drop it to force a struggling model to converge, you inflate your Type I error rate. A <span class="math inline">\(p &lt; .05\)</span> in a model with a missing focal random slope is often a false positive.</li>
+<li><strong>The Exception:</strong> If the variance is estimated at zero, dropping the slope does not inflate Type I error because the model wasn’t using it anyway.</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Stage 3:<br> Algorithmic Fixes</h1>
+
+</section>
+<section class="slide level2 fsmaller">
+<h2>Tweak the Algorithm</h2>
+<p>If your variables are scaled, not perfectly collinear, and your structure is justified, but <code>glmmTMB</code> still throws a warning, the algorithm may just need more time or a different search strategy.</p>
+<div class="fragment">
+<p><strong>Increase the number of iterations and evaluations:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a aria-hidden="true" tabindex="-1"></a>fit_algo <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb26-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> ..., <span class="at">data =</span> ...,</span>
+<span id="cb26-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">glmmTMBControl</span>(</span>
+<span id="cb26-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">optCtrl =</span> <span class="fu">list</span>(<span class="at">iter.max =</span> <span class="fl">1e5</span>, <span class="at">eval.max =</span> <span class="fl">1e5</span>)</span>
+<span id="cb26-5"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-6"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p><strong>Change the optimizer (e.g., to standard optim using BFGS):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a>fit_algo <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> ..., <span class="at">data =</span> ...,</span>
+<span id="cb27-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> <span class="fu">glmmTMBControl</span>(</span>
+<span id="cb27-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">optimizer =</span> optim, </span>
+<span id="cb27-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">optArgs =</span> <span class="fu">list</span>(<span class="at">method =</span> <span class="st">"BFGS"</span>)</span>
+<span id="cb27-6"><a aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Summary</h1>
+
+</section>
+<section class="slide level2 fsmaller">
+<h2>Troubleshooting Cheatsheet</h2>
+<p>When your model throws a convergence warning (or produces boundary estimates), follow this general order of operations:</p>
+<ol type="1">
+<li><strong>Stage 1: Fix your Data.</strong> Check for extreme scaling or severe collinearity.
+<ul>
+<li><em>Fix:</em> Center, scale, or remove redundant variables.</li>
+</ul></li>
+<li><strong>Stage 2: Fix your Structure (Top-Down).</strong> Did a variance hit near zero or a correlation hit near <span class="math inline">\(\pm1.00\)</span>?
+<ul>
+<li><em>Step A:</em> Remove RE covariances (e.g., using <code>diag()</code>). <strong>Assumption:</strong> <span class="math inline">\(r = 0\)</span>.</li>
+<li><em>Step B:</em> Prune zero-variance components (no LRT needed).</li>
+<li><em>Rule:</em> Protect the focal random slope unless its variance is truly zero.</li>
+</ul></li>
+<li><strong>Stage 3: Tweak the Algorithm.</strong> If the model is fully justified but struggling, increase iterations or change the optimizer via <code>glmmTMBControl()</code>.</li>
+</ol>
+</section>
+<section class="slide level2 fsmaller">
+<h2>A Look Ahead: Bayesian Estimation</h2>
+<p>Maximum Likelihood Estimation searches for a single highest peak. When the data lacks information, that peak disappears or becomes impossible to find.</p>
+<div class="fragment">
+<ul>
+<li><strong>The Bayesian Solution:</strong> Instead of finding a single point, Bayesian estimation maps out the entire landscape of probable values.</li>
+<li><strong>Priors as Guardrails:</strong> By providing gentle prior information, we can prevent the model from wandering into absurd mathematical territory (like infinite variances).</li>
+<li><strong>Next Lecture:</strong> We will leave frequentist optimization behind and learn how to fit these complex models using Bayesian frameworks.</li>
+</ul>
 </div>
 
 
-
-<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section></section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -1023,7 +1041,7 @@ subject | 84    | read w         |        0.34 | 0.67 | [-0.97, 1.66]</code></pr
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
