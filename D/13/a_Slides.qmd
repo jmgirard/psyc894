@@ -1,0 +1,349 @@
+---
+lecture: "13a"
+metadata-files:
+  - ../../_slide-settings.yml
+format:
+  revealjs:
+    theme: default
+---
+
+::: {.my-title}
+# [Multilevel Modeling]{.blue}
+Troubleshooting
+
+::: {.my-grey}
+[{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
+[Jeffrey M. Girard | Lecture {{< meta lecture >}}]{}
+:::
+
+![](../../img/city-girl.svg){.absolute bottom=30 right=0 width="400"}
+:::
+
+```{r setup}
+#| echo: false
+#| message: false
+
+library(tidyverse)
+library(easystats)
+library(patchwork)
+library(here)
+library(glmmTMB)
+
+source(here("_common.R"))
+
+set_theme(theme_classic(base_size = 20))
+
+options(width = 75)
+```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+1. Understanding Non-Convergence
+    + *The Likelihood Surface*
+    + *Diagnosing Warnings*
+    
+2. A Systematic Workflow
+    + *Stage 1: Data Fixes*
+    + *Stage 2: Structural Simplification*
+    + *Stage 3: Algorithmic Adjustments*
+    
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+# Troubleshooting
+
+## Convergence Problems {.fsmaller}
+
+:::{.columns}
+:::{.column width="60%"}
+- MLMs are inherently complex and datasets often lack the information needed for extreme parameterization.
+- Convergence problems are a routine part of the MLM workflow.
+- [Do not ignore these warnings!]{.b .dark-red} Parameter estimates from non-converged models are mathematically unreliable.
+- However, do not despair. Troubleshooting is a systematic process and there are standard steps to fix these issues.
+:::
+:::{.column .tc .pv4 width="40%"}
+{{< lif "../../icons/ghost.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+:::
+
+## The Likelihood Surface {.fsmaller}
+
+Before diving into specific warnings, we must remember back to Lecture 04b.
+
+- **Maximum Likelihood Estimation:** The optimizer searches for a combination of parameter values that maximizes the probability of observing the data.
+- **The Mountain Analogy:** Imagine a multi-dimensional mountain. The optimizer takes steps to find the absolute highest peak.
+- **The Map and Compass:** The optimizer uses local derivative information (the Gradient and Hessian) to aid in the search.
+- **The Problem:** If the mountain has a flat ridge, multiple peaks, or a boundary it cannot cross, the optimizer gets confused and either throws a warning or silently stops at an invalid parameter value.
+
+## Setup 
+
+```{r}
+#| message: false
+
+library(tidyverse)
+library(glmmTMB)
+library(easystats)
+```
+
+```{r}
+#| message: false
+#| replace_path: ["../../data/", ""]
+
+trouble <- read_csv("../../data/trouble_sim.csv")
+glimpse(trouble)
+```
+
+# Stage 1:<br> Data Fixes
+
+## Problem 1: Extreme Scaling
+
+:::{.fsmaller}
+A frequent warning in `glmmTMB` is a "non-positive-definite Hessian matrix." This simply means the optimizer cannot mathematically verify it has found a peak. One common cause is a numerical issue resulting from variables living on vastly different mathematical scales.
+:::
+
+```{r}
+#| warning: true
+#| message: true
+
+# Try to predict a massive y from a tiny x
+fit_scaling <- glmmTMB(
+  formula = viral_load ~ 1 + dosage_kg + (1 | clinic_id), 
+  data = trouble
+)
+```
+
+## Detecting Extreme Scaling
+
+:::{.fsmaller}
+Look for means/medians or ranges that are on wildly different scales
+:::
+
+```{r}
+trouble |> select(viral_load, dosage_kg) |> summary()
+```
+
+
+## Addressing Extreme Scaling
+
+::: {.fsmaller}
+**The Fix:** We need to get the variables on similar scales. It is recommended to *rescale* outcomes (to preserve ICC) and *standardize* predictors. Here, we can divide `viral_load` by 10,000 to get its mean down from \~1M to \~100.
+:::
+
+```{r}
+# Fix scaling issues
+trouble_fix <- trouble |> 
+  mutate(
+    viral_load = viral_load / 10000,   # y = rescale
+    dosage_kg = standardize(dosage_kg) # x = standardize
+  )
+```
+
+:::{.fragment}
+```{r}
+# Refit and check
+fit_scaling_fixed <- glmmTMB(
+  formula = viral_load ~ 1 + dosage_kg + (1 | clinic_id), 
+  data = trouble_fix
+)
+check_convergence(fit_scaling_fixed)
+```
+:::
+
+## Problem 2: Collinearity
+
+:::{.fsmaller}
+The Hessian warning can also be triggered when the optimizer gets stuck on a flat likelihood ridge. A second major cause for this is severe collinearity among predictors, which confuses the optimizer because multiple parameter combinations yield the same model fit.
+:::
+
+```{r}
+#| warning: true
+#| message: true
+
+# Try to predict y from two highly correlated x variables 
+fit_collin <- glmmTMB(
+  formula = cortisol_level ~ 1 + stress_score + anxiety_score + 
+    (1 + stress_score + anxiety_score | clinic_id), 
+  data = trouble
+)
+```
+
+## Verifying Collinearity
+
+::: {.fsmaller}
+We need to remove the redundant information. It is recommended to check Variance Inflation Factors (VIFs) and then drop one of the collinear predictors. Recall that VIFs of 5+ indicate *moderate* and 10+ indicate *high* collinearity.
+:::
+
+```{r}
+#| warning: true
+#| message: true
+
+# NB: I am setting ci = NA only to save space on slide
+check_collinearity(fit_collin, ci = NA)
+```
+
+## Addressing Collinearity
+
+```{r}
+#| warning: true
+#| message: true
+
+# Drop anxiety_score, refit, and check
+fit_collin_fixed <- glmmTMB(
+  formula = cortisol_level ~ 1 + stress_score + 
+    (1 + stress_score | clinic_id), 
+  data = trouble
+)
+check_convergence(fit_collin_fixed)
+```
+
+# Stage 2:<br> Structural Fixes
+
+## Problem 3: Overparameterization
+
+:::{.fsmaller}
+A third cause of the Hessian warning is when the optimizer hits a mathematical boundary. However, note that `glmmTMB` will sometimes converge silently despite this issue! This occurs when a variance is estimated near 0 (e.g., e-13) or a correlation between random effects is near +/- 1.00. The problem is that the model is too complex for the data.
+:::
+
+```{r}
+#| warning: true
+#| message: true
+
+fit_overparam <- glmmTMB(
+  formula = blood_pressure ~ 1 + age_c + (1 + age_c | clinic_id), 
+  data = trouble
+)
+```
+
+## Identifying Overparameterization
+
+::: {.fsmaller}
+To figure out if overparameterization caused the warning, you must actively inspect your random effect parameters.
+:::
+
+```{r}
+# Inspect random effect parameters
+model_parameters(fit_overparam, effects = "random")
+```
+
+::: {.fsmaller}
+Notice the "smoking gun" in the output: the random effect correlation is nearly --1 and the random slope standard deviation is essentially zero.
+:::
+
+## Step 1: Remove Covariances
+
+::: {.fsmaller}
+We start by simplifying the structure without dropping variables. We force the correlation between the intercept and slope to be zero using `diag()`.
+:::
+
+:::{.fragment}
+```{r}
+fit_nocov <- glmmTMB(
+  formula = blood_pressure ~ 1 + age_c + diag(1 + age_c | clinic_id), 
+  data = trouble
+)
+model_parameters(fit_nocov, effects = "random")
+```
+:::
+
+## The Zero-Correlation Assumption
+
+::: {.fsmaller}
+Using `diag()` is a significant change to your model. It explicitly assumes that the correlations between your random effects are zero (e.g., $\tau_{01}=0$).
+
+- **Pooling Information:** By allowing $r \neq 0$, the model "pools information" across parameters. Knowing a cluster has a high intercept helps the model estimate its slope. `diag()` places parameters in "silos," preventing the model from "borrowing strength" from these relationships.
+- **Substantive Trade-off:** You may gain model stability but you lose the ability to estimate and interpret the RE correlation(s).
+- **Statistical Trade-off:** If strong correlation(s) exist, forcing them to zero can bias SEs, though this may be preferable to non-convergence.
+:::
+
+## Step 2: Prune Random Slopes
+
+::: {.fsmaller}
+In our updated results, the random slope SD was still very close to zero even after setting the RE correlation to zero. The next step may be to drop it (i.e., estimate a fixed slope only, assuming it is the same across all clusters).
+:::
+
+```{r}
+fit_reduced <- glmmTMB(
+  formula = blood_pressure ~ 1 + age_c + (1 | clinic_id), 
+  data = trouble
+)
+model_parameters(fit_reduced, effects = "random")
+```
+
+## The Pruning Dilemma
+
+::: {.fsmaller}
+While we simplify to reach convergence, we must be careful with our tests.
+:::
+
+> **CRITICAL RULE:** Be extremely cautious when dropping the random slope for the specific fixed-effect predictor you are hypothesis testing.
+
+::: {.fsmaller}
+- **The Risk:** If a true random slope exists but you drop it to force a struggling model to converge, you inflate your Type I error rate. A $p < .05$ in a model with a missing focal random slope is often a false positive.
+- **The Exception:** If the variance is estimated at zero, dropping the slope does not inflate Type I error because the model wasn't using it anyway.
+:::
+
+# Stage 3:<br> Algorithmic Fixes
+
+## Tweak the Algorithm {.fsmaller}
+
+If your variables are scaled, not perfectly collinear, and your structure is justified, but `glmmTMB` still throws a warning, the algorithm may just need more time or a different search strategy.
+
+:::{.fragment}
+**Increase the number of iterations and evaluations:**
+```r
+fit_algo <- glmmTMB(
+  formula = ..., data = ...,
+  control = glmmTMBControl(
+    optCtrl = list(iter.max = 1e5, eval.max = 1e5)
+  )
+)
+```
+:::
+
+:::{.fragment}
+**Change the optimizer (e.g., to standard optim using BFGS):**
+```r
+fit_algo <- glmmTMB(
+  formula = ..., data = ...,
+  control = glmmTMBControl(
+    optimizer = optim, 
+    optArgs = list(method = "BFGS")
+  )
+)
+```
+:::
+
+# Summary
+
+## Troubleshooting Cheatsheet {.fsmaller}
+
+When your model throws a convergence warning (or produces boundary estimates), follow this general order of operations:
+
+1.  **Stage 1: Fix your Data.** Check for extreme scaling or severe collinearity. 
+    * *Fix:* Center, scale, or remove redundant variables.
+2.  **Stage 2: Fix your Structure (Top-Down).** Did a variance hit near zero or a correlation hit near $\pm1.00$?
+    * *Step A:* Remove RE covariances (e.g., using `diag()`).
+    * *Step B:* Prune zero-variance components.
+    * *Rule:* Protect the focal random slope unless its variance is truly zero.
+3.  **Stage 3: Tweak the Algorithm.** If the model is fully justified but struggling, increase iterations or change the optimizer via `glmmTMBControl()`.
+
+## A Look Ahead: Bayesian Estimation {.fsmaller}
+
+Maximum Likelihood Estimation searches for a single highest peak. When the data lacks information, that peak disappears or becomes impossible to find.
+
+:::{.fragment}
+- **The Bayesian Solution:** Instead of finding a single point, Bayesian estimation maps out the entire landscape of probable values.
+- **Priors as Guardrails:** By providing prior information, we can prevent the model from wandering into absurd territory (e.g., negative variances).
+- **Next Lecture:** We will leave frequentist optimization behind and learn how to fit these complex models using Bayesian frameworks.
+
+:::
+
+

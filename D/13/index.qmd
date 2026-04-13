@@ -1,0 +1,72 @@
+---
+title: "Week 13: Troubleshooting"
+---
+
+<!-- Lecture a -->
+
+## [13a] Troubleshooting
+
+### Topics
+1. Understanding Non-Convergence
+    + *The Likelihood Surface*
+    + *Diagnosing Warnings*
+    
+2. A Systematic Workflow
+    + *Stage 1: Data Fixes*
+    + *Stage 2: Structural Simplification*
+    + *Stage 3: Algorithmic Adjustments*
+
+### File Downloads
+- [trouble_sim.csv](../../data/trouble_sim.csv){download="trouble_sim.csv"}
+
+### Readings
+- [S\&F Chapter 7: Model Estimation Options, Problems, and Troubleshooting](https://www.learn-mlms.com/07-module-7.html){target="_blank"}
+- [Barr et al. (2013)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"}
+- [Brauer \& Curtin (2018)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"}
+
+### Slides
+
+```{=html}
+<iframe class="slide-deck" src="a_Slides.html" title="[13a] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+
+<!-- Lecture b -->
+
+## [13b] Bayesian Estimation
+
+### Topics
+TBA
+
+### File Downloads
+TBA
+
+### Readings
+TBA
+
+
+### Slides
+
+```{=html}
+<iframe class="slide-deck" src="b_Slides.html" title="[13b] Slideshow">
+</iframe>
+```
+
+::: {.fsmaller}
+\*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
+:::
+
+<!-- Bottom Nav -->
+
+```{=html}
+<div style="display: flex; justify-content: space-between; margin-top: 3rem;">
+  <a href="../../C/12/index.html" class="btn btn-outline-primary" role="button">&laquo;&nbsp;&nbsp;Week 12</a>
+
+  <a href="../14/index.html" class="btn btn-primary" role="button">Week 14&nbsp;&nbsp;&raquo;</a>
+</div>
+```
