@@ -23,7 +23,8 @@ title: "Week 13: Model Evaluation"
 - [Brauer \& Curtin (2018)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"} (Troubleshooting, pp. 403--406)
 - [Barr et al. (2013)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"} (Pruning Dilemma)
 - [Matsuchek et al. (2017)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"} (Pruning Dilemma)
-- [Burkner (2017)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"} (Bayesian)
+- [Muth et al. (2018)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"} (Bayesian, rstanarm)
+- [Burkner (2017)](https://canvas.ku.edu/courses/182539/pages/13a-troubleshooting){target="_blank"} (Bayesian, brms)
 
 ### Slides
 
