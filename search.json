@@ -39,14 +39,14 @@
     "href": "D/13/index.html",
     "title": "Week 13: Model Evaluation",
     "section": "",
-    "text": "Understanding Non-Convergence\n\nThe Likelihood Surface\nDiagnosing Warnings\n\nA Systematic Workflow\n\nTop-Down Troubleshooting\nBayesian Estimation\n\n\n\n\n\n\ntrouble_sim.csv\n\n\n\n\n\nS&F Chapter 7 (Troubleshooting)\nBrauer & Curtin (2018) (Troubleshooting, pp. 403–406)\nBarr et al. (2013) (Pruning Dilemma)\nMatsuchek et al. (2017) (Pruning Dilemma)\nBurkner (2017) (Bayesian)\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+    "text": "Understanding Non-Convergence\n\nThe Likelihood Surface\nDiagnosing Warnings\n\nA Systematic Workflow\n\nTop-Down Troubleshooting\nBayesian Estimation\n\n\n\n\n\n\ntrouble_sim.csv\n\n\n\n\n\nS&F Chapter 7 (Troubleshooting)\nBrauer & Curtin (2018) (Troubleshooting, pp. 403–406)\nBarr et al. (2013) (Pruning Dilemma)\nMatsuchek et al. (2017) (Pruning Dilemma)\nMuth et al. (2018) (Bayesian, rstanarm)\nBurkner (2017) (Bayesian, brms)\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
   },
   {
     "objectID": "D/13/index.html#a-troubleshooting",
     "href": "D/13/index.html#a-troubleshooting",
     "title": "Week 13: Model Evaluation",
     "section": "",
-    "text": "Understanding Non-Convergence\n\nThe Likelihood Surface\nDiagnosing Warnings\n\nA Systematic Workflow\n\nTop-Down Troubleshooting\nBayesian Estimation\n\n\n\n\n\n\ntrouble_sim.csv\n\n\n\n\n\nS&F Chapter 7 (Troubleshooting)\nBrauer & Curtin (2018) (Troubleshooting, pp. 403–406)\nBarr et al. (2013) (Pruning Dilemma)\nMatsuchek et al. (2017) (Pruning Dilemma)\nBurkner (2017) (Bayesian)\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
+    "text": "Understanding Non-Convergence\n\nThe Likelihood Surface\nDiagnosing Warnings\n\nA Systematic Workflow\n\nTop-Down Troubleshooting\nBayesian Estimation\n\n\n\n\n\n\ntrouble_sim.csv\n\n\n\n\n\nS&F Chapter 7 (Troubleshooting)\nBrauer & Curtin (2018) (Troubleshooting, pp. 403–406)\nBarr et al. (2013) (Pruning Dilemma)\nMatsuchek et al. (2017) (Pruning Dilemma)\nMuth et al. (2018) (Bayesian, rstanarm)\nBurkner (2017) (Bayesian, brms)\n\n\n\n\n\n\n\n*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations."
   },
   {
     "objectID": "D/13/index.html#b-diagnostics",
