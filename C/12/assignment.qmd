@@ -1,0 +1,65 @@
+---
+title: "Lab 12: Longitudinal Analysis 2"
+format:
+  html:
+    toc: true
+---
+
+In this Lab, you will analyze the "focus_sim" dataset. This dataset contains simulated data from 200 employees enrolled in a 6-week productivity training program. We want to understand how their daily focus scores change over the course of the training program and what factors predict those changes.
+
+At Level 1, the dataset includes the specific day of the study the assessment was completed (`study_day`), the employee's focus score for that week (`focus_score`, continuous outcome), and whether they engaged in a mindfulness meditation exercise that week (`meditated`, dummy coded: 0 = No, 1 = Yes).
+
+At Level 2, it includes each employee's identifier (`subject`, discrete) and their baseline motivation for the training program assessed at intake (`motivation`, continuous predictor).
+
+
+## 1. Data Prep (1.0 pts)
+
+Download the "focus_sim.csv" dataset from Canvas, add it to your project folder, and read it into R as a tibble called `dat_raw`. 
+
+Prepare the data for analysis by creating a centered and scaled time variable. The `study_day` variable records the raw calendar day of the assessment. If we used this raw variable, our intercept would represent focus on Day 0, which is meaningless here. Furthermore, a slope based on raw days would represent daily growth, which might be confusingly small.
+
+Create a new variable called `time` that **centers** the days so that `0` represents the first assessment in the study (Day 12) and **scales** the variable so that 1 unit equals exactly 1 week (7 days). 
+
+Also, create a grand-mean centered version of the continuous Level 2 predictor (`motivation_c`).
+
+
+## 2. Unconditional Linear Growth Model (1.0 pts)
+
+Fit an unconditional linear growth model to your prepared dataset using `glmmTMB()`. Predict `focus_score` from the fixed effect of your new `time` variable. Include random intercepts per `subject`, as well as random slopes for `time`. 
+
+Print the model parameters table using easystats. In 1-2 sentences, interpret the fixed effect intercept and time slope. 
+
+
+## 3. Unconditional Quadratic Growth Model (1.0 pts)
+
+Now, test whether the trajectory of focus scores is curved. Fit an unconditional quadratic growth model. To avoid multicollinearity problems, use the `poly(time, 2)` function to generate orthogonal polynomial terms for your fixed and random effects. 
+
+Print the model parameters for the fixed effects. 
+
+
+## 4. Model Comparison (1.0 pts)
+
+Compare your linear model from Part 2 and your quadratic model from Part 3 using the AIC and BIC metrics. 
+
+Based on these metrics, which shape best characterizes the growth trajectory of focus scores in this sample? 
+
+Once you have identified the best-fitting model, use the `estimate_relation()` function to plot the predicted growth curve for the average subject across `time`.
+
+
+## 5. Predicting Change: L2 Predictor (1.0 pts)
+
+Moving forward with the best-fitting model from Part 4, let's try to explain why some employees start with higher focus scores and grow faster than others. 
+
+Add the centered time-invariant predictor (`motivation_c`) to your model. Remember that to test if a Level 2 predictor influences the rate of growth, you must include a cross-level interaction between the predictor and time (`motivation_c * time`). Keep your random effects the same as in Part 2.
+
+Print the fixed effects. Does baseline motivation significantly predict the starting point of focus scores? Does it significantly predict the rate of linear growth?
+
+Finally, use the `estimate_relation()` function to visualize this cross-level interaction. Plot the predicted growth curves across `time` for employees at low, medium, and high baseline motivation (`motivation_c=[quartiles]`).
+
+
+## 6. Predicting Fluctuations: L1 Predictor (1.0 pts)
+
+Finally, we want to explain the observation-specific deviations around each employee's growth trajectory. Add the time-varying dummy predictor (`meditated`) to your model from Part 5. Include it as a main fixed effect to test if weeks where an employee meditated correspond to a bump in focus above their expected curve. Also, add it to your random effects bracket to allow the benefit of meditation to vary across subjects.
+
+Print the fixed effects. What does this model tell us about the relationship between weekly meditation and focus scores?
+
