@@ -41,13 +41,13 @@ options(width = 75)
 ::: {.columns .pv4}
 
 ::: {.column width="60%"}
-1. Understanding Non-Convergence
-    + *The Likelihood Surface*
-    + *Diagnosing Warnings*
-    
-2. A Systematic Workflow
-    + *Top-Down Troubleshooting*
-    + *Bayesian Estimation*
+1. A Systematic Workflow
+    + *Predictive Performance*
+    + *DHARMa Residuals*
+
+2. Sensitivity & Easy Fixes
+    + *Robustness to Outliers*
+    + *Bootstrapping & Modeling*
     
 :::
 

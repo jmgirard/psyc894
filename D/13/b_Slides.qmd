@@ -9,7 +9,7 @@ format:
 
 ::: {.my-title}
 # [Multilevel Modeling]{.blue}
-Diagnostics
+Model Diagnostics
 
 ::: {.my-grey}
 [{{< meta semester >}} | CLAS | {{< meta course >}}]{}<br />
@@ -35,3 +35,357 @@ set_theme(theme_classic(base_size = 20))
 
 options(width = 75)
 ```
+
+## Roadmap
+
+::: {.columns .pv4}
+
+::: {.column width="60%"}
+1. A Systematic Workflow
+    + *Predictive Performance*
+    + *Visual Diagnostics*
+
+2. Sensitivity & Easy Fixes
+    + *Bootstrapping & LSM*
+    + *DHARMa & Outliers*
+    
+:::
+
+::: {.column .tc .pv4 width="40%"}
+{{< lif "../../icons/map.json" trigger=hover colors=secondary:#2a76dd class=rc >}}
+:::
+
+:::
+
+# Part 1:<br> The Philosophy
+
+## Why Diagnostics?
+
+- MLMs are complex. We aren't just estimating a line; we are estimating a **system of variances**.
+- Our standard errors and $p$-values assume this system is perfectly Specified, Normal, and Constant.
+- Small violations often don't matter, but...<br> **systemic violations** invalidate your results.
+
+## Pass/Fail vs. Sensitivity
+
+- It is rare to see "perfect" diagnostic plots in real research.
+- Instead of asking "Did I pass?", ask:<br>**"How robust are my conclusions?"**
+- If your finding disappears as soon as you account for a violation, the finding was likely an artifact of a bad model.
+
+## The Mathematical Foundation
+
+Recall the equations we use to define the random components of our models. They list many of our assumptions.
+
+:::{.tc .b}
+Level One (Observation)
+:::
+
+$$
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
+$$
+
+:::{.tc .b}
+Level Two (Cluster)
+:::
+
+$$
+\begin{bmatrix}\color{#e41a1c}{u_{0j}}\\ \color{#e41a1c}{u_{1j}}\end{bmatrix} \sim \text{MVN}\left(\begin{bmatrix}0\\0\end{bmatrix}, \begin{bmatrix}\color{#e41a1c}{\tau_{00}} & \\ \color{#e41a1c}{\tau_{10}} & \color{#e41a1c}{\tau_{11}}\end{bmatrix}\right)
+$$
+
+## Assumption 1: Specification
+
+- All relevant predictors are included at the correct levels.
+- The random effect structure ($\color{#e41a1c}{u_j}$) matches the data design.
+- **The Random Slope Rule**:<br>If an effect varies across clusters, omitting the random slope forces that variation into the observation error ($\color{#4daf4a}{e_{ij}}$), which violates the independence of errors.
+
+## Assumption 2: Normality
+
+The equations explicitly declare the distribution shape:
+
+- $\color{#4daf4a}{e_{ij}} \sim \textbf{Normal}(0, \color{#4daf4a}{\sigma}) \therefore\text{Univariate Normal}$
+- $\color{#e41a1c}{u_{j}} \sim \textbf{MVN}(0, \color{#e41a1c}{\Sigma}) \therefore\text{Multivariate Normal}$
+
+We assume Level 1 errors and Level 2 deviations follow a normal curve. If the real errors are non-normal, the likelihood math "breaks" and gives biased confidence intervals.
+
+## Assumption 3: Homoscedasticity
+
+Homoscedasticity means "constant variance."
+
+:::{.fsmaller}
+$$
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma}) \qquad \begin{bmatrix}\color{#e41a1c}{u_{0j}}\\ \color{#e41a1c}{u_{1j}}\end{bmatrix} \sim \text{MVN}\left(\begin{bmatrix}0\\0\end{bmatrix}, \begin{bmatrix}\color{#e41a1c}{\tau_{00}} & \\ \color{#e41a1c}{\tau_{10}} & \color{#e41a1c}{\tau_{11}}\end{bmatrix}\right)
+$$
+:::
+
+- The model specifies exactly **one** $\color{#4daf4a}{\sigma}$ for all $i$ and $j$. It assumes the spread (SD) of errors is identical for every observation.
+- The model specifies exactly **one** $\color{#e41a1c}{\tau_{00}}$ and $\color{#e41a1c}{\tau_{11}}$. We assume cluster-level variance is constant across all clusters.
+
+## Assumption 4: Independence
+
+We assume errors are uncorrelated with each other:
+
+- $\color{#4daf4a}{e_{ij}}$ residuals are independent of other observations.
+- $\color{#e41a1c}{u_j}$ deviations are independent across clusters<br>(e.g., School A's intercept doesn't inform School B's).
+- $\color{#4daf4a}{e_{ij}}$ and $\color{#e41a1c}{u_j}$ are independent of each other.
+
+## Assumption 4: The Exception
+
+Are we allowed to have *any* correlations?
+
+$$
+\color{#e41a1c}{\Sigma} = \begin{bmatrix}\color{#e41a1c}{\tau_{00}} & \\ \color{#e41a1c}{\tau_{10}} & \color{#e41a1c}{\tau_{11}}\end{bmatrix}
+$$
+
+Yes! We explicitly model the correlation between a cluster's intercept and its slope via $\color{#e41a1c}{\tau_{10}}$. This "within-cluster" dependency is expected and accounted for by the model.
+
+
+# Part 2:<br> Workflow \& Data
+
+## Prepping the Data {.fsmaller}
+
+```{r}
+#| message: false
+#| replace_path: ["../../data/", ""]
+
+library(tidyverse)
+library(glmmTMB)
+library(easystats)
+
+dat <- read_csv("../../data/diag_sim.csv") |> mutate(school = factor(school))
+glimpse(dat)
+```
+
+## A Systematic Workflow
+
+1. **Collinearity**: Check before you even look at residuals.
+2. **Predictive Check**: Does the model "look" like the data?
+3. **Residual Analysis**: L1 and L2 normality/variance.
+4. **Sensitivity**: Does removing outliers change the story?
+
+# Part 3:<br> Collinearity
+
+## Redundant Predictors
+
+Predictors that are too highly correlated with each other inflate Standard Errors, making "significant" effects disappear.
+
+```{r}
+# A model with redundant predictors
+fit_coll <- glmmTMB(score_ideal ~ homework + study_time + (1 | school), data = dat)
+
+# easystats check
+check_collinearity(fit_coll)
+```
+
+## How to address collinearity?
+
+- **Drop one**: If VIF is high, choose the variable that is more theoretically central.
+- **Composite**: Average the variables into a single index.
+- **MSEM**: Combine them into a latent variable (factor).
+
+```{r}
+# Creating a composite 'effort' score
+dat <- dat |> mutate(effort = (homework + study_time)/2)
+
+fit_fixed <- glmmTMB(score_ideal ~ effort + (1 | school), data = dat)
+```
+
+# Part 4:<br> Predictions
+
+## Predictive Checks
+
+- Before zooming in on residuals, we need to check the macroscopic fit of our model. 
+
+- The `check_predictions()` function simulates new datasets based on your fitted model's parameters and compares their overall shape to your actual data. 
+
+- **The Goal**: If your model accurately reflects the true data-generating process, the simulated predictions (the blue lines) should overlap your raw data (the green line).
+
+## Plotting Predictions
+
+```{r}
+check_predictions(fit_fixed)
+```
+
+## Diagnosing Predictive Misfit {.fsmaller}
+
+What if the model predictions do not align with the raw data? This indicates fundamental **misspecification**. No amount of residual tweaking will fix a model that cannot replicate the basic shape of your outcome.
+
+- **Bimodal Data (Two humps):** The model is only predicting one peak, but the data has two. You are likely missing a critical categorical predictor or grouping variable that separates the observations.
+- **Skewed Data (Long tails):** The model predicts a symmetrical curve, but the data has a long tail. You likely need to change the distribution family (e.g., moving to a Gamma or Poisson distribution) or apply a transformation.
+- **Shifted Peaks:** The model's center is entirely offset from the data's center. You might be missing important non-linear effects, such as polynomial terms or interactions.
+
+# Part 5: Residuals
+
+## 1. Normality of Residuals
+
+```{r}
+#| eval: false
+
+fit_skew <- glmmTMB(score_skew ~ homework + (1 + homework | school), data = dat)
+check_normality(fit_skew, effects = "fixed") |> plot()
+```
+
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 7
+
+fit_skew <- glmmTMB(score_skew ~ homework + (1 + homework | school), data = dat)
+check_normality(fit_skew, effects = "fixed") |> plot() + theme_gray(base_size = 24)
+```
+
+## Interpreting Residual Normality
+
+- This plot checks the Level 1 errors ($\color{#4daf4a}{e_{ij}}$).
+- The points should fall tightly along the green reference line.
+- If points drift heavily at the tails, your residuals are skewed or heavy-tailed. Severe deviations here can bias your standard errors and $p$-values.
+
+## 2. Normality of Random Effects
+
+```{r}
+#| eval: false
+
+check_normality(fit_skew, effects = "random") |> plot()
+```
+
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 7
+
+p <- check_normality(fit_skew, effects = "random") |> plot()
+p[[1]] + theme_gray(base_size = 20)
+```
+
+## Interpreting RE Normality
+
+- This plot checks if the cluster-level deviations ($\color{#e41a1c}{u_j}$) follow a normal distribution.
+- Each dot represents a specific cluster (e.g., a school).
+- Extreme deviations here mean certain clusters behave completely differently than the rest of the population, which might require investigation.
+
+## 3. Homogeneity of Variance
+
+```{r}
+#| eval: false
+
+fit_het <- glmmTMB(score_het ~ homework + (1 + homework | school), data = dat)
+check_heteroskedasticity(fit_het) |> plot()
+```
+
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 5
+
+fit_het <- glmmTMB(score_het ~ homework + (1 + homework | school), data = dat)
+check_heteroscedasticity(fit_het) |> plot() + theme_gray(base_size = 20)
+```
+
+## Interpreting Homogeneity
+
+- The green reference line should be relatively flat and horizontal.
+- If the line bends sharply or the points fan out (like a megaphone), the variance is not constant ($\color{#4daf4a}{\sigma}$ is changing).
+- In this plot, we can clearly see the variance expanding as the fitted values increase.
+
+## Fix: Modeling Variance Directly
+
+- If variance is not constant, we can actually model *why* it changes. The `glmmTMB` package allows us to predict the variance ($\sigma$) just like we predict the mean using the `dispformula` argument.
+
+```{r}
+#| eval: false
+#| echo: true
+# Modeling variance as a function of homework
+fit_disp <- glmmTMB(
+  score_het ~ homework + (1 | school),
+  dispformula = ~ homework, 
+  data = dat
+)
+```
+
+*(Note: This creates a Location--Scale Mixed Model, where we estimate slopes for both the average and spread of the scores).*
+
+# Part 6: Outliers
+
+## Outliers in MLMs {.fsmaller}
+
+- In standard regression, an outlier just pulls the line
+- In MLMs, outliers distort our system of variances
+
+- **L1 Outlier ($\color{#4daf4a}{e_{ij}}$)**: An observation that is extreme within its cluster.
+  - *Impact*: Inflates the residual variance ($\color{#4daf4a}{\sigma}$), making all standard errors larger and reducing your power to detect true effects.
+- **L2 Outlier ($\color{#e41a1c}{u_j}$)**: A cluster that is extreme among clusters.
+  - *Impact*: Distorts the main fixed effects (slopes) and inflates cluster variance ($\color{#e41a1c}{\tau}$), making groups look more different than they actually are.
+
+## Why DHARMa for Outliers? {.fsmaller}
+
+- **The Problem with Traditional Outlier Metrics**: Tools like Cook's Distance struggle in MLMs because the model intentionally "shrinks" extreme cluster estimates toward the mean.
+- Thus, `check_outliers()` does not yet support `glmmTMB` models.
+- **The Simulation Solution**: `DHARMa` bypasses this by simulating thousands of new datasets directly from your fitted model parameters.
+- **Flagging Outliers**: If a real data point falls *completely* outside the expected boundaries of those simulations, it is flagged as a structural outlier.
+
+## Identifying Outliers
+
+```{r}
+#| echo: true
+#| fig-show: hide
+#| message: false
+
+library(DHARMa)
+fit_out <- glmmTMB(score_outlier ~ homework + (1 | school), data = dat)
+res_out <- simulateResiduals(fit_out)
+testOutliers(res_out)
+```
+
+## Plotting Outliers
+
+```{r}
+#| echo: false
+#| results: hide
+
+testOutliers(res_out)
+```
+
+## Interpreting DHARMa Outliers {.fsmaller}
+
+- **The Histogram**: This plots your residuals as percentiles, not raw mathematical errors. Because a perfect model means a data point is equally likely to fall into any percentile, we want to see a flat, uniform block from 0.0 to 1.0, *not* a traditional bell curve.
+- **The Red Bars**: DHARMa assigns a value of exactly 0 or 1 to any data point that falls completely outside the simulated boundaries. These extreme outliers are grouped and highlighted in red at the very edges.
+- **The Title**: The title "Outlier test n.s." means the test is "not significant." Even though there is a red bar, the *number* of outliers is completely normal and expected for a dataset of this size.
+
+## Fix: Sensitivity Analysis
+
+There is no magical R function to automatically "fix" outliers. You must use logic.
+
+1.  Identify the outliers using DHARMa.
+2.  Run the model **with** them.
+3.  Run the model **without** them.
+4.  **Compare**: If the main slope changes drastically, the outlier is "influential" and the results from both models should be reported transparently.
+
+## Performing the Sensitivity Analysis
+
+To run the model without outliers, we first need to extract them. DHARMa flags outliers by assigning them a simulated residual of exactly `0` or `1`.
+
+```{r}
+#| echo: true
+# 1. Get the row numbers of the outliers
+outlier_idx <- which(res_out$scaledResiduals %in% c(0, 1))
+
+# 2. Create a clean dataset by dropping those rows
+dat_clean <- dat |> slice(-outlier_idx)
+
+# 3. Re-run the model on the clean data
+fit_clean <- glmmTMB(score_outlier ~ homework + (1 | school), data = dat_clean)
+```
+
+## Comparing the Results
+
+Now we use `compare_parameters()` from the `easystats` package to look at both models side-by-side. 
+
+```{r}
+compare_parameters(fit_out, fit_clean, select = "{estimate} ({p})")
+```
+
+## Interpreting the Comparison
+
+*Notice what happened to our slope for `homework`.*
+
+1.  **With Outliers**: The effect of homework was severely underestimated (e.g., heavily pulled by the extreme points).
+2.  **Without Outliers**: The effect of homework recovered to its true value (closer to our simulated 1.2).
+3.  **Conclusion**: These outliers are highly influential. You should report the results of the clean model but be completely transparent in your manuscript about how many outliers were removed and why.

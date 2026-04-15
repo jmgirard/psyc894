@@ -43,13 +43,20 @@ title: "Week 13: Model Evaluation"
 ## [13b] Diagnostics
 
 ### Topics
-TBA
+1. A Systematic Workflow
+    + *Predictive Performance*
+    + *Visual Diagnostics*
+
+2. Sensitivity & Easy Fixes
+    + *Bootstrapping & LSM*
+    + *DHARMa & Outliers*
 
 ### File Downloads
-TBA
+- [diag_sim.csv](../../data/diag_sim.csv){download="diag_sim.csv"}
 
 ### Readings
-TBA
+- [S\&F Chapter 12](https://www.learn-mlms.com/12-module-12.html){target="_blank"}
+- [HMV Chapter 13](https://canvas.ku.edu/courses/182539/pages/13b-diagnostics-+-lab?module_item_id=4317594){target="_blank"}
 
 
 ### Slides
