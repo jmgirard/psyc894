@@ -6,8 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c6070853b5fc0f07c03ed05933ca4b03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.36">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -31,6 +32,70 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-53e3d2ac1773787e2a3f577cd3a68c1f.css">
   <link rel="stylesheet" href="../../styles.css">
@@ -133,15 +198,409 @@
 
 <section class="title-slide slide level1 my-title center">
 <h1><span class="blue">Multilevel Modeling</span></h1>
-<p>Diagnostics</p>
+<p>Model Diagnostics</p>
 <div class="my-grey">
 <p><span>Spring 2026 | CLAS | PSYC 894</span><br> <span>Jeffrey M. Girard | Lecture 13b</span></p>
 </div>
 <p><img data-src="../../img/city-girl.svg" class="absolute" style="bottom: 30px; right: 0px; width: 400px; "></p>
 </section>
 
+<section class="slide level2">
+<h2>Roadmap</h2>
+<div class="columns pv4">
+<div class="column" style="width:60%;">
+<ol type="1">
+<li>A Systematic Workflow
+<ul>
+<li><em>Predictive Performance</em></li>
+<li><em>Visual Diagnostics</em></li>
+</ul></li>
+<li>Sensitivity &amp; Easy Fixes
+<ul>
+<li><em>Bootstrapping &amp; LSM</em></li>
+<li><em>DHARMa &amp; Outliers</em></li>
+</ul></li>
+</ol>
+</div><div class="column tc pv4" style="width:40%;">
+<p><lord-icon src="../../icons/map.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
+</div></div>
+</section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Part 1:<br> The Philosophy</h1>
+
+</section>
+<section class="slide level2">
+<h2>Why Diagnostics?</h2>
+<ul>
+<li>MLMs are complex. We aren’t just estimating a line; we are estimating a <strong>system of variances</strong>.</li>
+<li>Our standard errors and <span class="math inline">\(p\)</span>-values assume this system is perfectly Specified, Normal, and Constant.</li>
+<li>Small violations often don’t matter, but…<br> <strong>systemic violations</strong> invalidate your results.</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Pass/Fail vs.&nbsp;Sensitivity</h2>
+<ul>
+<li>It is rare to see “perfect” diagnostic plots in real research.</li>
+<li>Instead of asking “Did I pass?”, ask:<br><strong>“How robust are my conclusions?”</strong></li>
+<li>If your finding disappears as soon as you account for a violation, the finding was likely an artifact of a bad model.</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>The Mathematical Foundation</h2>
+<p>Recall the equations we use to define the random components of our models. They list many of our assumptions.</p>
+<div class="tc b">
+<p>Level One (Observation)</p>
+</div>
+<p><span class="math display">\[
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma})
+\]</span></p>
+<div class="tc b">
+<p>Level Two (Cluster)</p>
+</div>
+<p><span class="math display">\[
+\begin{bmatrix}\color{#e41a1c}{u_{0j}}\\ \color{#e41a1c}{u_{1j}}\end{bmatrix} \sim \text{MVN}\left(\begin{bmatrix}0\\0\end{bmatrix}, \begin{bmatrix}\color{#e41a1c}{\tau_{00}} &amp; \\ \color{#e41a1c}{\tau_{10}} &amp; \color{#e41a1c}{\tau_{11}}\end{bmatrix}\right)
+\]</span></p>
+</section>
+<section class="slide level2">
+<h2>Assumption 1: Specification</h2>
+<ul>
+<li>All relevant predictors are included at the correct levels.</li>
+<li>The random effect structure (<span class="math inline">\(\color{#e41a1c}{u_j}\)</span>) matches the data design.</li>
+<li><strong>The Random Slope Rule</strong>:<br>If an effect varies across clusters, omitting the random slope forces that variation into the observation error (<span class="math inline">\(\color{#4daf4a}{e_{ij}}\)</span>), which violates the independence of errors.</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Assumption 2: Normality</h2>
+<p>The equations explicitly declare the distribution shape:</p>
+<ul>
+<li><span class="math inline">\(\color{#4daf4a}{e_{ij}} \sim \textbf{Normal}(0, \color{#4daf4a}{\sigma}) \therefore\text{Univariate Normal}\)</span></li>
+<li><span class="math inline">\(\color{#e41a1c}{u_{j}} \sim \textbf{MVN}(0, \color{#e41a1c}{\Sigma}) \therefore\text{Multivariate Normal}\)</span></li>
+</ul>
+<p>We assume Level 1 errors and Level 2 deviations follow a normal curve. If the real errors are non-normal, the likelihood math “breaks” and gives biased confidence intervals.</p>
+</section>
+<section class="slide level2">
+<h2>Assumption 3: Homoscedasticity</h2>
+<p>Homoscedasticity means “constant variance.”</p>
+<div class="fsmaller">
+<p><span class="math display">\[
+\color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma}) \qquad \begin{bmatrix}\color{#e41a1c}{u_{0j}}\\ \color{#e41a1c}{u_{1j}}\end{bmatrix} \sim \text{MVN}\left(\begin{bmatrix}0\\0\end{bmatrix}, \begin{bmatrix}\color{#e41a1c}{\tau_{00}} &amp; \\ \color{#e41a1c}{\tau_{10}} &amp; \color{#e41a1c}{\tau_{11}}\end{bmatrix}\right)
+\]</span></p>
+</div>
+<ul>
+<li>The model specifies exactly <strong>one</strong> <span class="math inline">\(\color{#4daf4a}{\sigma}\)</span> for all <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>. It assumes the spread (SD) of errors is identical for every observation.</li>
+<li>The model specifies exactly <strong>one</strong> <span class="math inline">\(\color{#e41a1c}{\tau_{00}}\)</span> and <span class="math inline">\(\color{#e41a1c}{\tau_{11}}\)</span>. We assume cluster-level variance is constant across all clusters.</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Assumption 4: Independence</h2>
+<p>We assume errors are uncorrelated with each other:</p>
+<ul>
+<li><span class="math inline">\(\color{#4daf4a}{e_{ij}}\)</span> residuals are independent of other observations.</li>
+<li><span class="math inline">\(\color{#e41a1c}{u_j}\)</span> deviations are independent across clusters<br>(e.g., School A’s intercept doesn’t inform School B’s).</li>
+<li><span class="math inline">\(\color{#4daf4a}{e_{ij}}\)</span> and <span class="math inline">\(\color{#e41a1c}{u_j}\)</span> are independent of each other.</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Assumption 4: The Exception</h2>
+<p>Are we allowed to have <em>any</em> correlations?</p>
+<p><span class="math display">\[
+\color{#e41a1c}{\Sigma} = \begin{bmatrix}\color{#e41a1c}{\tau_{00}} &amp; \\ \color{#e41a1c}{\tau_{10}} &amp; \color{#e41a1c}{\tau_{11}}\end{bmatrix}
+\]</span></p>
+<p>Yes! We explicitly model the correlation between a cluster’s intercept and its slope via <span class="math inline">\(\color{#e41a1c}{\tau_{10}}\)</span>. This “within-cluster” dependency is expected and accounted for by the model.</p>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Part 2:<br> Workflow &amp; Data</h1>
+
+</section>
+<section class="slide level2 fsmaller">
+<h2>Prepping the Data</h2>
+<div class="cell" data-replace_path="[&quot;../../data/&quot;,&quot;&quot;]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmmTMB)</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easystats)</span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"diag_sim.csv"</span>) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">school =</span> <span class="fu">factor</span>(school))</span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,200
+Columns: 13
+$ school        &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ homework      &lt;dbl&gt; 9.1480604, 9.3707541, 2.8613953, 8.3044763, 6.41745…
+$ iq            &lt;dbl&gt; 96.27276, 106.33481, 114.81480, 112.53352, 90.09217…
+$ parent_ed     &lt;dbl&gt; 9.557333, 11.094028, 10.595360, 10.651239, 7.393954…
+$ study_time    &lt;dbl&gt; 8.8737958, 9.0536683, 2.6985937, 7.8450080, 6.86375…
+$ u0            &lt;dbl&gt; -4.27901645, -4.27901645, -4.27901645, -4.27901645,…
+$ e_normal      &lt;dbl&gt; 7.06285578, 6.40985063, -2.25772138, -3.75880719, -…
+$ e_het         &lt;dbl&gt; 24.2418425, 5.3332067, -0.3621076, 1.1654239, 4.475…
+$ e_skew        &lt;dbl&gt; 10.0483377, -1.0081537, -1.3384338, -0.8878903, 5.9…
+$ score_ideal   &lt;dbl&gt; 68.38879, 69.00922, 53.37842, 58.18090, 55.55666, 6…
+$ score_het     &lt;dbl&gt; 75.94050, 57.29910, 43.79255, 51.85178, 52.89746, 4…
+$ score_skew    &lt;dbl&gt; 61.74699, 50.95773, 42.81622, 49.79846, 54.37357, 4…
+$ score_outlier &lt;dbl&gt; 218.38879, 219.00922, 203.37842, 58.18090, 55.55666…</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>A Systematic Workflow</h2>
+<ol type="1">
+<li><strong>Collinearity</strong>: Check before you even look at residuals.</li>
+<li><strong>Predictive Check</strong>: Does the model “look” like the data?</li>
+<li><strong>Residual Analysis</strong>: L1 and L2 normality/variance.</li>
+<li><strong>Sensitivity</strong>: Does removing outliers change the story?</li>
+</ol>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Part 3:<br> Collinearity</h1>
+
+</section>
+<section class="slide level2">
+<h2>Redundant Predictors</h2>
+<p>Predictors that are too highly correlated with each other inflate Standard Errors, making “significant” effects disappear.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># A model with redundant predictors</span></span>
+<span id="cb3-2"><a aria-hidden="true" tabindex="-1"></a>fit_coll <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(score_ideal <span class="sc">~</span> homework <span class="sc">+</span> study_time <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> school), <span class="at">data =</span> dat)</span>
+<span id="cb3-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># easystats check</span></span>
+<span id="cb3-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_collinearity</span>(fit_coll)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Check for Multicollinearity
+
+High Correlation
+
+       Term   VIF     VIF 95% CI adj. VIF Tolerance Tolerance 95% CI
+   homework 55.19 [49.37, 61.70]     7.43      0.02     [0.02, 0.02]
+ study_time 55.19 [49.37, 61.70]     7.43      0.02     [0.02, 0.02]</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>How to address collinearity?</h2>
+<ul>
+<li><strong>Drop one</strong>: If VIF is high, choose the variable that is more theoretically central.</li>
+<li><strong>Composite</strong>: Average the variables into a single index.</li>
+<li><strong>MSEM</strong>: Combine them into a latent variable (factor).</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a composite 'effort' score</span></span>
+<span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">effort =</span> (homework <span class="sc">+</span> study_time)<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb5-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a aria-hidden="true" tabindex="-1"></a>fit_fixed <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(score_ideal <span class="sc">~</span> effort <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> school), <span class="at">data =</span> dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Part 4:<br> Predictions</h1>
+
+</section>
+<section class="slide level2">
+<h2>Predictive Checks</h2>
+<ul>
+<li><p>Before zooming in on residuals, we need to check the macroscopic fit of our model.</p></li>
+<li><p>The <code>check_predictions()</code> function simulates new datasets based on your fitted model’s parameters and compares their overall shape to your actual data.</p></li>
+<li><p><strong>The Goal</strong>: If your model accurately reflects the true data-generating process, the simulated predictions (the blue lines) should overlap your raw data (the green line).</p></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Plotting Predictions</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_predictions</span>(fit_fixed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2 fsmaller">
+<h2>Diagnosing Predictive Misfit</h2>
+<p>What if the model predictions do not align with the raw data? This indicates fundamental <strong>misspecification</strong>. No amount of residual tweaking will fix a model that cannot replicate the basic shape of your outcome.</p>
+<ul>
+<li><strong>Bimodal Data (Two humps):</strong> The model is only predicting one peak, but the data has two. You are likely missing a critical categorical predictor or grouping variable that separates the observations.</li>
+<li><strong>Skewed Data (Long tails):</strong> The model predicts a symmetrical curve, but the data has a long tail. You likely need to change the distribution family (e.g., moving to a Gamma or Poisson distribution) or apply a transformation.</li>
+<li><strong>Shifted Peaks:</strong> The model’s center is entirely offset from the data’s center. You might be missing important non-linear effects, such as polynomial terms or interactions.</li>
+</ul>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Part 5: Residuals</h1>
+
+</section>
+<section class="slide level2">
+<h2>1. Normality of Residuals</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-hidden="true" tabindex="-1"></a>fit_skew <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(score_skew <span class="sc">~</span> homework <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> homework <span class="sc">|</span> school), <span class="at">data =</span> dat)</span>
+<span id="cb7-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_normality</span>(fit_skew, <span class="at">effects =</span> <span class="st">"fixed"</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="1152" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Interpreting Residual Normality</h2>
+<ul>
+<li>This plot checks the Level 1 errors (<span class="math inline">\(\color{#4daf4a}{e_{ij}}\)</span>).</li>
+<li>The points should fall tightly along the green reference line.</li>
+<li>If points drift heavily at the tails, your residuals are skewed or heavy-tailed. Severe deviations here can bias your standard errors and <span class="math inline">\(p\)</span>-values.</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>2. Normality of Random Effects</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_normality</span>(fit_skew, <span class="at">effects =</span> <span class="st">"random"</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="1152" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Interpreting RE Normality</h2>
+<ul>
+<li>This plot checks if the cluster-level deviations (<span class="math inline">\(\color{#e41a1c}{u_j}\)</span>) follow a normal distribution.</li>
+<li>Each dot represents a specific cluster (e.g., a school).</li>
+<li>Extreme deviations here mean certain clusters behave completely differently than the rest of the population, which might require investigation.</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>3. Homogeneity of Variance</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-hidden="true" tabindex="-1"></a>fit_het <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(score_het <span class="sc">~</span> homework <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> homework <span class="sc">|</span> school), <span class="at">data =</span> dat)</span>
+<span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">check_heteroskedasticity</span>(fit_het) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="1152" class="r-stretch"></section>
+<section class="slide level2">
+<h2>Interpreting Homogeneity</h2>
+<ul>
+<li>The green reference line should be relatively flat and horizontal.</li>
+<li>If the line bends sharply or the points fan out (like a megaphone), the variance is not constant (<span class="math inline">\(\color{#4daf4a}{\sigma}\)</span> is changing).</li>
+<li>In this plot, we can clearly see the variance expanding as the fitted values increase.</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Fix: Modeling Variance Directly</h2>
+<ul>
+<li>If variance is not constant, we can actually model <em>why</em> it changes. The <code>glmmTMB</code> package allows us to predict the variance (<span class="math inline">\(\sigma\)</span>) just like we predict the mean using the <code>dispformula</code> argument.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Modeling variance as a function of homework</span></span>
+<span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>fit_disp <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
+<span id="cb10-3"><a aria-hidden="true" tabindex="-1"></a>  score_het <span class="sc">~</span> homework <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> school),</span>
+<span id="cb10-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">dispformula =</span> <span class="sc">~</span> homework, </span>
+<span id="cb10-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
+<span id="cb10-6"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><em>(Note: This creates a Location–Scale Mixed Model, where we estimate slopes for both the average and spread of the scores).</em></p>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Part 6: Outliers</h1>
+
+</section>
+<section class="slide level2 fsmaller">
+<h2>Outliers in MLMs</h2>
+<ul>
+<li><p>In standard regression, an outlier just pulls the line</p></li>
+<li><p>In MLMs, outliers distort our system of variances</p></li>
+<li><p><strong>L1 Outlier (<span class="math inline">\(\color{#4daf4a}{e_{ij}}\)</span>)</strong>: An observation that is extreme within its cluster.</p>
+<ul>
+<li><em>Impact</em>: Inflates the residual variance (<span class="math inline">\(\color{#4daf4a}{\sigma}\)</span>), making all standard errors larger and reducing your power to detect true effects.</li>
+</ul></li>
+<li><p><strong>L2 Outlier (<span class="math inline">\(\color{#e41a1c}{u_j}\)</span>)</strong>: A cluster that is extreme among clusters.</p>
+<ul>
+<li><em>Impact</em>: Distorts the main fixed effects (slopes) and inflates cluster variance (<span class="math inline">\(\color{#e41a1c}{\tau}\)</span>), making groups look more different than they actually are.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2 fsmaller">
+<h2>Why DHARMa for Outliers?</h2>
+<ul>
+<li><strong>The Problem with Traditional Outlier Metrics</strong>: Tools like Cook’s Distance struggle in MLMs because the model intentionally “shrinks” extreme cluster estimates toward the mean.</li>
+<li>Thus, <code>check_outliers()</code> does not yet support <code>glmmTMB</code> models.</li>
+<li><strong>The Simulation Solution</strong>: <code>DHARMa</code> bypasses this by simulating thousands of new datasets directly from your fitted model parameters.</li>
+<li><strong>Flagging Outliers</strong>: If a real data point falls <em>completely</em> outside the expected boundaries of those simulations, it is flagged as a structural outlier.</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Identifying Outliers</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DHARMa)</span>
+<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a>fit_out <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(score_outlier <span class="sc">~</span> homework <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> school), <span class="at">data =</span> dat)</span>
+<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>res_out <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(fit_out)</span>
+<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">testOutliers</span>(res_out)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    DHARMa outlier test based on exact binomial test with approximate
+    expectations
+
+data:  res_out
+outliers at both margin(s) = 5, observations = 1200, p-value =
+0.1896
+alternative hypothesis: true probability of success is not equal to 0.007968127
+95 percent confidence interval:
+ 0.001354247 0.009696618
+sample estimates:
+frequency of outliers (expected: 0.00796812749003984 ) 
+                                           0.004166667 </code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Plotting Outliers</h2>
+
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
+<section class="slide level2 fsmaller">
+<h2>Interpreting DHARMa Outliers</h2>
+<ul>
+<li><strong>The Histogram</strong>: This plots your residuals as percentiles, not raw mathematical errors. Because a perfect model means a data point is equally likely to fall into any percentile, we want to see a flat, uniform block from 0.0 to 1.0, <em>not</em> a traditional bell curve.</li>
+<li><strong>The Red Bars</strong>: DHARMa assigns a value of exactly 0 or 1 to any data point that falls completely outside the simulated boundaries. These extreme outliers are grouped and highlighted in red at the very edges.</li>
+<li><strong>The Title</strong>: The title “Outlier test n.s.” means the test is “not significant.” Even though there is a red bar, the <em>number</em> of outliers is completely normal and expected for a dataset of this size.</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Fix: Sensitivity Analysis</h2>
+<p>There is no magical R function to automatically “fix” outliers. You must use logic.</p>
+<ol type="1">
+<li>Identify the outliers using DHARMa.</li>
+<li>Run the model <strong>with</strong> them.</li>
+<li>Run the model <strong>without</strong> them.</li>
+<li><strong>Compare</strong>: If the main slope changes drastically, the outlier is “influential” and the results from both models should be reported transparently.</li>
+</ol>
+</section>
+<section class="slide level2">
+<h2>Performing the Sensitivity Analysis</h2>
+<p>To run the model without outliers, we first need to extract them. DHARMa flags outliers by assigning them a simulated residual of exactly <code>0</code> or <code>1</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Get the row numbers of the outliers</span></span>
+<span id="cb13-2"><a aria-hidden="true" tabindex="-1"></a>outlier_idx <span class="ot">&lt;-</span> <span class="fu">which</span>(res_out<span class="sc">$</span>scaledResiduals <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb13-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Create a clean dataset by dropping those rows</span></span>
+<span id="cb13-5"><a aria-hidden="true" tabindex="-1"></a>dat_clean <span class="ot">&lt;-</span> dat <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="sc">-</span>outlier_idx)</span>
+<span id="cb13-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Re-run the model on the clean data</span></span>
+<span id="cb13-8"><a aria-hidden="true" tabindex="-1"></a>fit_clean <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(score_outlier <span class="sc">~</span> homework <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> school), <span class="at">data =</span> dat_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Comparing the Results</h2>
+<p>Now we use <code>compare_parameters()</code> from the <code>easystats</code> package to look at both models side-by-side.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">compare_parameters</span>(fit_out, fit_clean, <span class="at">select =</span> <span class="st">"{estimate} ({p})"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Parameter    |        fit_out |      fit_clean
+----------------------------------------------
+(Intercept)  | 54.87 (&lt;0.001) | 53.93 (&lt;0.001)
+homework     |  1.15 (&lt;0.001) |  1.21 (&lt;0.001)
+----------------------------------------------
+Observations |           1200 |           1195</code></pre>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Interpreting the Comparison</h2>
+<p><em>Notice what happened to our slope for <code>homework</code>.</em></p>
+<ol type="1">
+<li><strong>With Outliers</strong>: The effect of homework was severely underestimated (e.g., heavily pulled by the extreme points).</li>
+<li><strong>Without Outliers</strong>: The effect of homework recovered to its true value (closer to our simulated 1.2).</li>
+<li><strong>Conclusion</strong>: These outliers are highly influential. You should report the results of the clean model but be completely transparent in your manuscript about how many outliers were removed and why.</li>
+</ol>
 
 
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
