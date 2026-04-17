@@ -1,0 +1,35 @@
+---
+title: "Lab 13: Model Evaluation"
+format:
+  html:
+    toc: true
+---
+
+## Objective
+Apply the systematic workflow for multilevel model (MLM) troubleshooting and diagnostics to evaluate, correct, and interpret problematic model outputs.
+
+## Background
+Pretend that you have been hired as a statistical consultant by a large research lab. A junior researcher ran several multilevel models using \{glmmTMB\} but encountered warnings and confusing diagnostic plots. They have provided you with a document containing their initial model summaries and diagnostic checks. They need your expertise to figure out what went wrong and how to fix it. 
+
+***Note:** These cases represent three independent projects the lab is working on. Treat each case as a separate, unrelated dataset and model.*
+
+## Instructions
+Review the three independent cases below. Write a professional memo to the researcher addressing the issues. For each case, your memo must include:
+
+1. **Diagnosis:** Identify the *most likely* primary problem based on the specific context clues provided in the case. (You do not need to list every possible cause of a warning, only the one clearly indicated by the symptoms).
+2. **Explanation:** Explain to the client (in clear, accessible language) why this problem occurs and what it means for their results if left unaddressed.
+3. **Solution:** Provide explicit instructions on what they need to do to fix the model or verify the robustness of their findings.
+
+## The Cases
+
+### Case 1: The Hessian Warning
+The client brings you a model where they are predicting a participant's annual income in raw dollars (ranging from \$20,000 to \$150,000) using a cognitive reaction time task measured in seconds (ranging from 0.25 to 0.85 seconds). They report that `glmmTMB()` threw a "non-positive-definite Hessian matrix" warning. They are worried their data is broken. 
+
+### Case 2: The Pruned Slope
+The client was testing their primary lab hypothesis: that a new clinical treatment reduces patient anxiety. Their initial model, which included a random slope for the treatment variable across different clinics, failed to converge (though the variance for the slope was estimated at 0.45). The researcher tells you: "I just removed the random slope for the treatment to get it to run. The new model converged perfectly, and my fixed effect for treatment is significant ($p < .05$)! We can publish this, right?"
+
+### Case 3: The Red Bars
+The client ran `simulateResiduals()` from the DHARMa package to check for outliers. They show you a histogram with a large block of red bars grouped exactly at the 0.0 and 1.0 margins. The researcher is panicking and says: "Traditional Cook's Distance didn't show this. DHARMa says I have massive errors, so I think I have to throw away all these participants."
+
+## Deliverable Format
+Submit a 1 to 2 page document formatted as a professional consulting memo (e.g., in formatted text, DOCX, or HTML). You do not need to write new R code. Focus your answers on the statistical concepts, the decision-making workflow, and your theoretical interpretation of the diagnostics.
