@@ -38,14 +38,16 @@ title: "Week 14: Practical Matters"
 ## [14b] Power Analysis
 
 ### Topics
-TBA
-
-### File Downloads
-TBA
+1. The Power Problem in MLMs
+    + *Why G\*Power isn't enough*
+    + *The simulation solution*
+    
+2. The `simr` Workflow
+    + *Building dummy models*
+    + *Simulating and extending power*
 
 ### Readings
-TBA
-
+- [View on Canvas](https://canvas.ku.edu/courses/182539/pages/14b-power-analysis-+-lab?module_item_id=4317598){target="_blank"}
 
 ### Slides
 
