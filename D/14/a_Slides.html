@@ -489,7 +489,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 </section>
 <section class="slide level2 fsmaller">
 <h2>The Problem with Global StdYX</h2>
-<p>If Y is an arbitrary scale, you might be tempted to standardize Y globally before fitting your model. <span class="b dark-red">Do not do this.</span></p>
+<p>If Y is an arbitrary scale, you might be tempted to standardize Y globally before fitting your model (like you would for OLS). <span class="b dark-red">Do not do this for multilevel data!</span></p>
 <ul>
 <li><strong>The ICC Penalty:</strong> If you standardize Y globally, the denominator includes both Level-1 and Level-2 variance.</li>
 <li><strong>The Trap:</strong> A Level-1 predictor can only explain Level-1 variance. By dividing its effect by the <em>total</em> variance pool, you mathematically penalize it.</li>
