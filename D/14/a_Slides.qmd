@@ -277,7 +277,7 @@ model_parameters(fit_stdx, effects = "fixed")
 
 ## The Problem with Global StdYX {.fsmaller}
 
-If Y is an arbitrary scale, you might be tempted to standardize Y globally before fitting your model. [Do not do this.]{.b .dark-red} 
+If Y is an arbitrary scale, you might be tempted to standardize Y globally before fitting your model (like you would for OLS). [Do not do this for multilevel data!]{.b .dark-red} 
 
 - **The ICC Penalty:** If you standardize Y globally, the denominator includes both Level-1 and Level-2 variance. 
 - **The Trap:** A Level-1 predictor can only explain Level-1 variance. By dividing its effect by the *total* variance pool, you mathematically penalize it. 
