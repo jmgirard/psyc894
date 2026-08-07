@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -228,7 +231,7 @@
 <h1>Conceptual Foundations</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interactions</h2>
 <ul>
 <li>Interaction (moderation) effects allow the effect (i.e., slope) of a predictor to depend on the values of other predictors.
@@ -248,7 +251,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interactions Equation</h2>
 <ul>
 <li>Add a slope for the product of two predictors.
@@ -279,7 +282,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Cross-level Interactions</h2>
 <ul>
 <li>But what if your predictors are on different levels?</li>
@@ -302,7 +305,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Example Cross-level Questions</h2>
 <ul>
 <li><em>Is the difference between male and female smiling greater in nations that are more religious (vs.&nbsp;those that are less religious)?</em>
@@ -321,7 +324,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Same-Level Interactions</h2>
 <ul>
 <li>Multilevel models are not restricted to cross-level interactions.</li>
@@ -341,7 +344,7 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>A Note on Predictors Today</h2>
 <ol type="1">
 <li>For today’s examples, we are strictly using <strong>categorical (dummy-coded) predictors</strong>.</li>
@@ -350,7 +353,7 @@
 <li>We will learn how to do that next week (using <strong>centering</strong> and <strong>degrouping</strong>) before we apply cross-level interactions to continuous variables.</li>
 </ol>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Multilevel Equation Part 1</h2>
 <ul>
 <li>We will accomplish this by adding to the random slope equation</li>
@@ -376,7 +379,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}}
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Multilevel Equation Part 2</h2>
 <p>As we add random effects (e.g., <span class="math inline">\(u_{1j}\)</span>), we assume they form a multivariate normal distribution with 0 means and estimated SDs (e.g., <span class="math inline">\(\tau_{00}\)</span> and <span class="math inline">\(\tau_{11}\)</span>) and correlations (e.g., <span class="math inline">\(\tau_{10}\)</span>).</p>
 <div class="tc b">
@@ -396,7 +399,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}}
 <h2>Path Diagram</h2>
 
 <img data-src="../../diagrams/cross_level_interaction.png" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Mixed (or Reduced) Equation</h2>
 <p><span class="math display">\[
 \begin{alignat}{2}
@@ -433,7 +436,7 @@ y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}}
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Importance of Random Slopes</h2>
 <ul>
 <li>When testing a cross-level interaction, you <strong>must</strong> include the random slope for the Level 1 predictor.</li>
@@ -470,7 +473,7 @@ $ public  &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Fitting the Model</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lmer</span>(math <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> public <span class="sc">*</span> female <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> female <span class="sc">|</span> school), <span class="at">data =</span> dat)</span>
@@ -496,7 +499,7 @@ SD (Residual)                   |        8.10</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting the Fixed Effects</h2>
 <ul>
 <li>The fixed intercept <span class="math inline">\((\gamma_{00})\)</span> is…
@@ -515,7 +518,7 @@ SD (Residual)                   |        8.10</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting the Fixed Effects</h2>
 <ul>
 <li>The fixed simple slope of female <span class="math inline">\((\gamma_{10})\)</span> is…
@@ -534,7 +537,7 @@ SD (Residual)                   |        8.10</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting the Random Effects 1</h2>
 <ul>
 <li>The random intercept SD <span class="math inline">\((\tau_{00})\)</span> is…
@@ -553,7 +556,7 @@ SD (Residual)                   |        8.10</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting the Random Effects 2</h2>
 <ul>
 <li>The correlation between deviations <span class="math inline">\((\tau_{10})\)</span> is…
@@ -572,7 +575,7 @@ SD (Residual)                   |        8.10</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Random Effect Deviations</h2>
 <p>These are called Empirical Bayes (EB) Estimates.</p>
 <div class="cell">
@@ -1421,7 +1424,7 @@ school | 419   | female1     |        0.15 | 1.52 | [ -2.83,  3.14]</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Random Effect Predictions</h2>
 <p>These are called Best Linear Unbiased Predictions (BLUPs).</p>
 <div class="cell">
@@ -2277,11 +2280,11 @@ school | 419   | female1     |       -0.46</code></pre>
 <span id="cb9-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rel)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"><div class="fsmaller">
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"><div class="fs80">
 <p>These are estimates for the <em>average school</em> in the population.</p>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Visualizing the Random Slopes</h2>
 
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
@@ -2303,11 +2306,11 @@ Predictors averaged: school
 p-values are uncorrected.</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>The sex difference is significant in <em>public</em> but not in <em>private</em> schools.</p>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpretation Part 1</h2>
 <ul>
 <li>Last week, we regressed math on female with random slopes.
@@ -2340,7 +2343,7 @@ p-values are uncorrected.</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpretation Part 2</h2>
 <ul>
 <li>This week, we tested whether a school’s sex difference in math scores was significantly related to its public vs private status.</li>
@@ -2834,7 +2837,7 @@ p-values are uncorrected.</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

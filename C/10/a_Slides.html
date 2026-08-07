@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -244,7 +247,7 @@
 </section>
 <section class="slide level2">
 <h2>Nesting</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>We can statistically compare <em>nested</em> models using their deviances</li>
 </ul>
@@ -275,7 +278,7 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level2 f36">
+<section class="slide level2 fs90">
 <h2>Nesting Examples</h2>
 <ol type="1">
 <li>✅ Adding a fixed slope
@@ -300,7 +303,7 @@
 </ol>
 </div>
 </section>
-<section class="slide level2 f36">
+<section class="slide level2 fs90">
 <h2>Non-Nesting Examples</h2>
 <ol start="4" type="1">
 <li>❌ Swapping predictors
@@ -336,7 +339,7 @@
 </ul>
 <p><span class="math display">\[\Delta D \sim \chi^2(\text{df}=q_{\text{general}}-q_{\text{specific}})\]</span></p>
 </section>
-<section class="slide level2 f36">
+<section class="slide level2 fs90">
 <h2>Likelihood Ratio Test</h2>
 <ul>
 <li>Several important notes about the LRT
@@ -386,7 +389,7 @@ $ public  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 <li><strong>Flexibility</strong>: Unlike <code>lmer()</code>, it can fit models with no random effects, which will let us compare models with and without</li>
 <li><strong>Better Convergence</strong>: It is often more robust when models become complex (will be used a lot for troubleshooting)</li>
 </ul>
-<div class="fragment fsmaller mt1">
+<div class="fragment fs80 mt1">
 <p><strong>Note</strong>: GLMM stands for Generalized Linear Mixed Modeling, which is multilevel modeling for non-normal outcomes, and TMB stands for Template Model Builder, which is the underlying software that powers the package</p>
 </div>
 </section>
@@ -413,7 +416,7 @@ m0   | glmmTMB |  2 |         |        |
 m1   | glmmTMB |  3 |       1 | 482.72 | &lt; .001</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>m1 has significantly better fit than m0, so we need the random intercept</li>
 </ul>
@@ -443,7 +446,7 @@ m1   | glmmTMB |  3 |         |       |
 m2   | glmmTMB |  4 |       1 | 35.20 | &lt; .001</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>m2 has significantly better fit than m1, so we need the fixed slope</li>
 </ul>
@@ -473,7 +476,7 @@ m2   | glmmTMB |  4 |         |      |
 m3   | glmmTMB |  6 |       2 | 5.23 | 0.073</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>m3 was not sig. better than m2, so we don’t need the random slope</li>
 </ul>
@@ -499,7 +502,7 @@ m3   | glmmTMB |  6 |       2 | 5.23 | 0.073</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Information Criteria</h2>
 <ul>
 <li>We use “information criteria” to compare non-nested models
@@ -564,7 +567,7 @@ m2   | glmmTMB | 48848.6 (0.351) | 48875.9 (0.998)
 m3   | glmmTMB | 48847.3 (0.649) | 48888.3 (0.002)</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>AIC prefers the complex m3 (66.7%), BIC prefers the simpler m2 (99.8%)</li>
 </ul>
@@ -577,7 +580,7 @@ m3   | glmmTMB | 48847.3 (0.649) | 48888.3 (0.002)</code></pre>
 </section>
 <section class="slide level2">
 <h2>Bottom-up Strategy</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li><p>Start with the simplest model and build up, one step at a time</p></li>
 <li><p>Test whether each step is a significant improvement</p></li>
@@ -663,7 +666,7 @@ step2 | glmmTMB |  5 |       2 | 426.98 | &lt; .001</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>Step 3</h2>
 <p>Add fixed slopes for all L2 predictors</p>
 <div class="cell">
@@ -689,7 +692,7 @@ step3 | glmmTMB |  8 |       3 | 354.67 | &lt; .001</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>Step 4a</h2>
 <p>Add first random slope (for female)</p>
 <div class="cell">
@@ -715,7 +718,7 @@ step4a | glmmTMB | 10 |       2 | 4.48 | 0.106</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>Step 4b</h2>
 <p>Add second random slope (for ses_within)</p>
 <div class="cell">
@@ -741,7 +744,7 @@ step4b | glmmTMB | 10 |       2 | 10.79 | 0.005</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>Step 5a</h2>
 <p>Add the cross-level interaction of ses_within and public</p>
 <div class="cell">
@@ -768,7 +771,7 @@ step5a | glmmTMB | 11 |       1 | 2.78 | 0.095</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>Step 5b</h2>
 <p>Add the cross-level interaction of ses_within and puniv</p>
 <div class="cell">
@@ -798,7 +801,7 @@ step5b | glmmTMB | 11 |       1 | 0.56 | 0.456</code></pre>
 <section class="slide level2">
 <h2>Summary of LRT Results</h2>
 
-<img data-src="../../img/model_flow.svg" class="r-stretch"><div class="fsmaller">
+<img data-src="../../img/model_flow.svg" class="r-stretch"><div class="fs80">
 <ul>
 <li>LRT favors the model from Step 4b, so I would usually choose that</li>
 <li>Or, if testing an SES interaction was my goal, I would use 5a or 5b</li>
@@ -823,7 +826,7 @@ puniv       |        0.05 | 0.01 | [ 0.02,  0.07] |  3.19 | 0.001 </code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>IC Model Comparison</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">compare_performance</span>(</span>
@@ -845,13 +848,13 @@ step5a | glmmTMB | 18242.1 (0.486) | 18317.3 (0.001)
 step5b | glmmTMB | 18244.3 (0.160) | 18319.5 (&lt;.001)</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>So AIC prefers the complex Model 5a and BIC prefers the simpler Model 3</li>
 </ul>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Which Metric Should I Trust?</h2>
 <p>When AIC, BIC, and LRT disagree, consider your research goal:</p>
 <ol type="1">
@@ -1330,7 +1333,7 @@ step5b | glmmTMB | 18244.3 (0.160) | 18319.5 (&lt;.001)</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

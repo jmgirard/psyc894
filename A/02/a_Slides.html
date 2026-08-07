@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -227,7 +230,7 @@
 <span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"penguins"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li><span class="b blue">easystats</span> will provide most of our statistical functions</li>
 <li><span class="b blue">ggplot2</span> will provide the ability to customize our plots</li>
@@ -264,7 +267,7 @@ ID | Name        | Type        | Missings |       Values |           N
 <h1>CSR</h1>
 <p>Continuous Simple Regression</p>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>CSR Overview</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -335,7 +338,7 @@ flipper len |       49.69 |   1.52 | [   46.70,    52.67] |  32.72 | &lt; .001</
 </div>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>CSR Interpretation</h2>
 <ul>
 <li><p><strong>Intercept</strong> <span class="math inline">\((\beta_0 = -5780.8\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The body mass (g) expected for a penguin with a flipper length of 0mm.<br> <em>This is biologically impossible, suggesting we should center our predictor.</em></p></li>
@@ -361,7 +364,7 @@ flipper len  |    49.69*** |   49.69***
 Observations |         342 |        342</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Note:</strong> The slope <span class="math inline">\((\beta_1)\)</span> does not change. However, the intercept <span class="math inline">\((\beta_0)\)</span> is now the expected body mass for a penguin with <strong><em>average</em></strong> flipper length.</p>
 </div>
 </div>
@@ -384,7 +387,7 @@ flipper len  |    49.69*** |     0.87***
 Observations |         342 |         342</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Note:</strong> The intercept is now zero. The slope is now the change in body mass in <strong>Standard Deviations (SDs)</strong> for a 1 SD increase in flipper length.</p>
 </div>
 </div>
@@ -444,7 +447,7 @@ Observations |         342 |         342</code></pre>
 <h1>CMR</h1>
 <p>Continuous Multiple Regression</p>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>CMR Overview</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -518,7 +521,7 @@ bill dep    |       22.63 |  13.28 | [   -3.49,    48.76] |   1.70 | 0.089 </cod
 </div>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>CMR Interpretation</h2>
 <ul>
 <li><p><strong>Intercept</strong> <span class="math inline">\((\beta_0 = -6541.9\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The body mass (g) expected when both Flipper Length and Bill Depth are 0mm.</p></li>
@@ -546,7 +549,7 @@ Observations |         342 |        342 |         342</code></pre>
 </div>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>Notice that Bill Depth was significant on its own (<code>csr_b</code>), but loses significance when Flipper Length is added (<code>cmr_fb</code>). This is because Flipper Length “explains away” the variance.</p>
 </div>
 </section>
@@ -621,7 +624,7 @@ Observations |         342 |        342 |         342</code></pre>
 <h1>DSR</h1>
 <p>Discrete Simple Regression</p>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>DSR Overview</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -653,7 +656,7 @@ Observations |         342 |        342 |         342</code></pre>
 <p><lord-icon src="../../icons/theater.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>DSR Equation</h2>
 <h4>Generic</h4>
 <p><span class="math display">\[y_i = \beta_0 + \beta_1 D_{1i} + \dots + \varepsilon_{i}\]</span></p>
@@ -711,7 +714,7 @@ species [Gentoo]    |     1375.35 | 56.15 | [1264.91, 1485.80] |  24.50 | &lt; .
 </div>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>DSR Interpretation</h2>
 <ul>
 <li><p><strong>Intercept</strong> <span class="math inline">\((\beta_0 = 3700.7\)</span>, <span class="math inline">\(p&lt;.001)\)</span><br> The predicted body mass (g) for the Reference Group (Adelie).</p></li>
@@ -813,7 +816,7 @@ Predictors modulated: species</code></pre>
 <h1>MMR</h1>
 <p>Mixed Multiple Regression</p>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>MMR Equation</h2>
 <h4>Generic</h4>
 <p><span class="math display">\[y_i = \beta_0 + \beta_1 x_{1i} + \dots +\beta_2 D_{1i} + \dots + \varepsilon_{i}\]</span></p>
@@ -1428,7 +1431,7 @@ p-value adjustment method: Holm (1979)</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -230,7 +233,7 @@
 <h1>Conceptual Foundations</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Need for a Meaningful Zero</h2>
 <ul>
 <li>The intercept is the expected value of <span class="math inline">\(y\)</span> when all predictors equal zero</li>
@@ -248,7 +251,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Centering Level 2 Predictors</h2>
 <ul>
 <li>Level 2 predictors represent cluster-level characteristics</li>
@@ -269,7 +272,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Standardizing Level 2 Predictors</h2>
 <ul>
 <li>Sometimes we want our predictors to be on a standardized scale</li>
@@ -290,7 +293,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Problem with Level 1 Predictors</h2>
 <ul>
 <li>Level 1 predictors like student socioeconomic status (SES) are trickier</li>
@@ -307,7 +310,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>Multilevel Fallacies and Paradoxes</h2>
 <p>If we ignore this and report the conflated effect anyway, we risk falling into:</p>
 <ul>
@@ -323,7 +326,7 @@
 <h2>Visualizing Simpson’s Paradox</h2>
 
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Manifest Decomposition (Degrouping)</h2>
 <ul>
 <li>To fix this, we “degroup” the L1 predictor into two new variables</li>
@@ -345,7 +348,7 @@
 </ol>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Magic of Orthogonality</h2>
 <ul>
 <li>There is a hidden mathematical benefit to Manifest Decomposition</li>
@@ -369,8 +372,8 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
-<h2>Do We Always Need Both Components?</h2>
+<section class="slide level2 fs70">
+<h2>Do We Always Need Both?</h2>
 <ul>
 <li>What if you only care about the within-cluster effect? Can you just use cluster mean centering (CMC) and ignore the cluster means?</li>
 </ul>
@@ -389,7 +392,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Standardizing Level 1 Predictors</h2>
 <ul>
 <li>What if we want to standardize a Level 1 predictor?</li>
@@ -404,7 +407,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>What About Standardizing Y?</h2>
 <ul>
 <li>In standard regression (OLS), we often standardize both predictors and the outcome to get fully standardized coefficients</li>
@@ -419,7 +422,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>Best Practice Recommendations</h2>
 <p>Here is a summary checklist for continuous variables in multilevel models.</p>
 <ol type="1">
@@ -436,7 +439,7 @@
 <h1>Data Preparation</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Weighting Problem</h2>
 <p>When we work with Level 1 data (one row per student), Level 2 variables (like school funding or proportion going to university) are repeated for every student in that school</p>
 <div class="fragment">
@@ -451,7 +454,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The “Split, Transform, Join” Workflow</h2>
 <p>To safely center and standardize our variables without size bias, we need to explicitly separate our data by level</p>
 <div class="fragment">
@@ -465,7 +468,7 @@
 </section>
 <section class="slide level2">
 <h2>Step 1: Prep the Level 2 Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>First, we load our data and create a Level 2 dataset. We grab our L2 predictor (<em>puniv</em>) and calculate the raw cluster mean for our L1 predictor (<em>ses_b</em>)</p>
 </div>
 <div class="cell" data-replace_path="[&quot;../../data/&quot;,&quot;&quot;]">
@@ -481,7 +484,7 @@
 <span id="cb1-10"><a aria-hidden="true" tabindex="-1"></a>    <span class="at">ses_b =</span> <span class="fu">mean</span>(ses, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-11"><a aria-hidden="true" tabindex="-1"></a>  ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="fragment fsmaller">
+<div class="fragment fs80">
 <p>Because this dataset has exactly one row per school, we can safely center and standardize without weighting biases!</p>
 </div>
 </section>
@@ -512,7 +515,7 @@ $ ses_bs  &lt;dw_trnsf&gt; -0.5883235, 1.3570281, -1.1662739, 1.6365364, -0.8401
 </section>
 <section class="slide level2">
 <h2>Step 2: Prep the Level 1 Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Next, take the original L1 data and join our new L2 data into it</p>
 </div>
 <div class="cell">
@@ -521,7 +524,7 @@ $ ses_bs  &lt;dw_trnsf&gt; -0.5883235, 1.3570281, -1.1662739, 1.6365364, -0.8401
 <span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>puniv) <span class="sc">|&gt;</span> </span>
 <span id="cb4-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(dat_l2, <span class="at">by =</span> <span class="st">"school"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="fragment fsmaller">
+<div class="fragment fs80">
 <p>Finally, we calculate the within-cluster component. Because cluster-mean-centered scores always sum to zero within a cluster, <code>standardize()</code> automatically calculates the correct pooled within-cluster standard deviation.</p>
 </div>
 </section>
@@ -550,7 +553,7 @@ $ ses_ws &lt;dw_trnsf&gt; 1.409368976, 0.943297969, -0.458220520, -0.960651677, 
 <h1>Model Building</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Model 1: Establishing Main Effects</h2>
 <ul>
 <li>Let’s predict math scores using student wealth <em>and</em> school wealth</li>
@@ -579,7 +582,7 @@ $ ses_ws &lt;dw_trnsf&gt; 1.409368976, 0.943297969, -0.458220520, -0.960651677, 
 <h2>Model 1C: Path Diagram</h2>
 
 <img data-src="../../diagrams/degrouped_covariate.png" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Model 1C: Centered Equations</h2>
 <div class="tc b">
 <p>Level One (Observation)</p>
@@ -604,7 +607,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij}^{(wc)} + \color{#4daf4a}{e_{ij}}
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Model 1C: Mixed Equation</h2>
 <p>Substitute the L2 equations directly into the L1 equation:</p>
 <p><span class="math display">\[
@@ -641,7 +644,7 @@ puniv c     |        1.52 | 0.47 | [ 0.60,  2.43] |    3.25 | 0.001 </code></pre
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Model 1C: Interpretation</h2>
 <p>Because our predictors are centered, the coefficients represent changes in raw math points for a 1-unit increase in the raw predictor</p>
 <ul>
@@ -651,7 +654,7 @@ puniv c     |        1.52 | 0.47 | [ 0.60,  2.43] |    3.25 | 0.001 </code></pre
 <li><p><strong>puniv_c (1.52):</strong> Controlling for school and student SES, a 1-unit increase in the university attendance rate (e.g., from 10% to 11%) is associated with a 1.52 point increase in math</p></li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Model 1S: Standardized Equations</h2>
 <p>The structure remains identical, but we swap in the <strong>standardized</strong> components</p>
 <div class="tc b">
@@ -693,7 +696,7 @@ puniv s     |        0.42 | 0.13 | [ 0.17,  0.67] |    3.25 | 0.001 </code></pre
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Model 1S: Interpretation</h2>
 <p>Because our predictors are standardized and our outcome is raw, the coefficients represent changes in raw math points for a <strong>1-SD</strong> increase.</p>
 <ul>
@@ -703,7 +706,7 @@ puniv s     |        0.42 | 0.13 | [ 0.17,  0.67] |    3.25 | 0.001 </code></pre
 <li><strong>puniv_s (0.42):</strong> Controlling for school and student SES, a 1-SD increase in university attendance rate is associated with a 0.42 point increase in math</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>Model 2: Moving to Moderation</h2>
 <ul>
 <li>In Model 1, we established the main effects. We know that being relatively wealthy is beneficial (the within-cluster effect) and attending a wealthy school is beneficial (the between-cluster effect)</li>
@@ -727,7 +730,7 @@ puniv s     |        0.42 | 0.13 | [ 0.17,  0.67] |    3.25 | 0.001 </code></pre
 <h2>Model 2C: Path Diagram</h2>
 
 <img data-src="../../diagrams/self_moderation.png" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Model 2C: Centered Equations</h2>
 <div class="tc b">
 <p>Level One (Observation)</p>
@@ -745,7 +748,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij}^{(wc)} + \color{#4daf4a}{e_{ij}}
 \end{align}
 \]</span></p>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Model 2C: Mixed Equation</h2>
 <p>Substitute the L2 equations directly into the L1 equation:</p>
 <p><span class="math display">\[
@@ -784,7 +787,7 @@ ses bc × ses wc |       -0.29 | 0.37 | [-1.02,  0.45] |   -0.77 | 0.444 </code>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Model 2C: Interpretation</h2>
 <ul>
 <li><strong>Intercept (57.67):</strong> The expected math score for an average-SES student (<em>ses_wc</em> = 0) at an average-SES school (<em>ses_bc</em> = 0)</li>
@@ -817,11 +820,11 @@ Marginal effects estimated for ses_wc
 Type of slope was dY/dX</code></pre>
 </div>
 </div>
-<div class="fragment fsmaller">
+<div class="fragment fs80">
 <p>The positive effect of relative SES remains stable and significant across schools with low, medium, and high average SES</p>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Model 2S: Standardized Equations</h2>
 <p>Finally, we compare with standardized (s) predictors</p>
 <div class="tc b">
@@ -860,7 +863,7 @@ ses bs × ses ws |       -0.08 | 0.11 | [-0.30,  0.13] |   -0.77 | 0.444 </code>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Model 2S: Interpretation</h2>
 <p>Because our predictors are standardized and our outcome is raw, the coefficients represent changes in raw math points for a <strong>1-SD</strong> increase</p>
 <ul>
@@ -1327,7 +1330,7 @@ ses bs × ses ws |       -0.08 | 0.11 | [-0.30,  0.13] |   -0.77 | 0.444 </code>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

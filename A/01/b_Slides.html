@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -223,7 +226,7 @@
 <h1>Syllabus Review</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Instructor Information</h2>
 <div class="columns">
 <div class="column" style="width:30%;">
@@ -257,7 +260,7 @@
 <p>Office Hours: T 3-4pm, F 12-1pm (odd weeks) or 1-2pm (even weeks)</p>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Learning Outcomes</h2>
 <ol type="1">
 <li><p>Learn fundamental concepts underlying multilevel modeling</p></li>
@@ -285,7 +288,7 @@
 </ul>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Course Materials</h2>
 <h4>Textbooks</h4>
 <ul>
@@ -300,7 +303,7 @@
 <li>Utilities and Visualization: <a href="https://easystats.github.io/easystats">easystats</a>*, <a href="https://strengejacke.github.io/ggeffects/">ggeffects</a>*</li>
 </ul>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Grading Policies</h2>
 <h4>Graded Components</h4>
 <ul>
@@ -373,7 +376,7 @@
 </table>
 <p>I don’t round or curve grades, but will give points back if a question was poorly designed.</p>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Course Policies</h2>
 <h4>Attendance</h4>
 <ul>
@@ -502,7 +505,7 @@
 <h1>Workflow Recap</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>The R Ecosystem</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -540,7 +543,7 @@
 <p><lord-icon src="../../icons/car.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Communicating with R</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -578,7 +581,7 @@
 <h1>Projects</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>File Management</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -614,7 +617,7 @@
 <aside><div>
 <p><em>Note.</em> Save your project in a cloud service folder (e.g., Box, Dropbox, Google Drive, OneDrive) to backup and sync it.</p>
 </div></aside></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Create a new Project</h2>
 <ul>
 <li>Open the “File” menu in RStudio</li>
@@ -625,7 +628,7 @@
 <li>Browse to where to create your Project folder</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Create a new File</h2>
 <ul>
 <li>Explore the Files tab in the Extras pane</li>
@@ -637,7 +640,7 @@
 <li>Reopen the script from the Files tab</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Close and Open Projects</h2>
 <ul>
 <li>Open the “File” menu in RStudio</li>
@@ -650,7 +653,7 @@
 <li>Notice that your work is now back!</li>
 </ul>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Quarto</h2>
 <div class="columns pv4">
 <div class="column" style="width:60%;">
@@ -676,7 +679,7 @@
 <p><lord-icon src="../../icons/poetry.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Create an Quarto Document</h2>
 <ul>
 <li>Open the “File” menu in RStudio</li>
@@ -690,7 +693,7 @@
 <li>Note that the file extension is .qmd</li>
 </ul>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Render the boilerplate content</h2>
 <ul>
 <li>To see how it works, read the boilerplate content</li>
@@ -701,7 +704,7 @@
 <li>It includes all the formatted text, code, and R results</li>
 </ul>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Remove the boilerplate content</h2>
 <ul>
 <li>The top part of the document is called the “Header”</li>
@@ -711,7 +714,7 @@
 <li>Add <code>embed-resources: true</code> to the Header for assignments!</li>
 </ul>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Add an R Chunk</h2>
 <ul>
 <li>Option 1: Click the green box with C and a plus sign icon (top-right)</li>
@@ -719,7 +722,7 @@
 <li>Option 3: Type out ```{r} then new line and ``` yourself</li>
 </ul>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Adding code to the chunk</h2>
 <ul>
 <li>Anything you put inside the “fences” (i.e., ```) will be treated as R code</li>
@@ -756,7 +759,7 @@
 <p><lord-icon src="../../icons/text_box.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Formatting</h2>
 <table class="caption-top">
 <colgroup>
@@ -789,7 +792,7 @@
 </tbody>
 </table>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Headings</h2>
 <table class="caption-top">
 <colgroup>
@@ -832,7 +835,7 @@
 }
 </style>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>R Refresher</h2>
 <ol type="1">
 <li>Mathematical Operations: <code>+ - * / ^ ( )</code></li>
@@ -1225,7 +1228,7 @@
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

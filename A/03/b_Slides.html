@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -237,7 +240,7 @@
 <h1>Complete Pooling</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Overview of Complete Pooling</h2>
 <ol type="1">
 <li>Analyze all the clusters together in a single-level model</li>
@@ -262,7 +265,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>OLS Residual Covariance</h2>
 <ul>
 <li>When we assume that the residuals are IID, we assume they are…
@@ -285,7 +288,7 @@
 \end{bmatrix}
 \]</span></p>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Cluster-Robust Residual Covariance</h2>
 <ul>
 <li>If we know the cluster structure of our data, we can instead assume…
@@ -308,7 +311,7 @@
 \end{bmatrix}
 \]</span></p>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>The “Sandwich” Estimator</h2>
 <ul>
 <li>How do we get standard errors from that block matrix?</li>
@@ -330,7 +333,7 @@ Var(\beta) = \underbrace{(X'X)^{-1}}_{\text{Bread}} \overbrace{X' \Omega X}^{\te
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Example Dataset</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>dat<span class="sc">$</span>gender <span class="ot">&lt;-</span> <span class="fu">factor</span>(dat<span class="sc">$</span>female, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span>))</span>
@@ -375,7 +378,7 @@ ses         |        4.23 | 0.15 | [ 3.93,  4.52] |   28.27 | &lt; .001
 gender [F]  |       -1.06 | 0.21 | [-1.48, -0.65] |   -5.04 | &lt; .001</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>Note that the SEs increased from 0.20 to 0.21 and 0.13 to 0.15.</p>
 </div>
 </section>
@@ -393,7 +396,7 @@ gender [F]  |       -1.06 | 0.21 | [-1.48, -0.65] |   -5.04 | &lt; .001</code></
 <h1>No Pooling</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Overview of No Pooling</h2>
 <ol type="1">
 <li>Add cluster dummy codes and interactions (“<span class="b blue">fixed effect</span> method”)</li>
@@ -915,7 +918,7 @@ Type of slope was dY/dX</code></pre>
 
 </div>
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="1152" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>The Inference Dilemma</h2>
 <p>We just conducted <strong>419</strong> hypothesis tests. We are now stuck in a trap:</p>
 <ol type="1">
@@ -933,7 +936,7 @@ Type of slope was dY/dX</code></pre>
 </ul></li>
 </ol>
 </section>
-<section class="slide level2 fsmaller" data-background-color="#34495e">
+<section class="slide level2 fs80" data-background-color="#34495e">
 <h2>[Activity] The Small Sample Dilemma</h2>
 <div class="white-text">
 <p>Imagine you are comparing two schools’ math scores:</p>
@@ -955,7 +958,7 @@ Type of slope was dY/dX</code></pre>
 <h1>Partial Pooling</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Overview of Partial Pooling</h2>
 <ol type="1">
 <li>Partition the variance by level of clustering</li>
@@ -989,8 +992,8 @@ Type of slope was dY/dX</code></pre>
 <li><p>Higher-level predictors can also moderate the effects<br> of lower-level predictors (cross-level questions)</p></li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
-<h2>The Conceptual Leap: Fixed vs.&nbsp;Random</h2>
+<section class="slide level2 fs80">
+<h2>Conceptual Leap: Fixed vs.&nbsp;Random</h2>
 <p>The choice between No Pooling and Partial Pooling connects back to our earlier definitions of <strong>Clusters</strong>.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1011,7 +1014,7 @@ Type of slope was dY/dX</code></pre>
 </ul>
 </div></div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Multilevel Modeling</h2>
 <ul>
 <li>Rather than fitting one line to all clusters (complete pooling)<br> or fitting a separate line to each cluster (no pooling), we can<br> instead <span class="b blue">fit a distribution of lines</span> across clusters (partial pooling)</li>
@@ -1027,12 +1030,12 @@ Type of slope was dY/dX</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Visualizing Shrinkage</h2>
 <p>The <strong>Fixed Effects</strong> (No Pooling) estimates are noisy.<br> The <strong>Multilevel</strong> (Partial Pooling) estimates “shrink” toward Complete Pooling.</p>
 
 <img data-src="b_Slides_files/figure-revealjs/shrink-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>The Mechanics of Shrinkage</h2>
 <p>The Partial Pooling estimate is a weighted average of the <strong>Cluster Mean</strong> and the<br> <strong>Grand Mean</strong>, where the weight (<span class="math inline">\(\lambda_j\)</span>) represents the <strong>reliability</strong> of that cluster.</p>
 <p><span class="math display">\[ \text{Est}_j = \lambda_j(\bar{y}_j) + (1 - \lambda_j)(\bar{y}_{grand}) \]</span></p>
@@ -1044,7 +1047,7 @@ Type of slope was dY/dX</code></pre>
 <li class="fragment"><strong><span class="math inline">\(\tau^2_{00}\)</span> (Signal):</strong> If true between-group differences are large, Reliability rises.</li>
 </ul>
 </section>
-<section class="slide level2 smaller" data-background-color="#34495e">
+<section class="slide level2 fs70" data-background-color="#34495e">
 <h2>[Activity] You are the Consultant</h2>
 <div class="white-text">
 <p><strong>Scenario:</strong> A colleague comes to you with clustered data. Which approach do you recommend? <strong>(A) Complete Pooling</strong> (Robust SEs) <strong>(B) No Pooling</strong> (Fixed Effects) <strong>(C) Partial Pooling</strong> (Multilevel Model)</p>
@@ -1066,7 +1069,7 @@ Type of slope was dY/dX</code></pre>
 </ol>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Next Steps</h2>
 <ul>
 <li><strong>Lab this week:</strong>
@@ -1540,7 +1543,7 @@ Type of slope was dY/dX</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

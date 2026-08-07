@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -217,7 +220,7 @@
 <p>The derivative is the slope of the tangent line</p>
 
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The OLS Solution</h2>
 <ul>
 <li>Because OLS makes simple assumptions, we don’t need to guess.</li>
@@ -278,7 +281,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>Goals</h2>
 <ul>
 <li>Because of this, <strong><em>OLS cannot be used</em></strong> for multilevel models</li>
@@ -302,7 +305,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>MLE Versions</h2>
 <ul>
 <li><span class="b blue">Full Maximum Likelihood</span> (ML) includes both the regression<br>coefficients and the variance components in the likelihood
@@ -340,7 +343,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>How to optimize it?</h2>
 <ul>
 <li>Unlike OLS, there is no <strong>closed-form solution</strong>
@@ -369,7 +372,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Hill Climbing Analogy</h2>
 <ol type="a">
 <li>I am blindfolded in a thick fog and dropped on a hill</li>
@@ -394,7 +397,7 @@
 </ol>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Hill Climbing Challenges</h2>
 <ul>
 <li><p>What if I walk for days and never reach a peak of the hill?</p></li>
@@ -419,7 +422,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Optimization as Hill Climbing</h2>
 <ol type="a">
 <li>Select a random or “best guess” starting value<sup>1</sup></li>
@@ -452,7 +455,7 @@
 <p>The <em>unknown-to-us</em> likelihood function is plotted in black</p>
 
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Optimization Algorithms</h2>
 <ul>
 <li><strong>Quadratic Approximation</strong> (lme4)
@@ -587,7 +590,7 @@ P(\theta|\text{Data}) \propto \frac{P(\text{Data}|\theta)P(\theta)}{P(\text{Data
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Estimation Comparisons</h2>
 <ul>
 <li><span class="b blue">Maximum Likelihood Estimation</span>
@@ -608,7 +611,7 @@ P(\theta|\text{Data}) \propto \frac{P(\text{Data}|\theta)P(\theta)}{P(\text{Data
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Using the Posterior</h2>
 <div class="columns pv4">
 <div class="column" style="width:50%;">
@@ -1076,7 +1079,7 @@ P(\theta|\text{Data}) \propto \frac{P(\text{Data}|\theta)P(\theta)}{P(\text{Data
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

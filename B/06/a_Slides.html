@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -311,7 +314,7 @@
 <h1>Specifications</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Multilevel Equation</h2>
 <div class="tc">
 <p><span class="b">Level One (Observation)</span></p>
@@ -335,7 +338,7 @@ y_{ij} = \beta_{0j} + \color{#e41a1c}{e_{ij}},
 <li><span class="math inline">\(\color{#e41a1c}{e_{ij}}\)</span> is the <strong>Observation Deviation</strong> (Residual Error)</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Reading the Equation</h2>
 <p><span class="math display">\[
 y_{ij} = \beta_{0j} + \color{#e41a1c}{e_{ij}},
@@ -356,7 +359,7 @@ y_{ij} = \beta_{0j} + \color{#e41a1c}{e_{ij}},
 </blockquote>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs60">
 <h2>Notation Cheat Sheet</h2>
 <table class="caption-top">
 <colgroup>
@@ -400,7 +403,7 @@ y_{ij} = \beta_{0j} + \color{#e41a1c}{e_{ij}},
 </tbody>
 </table>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Parameter Interpretations</h2>
 <ul>
 <li><strong>Manifest (Observed) Variables</strong>
@@ -457,7 +460,7 @@ y_{ij} = \beta_{0j} + \color{#e41a1c}{e_{ij}},
 <h2>Path Diagram</h2>
 
 <img data-src="../../diagrams/random_intercepts.png" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Mixed (or Reduced) Equation</h2>
 <p><span class="math display">\[
 \begin{alignat}{2}
@@ -549,7 +552,7 @@ SD (Residual)          |        8.16</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting the Table</h2>
 <ul>
 <li>The fixed intercept <span class="math inline">\((\gamma_{00}=57.67)\)</span> is…
@@ -579,7 +582,7 @@ SD (Residual)          |        8.16</code></pre>
 </section>
 <section class="slide level2">
 <h2>The Cost of Ignoring Clustering</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We can compare the fixed intercept point estimates and standard errors (SEs) between our MLM and a standard OLS model that ignores clustering.</p>
 </div>
 <div class="cell">
@@ -596,11 +599,11 @@ SD (Residual)          |        8.16</code></pre>
 Observations |         6871 |         6871</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Note:</strong> The point estimates are similar, but the <strong>SE is larger</strong> in the MLM. The OLS model was <em>too confident</em> because it assumed all students were independent.</p>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Why are the estimates different?</h2>
 <p>You might notice the intercept point estimates are slightly different.</p>
 <ul>
@@ -625,7 +628,7 @@ Observations |         6871 |         6871</code></pre>
 </section>
 <section class="slide level2">
 <h2>Estimating the ICC (Manual)</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>To calculate the ICC, we first need to extract the <strong>Variances</strong> (not SDs!)</p>
 </div>
 <div class="cell">
@@ -636,7 +639,7 @@ Observations |         6871 |         6871</code></pre>
 <span id="cb7-5"><a aria-hidden="true" tabindex="-1"></a>sigma2 <span class="ot">&lt;-</span> vars<span class="sc">$</span>var.residual <span class="co"># within-school variance</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment">
-<div class="fsmaller">
+<div class="fs80">
 <p><span class="math display">\[\rho = \frac{\tau_{00}^2}{\tau_{00}^2+\sigma^2}\]</span></p>
 </div>
 <div class="cell">
@@ -670,7 +673,7 @@ Observations |         6871 |         6871</code></pre>
 </ul></li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Deriving L1 Residuals</h2>
 <p>What is each observation’s deviation from its cluster mean?</p>
 <p>In other words, derive estimates of <span class="math inline">\(e_{ij}\)</span> for every observation <span class="math inline">\(ij\)</span></p>
@@ -3430,7 +3433,7 @@ Observations |         6871 |         6871</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Deriving Cluster Deviations</h2>
 <p>What is each cluster’s deviation from the fixed intercept?</p>
 <p>In other words, derive estimates of <span class="math inline">\(u_{0j}\)</span> for every cluster <span class="math inline">\(j\)</span></p>
@@ -3861,7 +3864,7 @@ school | 419   | (Intercept) |       -2.42 | 1.56 | [ -5.48,  0.64]</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Deriving Cluster Intercepts</h2>
 <p>What is each cluster’s intercept (best linear unbiased prediction)?</p>
 <p>In other words, derive predictions of <span class="math inline">\(\beta_{0j}\)</span> for every cluster <span class="math inline">\(j\)</span></p>
@@ -4754,7 +4757,7 @@ school | 419   | (Intercept) |       55.26</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

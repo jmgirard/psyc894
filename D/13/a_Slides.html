@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -230,7 +233,7 @@
 <h1>Troubleshooting</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Convergence Problems</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -244,7 +247,7 @@
 <p><lord-icon src="../../icons/ghost.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Likelihood Surface</h2>
 <p>Before diving into specific warnings, we must remember back to Lecture 04b.</p>
 <ul>
@@ -254,7 +257,7 @@
 <li><strong>The Problem:</strong> If the mountain has a flat ridge, multiple peaks, or a boundary it cannot cross, the optimizer gets confused and either throws a warning or silently stops at an invalid parameter value.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Optimization as Hill Climbing</h2>
 <ol type="a">
 <li>Select a random or “best guess” starting value<sup>1</sup></li>
@@ -301,7 +304,7 @@ $ cortisol_level  &lt;dbl&gt; 7.976840, 9.969775, 24.169540, 24.377656, 27.9032�
 </section>
 <section class="slide level2">
 <h2>Problem 1: Extreme Scaling</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>A frequent warning in <code>glmmTMB</code> is a “non-positive-definite Hessian matrix.” This simply means the optimizer cannot mathematically verify it has found a peak. One common cause is a numerical issue resulting from variables living on vastly different mathematical scales.</p>
 </div>
 <div class="cell">
@@ -319,7 +322,7 @@ vignette('troubleshooting')</code></pre>
 </section>
 <section class="slide level2">
 <h2>Detecting Extreme Scaling</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Look for means/medians or ranges that are on wildly different scales</p>
 </div>
 <div class="cell">
@@ -335,9 +338,9 @@ vignette('troubleshooting')</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>Addressing Extreme Scaling</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>The Fix:</strong> We need to get the variables on similar scales. It is recommended to <em>rescale</em> outcomes (to preserve ICC) and <em>standardize</em> predictors. Here, we can divide <code>viral_load</code> by 10,000 to get its mean down from ~1M to ~100.</p>
 </div>
 <div class="cell">
@@ -364,7 +367,7 @@ vignette('troubleshooting')</code></pre>
 </section>
 <section class="slide level2">
 <h2>Problem 2: Collinearity</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>The Hessian warning can also be triggered when the optimizer gets stuck on a flat likelihood ridge. A second major cause for this is severe collinearity among predictors, which confuses the optimizer because multiple parameter combinations yield the same model fit.</p>
 </div>
 <div class="cell">
@@ -383,7 +386,7 @@ vignette('troubleshooting')</code></pre>
 </section>
 <section class="slide level2">
 <h2>Verifying Collinearity</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We need to remove the redundant information. It is recommended to check Variance Inflation Factors (VIFs) and then drop one of the collinear predictors. Recall that VIFs of 5+ indicate <em>moderate</em> and 10+ indicate <em>high</em> collinearity.</p>
 </div>
 <div class="cell">
@@ -422,7 +425,7 @@ High Correlation
 </section>
 <section class="slide level2">
 <h2>Problem 3: Overparameterization</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>A third cause of the Hessian warning is when the optimizer hits a mathematical boundary. However, note that <code>glmmTMB</code> will sometimes converge silently despite this issue! This occurs when a variance is estimated near 0 (e.g., e-13) or a correlation between random effects is near +/- 1.00. The problem is that the model is too complex for the data.</p>
 </div>
 <div class="cell">
@@ -443,7 +446,7 @@ vignette('troubleshooting')</code></pre>
 </section>
 <section class="slide level2">
 <h2>Identifying Overparameterization</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>To figure out if overparameterization caused the warning, you must actively inspect your random effect parameters.</p>
 </div>
 <div class="cell">
@@ -460,13 +463,13 @@ Cor (Intercept~age_c: clinic_id) |       -0.99 |
 SD (Residual)                    |        5.18 |       </code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>Notice the “smoking gun” in the output: the random effect correlation is nearly –1 and the random slope standard deviation is essentially zero.</p>
 </div>
 </section>
 <section class="slide level2">
 <h2>Step 1: Remove Covariances</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We start by simplifying the structure without dropping variables. We force the correlation between the intercept and slope to be zero using <code>diag()</code>.</p>
 </div>
 <div class="fragment">
@@ -491,7 +494,7 @@ SD (Residual)                    |        5.18 |       </code></pre>
 </section>
 <section class="slide level2">
 <h2>The Zero-Correlation Assumption</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Using <code>diag()</code> is a significant change to your model. It explicitly assumes that the correlations between your random effects are zero (e.g., <span class="math inline">\(\tau_{01}=0\)</span>).</p>
 <ul>
 <li><strong>Pooling Information:</strong> By allowing <span class="math inline">\(r \neq 0\)</span>, the model “pools information” across parameters. Knowing a cluster has a high intercept helps the model estimate its slope. <code>diag()</code> places parameters in “silos,” preventing the model from “borrowing strength” from these relationships.</li>
@@ -502,7 +505,7 @@ SD (Residual)                    |        5.18 |       </code></pre>
 </section>
 <section class="slide level2">
 <h2>Step 2: Prune Random Slopes</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>In our updated results, the random slope SD was still very close to zero even after setting the RE correlation to zero. The next step may be to drop it (i.e., estimate a fixed slope only, assuming it is the same across all clusters).</p>
 </div>
 <div class="cell">
@@ -523,13 +526,13 @@ SD (Residual)             |        5.18 |       </code></pre>
 </section>
 <section class="slide level2">
 <h2>The Pruning Dilemma</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>While we simplify to reach convergence, we must be careful with our tests.</p>
 </div>
 <blockquote>
 <p><strong>CRITICAL RULE:</strong> Be extremely cautious when dropping the random slope for the specific fixed-effect predictor you are hypothesis testing.</p>
 </blockquote>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li><strong>The Risk:</strong> If a true random slope exists but you drop it to force a struggling model to converge, you inflate your Type I error rate. A <span class="math inline">\(p &lt; .05\)</span> in a model with a missing focal random slope is often a false positive.</li>
 <li><strong>The Exception:</strong> If the variance is estimated at zero, dropping the slope does not inflate Type I error because the model wasn’t using it anyway.</li>
@@ -541,7 +544,7 @@ SD (Residual)             |        5.18 |       </code></pre>
 <h1>Stage 3:<br> Algorithmic Fixes</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>Tweak the Algorithm</h2>
 <p>If your variables are scaled, not perfectly collinear, and your structure is justified, but <code>glmmTMB</code> still throws a warning, the algorithm may just need more time or a different search strategy.</p>
 <div class="fragment">
@@ -564,7 +567,7 @@ SD (Residual)             |        5.18 |       </code></pre>
 <span id="cb27-7"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Troubleshooting Cheatsheet</h2>
 <p>When your model throws a convergence warning (or produces boundary estimates), follow this general order of operations:</p>
 <ol type="1">
@@ -586,7 +589,7 @@ SD (Residual)             |        5.18 |       </code></pre>
 <h1>Bayes</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Bayesian Estimation</h2>
 <p>Maximum Likelihood Estimation searches for a single highest peak. When the data lacks information, that peak disappears or becomes impossible to find.</p>
 <div class="fragment">
@@ -599,7 +602,7 @@ SD (Residual)             |        5.18 |       </code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>MCMC Overview</h2>
 <ul>
 <li><p><strong>Exploring vs.&nbsp;Climbing:</strong> If MLE is a focused climber racing to find the single highest peak, MCMC is a wanderer exploring the entire mountain range to map its total volume and shape.</p></li>
@@ -622,7 +625,7 @@ SD (Residual)             |        5.18 |       </code></pre>
 <span id="cb28-9"><a aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>Example output of rstanarm</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(bfit, <span class="at">effects =</span> <span class="st">"all"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1107,7 +1110,7 @@ Sigma (age_c)           | 1.29e-03 | [ 0.00, 0.01] |   100% | 1.001 | 1944</code
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

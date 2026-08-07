@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -230,7 +233,7 @@
 <h1>Effect Sizes in MLMs</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Beyond <em>p</em>-Values</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -244,7 +247,7 @@
 <p><lord-icon src="../../icons/rulers.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Two Types of Effect Sizes</h2>
 <p><strong>Unstandardized Effect Sizes</strong></p>
 <ul>
@@ -259,7 +262,7 @@
 <li>Useful when the original metrics are abstract</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The R-squared Metric</h2>
 <ul>
 <li>The most common standardized effect size is R²</li>
@@ -269,7 +272,7 @@
 <li>However, applying this to Multilevel Models is notoriously difficult</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Multilevel Variance Problem</h2>
 <p>Why can’t we just use a single R² for an MLM?</p>
 <ul>
@@ -278,7 +281,7 @@
 <li>Summing these up into a single neat number obscures the complexity of the data structure and can be misleading.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Rights &amp; Sterba Framework</h2>
 <ul>
 <li>Rights &amp; Sterba (2019) developed a complex framework for R² in MLMs.</li>
@@ -291,7 +294,7 @@
 </ul></li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Practical Constraints</h2>
 <ul>
 <li>This framework is academically rigorous and statistically exact.</li>
@@ -300,7 +303,7 @@
 <li>Most journals expect a simpler, two-part summary of model performance.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Nakagawa Framework</h2>
 <ul>
 <li>The widely accepted standard for applied MLMs is the framework developed by Nakagawa &amp; Schielzeth (2013).</li>
@@ -341,7 +344,7 @@ $ hospital_type &lt;chr&gt; "Non-Teaching", "Non-Teaching", "Non-Teaching", "No�
 </section>
 <section class="slide level2">
 <h2>Preparing the Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>To calculate accurate R-squared values, we do not need to standardize or center our Level-2 predictors. However, we <strong>must</strong> decompose our Level-1 predictors to properly isolate the within-cluster and between-cluster variance.</p>
 </div>
 <div class="cell">
@@ -355,7 +358,7 @@ $ hospital_type &lt;chr&gt; "Non-Teaching", "Non-Teaching", "Non-Teaching", "No�
 </section>
 <section class="slide level2">
 <h2>Fitting the Baseline Model</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Now we fit our model using our unstandardized, centered predictors.</p>
 </div>
 <div class="cell">
@@ -369,7 +372,7 @@ $ hospital_type &lt;chr&gt; "Non-Teaching", "Non-Teaching", "Non-Teaching", "No�
 </section>
 <section class="slide level2">
 <h2>Extracting R-squared</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We can extract our Nakagawa R² values cleanly using the {performance} package from the {easystats} ecosystem.</p>
 </div>
 <div class="cell">
@@ -382,7 +385,7 @@ $ hospital_type &lt;chr&gt; "Non-Teaching", "Non-Teaching", "Non-Teaching", "No�
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting R-squared</h2>
 <ul>
 <li><strong>Marginal R² (0.176):</strong> Fixed effects explain ~17.6% of the variance.
@@ -403,7 +406,7 @@ $ hospital_type &lt;chr&gt; "Non-Teaching", "Non-Teaching", "Non-Teaching", "No�
 </section>
 <section class="slide level2">
 <h2>To Standardize Y or Not?</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Before we standardize our slopes, we must ask a theoretical question about our outcome variable (Y).</p>
 <ul>
 <li><strong>Meaningful Outcomes:</strong> If Y has a well understood and intuitive metric (e.g., dollars, days, blood pressure), we leave it in its raw units. We only standardize the predictors, yielding <span class="b blue">StdX</span> slopes.</li>
@@ -413,7 +416,7 @@ $ hospital_type &lt;chr&gt; "Non-Teaching", "Non-Teaching", "Non-Teaching", "No�
 </section>
 <section class="slide level2">
 <h2>The Predictor Trap</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Regardless of using StdX or StdYX, we must be incredibly careful about how we standardize our multilevel predictors (X).</p>
 <ul>
 <li><strong>The “Global” Trap:</strong> Standard software defaults to standardizing based on the total sample’s mean and SD. Here is why that fails:
@@ -426,7 +429,7 @@ $ hospital_type &lt;chr&gt; "Non-Teaching", "Non-Teaching", "Non-Teaching", "No�
 </section>
 <section class="slide level2">
 <h2>StdX: Data Preparation (L2)</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>To avoid mixing levels, we create a distinct Level-2 dataset using summarize. Standardizing within this dataset uses the correct means and SDs.</p>
 </div>
 <div class="cell">
@@ -446,7 +449,7 @@ $ hospital_type &lt;chr&gt; "Non-Teaching", "Non-Teaching", "Non-Teaching", "No�
 </section>
 <section class="slide level2">
 <h2>StdX: Data Preparation (L1)</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Next, we join those standardized L2 variables back to our L1 data and strictly standardize the within-cluster variance.</p>
 </div>
 <div class="cell">
@@ -460,7 +463,7 @@ $ hospital_type &lt;chr&gt; "Non-Teaching", "Non-Teaching", "Non-Teaching", "No�
 <span id="cb9-8"><a aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>StdX: Model &amp; Interpretation</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>fit_stdx <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
@@ -481,13 +484,13 @@ wait w z    |       -0.37 | 0.03 | [-0.43, -0.31] |    -11.90 | &lt; .001
 nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>A one <em>SD</em> increase in a patient’s wait time (relative to their hospital’s average) significantly decreases their satisfaction by 0.37 <em>raw points</em>.</li>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Problem with Global StdYX</h2>
 <p>If Y is an arbitrary scale, you might be tempted to standardize Y globally before fitting your model (like you would for OLS). <span class="b dark-red">Do not do this for multilevel data!</span></p>
 <ul>
@@ -499,7 +502,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 </section>
 <section class="slide level2">
 <h2>Level-Specific StdYX</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>There is no automated R package for this (yet). We manually take the coefficients from our <strong>StdX model</strong> (where X is standardized but Y is raw) and divide them by the level-specific standard deviations of Y.</p>
 </div>
 <div class="cell">
@@ -522,7 +525,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 </section>
 <section class="slide level2">
 <h2>Calculating &amp; Interpreting StdYX</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We divide the slopes from our <code>fit_stdx</code> model by the matching SD of Y.</p>
 </div>
 <div class="cell">
@@ -532,7 +535,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <pre><code>[1] 0.2714286</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>A one <em>between-hospital</em> SD increase in nurse ratio was associated with a non-significant increase in satisfaction of 0.27 <em>between-hospital</em> SDs.</li>
 </ul>
@@ -544,7 +547,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <pre><code>[1] -0.5124654</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>A one <em>within-hospital</em> SD increase in wait time was associated with a significant decrease in satisfaction of 0.51 <em>within-hospital</em> SDs.</li>
 </ul>
@@ -555,7 +558,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <h1>The Reporting<br> Checklist</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Goal of Reporting</h2>
 <ul>
 <li>Multilevel modeling involves dozens of minor analytical decisions.</li>
@@ -563,7 +566,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <li>Your goal in a manuscript is not just to report the p-values, but to provide enough transparent detail that another researcher could perfectly replicate your model from your raw data.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>IMRD: Introduction</h2>
 <p>The justification for an MLM should begin before the Methods section.</p>
 <p><strong>What to include:</strong></p>
@@ -573,7 +576,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <li>Distinguish between within-cluster and between-cluster hypotheses. Do not hypothesize a generic “effect of wait time” if you specifically mean “when a patient waits longer than their hospital’s average.”</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>IMRD: Methods (Data)</h2>
 <p>The participants section must describe the sample sizes at all levels.</p>
 <p><strong>What to include:</strong></p>
@@ -583,7 +586,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <li>The average cluster size, minimum cluster size, and maximum cluster size (e.g., an average of 50 patients per hospital, ranging from 12 to 89).</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>IMRD: Methods (Variables)</h2>
 <p>You must explicitly state how every variable was handled.</p>
 <p><strong>What to include:</strong></p>
@@ -593,7 +596,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <li>State why you chose that centering method. Did you want to isolate the purely within-cluster effect, or were you aiming for a blended effect?</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>IMRD: Methods (Modeling)</h2>
 <p>Clearly identify the mathematical tools you used.</p>
 <p><strong>What to include:</strong></p>
@@ -603,7 +606,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <li>Mention the specific optimizer if you had to change it from the default to achieve convergence.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>IMRD: Methods (Structure)</h2>
 <p>Explain how you built your equations.</p>
 <p><strong>What to include:</strong></p>
@@ -613,8 +616,8 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <li>If you had to simplify your random effects structure due to singular fits or convergence issues, document that process here. Explain what was dropped and why.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
-<h2>IMRD: Methods (Descriptives &amp; Reliability)</h2>
+<section class="slide level2 fs80">
+<h2>IMRD: Methods (Reliability)</h2>
 <p>You cannot simply present a correlation matrix for a multilevel dataset.</p>
 <p><strong>What to include:</strong></p>
 <ul>
@@ -623,7 +626,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <li>Evidence of reliability for your continuous predictors. Predictors measured with high error will bias your regression coefficients.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>IMRD: Methods (Missing Data)</h2>
 <p>Missing data is especially dangerous in MLMs. Deleting one Level-2 cluster due to a missing covariate takes all of its Level-1 observations down with it.</p>
 <p><strong>What to include:</strong></p>
@@ -633,7 +636,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <li>If using listwise deletion, explicitly state the final analytical sample size and justify why deletion was acceptable.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>IMRD: Results (The Null Model)</h2>
 <p>Always report the baseline before adding predictors.</p>
 <p><strong>What to include:</strong></p>
@@ -643,7 +646,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <li>This justifies the need for multilevel modeling in the first place.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>IMRD: Results (Fixed Effects)</h2>
 <p>Report the focal tests of your hypotheses.</p>
 <p><strong>What to include:</strong></p>
@@ -655,7 +658,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <li>A plain language interpretation of the direction and magnitude of the effect.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>IMRD: Results (Random Effects)</h2>
 <p>Do not ignore the random portion of the model.</p>
 <p><strong>What to include:</strong></p>
@@ -666,7 +669,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <li>The residual (Level-1) variance.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>IMRD: Results (Effect Sizes)</h2>
 <p>Provide the big picture summary of model performance.</p>
 <p><strong>What to include:</strong></p>
@@ -677,8 +680,8 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <li>Clearly state whether you are reporting raw, StdX, or StdYX slopes.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
-<h2>IMRD: Results (Model Building Sequence)</h2>
+<section class="slide level2 fs80">
+<h2>IMRD: Results (Model Building)</h2>
 <p>Reviewers want to see the sequence of models you estimated.</p>
 <p><strong>What to include:</strong></p>
 <ul>
@@ -687,7 +690,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
 <li><strong>Step 3:</strong> The Full Contextual Model containing Level-1 and Level-2 predictors, including any cross-level interactions.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>IMRD: Discussion (Language)</h2>
 <p>Multilevel modeling uses the word “effect” constantly (e.g., fixed effects, random effects). This can create a semantic trap.</p>
 <p><strong>What to watch out for:</strong></p>
@@ -1154,7 +1157,7 @@ nurse z     |        0.19 | 0.14 | [-0.08,  0.47] |      1.41 | 0.158 </code></p
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

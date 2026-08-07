@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -228,7 +231,7 @@
 <h1>Fixed Slopes for L2</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>L2 Predictors</h2>
 <ul>
 <li>Random intercepts partition the <span class="math inline">\(y\)</span> variance by level
@@ -252,7 +255,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Review: The Null Model</h2>
 <p>Before we add complexity, let’s recall our baseline null model.</p>
 <div class="tc b">
@@ -272,7 +275,7 @@ y_{ij} = \beta_{0j} + \color{#4daf4a}{e_{ij}},
 \color{#e41a1c}{u_{0j}} \sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}})
 \]</span></p>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Adding a Level 2 Predictor</h2>
 <div class="tc b">
 <p>Level One (Observation)</p>
@@ -296,7 +299,7 @@ y_{ij} = \beta_{0j} + \color{#4daf4a}{e_{ij}},
 <li><p>Notice that <span class="math inline">\(z_j\)</span> is in the L2 equation and predicts the cluster average <span class="math inline">\((\beta_{0j})\)</span></p></li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>Decoding the Gammas</h2>
 <p>Why <span class="math inline">\(\gamma_{00}\)</span> and <span class="math inline">\(\gamma_{01}\)</span>? The subscripts follow a specific rule:</p>
 <ol type="1">
@@ -321,7 +324,7 @@ y_{ij} = \beta_{0j} + \color{#4daf4a}{e_{ij}},
 </section>
 <section class="slide level2">
 <h2>Reading the Level 2 Equation</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><span class="math display">\[
 \beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}},
 \qquad
@@ -359,7 +362,7 @@ y_{ij} = \beta_{0j} + \color{#4daf4a}{e_{ij}},
 </ul>
 
 <img data-src="../../diagrams/fixed_slopes_L2.png" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Mixed (or Reduced) Equation</h2>
 <p><span class="math display">\[
 \begin{alignat}{2}
@@ -422,7 +425,7 @@ $ public  &lt;fct&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Fitting the Model</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
@@ -448,7 +451,7 @@ SD (Residual)          |        8.16</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting the Fixed Effects</h2>
 <ul>
 <li>The fixed intercept <span class="math inline">\((\color{#377eb8}{\gamma_{00}})\)</span> is the <strong>Conditional Base Rate</strong>
@@ -467,7 +470,7 @@ SD (Residual)          |        8.16</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting the Random Effects</h2>
 <ul>
 <li>The random intercept SD <span class="math inline">\((\color{#e41a1c}{\tau_{00}})\)</span> is the <strong>Conditional Between-Cluster Spread</strong>
@@ -486,7 +489,7 @@ SD (Residual)          |        8.16</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Deriving More Information</h2>
 <p>We can extract the residuals and group-level estimates from our fitted model</p>
 <div class="cell">
@@ -511,7 +514,7 @@ school | 6     | (Intercept) |        2.56 | 1.73 | [ -0.83,  5.95]</code></pre>
 </section>
 <section class="slide level2">
 <h2>The Conditional ICC</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>The <strong>Unconditional ICC</strong> (from the null model) tells us the proportion of <em>total</em> variance situated between clusters. Usually this is what you want to report.</li>
 <li>The <strong>Conditional ICC</strong> (from this model) tells us the proportion of <em>remaining</em> variance situated between clusters, after accounting for our predictors.</li>
@@ -542,7 +545,7 @@ school | 6     | (Intercept) |        2.56 | 1.73 | [ -0.83,  5.95]</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Which ICC Should You Report?</h2>
 <p>If you are only going to report one, report the <span class="b blue">Unconditional ICC</span>.</p>
 <ul>
@@ -572,7 +575,7 @@ school | 6     | (Intercept) |        2.56 | 1.73 | [ -0.83,  5.95]</code></pre>
 
 </div>
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>Why not just a t-test?</h2>
 <p>Looking at that plot, you might wonder: <em>Couldn’t we just run a simple t-test comparing math scores of public vs.&nbsp;private school students?</em></p>
 <p><strong>No! And here is why:</strong></p>
@@ -598,7 +601,7 @@ Observations |         6871 |         6871</code></pre>
 <h1>Fixed Slopes for L1</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>L1 Predictors</h2>
 <ul>
 <li>Just like L2 predictors explain variance between clusters, L1 predictors try to explain variance <em>within</em> clusters.</li>
@@ -614,7 +617,7 @@ Observations |         6871 |         6871</code></pre>
 </ul></li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Adding a Level 1 Predictor</h2>
 <p>Let <span class="math inline">\(x_{ij}\)</span> be the value of L1 predictor <span class="math inline">\(x\)</span> for observation <span class="math inline">\(i\)</span> in cluster <span class="math inline">\(j\)</span>.</p>
 <div class="tc b">
@@ -642,7 +645,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}},
 <li><span class="math inline">\(\color{#377eb8}{\gamma_{10}}\)</span> is the <strong>Fixed L1 Slope</strong> (The overall main effect of <span class="math inline">\(x\)</span>)</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>Decoding the Gammas</h2>
 <p>Let’s use our rule again for the new fixed effect:</p>
 <ol type="1">
@@ -663,7 +666,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}},
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Reading the Equations</h2>
 <p><span class="math display">\[
 y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}},
@@ -702,7 +705,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}},
 </ul>
 
 <img data-src="../../diagrams/fixed_slopes_L1.png" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Mixed (or Reduced) Equation</h2>
 <p><span class="math display">\[
 \begin{alignat}{2}
@@ -739,7 +742,7 @@ y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{10}}
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Fitting the Model</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
@@ -765,7 +768,7 @@ SD (Residual)          |        8.14</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting the Fixed Effects</h2>
 <ul>
 <li>The fixed intercept <span class="math inline">\((\color{#377eb8}{\gamma_{00}})\)</span>
@@ -783,7 +786,7 @@ SD (Residual)          |        8.14</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting the Random Effects</h2>
 <ul>
 <li>The random intercept SD <span class="math inline">\((\color{#e41a1c}{\tau_{00}})\)</span> is the <strong>Conditional Between-Cluster Spread</strong>
@@ -802,7 +805,7 @@ SD (Residual)          |        8.14</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Deriving More Information</h2>
 <p>We can extract the individual residuals and cluster deviations as before.</p>
 <div class="cell">
@@ -833,12 +836,12 @@ SD (Residual)          |        8.14</code></pre>
 
 </div>
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Visualizing a Fixed Slope</h2>
 <p>Because we only estimated a <em>random intercept</em> and a <em>fixed slope</em>, our model assumes the effect of being female on math scores is identical across all schools. Notice how the lines (one per cluster/school) are parallel!</p>
 
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>Putting It All Together</h2>
 <p>In practice, applied researchers usually include both L1 and L2 predictors in the same model. We can combine our previous equations into one full model. <span class="math display">\[
 y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} \mathit{PUBLIC}_j + \color{#377eb8}{\gamma_{10}} \mathit{FEMALE}_{ij}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0j}} + \color{#4daf4a}{e_{ij}}}_{\text{Random}}
@@ -861,7 +864,7 @@ y_{ij} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}}
 <h2>Combined Path Diagram</h2>
 
 <img data-src="../../diagrams/fixed_slopes_L1L2.png" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Fitting the Combined Model</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-hidden="true" tabindex="-1"></a>fit_combined <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
@@ -888,7 +891,7 @@ SD (Residual)          |        8.14</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs70">
 <h2>Interpreting the Combined Model</h2>
 <ul>
 <li><strong>The Fixed Effects (Gammas)</strong>
@@ -1361,7 +1364,7 @@ SD (Residual)          |        8.14</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

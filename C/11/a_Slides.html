@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -281,13 +284,13 @@ $ task        &lt;chr&gt; "Perceptual Reasoning", "Processing Speed", "Working M
 $ performance &lt;dbl&gt; 17.997978, 14.412448, 22.439953, 17.173733, 21.686384, 14.…</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>Each of 150 (fake) subjects completed 12 experimental trials.</p>
 </div>
 </section>
 <section class="slide level2">
 <h2>The Aggregation Approach</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Historically, researchers would simply average the L1 observations to create a single L2 score for each person, then run a standard linear regression.</p>
 </div>
 <div class="cell">
@@ -312,7 +315,7 @@ icontrol    |        5.47 | 0.49 | [ 4.49,  6.44] |  11.09 | &lt; .001</code></p
 </section>
 <section class="slide level2">
 <h2>Why Multilevel is Better</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li><strong>Information Loss:</strong> Averaging collapses all L1 variance into a single point.
 <ul>
@@ -349,7 +352,7 @@ y_{ti} &amp;= \beta_{0i} + \color{#4daf4a}{e_{ti}} \\
 \color{#e41a1c}{u_{0i}} &amp;\sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}})
 \end{align}
 \]</span></p>
-<div class="fsmaller">
+<div class="fs80">
 <p>Note that we have changed from <span class="math inline">\(i\)</span> within <span class="math inline">\(j\)</span> to <span class="math inline">\(t\)</span> within <span class="math inline">\(i\)</span></p>
 </div>
 </section>
@@ -427,7 +430,7 @@ SD (Residual)           |        4.71</code></pre>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Interpreting the Model</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><strong>Fixed Effects (The Average Trend)</strong></p>
 <ul>
 <li><code>(Intercept)</code> (<span class="math inline">\(\gamma_{00}\)</span>): The expected performance on a trial for a subject with an inhibitory control score of 0.</li>
@@ -454,7 +457,7 @@ SD (Residual)           |        4.71</code></pre>
   Unadjusted ICC: 0.731</code></pre>
 </div>
 </div>
-<div class="fsmaller mt4">
+<div class="fs80 mt4">
 <p>The ICC tells us the proportion of total variance in performance that is attributable to stable differences between people. The remaining variance (1&nbsp;−&nbsp;ICC) is the within-person variability across trials.</p>
 </div>
 </section></section>
@@ -465,7 +468,7 @@ SD (Residual)           |        4.71</code></pre>
 </section>
 <section class="slide level2">
 <h2>The “Many Tasks” Example</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We can expand our model by adding predictors at Level 1. What if those repeated trials actually came from four different experimental tasks?</p>
 <p><strong>Updated Variables</strong></p>
 <ul>
@@ -531,7 +534,7 @@ SD (Residual)           |        4.71</code></pre>
 <h2>Path Diagram</h2>
 
 <img data-src="../../diagrams/repeated_measures2.png" class="r-stretch"></section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Mixed (or Reduced) Equation</h2>
 <p>Substitute the L2 equations directly into the L1 equation:</p>
 <p><span class="math display">\[\begin{align}
@@ -564,7 +567,7 @@ y_{ti} &amp;= \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_
 </section>
 <section class="slide level2">
 <h2>Fitting the Model</h2>
-<div class="fsmaller">
+<div class="fs80">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> performance <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> task <span class="sc">*</span> icontrol <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> task <span class="sc">|</span> subject),</span>
@@ -616,7 +619,7 @@ Type of slope was dY/dX</code></pre>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Interpreting Results</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ol type="1">
 <li>Inhibitory control was positively associated with performance in <em>all four</em> tasks (see simple slopes analysis), which supports the first theory.</li>
 </ol>
@@ -648,7 +651,7 @@ Type of slope was dY/dX</code></pre>
 </section>
 <section class="slide level2">
 <h2>Incorporating Time</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>To test for and model this, we need a variable that represents the sequence of observations. Luckily, our dataset has a <code>trial</code> column that tracks the randomized order in which the tasks were completed by each subject.</p>
 </div>
 <div class="cell">
@@ -682,7 +685,7 @@ Type of slope was dY/dX</code></pre>
 </section>
 <section class="slide level2">
 <h2>Partitioning the Error</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>To fix the autocorrelation, we split our unmeasured error into two piles:</p>
 <p><span class="math display">\[y_{ti} = \text{Fixed} + \text{Random} + \color{#4daf4a}{(v_{ti} + e_{ti})}\]</span></p>
 <div class="fragment">
@@ -723,7 +726,7 @@ Type of slope was dY/dX</code></pre>
 </section>
 <section class="slide level2">
 <h2>Fitting the AR(1) Model</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>In <code>glmmTMB</code>, we handle this by simply adding an <code>ar1()</code> term to our random effects. The software will automatically estimate <span class="math inline">\(\sigma_v\)</span> and <span class="math inline">\(\rho\)</span> for us.</p>
 </div>
 <div class="cell">
@@ -755,7 +758,7 @@ task [Working Memory] × icontrol   | 2.07 (0.38) | 2.16 (0.37)
 Observations                       |        1800 |        1800</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>Our estimates have shifted. Accounting for autocorrelation re-weights the data, treating correlated adjacent trials as partially redundant.</p>
 </div>
 </section>
@@ -772,7 +775,7 @@ fit1    | glmmTMB | 19 |         |        |
 fit_ar1 | glmmTMB | 21 |       2 | 205.58 | &lt; .001</code></pre>
 </div>
 </div>
-<div class="fsmaller pv4">
+<div class="fs80 pv4">
 <p><strong>Yes!</strong> Adding the two parameters for the Autocorrelated Error (the amount and the strength) resulted in a significant improvement to model fit</p>
 </div>
 </section>
@@ -792,7 +795,7 @@ Conditional model:
  Residual                       1.3276                             </code></pre>
 </div>
 </div>
-<div class="fragment fsmaller mt4">
+<div class="fragment fs80 mt4">
 <p>Look to the <code>subject.1 time1</code> row:</p>
 <ul>
 <li><span class="math inline">\(\color{#4daf4a}{\sigma_v}=2.8056\)</span>: The amount of autocorrelated error.</li>
@@ -802,7 +805,7 @@ Conditional model:
 </section>
 <section class="slide level2">
 <h2>A Warning About AR(1)</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Discrete AR(1) models make a key assumption: <span class="b red">Time steps are integers.</span></p>
 <div class="fragment">
 <ul>
@@ -1282,7 +1285,7 @@ Conditional model:
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

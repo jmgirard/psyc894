@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -26,23 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="/psyc894/site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="/psyc894/site_libs/quarto-nav/headroom.min.js"></script>
-<script src="/psyc894/site_libs/clipboard/clipboard.min.js"></script>
-<script src="/psyc894/site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="/psyc894/site_libs/quarto-search/fuse.min.js"></script>
-<script src="/psyc894/site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="/psyc894/">
-<script src="/psyc894/site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="/psyc894/site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="/psyc894/site_libs/quarto-html/popper.min.js"></script>
-<script src="/psyc894/site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="/psyc894/site_libs/quarto-html/anchor.min.js"></script>
-<link href="/psyc894/site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="/psyc894/site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="/psyc894/site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="/psyc894/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="/psyc894/site_libs/bootstrap/bootstrap-ff38ca5759cea8d2b4e40dc1c167d4da.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="/site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="/site_libs/quarto-nav/headroom.min.js"></script>
+<script src="/site_libs/clipboard/clipboard.min.js"></script>
+<script src="/site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="/site_libs/quarto-search/fuse.min.js"></script>
+<script src="/site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="/">
+<script src="/site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="/site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="/site_libs/quarto-html/popper.min.js"></script>
+<script src="/site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="/site_libs/quarto-html/anchor.min.js"></script>
+<link href="/site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="/site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="/site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="/site_libs/bootstrap/bootstrap-221fb94c3ec07aa7e68c2d5abc4fc18e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="/psyc894/styles.css">
+<link rel="stylesheet" href="/styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -82,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="/psyc894/index.html">
+    <a class="navbar-brand" href="/index.html">
     <span class="navbar-title">PSYC894</span>
     </a>
   </div>
@@ -103,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Syllabus</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="/psyc894/schedule.html"> <i class="bi bi-calendar" role="img">
+    <a class="nav-link" href="/schedule.html"> <i class="bi bi-calendar" role="img">
 </i> 
 <span class="menu-text">Schedule</span></a>
   </li>  
@@ -113,22 +116,22 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-unit-a">    
         <li>
-    <a class="dropdown-item" href="/psyc894/A/01/index.html"><i class="bi bi-code-square" role="img">
+    <a class="dropdown-item" href="/A/01/index.html"><i class="bi bi-code-square" role="img">
 </i> 
  <span class="dropdown-text">Week 01: Overview and Workflow</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/psyc894/A/02/index.html"><i class="bi bi-graph-up" role="img">
+    <a class="dropdown-item" href="/A/02/index.html"><i class="bi bi-graph-up" role="img">
 </i> 
  <span class="dropdown-text">Week 02: Linear Modeling Recap</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/psyc894/A/03/index.html"><i class="bi bi-cone-striped" role="img">
+    <a class="dropdown-item" href="/A/03/index.html"><i class="bi bi-cone-striped" role="img">
 </i> 
  <span class="dropdown-text">Week 03: Clustering Issues and Approaches</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/psyc894/A/04/index.html"><i class="bi bi-tools" role="img">
+    <a class="dropdown-item" href="/A/04/index.html"><i class="bi bi-tools" role="img">
 </i> 
  <span class="dropdown-text">Week 04: The Mechanics of MLM</span></a>
   </li>  
@@ -140,22 +143,22 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-unit-b">    
         <li>
-    <a class="dropdown-item" href="/psyc894/B/05/index.html"><i class="bi bi-virus" role="img">
+    <a class="dropdown-item" href="/B/05/index.html"><i class="bi bi-virus" role="img">
 </i> 
  <span class="dropdown-text">Week 05: Influenza</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/psyc894/B/06/index.html"><i class="bi bi-arrow-down-up" role="img">
+    <a class="dropdown-item" href="/B/06/index.html"><i class="bi bi-arrow-down-up" role="img">
 </i> 
  <span class="dropdown-text">Week 06: Random Intercepts</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/psyc894/B/07/index.html"><i class="bi bi-shuffle" role="img">
+    <a class="dropdown-item" href="/B/07/index.html"><i class="bi bi-shuffle" role="img">
 </i> 
  <span class="dropdown-text">Week 07: Random Slopes</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/psyc894/B/08/index.html"><i class="bi bi-align-center" role="img">
+    <a class="dropdown-item" href="/B/08/index.html"><i class="bi bi-align-center" role="img">
 </i> 
  <span class="dropdown-text">Week 08: Centering and Degrouping</span></a>
   </li>  
@@ -167,22 +170,22 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-unit-c">    
         <li>
-    <a class="dropdown-item" href="/psyc894/C/09/index.html"><i class="bi bi-balloon" role="img">
+    <a class="dropdown-item" href="/C/09/index.html"><i class="bi bi-balloon" role="img">
 </i> 
  <span class="dropdown-text">Week 09: Spring Break</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/psyc894/C/10/index.html"><i class="bi bi-chevron-right" role="img">
+    <a class="dropdown-item" href="/C/10/index.html"><i class="bi bi-chevron-right" role="img">
 </i> 
  <span class="dropdown-text">Week 10: Model Comparison</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/psyc894/C/11/index.html"><i class="bi bi-alarm" role="img">
+    <a class="dropdown-item" href="/C/11/index.html"><i class="bi bi-alarm" role="img">
 </i> 
  <span class="dropdown-text">Week 11: Longitudinal Analysis 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/psyc894/C/12/index.html"><i class="bi bi-calendar3" role="img">
+    <a class="dropdown-item" href="/C/12/index.html"><i class="bi bi-calendar3" role="img">
 </i> 
  <span class="dropdown-text">Week 12: Longitudinal Analysis 2</span></a>
   </li>  
@@ -194,22 +197,22 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-unit-d">    
         <li>
-    <a class="dropdown-item" href="/psyc894/D/13/index.html"><i class="bi bi-journal-medical" role="img">
+    <a class="dropdown-item" href="/D/13/index.html"><i class="bi bi-journal-medical" role="img">
 </i> 
  <span class="dropdown-text">Week 13: Model Evaluation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/psyc894/D/14/index.html"><i class="bi bi-pen" role="img">
+    <a class="dropdown-item" href="/D/14/index.html"><i class="bi bi-pen" role="img">
 </i> 
  <span class="dropdown-text">Week 14: Practical Matters</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/psyc894/D/15/index.html"><i class="bi bi-briefcase" role="img">
+    <a class="dropdown-item" href="/D/15/index.html"><i class="bi bi-briefcase" role="img">
 </i> 
  <span class="dropdown-text">Week 15: Project Work</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/psyc894/D/16/index.html"><i class="bi bi-briefcase" role="img">
+    <a class="dropdown-item" href="/D/16/index.html"><i class="bi bi-briefcase" role="img">
 </i> 
  <span class="dropdown-text">Week 16: Project Work</span></a>
   </li>  
@@ -356,7 +359,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

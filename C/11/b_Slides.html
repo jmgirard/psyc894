@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -232,7 +235,7 @@
 </section>
 <section class="slide level2">
 <h2>Taxonomy of Longitudinal Models</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li><span class="b blue">Fluctuation Models:</span> The outcome rises and falls around a stable baseline. There is no systematic long-term trajectory. (Covered this week)
 <ul>
@@ -274,7 +277,7 @@
 <li>To do this correctly, we must decompose our Level 1 predictors.</li>
 </ul>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>The EMA Example</h2>
 <p><strong>Main Variables</strong></p>
 <ul>
@@ -306,7 +309,7 @@ $ performance   &lt;dbl&gt; 0.3931740, -0.6519368, -0.2248937, 6.9142306, 3.0286
 $ stress        &lt;dbl&gt; 7.905561, 6.861336, 7.377380, 5.361727, 7.055506, 5.0369…</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>We plan to predict <code>performance</code> (L1) from <code>stress</code> (L1) for each subject.</li>
 <li>Participants are pinged at random hours across the study.</li>
@@ -315,7 +318,7 @@ $ stress        &lt;dbl&gt; 7.905561, 6.861336, 7.377380, 5.361727, 7.055506, 5.
 </section>
 <section class="slide level2">
 <h2>L1 Predictor Decomposition</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>If we use <code>stress</code> as a predictor, its slope will be an <em>uninterpretable blend</em> of the within-person and between-person effects. We must first decompose it!</p>
 </div>
 <div class="cell">
@@ -337,9 +340,9 @@ $ stress        &lt;dbl&gt; 7.905561, 6.861336, 7.377380, 5.361727, 7.055506, 5.
 </div>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>How important was this?</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Calculating the predictor’s ICC can help us understand its multilevel structure</p>
 </div>
 <div class="cell">
@@ -352,7 +355,7 @@ $ stress        &lt;dbl&gt; 7.905561, 6.861336, 7.377380, 5.361727, 7.055506, 5.
   Unadjusted ICC: 0.644</code></pre>
 </div>
 </div>
-<div class="fsmaller mt4">
+<div class="fs80 mt4">
 <ul>
 <li><strong>ICC near 0:</strong> The variable is almost entirely a <em>state</em>. Everyone has the same baseline, and all the action is in day-to-day fluctuation.</li>
 <li><strong>ICC near 1:</strong> The variable is almost entirely a <em>trait</em>. People differ from one another, but their daily scores never change from their baseline.</li>
@@ -389,7 +392,7 @@ $ stress        &lt;dbl&gt; 7.905561, 6.861336, 7.377380, 5.361727, 7.055506, 5.
 </section>
 <section class="slide level2">
 <h2>Formula</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><span class="math display">\[y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_{i}^{(b)} + \color{#377eb8}{\gamma_{10}} x_{ti}^{(w)}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} x_{ti}^{(w)}}_{\text{(Random)}} + \color{#4daf4a}{e_{ti}}\]</span></p>
 <p><strong>Generic</strong></p>
 <div class="tc">
@@ -424,11 +427,11 @@ stress b    |       -2.28 | 0.35 | [-2.97, -1.59] |  -6.46 | &lt; .001
 stress w    |       -2.41 | 0.10 | [-2.60, -2.22] | -25.11 | &lt; .001</code></pre>
 </div>
 </div>
-<div class="fsmaller fragment mt4">
+<div class="fs80 fragment mt4">
 <p>Both traits and states matter. People with higher average stress perform worse overall <span class="math inline">\((\gamma_{01}=-2.06)\)</span>. Additionally, on days when a person is more stressed than their own baseline, their performance drops further <span class="math inline">\((\gamma_{10}=-0.96)\)</span>.</p>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs60">
 <h2>Interpreting the Random Effects</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_base, <span class="at">effects =</span> <span class="st">"random"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -464,7 +467,7 @@ SD (Residual)                     |        2.90 |       </code></pre>
 </section>
 <section class="slide level2">
 <h2>Stress Reactivity</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Now that we have separated stress into Trait (L2) and State (L1) components, we can ask a more complex theoretical question.</p>
 <div class="fragment mt4">
 <blockquote>
@@ -531,7 +534,7 @@ Marginal effects estimated for stress_w
 Type of slope was dY/dX</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>The performance cost of daily (state) stress is largest for those with higher average (trait) stress. There is evidence of a “compounding” effect.</p>
 </div>
 </section>
@@ -549,7 +552,7 @@ Type of slope was dY/dX</code></pre>
 </section>
 <section class="slide level2">
 <h2>The Unequal Time Problem</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li><code>ar1()</code> assumes that the time between consecutive steps is identical.</li>
 <li>In EMA designs, participants may be pinged at different times of day.</li>
@@ -568,14 +571,14 @@ Type of slope was dY/dX</code></pre>
 # ℹ 9 more rows</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>The gap between the 9 AM and 2 PM prompts is 5 hours, but the overnight gap is 14 hours. Because discrete <code>ar1()</code> just looks at the sequence of steps, it forces the 5-hour gap and the 14-hour gap to have the exact same correlation!</p>
 </div>
 </div>
 </section>
 <section class="slide level2">
 <h2>The Spatial Exponential Model</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>This covariance structure calculates the <strong>true time gap</strong> <span class="math inline">\((\Delta t=|t-t'|)\)</span> between any two observations to handle continuous fractional time.</li>
 </ul>
@@ -585,7 +588,7 @@ Type of slope was dY/dX</code></pre>
 </div>
 <div class="fragment">
 <p><span class="math display">\[\text{Corr}(v_{ti}, v_{t'i}) = \rho^{\Delta t}\]</span></p>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li><span class="math inline">\(\color{#4daf4a}{\sigma_v}\)</span>: The amount of autocorrelated error.</li>
 <li><span class="math inline">\(\color{#4daf4a}{\rho}\)</span>: The strength of the autocorrelation (for a 1-unit time gap).</li>
@@ -595,7 +598,7 @@ Type of slope was dY/dX</code></pre>
 </section>
 <section class="slide level2">
 <h2>The Exponential Decay in Action</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Because the correlation structure follows an exponential decay <span class="math inline">\((\rho^{\Delta t})\)</span>, the autocorrelation carrying over from one prompt to the next depends heavily on your baseline 1-day strength <span class="math inline">\((\rho)\)</span>.</p>
 <div class="columns">
 <div class="column">
@@ -620,7 +623,7 @@ Type of slope was dY/dX</code></pre>
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Prepping the Time Factor</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>To use the <code>exp()</code> covariance structure, we need to convert our continuous time variable into a special sorted number factor.</p>
 </div>
 <div class="cell">
@@ -644,7 +647,7 @@ Type of slope was dY/dX</code></pre>
 </section>
 <section class="slide level2">
 <h2>Fitting the Exponential Model</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We simply add the <code>exp()</code> term and use our continuous time factor.</p>
 </div>
 <div class="cell">
@@ -1149,7 +1152,7 @@ fit_exp  | glmmTMB | 5000.4 (&gt;.999) | 5049.3 (&gt;.999)</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

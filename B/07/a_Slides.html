@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -252,8 +255,8 @@
 <h2>Visualizing Models</h2>
 
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
-<h2>Which Predictors Can Have Random Slopes?</h2>
+<section class="slide level2 fs80">
+<h2>Which Predictors Get Random Slopes?</h2>
 <p>In a two-level model, we can only estimate random slopes for <strong>Level 1 predictors</strong>. We cannot estimate random slopes for Level 2 predictors. Why?</p>
 <div class="fragment">
 <p><strong>The Prerequisite for a Slope</strong></p>
@@ -264,8 +267,8 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
-<h2>The “Constant” Problem for L2 Predictors</h2>
+<section class="slide level2 fs70">
+<h2>The “Constant” Problem for L2</h2>
 <p>Level 2 predictors (like school funding or school type) are measured at the cluster level.</p>
 <div class="fragment">
 <ul>
@@ -281,7 +284,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Review: Fixed Slopes for L1</h2>
 <p>Let’s recall our model with a fixed slope of an L1 predictor.</p>
 <div class="tc b">
@@ -301,7 +304,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}}
 \]</span></p>
 <p>We assumed the slope for <span class="math inline">\(x\)</span> was identical across all clusters.</p>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Adding a Random Slope</h2>
 <p>Now, we let that slope vary across clusters by adding a Level 2 deviation.</p>
 <div class="tc b">
@@ -324,7 +327,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}}
 <li><span class="math inline">\(\color{#e41a1c}{u_{1j}}\)</span> is the <strong>Random Slope Deviation</strong> (How cluster <span class="math inline">\(j\)</span>’s slope differs from <span class="math inline">\(\color{#377eb8}{\gamma_{10}}\)</span>)</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Decoding the Gammas</h2>
 <ol type="1">
 <li><strong>The first number</strong> says <em>which Level 1 parameter</em> is being predicted.
@@ -345,7 +348,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}}
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Reading the Equations</h2>
 <p><span class="math display">\[
 y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}}
@@ -362,7 +365,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}}
 </blockquote>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Random Effect Assumptions</h2>
 <ul>
 <li>With the random intercepts model, we assumed the random intercept deviations were normally distributed.</li>
@@ -388,7 +391,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}}
 <p>where each variable gets its own <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> (as above)<br> and also each pair of variables gets a correlation <span class="math inline">\(\rho\)</span></p>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Multilevel Equation Part 2</h2>
 <p>As we add random effects (e.g., <span class="math inline">\(u_{1j}\)</span>), we assume they form a multivariate normal distribution with 0 means and estimated SDs (<span class="math inline">\(\tau_{00}\)</span> and <span class="math inline">\(\tau_{11}\)</span>) and correlations (<span class="math inline">\(\tau_{10}\)</span>).</p>
 <div class="tc b">
@@ -405,7 +408,7 @@ y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}}
 \color{#e41a1c}{\tau_{10}} &amp; \color{#e41a1c}{\tau_{11}}\end{bmatrix}\right)
 \]</span></p>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Random Effects Example</h2>
 <p><span class="math display">\[
 \begin{align}
@@ -428,7 +431,7 @@ e_{ij} &amp;\sim \text{Normal}(0, \sigma) \\
 <h2>Path Diagram</h2>
 
 <img data-src="../../diagrams/random_slopes.png" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Mixed (or Reduced) Equation</h2>
 <p><span class="math display">\[
 \begin{alignat}{2}
@@ -493,7 +496,7 @@ $ public  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Fitting the Model</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
@@ -521,7 +524,7 @@ SD (Residual)                   |        8.10</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting the Fixed Effects</h2>
 <ul>
 <li>The fixed intercept <span class="math inline">\((\gamma_{00})\)</span> is…
@@ -541,7 +544,7 @@ SD (Residual)                   |        8.10</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting the Random Effects 1</h2>
 <ul>
 <li>The random intercept SD <span class="math inline">\((\tau_{00})\)</span> is…
@@ -560,7 +563,7 @@ SD (Residual)                   |        8.10</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting the Random Effects 2</h2>
 <ul>
 <li>The correlation between deviations <span class="math inline">\((\tau_{10})\)</span> is…
@@ -579,8 +582,8 @@ SD (Residual)                   |        8.10</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
-<h2>Information Sharing Across Parameters</h2>
+<section class="slide level2 fs80">
+<h2>Information Sharing</h2>
 <ul>
 <li>Partial pooling allows the model to <span class="b green">share information between clusters</span>
 <ul>
@@ -598,7 +601,7 @@ SD (Residual)                   |        8.10</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Do We Care About This Correlation?</h2>
 <p>How do applied researchers actually use <span class="math inline">\(\tau_{10}\)</span>? It depends on the context.</p>
 <div class="fragment">
@@ -617,7 +620,7 @@ SD (Residual)                   |        8.10</code></pre>
 </ul>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Random Effect Deviations</h2>
 <p>These are called Empirical Bayes (EB) Estimates.</p>
 <div class="cell">
@@ -1466,7 +1469,7 @@ school | 419   | female1     |        0.19 | 1.53 | [ -2.81,  3.20]</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Random Effect Predictions</h2>
 <p>These are called Best Linear Unbiased Predictions (BLUPs).</p>
 <div class="cell">
@@ -2324,17 +2327,17 @@ school | 419   | female1     |       -1.01</code></pre>
 
 </div>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Plotting the Random Effects</h2>
 <p>Because we estimated a <em>random intercept</em> and a <em>random slope</em>, our model allows the effect of being female on math scores to vary across schools. <br>Notice how the lines (one per cluster/school) are no longer parallel!</p>
 
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Visualizing the Slope Distribution</h2>
 <p>Sample-based slope distribution (blue)<br> Population-level slope estimate (red)</p>
 
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Concept of Shrinkage</h2>
 <p>The histogram is narrower than the curve. This is not an error!</p>
 <ul>
@@ -2806,7 +2809,7 @@ school | 419   | female1     |       -1.01</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

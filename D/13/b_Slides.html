@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -282,7 +285,7 @@
 <section class="slide level2">
 <h2>Assumption 3: Homoscedasticity</h2>
 <p>Homoscedasticity means “constant variance.”</p>
-<div class="fsmaller">
+<div class="fs80">
 <p><span class="math display">\[
 \color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma}) \qquad \begin{bmatrix}\color{#e41a1c}{u_{0j}}\\ \color{#e41a1c}{u_{1j}}\end{bmatrix} \sim \text{MVN}\left(\begin{bmatrix}0\\0\end{bmatrix}, \begin{bmatrix}\color{#e41a1c}{\tau_{00}} &amp; \\ \color{#e41a1c}{\tau_{10}} &amp; \color{#e41a1c}{\tau_{11}}\end{bmatrix}\right)
 \]</span></p>
@@ -314,7 +317,7 @@
 <h1>Part 2:<br> Workflow &amp; Data</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Prepping the Data</h2>
 <div class="cell" data-replace_path="[&quot;../../data/&quot;,&quot;&quot;]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -410,7 +413,7 @@ High Correlation
 
 </div>
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Diagnosing Predictive Misfit</h2>
 <p>What if the model predictions do not align with the raw data? This indicates fundamental <strong>misspecification</strong>. No amount of residual tweaking will fix a model that cannot replicate the basic shape of your outcome.</p>
 <ul>
@@ -491,7 +494,7 @@ High Correlation
 <h1>Part 6: Outliers</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Outliers in MLMs</h2>
 <ul>
 <li><p>In standard regression, an outlier just pulls the line</p></li>
@@ -506,7 +509,7 @@ High Correlation
 </ul></li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Why DHARMa for Outliers?</h2>
 <ul>
 <li><strong>The Problem with Traditional Outlier Metrics</strong>: Tools like Cook’s Distance struggle in MLMs because the model intentionally “shrinks” extreme cluster estimates toward the mean.</li>
@@ -543,7 +546,7 @@ frequency of outliers (expected: 0.00796812749003984 )
 <h2>Plotting Outliers</h2>
 
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Interpreting DHARMa Outliers</h2>
 <ul>
 <li><strong>The Histogram</strong>: This plots your residuals as percentiles, not raw mathematical errors. Because a perfect model means a data point is equally likely to fall into any percentile, we want to see a flat, uniform block from 0.0 to 1.0, <em>not</em> a traditional bell curve.</li>
@@ -1056,7 +1059,7 @@ Observations |           1200 |           1195</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

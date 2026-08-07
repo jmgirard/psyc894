@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 â€“ Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -236,7 +239,7 @@
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-1-1.png" width="1056" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Modeling the Trajectory</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>In Week 11, we treated the baseline as stable. We were most interested in the observation-specific fluctuations around that baseline.</li>
 <li>Moving forward with longitudinal change models, we are now most interested in the <strong>shape of change</strong> over the entire assessment period.</li>
@@ -248,7 +251,7 @@
 </section>
 <section class="slide level2">
 <h2>Centering Time</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>The <strong>intercept</strong> represents the expected outcome when all predictors equal zero. Therefore, we need to be mindful about what zero represents for <em>time</em>.</li>
 <li><em>If we study grades 9 through 12, then using the numbers <code>9</code> to <code>12</code> will result in an intercept corresponding to grade 0, which isnâ€™t very meaningful here.</em></li>
@@ -263,7 +266,7 @@
 </section>
 <section class="slide level2">
 <h2>Scaling Time</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>The <strong>slope</strong> of a predictor represents the expected change in the outcome for a 1-unit increase in that predictor. Therefore, we need to be mindful about what a 1-unit increase actually represents for <em>time</em>.</li>
 <li><em>If a 10-year study records time in days (from <code>0</code> to <code>3650</code>), the slope will represent daily growth. This coefficient might be uninterpretable or confusingly small (e.g., a gain of 0.002).</em></li>
@@ -292,13 +295,13 @@ $ vocab      &lt;dbl&gt; 45.38913, 59.32121, 72.81737, 82.83264, 88.51938, 93.2â
 $ hours_read &lt;dbl&gt; 3.399861, 2.572877, 1.571513, 2.955250, 3.413900, 3.60â€¦</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>Each of 150 subjects was assessed for vocabulary size annually. Notice that our time variable is <code>age_months</code>, starting at 120 months (10 years old).</p>
 </div>
 </section>
 <section class="slide level2">
 <h2>Preparing the Time Variable</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>If we use <code>age_months</code> as our predictor, our intercept will represent vocabulary at an age of 0 months, and our slope will represent month-to-month growth. We need to fix this!</p>
 </div>
 <div class="cell">
@@ -332,11 +335,11 @@ $ hours_read &lt;dbl&gt; 3.399861, 2.572877, 1.571513, 2.955250, 3.413900, 3.60â
 \beta_{0i} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#e41a1c}{u_{0i}} \\
 \beta_{1i} &amp;= \color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1i}}
 \end{align}\]</span></p>
-<div class="fsmaller mt4">
+<div class="fs80 mt4">
 <p>Notice that time is the only predictor in the model. We are just defining the average starting point (<span class="math inline">\(\color{#377eb8}{\gamma_{00}}\)</span>) and the average rate of linear change (<span class="math inline">\(\color{#377eb8}{\gamma_{10}}\)</span>), along with how much different people vary around those averages.</p>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Multilevel Equation Part 2</h2>
 <div class="tc b">
 <p>Level One (Observation)</p>
@@ -365,7 +368,7 @@ $ hours_read &lt;dbl&gt; 3.399861, 2.572877, 1.571513, 2.955250, 3.413900, 3.60â
 <img data-src="../../diagrams/longitudinal_change.png" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Formula</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p><span class="math display">\[y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{10}} T_{ti}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} T_{ti}}_{\text{(Random)}} + \color{#4daf4a}{e_{ti}}\]</span></p>
 <p><strong>Generic</strong></p>
 <div class="tc">
@@ -400,7 +403,7 @@ Parameter   | Coefficient |   SE |         95% CI |     z |      p
 time        |        8.06 | 0.24 | [ 7.59,  8.54] | 33.27 | &lt; .001</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li><code>(Intercept)</code> (<span class="math inline">\(\gamma_{00}\)</span>): The average expected vocabulary score at Baseline.</li>
 <li><code>time</code> (<span class="math inline">\(\gamma_{10}\)</span>): The average expected annual change in vocabulary score.</li>
@@ -423,7 +426,7 @@ Cor (Intercept~time: subject) |        0.68 |
 SD (Residual)                 |        6.06 |       </code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li><code>SD (Intercept)</code> (<span class="math inline">\(\tau_{00}\)</span>): The variation in starting scores among subjects.</li>
 <li><code>SD (time)</code> (<span class="math inline">\(\tau_{11}\)</span>): The variation in the rate of linear growth among subjects.</li>
@@ -449,7 +452,7 @@ SD (Residual)                 |        6.06 |       </code></pre>
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Linear Slopes</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>In a linear model, the growth rate stays constant over time. Here, vocab growth is always 8.06 per year with no acceleration or deceleration possible.</p>
 </div>
 <div class="cell">
@@ -478,7 +481,7 @@ Type of slope was dY/dX</code></pre>
 </section>
 <section class="slide level2">
 <h2>Beyond Linear Growth</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>Linear models assume a constant rate of change. They force a straight line through the data.</li>
 <li>However, human behavior, learning, and biological processes rarely grow at exactly the same speed forever.</li>
@@ -490,7 +493,7 @@ Type of slope was dY/dX</code></pre>
 <section class="slide level2">
 <h2>Visualizing the Shapes</h2>
 
-<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="1152" class="r-stretch"><div class="fsmaller">
+<img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-10-1.png" width="1152" class="r-stretch"><div class="fs80">
 <ul>
 <li><strong>Quadratic:</strong> acceleration, deceleration, or reversal (e.g., marital satisfaction)</li>
 <li><strong>Logarithmic:</strong> rapid early growth that plateaus (e.g., therapy response)</li>
@@ -500,7 +503,7 @@ Type of slope was dY/dX</code></pre>
 </section>
 <section class="slide level2">
 <h2>Returning to Our Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>Letâ€™s apply this theory to our <code>vocab</code> dataset. We are modeling vocabulary growth in children from Baseline (Age 10) to Year 5 (Age 15).</li>
 <li>Before we just test every math function in R, we should ask:<br> <span class="b blue"><em>Which shapes make theoretical sense for this process?</em></span></li>
@@ -516,7 +519,7 @@ Type of slope was dY/dX</code></pre>
 </section>
 <section class="slide level2">
 <h2>Our Testing Plan</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>Based on our developmental theory, we will drop the Exponential model.</li>
 <li>We will formally test a <strong>Quadratic</strong> model and a <strong>Logarithmic</strong> model against our standard <strong>Linear</strong> baseline to see which shape best fits the actual data.</li>
@@ -573,7 +576,7 @@ time [1st degree] |      413.03 | 12.42 | [ 388.70, 437.37] |  33.27 | &lt; .001
 time [2nd degree] |     -107.38 |  4.65 | [-116.50, -98.26] | -23.08 | &lt; .001</code></pre>
 </div>
 </div>
-<div class="fsmaller fragment">
+<div class="fs80 fragment">
 <p>The intercept is the overall average vocabulary score across all time points (due to centering). The significant and positive 1st degree term indicates the overall average growth trend is increasing. The significant and negative 2nd degree term indicates the trajectory is curved downwards (growth is slowing).</p>
 </div>
 </section>
@@ -595,7 +598,7 @@ time [2nd degree] |     -107.38 |  4.65 | [-116.50, -98.26] | -23.08 | &lt; .001
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Quadratic Slopes</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>In a quadratic model, the growth rate is accelerating or decelerating by a fixed, constant amount per one-unit increase in time. Here, vocab growth is always decelerating by 2.87 per year (see the diff column).</p>
 </div>
 <div class="cell">
@@ -647,7 +650,7 @@ Parameter      | Coefficient |   SE |         95% CI |     z |      p
 time + 1 [log] |       23.59 | 0.69 | [22.24, 24.94] | 34.27 | &lt; .001</code></pre>
 </div>
 </div>
-<div class="fsmaller fragment">
+<div class="fs80 fragment">
 <p>The intercept represents the expected vocabulary score exactly at Baseline (Age 10). The significant and positive logarithmic term indicates that vocabulary size increases over time. This growth is modeled as fastest at the beginning and gradually slowing down over time.</p>
 </div>
 </section>
@@ -669,7 +672,7 @@ time + 1 [log] |       23.59 | 0.69 | [22.24, 24.94] | 34.27 | &lt; .001</code><
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Logarithmic Slopes</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>In a logarithmic model, the growth rate changes non-uniformly over time, following a pattern of diminishing returns. Here, vocab growth decelerates rapidly at first and then more gradually over time (see the diff column).</p>
 </div>
 <div class="cell">
@@ -701,7 +704,7 @@ fit_quad   | glmmTMB | 5860.0 (&lt;.001) | 5908.0 (&lt;.001)
 fit_log    | glmmTMB | 5793.0 (&gt;.999) | 5821.8 (&gt;.999)</code></pre>
 </div>
 </div>
-<div class="fsmaller pv4">
+<div class="fs80 pv4">
 <p>In our simulated data, the Logarithmic change model has the lowest AIC and BIC, suggesting it provides the best fit for this specific process. Note as well that the weights for both metrics are overwhelmingly in favor of this model.</p>
 </div>
 </section>
@@ -1170,7 +1173,7 @@ fit_log    | glmmTMB | 5793.0 (&gt;.999) | 5821.8 (&gt;.999)</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

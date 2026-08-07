@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -223,7 +226,7 @@
 <h1>Multilevel Data and Multilevel Questions</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>What is multilevel data?</h2>
 <ul>
 <li>Data are <span class="b blue">hierarchically clustered</span> when there are groups of observations<br> that are more similar <em>within</em> groups than they are <em>between</em> groups
@@ -245,7 +248,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>What is and isn’t a cluster?</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -282,7 +285,7 @@
 </div>
 </div></div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Types of Multilevel Variables</h2>
 <ul>
 <li><span class="b blue">Global</span> variables describe their own level
@@ -311,7 +314,7 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Practice: Classify that Variable</h2>
 <p><strong>Scenario:</strong> We are studying <strong>employees (L1)</strong> nested within <strong>companies (L2)</strong>.</p>
 <p>For each variable below, is it <strong>Global</strong>, <strong>Structural</strong>, or <strong>Disaggregated</strong>?</p>
@@ -333,7 +336,7 @@
 </ul></li>
 </ol>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Multilevel Research Questions</h2>
 <ul>
 <li><span class="b blue">Within-Cluster</span> Questions
@@ -408,7 +411,7 @@
 </div>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Visualizing the Paradox</h2>
 
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-1-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
@@ -486,7 +489,7 @@
 <h1>Statistical Issues</h1>
 
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Forcing a Single Level</h2>
 <ul>
 <li>If we <span class="b blue">disaggregate to the lowest level</span> and run a single-level model…
@@ -514,12 +517,12 @@
 </ul>
 </div>
 </section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>The Danger of Ignoring Clustering</h2>
 <p><strong>Simulation:</strong> We simulate 500 datasets where <strong>no effect exists</strong> (<span class="math inline">\(\beta=0\)</span>). We analyze <em>the exact same data</em> two ways: ignoring clustering (LM) and accounting for it (MLM). Because H0 is true, only ~5% of slope p-values should be <span class="math inline">\(&lt;.05\)</span>. This is true for MLM but not for LM.</p>
 
 <img data-src="a_Slides_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
-<section class="slide level2 smaller">
+<section class="slide level2 fs70">
 <h2>Why is the SE too low?</h2>
 <ul>
 <li>If we disaggregate to the lowest level, <span class="math inline">\(N\)</span> will be too high
@@ -547,7 +550,7 @@
 <p><span class="math display">\[
 SE_{\beta_p}=\frac{SD_Y}{SD_{X_p}} \sqrt{\frac{1-R^2}{(n-k-1)(1-R_p^2)}}
 \]</span></p>
-<div class="tc f1">
+<div class="tc">
 <p><span class="math inline">\(n\)</span> is the sample size (assuming IID)<br> <span class="math inline">\(k\)</span> is the number of predictor (<span class="math inline">\(X\)</span>) variables<br> <span class="math inline">\(R^2\)</span> is the variance in <span class="math inline">\(Y\)</span> explained by all <span class="math inline">\(X\)</span><br> <span class="math inline">\(R_p^2\)</span> is the variance in <span class="math inline">\(X_p\)</span> explained by all other <span class="math inline">\(X\)</span></p>
 </div>
 <div class="fragment" title="Warning">
@@ -566,7 +569,7 @@ SE_{\beta_p}=\frac{SD_Y}{SD_{X_p}} \sqrt{\frac{1-R^2}{(n-k-1)(1-R_p^2)}}
 </div>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs80">
 <h2>The Intraclass Correlation (ICC)</h2>
 <ul>
 <li>How strong is the clustering or interdependency?</li>
@@ -575,7 +578,7 @@ SE_{\beta_p}=\frac{SD_Y}{SD_{X_p}} \sqrt{\frac{1-R^2}{(n-k-1)(1-R_p^2)}}
 <p><span class="math display">\[
 ICC = \rho = \frac{\tau_{00}^2}{\tau_{00}^2+\sigma^2}
 \]</span></p>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li><span class="math inline">\(\sigma^2\)</span> is the <strong>Within-Cluster Variance</strong> (Residual Variance)</li>
 <li><span class="math inline">\(\tau_{00}^2\)</span> is the <strong>Between-Cluster Variance</strong> (Intercept Variance)</li>
@@ -631,7 +634,7 @@ n^*=\frac{n}{1+\rho(\bar{n}_j - 1)}
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller white-text" data-background-color="#34495e">
+<section class="slide level2 fs80 white-text" data-background-color="#34495e">
 <h2>Brief Activity</h2>
 <p>I recruited 30 participants to each complete 100 trials of a behavioral experiment; thus, my data has 3000 observations. I ran a linear regression and my hypothesized effect was significant! However, my annoying friend told me that I am ignoring “clustering” or something and that my effect might not be significant after all. My other, nice friend explained how to calculate the necessary information, but the software output only gave me Standard Deviations (SDs).</p>
 <p><strong>Calculate the ICC, DEFF, DEFT, and <span class="math inline">\(n^*\)</span></strong> given the following estimates:</p>
@@ -1135,7 +1138,7 @@ n^*=\frac{n}{1+\rho(\bar{n}_j - 1)}
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

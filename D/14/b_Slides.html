@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -230,7 +233,7 @@
 <h1>The Power Problem</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>What is Statistical Power?</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
@@ -244,7 +247,7 @@
 <p><lord-icon src="../../icons/power.json" colors="secondary:#2a76dd" trigger="hover" class="rc"></lord-icon></p>
 </div></div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Limits of Traditional Tools</h2>
 <ul>
 <li>Many of you have used programs like G*Power for simple regressions or ANOVAs.</li>
@@ -253,7 +256,7 @@
 <li>In an MLM, power is not just about the total number of people. It depends on the number of clusters, the number of observations per cluster, the ICC, and the variance of your random slopes.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Two Dimensions of N</h2>
 <ul>
 <li>If you want to increase your power in an MLM, you have two choices:
@@ -265,7 +268,7 @@
 <li>The most effective strategy depends entirely on the level at which your focal predictor is measured.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Simulation Solution</h2>
 <p>If we cannot use a simple equation to calculate power, we simulate.</p>
 <p><strong>The Logic of Simulation:</strong></p>
@@ -282,7 +285,7 @@
 <h1>Introduction to simr</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The simr Package</h2>
 <ul>
 <li>{simr} is an R package designed specifically to automate power simulations for generalized linear mixed models.</li>
@@ -291,7 +294,7 @@
 <li>While we used <code>glmmTMB</code> in previous lectures, we will need to use <code>lme4</code> syntax (like <code>lmer()</code> and <code>glmer()</code>) for our simulations today. The math is identical for our purposes.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Workflow Template</h2>
 <p>We are going to learn a highly adaptable template that you can reuse for your own research. It involves four main steps:</p>
 <ol type="1">
@@ -308,7 +311,7 @@
 </section>
 <section class="slide level2">
 <h2>Step 1: Design the Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Let us imagine we are planning a cluster-randomized trial. We want to test a new training program for nurses across 30 hospitals. We plan to survey 10 patients per hospital. We start by creating our planned data structure.</p>
 </div>
 <div class="cell">
@@ -329,7 +332,7 @@
 </section>
 <section class="slide level2">
 <h2>Viewing the Planned Data</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We now have an empty shell of a dataset with 300 rows. It contains our clustering structure and our predictors, but no outcome variable yet.</p>
 </div>
 <div class="cell">
@@ -354,7 +357,7 @@
 </section>
 <section class="slide level2">
 <h2>Step 2: Set the Fixed Effects</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Next, we tell <code>simr</code> what we believe the “true” effect sizes are. These are our Betas (fixed effects). We need a value for the Intercept and a value for our <code>treatment</code> slope.</p>
 </div>
 <div class="cell">
@@ -362,13 +365,13 @@
 <span id="cb4-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Let's assume the treatment increases satisfaction by 0.8 points</span></span>
 <span id="cb4-3"><a aria-hidden="true" tabindex="-1"></a>my_fixed_effects <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">5.0</span>, <span class="fl">0.8</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p><em>Tip: Where do these numbers come from? You should pull them from pilot data, previous literature, or by defining the smallest effect size of clinical interest.</em></p>
 </div>
 </section>
 <section class="slide level2">
 <h2>Step 3: Set the Random Effects</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>Now we define our variance components. How much do the hospital baselines differ from one another? We provide the variance for our random intercepts.</li>
 </ul>
@@ -378,7 +381,7 @@
 <span id="cb5-2"><a aria-hidden="true" tabindex="-1"></a>my_random_variance <span class="ot">&lt;-</span> <span class="fl">0.5</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment mt4">
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>Finally, we must define the Level-1 residual variance. How much do patients within the same hospital differ from one another?</li>
 </ul>
@@ -387,14 +390,14 @@
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Let's assume the variance within hospitals is 2.0</span></span>
 <span id="cb6-2"><a aria-hidden="true" tabindex="-1"></a>my_residual_variance <span class="ot">&lt;-</span> <span class="fl">2.0</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p><em>(Note: An intercept variance of 0.5 and a residual variance of 2.0 gives us an ICC of 0.20, which is very typical for organizational data).</em></p>
 </div>
 </div>
 </section>
 <section class="slide level2">
 <h2>Step 4: Assemble the Model</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We now use the <code>makeLmer()</code> function from {simr} to smash all these pieces together. We provide a model formula, our fixed effects, our random effects, and our residual variance.</p>
 </div>
 <div class="cell">
@@ -412,9 +415,9 @@
 <h1>Running the Simulation</h1>
 
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>A Single Power Test</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Now we ask the critical question: With 30 hospitals and 10 patients per hospital, do we have enough power to detect our 0.8 point treatment effect?</p>
 </div>
 <div class="cell">
@@ -434,7 +437,7 @@ Based on 1000 simulations, (0 errors, 0 warnings, 1 message)
 Time elapsed: 0 h 1 m 22 s</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>The result is 71.3% power, 95% CI: (68.4, 74.1). We are underpowered!</li>
 </ul>
@@ -451,20 +454,20 @@ Time elapsed: 0 h 1 m 22 s</code></pre>
 </section>
 <section class="slide level2">
 <h2>Step 5: Extending L2 (Hospitals)</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Let us first see what happens if we increase our study to 40 hospitals. We use the <code>extend()</code> function to add more hospitals.</p>
 </div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Extend the model to have 40 hospitals total</span></span>
 <span id="cb10-2"><a aria-hidden="true" tabindex="-1"></a>extended_model_l2 <span class="ot">&lt;-</span> <span class="fu">extend</span>(dummy_model, <span class="at">along =</span> <span class="st">"hospital"</span>, <span class="at">n =</span> <span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>This automatically generates new hospital IDs and populates them with the correct ratio of patients and treatments, maintaining our data structure.</p>
 </div>
 </section>
 <section class="slide level2">
 <h2>Step 6: The L2 Power Curve</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Now we use <code>powerCurve()</code> to test a sequence of hospital sample sizes.</p>
 <p>Let us test power at 30, 34, 38, 42 hospitals.</p>
 </div>
@@ -496,7 +499,7 @@ by number of levels in hospital:
 Time elapsed: 0 h 4 m 2 s</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>We can now see exactly when we cross the 80% threshold.</p>
 <p>We need at least 42 hospitals to do so (at 10 patients each).</p>
 </div>
@@ -510,7 +513,7 @@ Time elapsed: 0 h 4 m 2 s</code></pre>
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Step 7: Extending L1 (Patients)</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>What if we cannot recruit more hospitals? Let us see what happens if we keep our study at 30 hospitals, but try to recruit more patients per hospital instead.</p>
 <p>We use <code>extend()</code> again, but we change the <code>along</code> argument to target our Level-1 ID.</p>
 </div>
@@ -521,7 +524,7 @@ Time elapsed: 0 h 4 m 2 s</code></pre>
 </section>
 <section class="slide level2">
 <h2>Step 8: The L1 Power Curve</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We test this new extended model across a sequence of patient sample sizes. Let us test power at 10, 15, and 20 patients per hospital.</p>
 </div>
 <div class="cell">
@@ -550,7 +553,7 @@ by largest value of patient:
 Time elapsed: 0 h 3 m 17 s</code></pre>
 </div>
 </div>
-<div class="fsmaller">
+<div class="fs80">
 <p>Notice the diminishing returns. Even with 20 patients per hospital, our power is only about 78%. At 30 hospitals, we never reach 80%.</p>
 </div>
 </section>
@@ -561,7 +564,7 @@ Time elapsed: 0 h 3 m 17 s</code></pre>
 
 </div>
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Lesson: Match the Level</h2>
 <p>Why did adding hospitals work, but adding patients failed?</p>
 <ul>
@@ -575,7 +578,7 @@ Time elapsed: 0 h 3 m 17 s</code></pre>
 <h1>Sensitivity Analysis</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Beyond Sample Size</h2>
 <ul>
 <li>We have spent all our time manipulating sample size (<span class="math inline">\(N\)</span>) to reach 80% power.</li>
@@ -587,7 +590,7 @@ Time elapsed: 0 h 3 m 17 s</code></pre>
 </section>
 <section class="slide level2">
 <h2>Modifying the Dummy Model</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We do not have to rebuild our entire dataset and model from scratch. We can modify the fixed effects of our existing <code>dummy_model</code> directly using the <code>fixef()</code> function.</p>
 </div>
 <div class="cell">
@@ -597,7 +600,7 @@ Time elapsed: 0 h 3 m 17 s</code></pre>
 </section>
 <section class="slide level2">
 <h2>Re-Testing Power</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Now we can re-run our power simulation on the modified model. Let us see what happens to our power (at 30 hospitals and 10 patients) when the effect size shrinks.</p>
 </div>
 <div class="cell">
@@ -619,7 +622,7 @@ Time elapsed: 0 h 1 m 24 s</code></pre>
 </div>
 </div>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>The Value of Sensitivity</h2>
 <ul>
 <li>By dropping the effect size from 0.8 to 0.5, our power plummeted from 71% to roughly 35%.</li>
@@ -632,7 +635,7 @@ Time elapsed: 0 h 1 m 24 s</code></pre>
 <h1>Practical Tips</h1>
 
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Start Small</h2>
 <ul>
 <li>Power simulations are computationally heavy.</li>
@@ -641,7 +644,7 @@ Time elapsed: 0 h 1 m 24 s</code></pre>
 <li>Run the 1000-simulation version before you go to bed and let your computer work overnight.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Where to get the parameters?</h2>
 <p>The hardest part of simulation is knowing what numbers to plug in.</p>
 <ul>
@@ -650,7 +653,7 @@ Time elapsed: 0 h 1 m 24 s</code></pre>
 <li><strong>The “Smallest Meaningful” Approach:</strong> If no data exists, ask yourself: “What is the smallest effect size that would actually matter in the real world?” Power your study to detect that.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Be Pessimistic</h2>
 <ul>
 <li>Simulations assume perfect conditions: perfect reliability, no missing data, and perfect compliance.</li>
@@ -659,7 +662,7 @@ Time elapsed: 0 h 1 m 24 s</code></pre>
 <li>Always build a buffer into your sample size justifications to account for attrition and messy data.</li>
 </ul>
 </section>
-<section class="slide level2 fsmaller">
+<section class="slide level2 fs80">
 <h2>Handling Unbalanced Data</h2>
 <ul>
 <li>In our example, we used <code>expand_grid()</code> to create a perfectly balanced design (exactly 10 patients per hospital).</li>
@@ -1125,7 +1128,7 @@ Time elapsed: 0 h 1 m 24 s</code></pre>
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }

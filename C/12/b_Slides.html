@@ -6,9 +6,9 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-494df7ee9f4d3fbed323cea6af7dcc0b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c22d5dff81f50d6ca627b6188dc743b9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/quarto-contrib/lordicon-bundle-1.9.0/bundle.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Jeffrey Girard">
   <title>PSYC894 – Multilevel Modeling</title>
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -232,7 +235,7 @@
 </section>
 <section class="slide level2">
 <h2>Reviewing the Unconditional Model</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>In 12a, we found that a logarithmic transformation of time best captured the vocabulary growth trajectory in our sample. This is an “unconditional” growth model because it contains no predictors other than time.</p>
 </div>
 <div class="cell" data-replace_path="[&quot;../../data/&quot;,&quot;&quot;]">
@@ -252,7 +255,7 @@
 </section>
 <section class="slide level2">
 <h2>Explaining the Variance</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li><p>Our unconditional model tells us the average <strong>starting point</strong> and the average <strong>rate of growth</strong>. It also tells us that individuals vary around both of those averages. <em>Why are some individuals higher or lower than others?</em></p></li>
 <li><p>We can now add <strong>Level 2 Predictors</strong> to try and explain that variation</p></li>
@@ -274,7 +277,7 @@
 \beta_{0i} &amp;= \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} w_i + \color{#e41a1c}{u_{0i}} \\
 \beta_{1i} &amp;= \color{#377eb8}{\gamma_{10}} + \color{#377eb8}{\gamma_{11}} w_i + \color{#e41a1c}{u_{1i}}
 \end{align}\]</span></p>
-<div class="fsmaller mt4">
+<div class="fs80 mt4">
 <p>Note that the L2 variable (<span class="math inline">\(w_i\)</span>) is predicting both the intercept <br>(<span class="math inline">\(\beta_{0i}\)</span>, starting point) and the slope (<span class="math inline">\(\beta_{1i}\)</span>, growth rate).</p>
 </div>
 </section>
@@ -284,7 +287,7 @@
 <img data-src="../../diagrams/time_invariant.png" class="r-stretch"></section>
 <section class="slide level2">
 <h2>The Linear Formula</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li>We have already seen this exact structure…
 <ul>
@@ -303,7 +306,7 @@
 </section>
 <section class="slide level2">
 <h2>Wait a Minute…</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>If we ran that model, we would be asking: <em>“Does the intervention program change the rate at which vocabulary grows in a perfectly straight line forever?”</em></p>
 <div class="fragment mt4">
 <p>But remember what we discovered in Lecture 12a!</p>
@@ -325,9 +328,9 @@
 <p><code>vocab ~ 1 + program * log(time + 1) +</code><br><code>(1 + log(time + 1) | subject)</code></p>
 </div>
 </section>
-<section class="slide level2">
+<section class="slide level2 fs90">
 <h2>Interpreting L2 Fixed Effects</h2>
-<div class="fsmaller">
+<div class="fs80">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>fit_l2 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(</span>
 <span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>  vocab <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> program <span class="sc">*</span> <span class="fu">log</span>(time <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">log</span>(time <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">|</span> subject),</span>
@@ -409,7 +412,7 @@ p-values are uncorrected.</code></pre>
 </section>
 <section class="slide level2">
 <h2>Bridging Growth and Fluctuation</h2>
-<div class="fsmaller">
+<div class="fs80">
 <ul>
 <li><p>L2 predictors explain differences <em>between</em> trajectories. However, people also deviate from their own expected trajectories from observation to observation.</p></li>
 <li><p>In Lecture 11b, we modeled these observation-specific deviations using fluctuation models. We can bring that same logic into our growth models by adding <strong>L1 Predictors</strong>. These are “time-varying” variables that change over time within an individual.</p></li>
@@ -419,7 +422,7 @@ p-values are uncorrected.</code></pre>
 </section>
 <section class="slide level2">
 <h2>Decomposing the Predictor</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Before we add a L1 predictor <span class="math inline">\(x\)</span> to the model, we should decompose it into between- and within-person components <span class="math inline">\(x_i^{(b)}\)</span> and <span class="math inline">\(x_{ti}^{(w)}\)</span></p>
 </div>
 <div class="cell">
@@ -458,7 +461,7 @@ p-values are uncorrected.</code></pre>
 </section>
 <section class="slide level2">
 <h2>Formula and Fitting</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>We add the between-person term as a standard fixed effect. We add the within-person term as a fixed effect, and we also add it to the random effects bracket to allow its effect to vary across subjects.</p>
 </div>
 <div class="fragment">
@@ -473,7 +476,7 @@ p-values are uncorrected.</code></pre>
 </section>
 <section class="slide level2">
 <h2>Interpreting L1 Fixed Effects</h2>
-<div class="fsmaller">
+<div class="fs80">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">model_parameters</span>(fit_combined, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -501,7 +504,7 @@ time + 1 [log] × program [B] |        9.82 | 1.05 | [ 7.76, 11.88] |  9.36 | &l
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_relation</span>(fit_combined, <span class="at">by =</span> <span class="st">"read_w"</span>) <span class="sc">|&gt;</span> <span class="fu">plot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"><div class="fsmaller tc">
+<img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"><div class="fs80 tc">
 <p>This plot shows the pure within-person effect. For every hour a child reads above their personal average, their vocabulary score is pushed upward away from their underlying growth curve.</p>
 </div>
 </section></section>
@@ -512,7 +515,7 @@ time + 1 [log] × program [B] |        9.82 | 1.05 | [ 7.76, 11.88] |  9.36 | &l
 </section>
 <section class="slide level2">
 <h2>Zooming in on Subject 84</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>To understand how our model builds a prediction, let’s deconstruct the trajectory for a single person. We use <code>estimate_grouplevel()</code> to extract Subject 84’s specific random effect deviations.</p>
 </div>
 <div class="cell">
@@ -526,42 +529,42 @@ subject | 84    | time + 1 [log] |        2.43 | 1.71 | [-0.91, 5.78]
 subject | 84    | read w         |        0.34 | 0.67 | [-0.97, 1.66]</code></pre>
 </div>
 </div>
-<div class="fsmaller fragment mt4">
+<div class="fs80 fragment mt4">
 <p>They started lower than average (–1.78), grew faster than average (+2.43), and got a larger-than-average boost from reading (+0.34).</p>
 <p>We can combine these unique parameters with the fixed effects to calculate their exact trajectory. Let’s visualize how this is built layer-by-layer.</p>
 </div>
 </section>
 <section class="slide level2">
 <h2>Step 1: The Baseline (Program A)</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>First, we plot the reference group for our model: the average trajectory for all children in <strong>Program A</strong>. If we had no predictors and just an intercept, this is where we would start.</p>
 </div>
 
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Step 2: The Level 2 Shift (Program B)</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Because Subject 84 is in Program B, our model applies the fixed effect parameters (<span class="math inline">\(\gamma_{01}\)</span> and <span class="math inline">\(\gamma_{11}\)</span>) to shift their expected starting point up and accelerate their expected curve.</p>
 </div>
 
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Step 3: The Individual Shift (Random)</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Next, we apply Subject 84’s specific <strong>Random Effects</strong> (<span class="math inline">\(u\)</span>). Notice how their personal trajectory shifts away from the Program B average based on their unique, individual starting point and growth rate.</p>
 </div>
 
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Step 4: The Level 1 Adjustments</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Now we apply the Level 1 fluctuations. For every year Subject 84 read more or less than their personal average, the model adjusts their expected trajectory up or down, creating a jagged line.</p>
 </div>
 
 <img data-src="b_Slides_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 <h2>Step 5: The Observation Residuals</h2>
-<div class="fsmaller">
+<div class="fs80">
 <p>Finally, we plot the actual data points. The remaining distance between the jagged, fluctuation-adjusted line and the raw data points represents our final Level 1 residuals (<span class="math inline">\(e_{ti}\)</span>).</p>
 </div>
 
@@ -1023,7 +1026,7 @@ subject | 84    | read w         |        0.34 | 0.67 | [-0.97, 1.66]</code></pr
         }
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/jmgirard\.github\.io\/psyc894\/");
+            var filterRegex = new RegExp('/' + window.location.host + '/');
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
