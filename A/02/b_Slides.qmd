@@ -54,14 +54,14 @@ data("penguins", "mtcars", "cars", "airquality")
 theme_set(theme_bw(base_size = 20))
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 **New Packages:**
 
 - [qqplotr]{.b .green} is called by easystats to add CIs to diagnostic plots
 - [sandwich]{.b .green} is called by easystats to implement HC3 corrections
 :::
 
-## Moderation {.smaller}
+## Moderation {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -132,7 +132,7 @@ model_parameters(ccm_fb)
 
 :::
 
-## CCM Interpretation {.smaller}
+## CCM Interpretation {.fs70}
 
 After centering the flipper length and bill depth predictors, ...
 
@@ -225,7 +225,7 @@ estimate_slopes(
 
 Continuous-by-Discrete Moderation
 
-## CDM Equation {.smaller}
+## CDM Equation {.fs70}
 
 #### Generic
 $$
@@ -279,7 +279,7 @@ model_parameters(cdm_fs) |> print(select = "minimal")
 
 :::
 
-## CDM Interpretation 1 {.smaller}
+## CDM Interpretation 1 {.fs70}
 
 After centering the Flipper Length predictor and setting Adelie as reference, ...
 
@@ -295,7 +295,7 @@ The difference in expected mass between Chinstrap and Adelie penguins,<br />*spe
 - **Gentoo Simple Effect** $(\beta_3=126.7$, $p=.242)$<br />
 The difference in expected mass between Gentoo and Adelie penguins,<br />*specifically for penguins with average flipper length*.
 
-## CDM Interpretation 2 {.smaller}
+## CDM Interpretation 2 {.fs70}
 - **Flipper-by-Chinstrap Interaction Effect** $(\beta_4=1.7$, $p=.825)$<br />
 The adjustment to the flipper slope for Chinstraps compared to Adelies.<br />
 *The flipper--mass relationship is not significantly different for Chinstraps and Adelies.*
@@ -339,11 +339,11 @@ estimate_slopes(
 )
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 *Notice the Gentoo slope (54.6) is the Adelie slope (32.8) plus the interaction (21.8).*
 :::
 
-## A Formula Resource {.smaller}
+## A Formula Resource {.fs70}
 
 <table width="100%">
 <tr>
@@ -432,13 +432,13 @@ estimate_slopes(
 </tr>
 </table>
 
-::: {.pv4 .f3}
+::: {.pv4 .fs50}
 Note that predictors can be continuous or discrete, but if a discrete predictor has more than two levels, you will end up with additional slopes due to dummy coding. To represent $g$ groups, it will create $g-1$ dummy codes (with a slope for each).
 :::
 
 # Linearity Assumption
 
-## Overview {.smaller}
+## Overview {.fs70}
 
 - **The Assumption:** The model matches the shape of the data
     + We assume the relationship is a straight line (additive)
@@ -474,7 +474,7 @@ pred_line <- estimate_relation(
 plot(pred_line, show_data = TRUE)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 **Note:** Adding horsepower hurts fuel economy, but this levels off (you can't go below 0 mpg), creating the curve that the linear model misses.
 :::
 :::
@@ -500,7 +500,7 @@ plot(pred_line, show_data = TRUE)
 check_model(fit_line, check = "linearity", base_size = 16)
 ```
 
-## Simple Fix {.smaller}
+## Simple Fix {.fs70}
 
 - **The Trick:** Transform the Data, not the Parameters.
   + We can model curves by adding a squared term ($x^2$) as a new predictor.
@@ -534,7 +534,7 @@ pred_poly <- estimate_relation(
 plot(pred_poly, show_data = TRUE)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 **Note:** By allowing the line to bend or curve (quadratically), we capture the relationship accurately.
 :::
 :::
@@ -552,7 +552,7 @@ plot(pred_poly, show_data = TRUE)
 
 # Homogeneity Assumption
 
-## Overview {.smaller}
+## Overview {.fs70}
 
 - **The Assumption:** The model is equally reliable everywhere
     + We assume the error is constant for all participants
@@ -590,7 +590,7 @@ pred_cars <- estimate_relation(
 plot(pred_cars, show_data = TRUE)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 **Note:** At low speeds, points are near the line. At high speeds, they spread out. We predict distance for "slow" stops well, but not for "fast" stops.
 :::
 :::
@@ -616,7 +616,7 @@ plot(pred_cars, show_data = TRUE)
 check_model(fit_cars, check = "homogeneity", base_size = 16)
 ```
 
-## Simple Fix {.smaller}
+## Simple Fix {.fs70}
 
 - **The Logic**:
     + We keep the parameter point estimates unchanged
@@ -639,13 +639,13 @@ model_parameters(fit_cars)  # standard OLS results
 model_parameters(fit_cars, vcov = "HC3") # fix
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 **Observation:** In this case, the penalty is small! But we pay it anyway because it ensures our inferences and conclusions are valid.
 :::
 
 # Normality Assumption
 
-## Overview {.smaller}
+## Overview {.fs70}
 
 - **The Assumption:** The errors follow a bell curve
   + We assume the residuals are normally distributed around zero
@@ -682,7 +682,7 @@ pred_ozone <- estimate_relation(
 plot(pred_ozone, show_data = TRUE)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 **Note:** The model fits a straight line, but there are outliers and negative Ozone (impossible) is being predicted.
 :::
 :::
@@ -709,7 +709,7 @@ check_model(fit_ozone, check = c("qq", "normality"), base_size = 18)
 ```
 
 
-## Simple Fix {.smaller}
+## Simple Fix {.fs70}
 
 - **The Logic:**
     + If the residuals aren't Normal, the formulas for SEs and CIs are wrong
@@ -732,14 +732,14 @@ model_parameters(fit_ozone) # standard OLS results
 model_parameters(fit_ozone, bootstrap = TRUE, iterations = 2000) # fix
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 **Observation:** The confidence interval changed slightly. Because we had a decent sample size ($n=153$), the Central Limit Theorem helped the standard approach. In smaller samples, the difference would likely be larger.
 :::
 
 
 # Independence Assumption
 
-## Preview {.smaller}
+## Preview {.fs70}
 
 - **The Assumption:** The residuals are independent
     + We assume that every data point provides unique, unrelated information

@@ -61,7 +61,7 @@ options(width = 80)
 
 ## Taxonomy of Longitudinal Models
 
-:::{.fsmaller}
+:::{.fs80}
 - [Fluctuation Models:]{.b .blue} The outcome rises and falls around a stable baseline. There is no systematic long-term trajectory. (Covered this week)
     + *Example: Daily mood, daily stress, heart rate.*
 
@@ -152,7 +152,7 @@ p_fluct + p_growth
 - We want to know how temporary changes in a predictor (a state) relate to temporary changes in an outcome.
 - To do this correctly, we must decompose our Level 1 predictors.
 
-## The EMA Example
+## The EMA Example {.fs90}
 
 **Main Variables**
 
@@ -178,14 +178,14 @@ ema <- read_csv("../../data/ema_sim.csv")
 glimpse(ema)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 - We plan to predict `performance` (L1) from `stress` (L1) for each subject.
 - Participants are pinged at random hours across the study.
 :::
 
 ## L1 Predictor Decomposition
 
-:::{.fsmaller}
+:::{.fs80}
 If we use `stress` as a predictor, its slope will be an *uninterpretable blend* of the within-person and between-person effects. We must first decompose it!
 :::
 
@@ -199,9 +199,9 @@ ema_prep <- ema |>
   print(n = 3)
 ```
 
-## How important was this?
+## How important was this? {.fs90}
 
-:::{.fsmaller}
+:::{.fs80}
 Calculating the predictor's ICC can help us understand its multilevel structure
 :::
 
@@ -210,7 +210,7 @@ fit_stress <- glmmTMB(stress ~ 1 + (1 | subject), data = ema)
 icc(fit_stress)
 ```
 
-:::{.fsmaller .mt4}
+:::{.fs80 .mt4}
 - **ICC near 0:** The variable is almost entirely a *state*. Everyone has the same baseline, and all the action is in day-to-day fluctuation.
 - **ICC near 1:** The variable is almost entirely a *trait*. People differ from one another, but their daily scores never change from their baseline.
 - **ICC in between:** The variable has meaningful variance at both levels. We **must** decompose it to avoid an uninterpretable, blended slope.
@@ -252,7 +252,7 @@ $$y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01
 
 ## Formula
 
-:::{.fsmaller}
+:::{.fs80}
 $$y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} x_{i}^{(b)} + \color{#377eb8}{\gamma_{10}} x_{ti}^{(w)}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} x_{ti}^{(w)}}_{\text{(Random)}} + \color{#4daf4a}{e_{ti}}$$
 
 **Generic**
@@ -287,11 +287,11 @@ fit_base <- glmmTMB(
 model_parameters(fit_base, effects = "fixed")
 ```
 
-:::{.fsmaller .fragment .mt4}
+:::{.fs80 .fragment .mt4}
 Both traits and states matter. People with higher average stress perform worse overall $(\gamma_{01}=-2.06)$. Additionally, on days when a person is more stressed than their own baseline, their performance drops further $(\gamma_{10}=-0.96)$.
 :::
 
-## Interpreting the Random Effects {.smaller}
+## Interpreting the Random Effects {.fs60}
 
 ```{r}
 model_parameters(fit_base, effects = "random")
@@ -316,7 +316,7 @@ estimate_relation(fit_base, by = c("stress_w", "subject=[sample 6]")) |> plot()
 
 ## Stress Reactivity
 
-:::{.fsmaller}
+:::{.fs80}
 Now that we have separated stress into Trait (L2) and State (L1) components, we can ask a more complex theoretical question.
 
 :::{.fragment .mt4}
@@ -368,7 +368,7 @@ model_parameters(fit_auto, effects = "fixed")
 estimate_slopes(fit_auto, slope = "stress_w", by = "stress_b=[quartiles]")
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 The performance cost of daily (state) stress is largest for those with higher average (trait) stress. There is evidence of a "compounding" effect.
 :::
 
@@ -382,7 +382,7 @@ estimate_relation(fit_auto, by = c("stress_w", "stress_b=[quartiles]")) |> plot(
 
 ## The Unequal Time Problem
 
-:::{.fsmaller}
+:::{.fs80}
 - `ar1()` assumes that the time between consecutive steps is identical.
 - In EMA designs, participants may be pinged at different times of day.
 :::
@@ -392,14 +392,14 @@ estimate_relation(fit_auto, by = c("stress_w", "stress_b=[quartiles]")) |> plot(
 ema_prep |> filter(subject == 1) |> print(n = 3)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 The gap between the 9 AM and 2 PM prompts is 5 hours, but the overnight gap is 14 hours. Because discrete `ar1()` just looks at the sequence of steps, it forces the 5-hour gap and the 14-hour gap to have the exact same correlation!
 :::
 :::
 
 ## The Spatial Exponential Model
 
-:::{.fsmaller}
+:::{.fs80}
 - This covariance structure calculates the **true time gap** $(\Delta t=|t-t'|)$ between any two observations to handle continuous fractional time.
 :::
 
@@ -410,7 +410,7 @@ $$\color{#4daf4a}{\mathbf{v}_i} \sim \text{EXP}(0, \color{#4daf4a}{\sigma_v}, \c
 :::{.fragment}
 $$\text{Corr}(v_{ti}, v_{t'i}) = \rho^{\Delta t}$$
 
-:::{.fsmaller}
+:::{.fs80}
 - $\color{#4daf4a}{\sigma_v}$: The amount of autocorrelated error.
 - $\color{#4daf4a}{\rho}$: The strength of the autocorrelation (for a 1-unit time gap).
 :::
@@ -418,7 +418,7 @@ $$\text{Corr}(v_{ti}, v_{t'i}) = \rho^{\Delta t}$$
 
 ## The Exponential Decay in Action
 
-:::{.fsmaller}
+:::{.fs80}
 Because the correlation structure follows an exponential decay $(\rho^{\Delta t})$, the autocorrelation carrying over from one prompt to the next depends heavily on your baseline 1-day strength $(\rho)$.
 
 :::{.columns}
@@ -471,7 +471,7 @@ ggplot(decay_df, aes(x = gap, y = correlation, color = rho)) +
 
 ## Prepping the Time Factor
 
-:::{.fsmaller}
+:::{.fs80}
 To use the `exp()` covariance structure, we need to convert our continuous time variable into a special sorted number factor. 
 :::
 
@@ -488,7 +488,7 @@ ema_clean <-
 
 ## Fitting the Exponential Model
 
-:::{.fsmaller}
+:::{.fs80}
 We simply add the `exp()` term and use our continuous time factor.
 :::
 

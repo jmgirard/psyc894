@@ -59,7 +59,7 @@ set_theme(theme_gray(base_size = 24))
 
 ## Reviewing the Unconditional Model
 
-:::{.fsmaller}
+:::{.fs80}
 In 12a, we found that a logarithmic transformation of time best captured the vocabulary growth trajectory in our sample. This is an "unconditional" growth model because it contains no predictors other than time.
 :::
 
@@ -83,7 +83,7 @@ fit_log <- glmmTMB(
 
 ## Explaining the Variance
 
-:::{.fsmaller}
+:::{.fs80}
 - Our unconditional model tells us the average **starting point** and the average **rate of growth**. It also tells us that individuals vary around both of those averages. *Why are some individuals higher or lower than others?*
 
 - We can now add **Level 2 Predictors** to try and explain that variation
@@ -110,7 +110,7 @@ $$\begin{align}
 \beta_{1i} &= \color{#377eb8}{\gamma_{10}} + \color{#377eb8}{\gamma_{11}} w_i + \color{#e41a1c}{u_{1i}}
 \end{align}$$
 
-:::{.fsmaller .mt4}
+:::{.fs80 .mt4}
 Note that the L2 variable ($w_i$) is predicting both the intercept <br>($\beta_{0i}$, starting point) and the slope ($\beta_{1i}$, growth rate).
 :::
 
@@ -120,7 +120,7 @@ Note that the L2 variable ($w_i$) is predicting both the intercept <br>($\beta_{
 
 ## The Linear Formula
 
-:::{.fsmaller}
+:::{.fs80}
 - We have already seen this exact structure...
     + This is just a cross-level interaction!
 
@@ -140,7 +140,7 @@ Note that the L2 variable ($w_i$) is predicting both the intercept <br>($\beta_{
 
 ## Wait a Minute...
 
-:::{.fsmaller}
+:::{.fs80}
 If we ran that model, we would be asking: *"Does the intervention program change the rate at which vocabulary grows in a perfectly straight line forever?"*
 
 :::{.fragment .mt4}
@@ -167,9 +167,9 @@ We don't have to throw away our Level 2 equations! We just need to swap out raw 
 `vocab ~ 1 + program * log(time + 1) + `<br>`(1 + log(time + 1) | subject)`
 :::
 
-## Interpreting L2 Fixed Effects
+## Interpreting L2 Fixed Effects {.fs90}
 
-:::{.fsmaller}
+:::{.fs80}
 ```{r}
 fit_l2 <- glmmTMB(
   vocab ~ 1 + program * log(time + 1) + (1 + log(time + 1) | subject),
@@ -209,7 +209,7 @@ estimate_contrasts(fit_l2, contrast = "program", by = "time")
 
 ## Bridging Growth and Fluctuation
 
-:::{.fsmaller}
+:::{.fs80}
 - L2 predictors explain differences *between* trajectories. However, people also deviate from their own expected trajectories from observation to observation. 
 
 - In Lecture 11b, we modeled these observation-specific deviations using fluctuation models. We can bring that same logic into our growth models by adding **L1 Predictors**. These are "time-varying" variables that change over time within an individual.
@@ -219,7 +219,7 @@ estimate_contrasts(fit_l2, contrast = "program", by = "time")
 
 ## Decomposing the Predictor
 
-:::{.fsmaller}
+:::{.fs80}
 Before we add a L1 predictor $x$ to the model, we should decompose it into between- and within-person components $x_i^{(b)}$ and $x_{ti}^{(w)}$
 :::
 
@@ -253,7 +253,7 @@ $$\begin{align}
 
 ## Formula and Fitting
 
-:::{.fsmaller}
+:::{.fs80}
 We add the between-person term as a standard fixed effect. We add the within-person term as a fixed effect, and we also add it to the random effects bracket to allow its effect to vary across subjects.
 :::
 
@@ -269,7 +269,7 @@ fit_combined <- glmmTMB(
 
 ## Interpreting L1 Fixed Effects
 
-:::{.fsmaller}
+:::{.fs80}
 ```{r}
 model_parameters(fit_combined, effects = "fixed")
 ```
@@ -284,7 +284,7 @@ model_parameters(fit_combined, effects = "fixed")
 estimate_relation(fit_combined, by = "read_w") |> plot()
 ```
 
-:::{.fsmaller .tc}
+:::{.fs80 .tc}
 This plot shows the pure within-person effect. For every hour a child reads above their personal average, their vocabulary score is pushed upward away from their underlying growth curve.
 :::
 
@@ -292,7 +292,7 @@ This plot shows the pure within-person effect. For every hour a child reads abov
 
 ## Zooming in on Subject 84
 
-:::{.fsmaller}
+:::{.fs80}
 To understand how our model builds a prediction, let's deconstruct the trajectory for a single person. We use `estimate_grouplevel()` to extract Subject 84's specific random effect deviations.
 :::
 
@@ -301,7 +301,7 @@ estimate_grouplevel(fit_combined) |>
   filter(Level == 84)
 ```
 
-:::{.fsmaller .fragment .mt4}
+:::{.fs80 .fragment .mt4}
 They started lower than average (--1.78), grew faster than average (+2.43), and got a larger-than-average boost from reading (+0.34). 
 
 We can combine these unique parameters with the fixed effects to calculate their exact trajectory. Let's visualize how this is built layer-by-layer.
@@ -309,7 +309,7 @@ We can combine these unique parameters with the fixed effects to calculate their
 
 ## Step 1: The Baseline (Program A)
 
-:::{.fsmaller}
+:::{.fs80}
 First, we plot the reference group for our model: the average trajectory for all children in **Program A**. If we had no predictors and just an intercept, this is where we would start.
 :::
 
@@ -367,7 +367,7 @@ p_progA
 
 ## Step 2: The Level 2 Shift (Program B)
 
-:::{.fsmaller}
+:::{.fs80}
 Because Subject 84 is in Program B, our model applies the fixed effect parameters ($\gamma_{01}$ and $\gamma_{11}$) to shift their expected starting point up and accelerate their expected curve.
 :::
 
@@ -386,7 +386,7 @@ p_progB
 
 ## Step 3: The Individual Shift (Random)
 
-:::{.fsmaller}
+:::{.fs80}
 Next, we apply Subject 84's specific **Random Effects** ($u$). Notice how their personal trajectory shifts away from the Program B average based on their unique, individual starting point and growth rate.
 :::
 
@@ -404,7 +404,7 @@ p_base
 
 ## Step 4: The Level 1 Adjustments
 
-:::{.fsmaller}
+:::{.fs80}
 Now we apply the Level 1 fluctuations. For every year Subject 84 read more or less than their personal average, the model adjusts their expected trajectory up or down, creating a jagged line.
 :::
 
@@ -422,7 +422,7 @@ p_adj
 
 ## Step 5: The Observation Residuals
 
-:::{.fsmaller}
+:::{.fs80}
 Finally, we plot the actual data points. The remaining distance between the jagged, fluctuation-adjusted line and the raw data points represents our final Level 1 residuals ($e_{ti}$).
 :::
 

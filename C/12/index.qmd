@@ -30,7 +30,7 @@ title: "Week 12: Longitudinal Analysis 2"
 </iframe>
 ```
 
-::: {.fsmaller}
+::: {.fs80}
 \*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 
@@ -63,7 +63,7 @@ title: "Week 12: Longitudinal Analysis 2"
 </iframe>
 ```
 
-::: {.fsmaller}
+::: {.fs80}
 \*Note that you can click the three-line (hamburger) icon on the bottom-left of the slides to access a navigation menu. You can click inside the slides region and press the left and right arrow keys on your keyboard to advance and reverse the slides and animations.
 :::
 

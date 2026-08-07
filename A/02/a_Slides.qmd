@@ -49,7 +49,7 @@ library(marginaleffects)
 data("penguins")
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 - [easystats]{.b .blue} will provide most of our statistical functions
 - [ggplot2]{.b .blue} will provide the ability to customize our plots
 - [marginaleffects]{.b .green} is called by easystats for estimation
@@ -66,7 +66,7 @@ data_codebook(penguins,
 # CSR
 Continuous Simple Regression
 
-## CSR Overview {.smaller}
+## CSR Overview {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -132,7 +132,7 @@ model_parameters(csr_f)
 
 :::
 
-## CSR Interpretation {.smaller}
+## CSR Interpretation {.fs70}
 
 - **Intercept** $(\beta_0 = -5780.8$, $p<.001)$<br />
 The body mass (g) expected for a penguin with a flipper length of 0mm.<br />
@@ -155,7 +155,7 @@ csr_f_c <- lm(formula = body_mass ~ 1 + flipper_len, data = penguins_c)
 ```{r}
 compare_parameters(csr_f, csr_f_c, select = "{estimate}{stars}")
 ```
-:::{.fsmaller}
+:::{.fs80}
 **Note:** The slope $(\beta_1)$ does not change. However, the intercept $(\beta_0)$ is now the expected body mass for a penguin with ***average*** flipper length.
 :::
 :::
@@ -172,7 +172,7 @@ csr_f_z <- lm(formula = body_mass ~ 1 + flipper_len, data = penguins_z)
 compare_parameters(csr_f, csr_f_z, select = "{estimate}{stars}")
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 **Note:** The intercept is now zero. The slope is now the change in body mass in **Standard Deviations (SDs)** for a 1 SD increase in flipper length.
 :::
 :::
@@ -220,7 +220,7 @@ labs(
 # CMR
 Continuous Multiple Regression
 
-## CMR Overview {.smaller}
+## CMR Overview {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -287,7 +287,7 @@ model_parameters(cmr_fb)
 
 :::
 
-## CMR Interpretation {.smaller}
+## CMR Interpretation {.fs70}
 
 - **Intercept** $(\beta_0 = -6541.9$, $p<.001)$<br />
 The body mass (g) expected when both Flipper Length and Bill Depth are 0mm.
@@ -319,7 +319,7 @@ compare_parameters(csr_f, csr_b, cmr_fb, select = "{estimate}{stars}")
 
 :::
 
-:::{.fsmaller}
+:::{.fs80}
 Notice that Bill Depth was significant on its own (`csr_b`), but loses significance when Flipper Length is added (`cmr_fb`). This is because Flipper Length "explains away" the variance.
 :::
 
@@ -385,7 +385,7 @@ plot(pred_cmrb)
 # DSR
 Discrete Simple Regression
 
-## DSR Overview {.smaller}
+## DSR Overview {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -410,7 +410,7 @@ Discrete Simple Regression
 :::
 :::
 
-## DSR Equation {.smaller}
+## DSR Equation {.fs70}
 
 #### Generic
 $$y_i = \beta_0 + \beta_1 D_{1i} + \dots + \varepsilon_{i}$$
@@ -470,7 +470,7 @@ model_parameters(dsr_s)
 
 :::
 
-## DSR Interpretation {.smaller}
+## DSR Interpretation {.fs70}
 
 - **Intercept** $(\beta_0 = 3700.7$, $p<.001)$<br />
 The predicted body mass (g) for the Reference Group (Adelie).
@@ -535,7 +535,7 @@ plot(pred_dsrs) +
 # MMR
 Mixed Multiple Regression
 
-## MMR Equation {.smaller}
+## MMR Equation {.fs70}
 
 #### Generic
 $$y_i = \beta_0 + \beta_1 x_{1i} + \dots +\beta_2 D_{1i} + \dots + \varepsilon_{i}$$

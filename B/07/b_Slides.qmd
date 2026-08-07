@@ -54,7 +54,7 @@ set_theme(theme_gray(base_size = 20))
 
 # Conceptual Foundations
 
-## Interactions {.fsmaller}
+## Interactions {.fs80}
 
 - Interaction (moderation) effects allow the effect (i.e., slope) of a predictor to depend on the values of other predictors.
     + We simply estimate a new slope for the [product]{.b .blue} of the predictors.
@@ -68,7 +68,7 @@ set_theme(theme_gray(base_size = 20))
     
 :::
 
-## Interactions Equation {.fsmaller}
+## Interactions Equation {.fs80}
 
 - Add a slope for the product of two predictors.
     + $y_i = \beta_0 + \beta_1 x_i + \beta_2 z_i + \color{red}{\beta_3 x_i z_i} + e_{i}$
@@ -92,7 +92,7 @@ set_theme(theme_gray(base_size = 20))
 :::
 
 
-## Cross-level Interactions {.fsmaller}
+## Cross-level Interactions {.fs80}
 
 - But what if your predictors are on different levels?
 
@@ -109,7 +109,7 @@ set_theme(theme_gray(base_size = 20))
 
 :::
 
-## Example Cross-level Questions {.fsmaller}
+## Example Cross-level Questions {.fs80}
 
 - *Is the difference between male and female smiling greater in nations that are more religious (vs. those that are less religious)?*
     + **L1:** $x_{ij}$ = participant's sex, $y_{ij}$ = participant's smiling
@@ -122,7 +122,7 @@ set_theme(theme_gray(base_size = 20))
 
 :::
 
-## Same-Level Interactions {.fsmaller}
+## Same-Level Interactions {.fs80}
 
 - Multilevel models are not restricted to cross-level interactions.
 - You can also include interactions between predictors at the same level.
@@ -134,14 +134,14 @@ set_theme(theme_gray(base_size = 20))
 - **Level 2 Interaction:**
   + `math ~ 1 + public * funding + (1 | school)`
 
-## A Note on Predictors Today {.fsmaller}
+## A Note on Predictors Today {.fs80}
 
 1. For today's examples, we are strictly using **categorical (dummy-coded) predictors**.
 2. Because dummy codes (0 and 1) have an inherently meaningful zero (the reference group), our model intercepts remain easy to interpret.
 3. If we were using *continuous* predictors, we would need to scale them carefully so that their zero values make sense.
 4. We will learn how to do that next week (using **centering** and **degrouping**) before we apply cross-level interactions to continuous variables.
 
-## Multilevel Equation Part 1  {.fsmaller}
+## Multilevel Equation Part 1  {.fs80}
 
 - We will accomplish this by adding to the random slope equation
 
@@ -169,7 +169,7 @@ $$
 
 :::
 
-## Multilevel Equation Part 2 {.fsmaller}
+## Multilevel Equation Part 2 {.fs80}
 
 As we add random effects (e.g., $u_{1j}$), we assume they form a multivariate normal distribution with 0 means and estimated SDs (e.g., $\tau_{00}$ and $\tau_{11}$) and correlations (e.g., $\tau_{10}$).
 
@@ -194,7 +194,7 @@ $$
 ![](../../diagrams/cross_level_interaction.png)
 
 
-## Mixed (or Reduced) Equation {.fsmaller}
+## Mixed (or Reduced) Equation {.fs80}
 
 $$
 \begin{alignat}{2}
@@ -241,7 +241,7 @@ and the [(1 + x | cluster)]{.red} part is random
 :::
 :::
 
-## The Importance of Random Slopes {.fsmaller}
+## The Importance of Random Slopes {.fs80}
 
 - When testing a cross-level interaction, you **must** include the random slope for the Level 1 predictor.
 - If you omit the random slope (e.g., using `(1 | school)` instead of `(1 + female | school)`), the model assumes the Level 2 predictor perfectly explains all slope variance.
@@ -265,14 +265,14 @@ dat <- read_csv("../../data/heck2011.csv") |>
 glimpse(dat)
 ```
 
-## Fitting the Model {.fsmaller}
+## Fitting the Model {.fs80}
 
 ```{r fit}
 fit <- lmer(math ~ 1 + public * female + (1 + female | school), data = dat)
 model_parameters(fit)
 ```
 
-## Interpreting the Fixed Effects {.fsmaller}
+## Interpreting the Fixed Effects {.fs80}
 
 - The fixed intercept $(\gamma_{00})$ is...
     + The average male student's math score at the average private school (i.e., double reference group)
@@ -285,7 +285,7 @@ model_parameters(fit)
     
 :::
 
-## Interpreting the Fixed Effects {.fsmaller}
+## Interpreting the Fixed Effects {.fs80}
 
 - The fixed simple slope of female $(\gamma_{10})$ is...
     + The difference between female and male students' average math scores at the average private school
@@ -298,7 +298,7 @@ model_parameters(fit)
     
 :::
 
-## Interpreting the Random Effects 1 {.fsmaller}
+## Interpreting the Random Effects 1 {.fs80}
 
 - The random intercept SD $(\tau_{00})$ is...
     + The spread of the random intercept deviations
@@ -311,7 +311,7 @@ model_parameters(fit)
     
 :::
 
-## Interpreting the Random Effects 2 {.fsmaller}
+## Interpreting the Random Effects 2 {.fs80}
 
 - The correlation between deviations $(\tau_{10})$ is...
     + The relationship between $u_{0j}$ and $u_{1j}$
@@ -326,7 +326,7 @@ model_parameters(fit)
 :::
 
 
-## Random Effect Deviations {.fsmaller}
+## Random Effect Deviations {.fs80}
 
 These are called Empirical Bayes (EB) Estimates.
 
@@ -334,7 +334,7 @@ These are called Empirical Bayes (EB) Estimates.
 estimate_grouplevel(fit, type = "random") # u_0j and u_1j
 ```
 
-## Random Effect Predictions {.fsmaller}
+## Random Effect Predictions {.fs80}
 
 These are called Best Linear Unbiased Predictions (BLUPs).
 
@@ -350,11 +350,11 @@ rel <- estimate_relation(fit, by = c("female", "public"))
 plot(rel)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 These are estimates for the *average school* in the population.
 :::
 
-## Visualizing the Random Slopes {.fsmaller}
+## Visualizing the Random Slopes {.fs80}
 
 ```{r}
 #| echo: false
@@ -378,11 +378,11 @@ ggplot(
 estimate_contrasts(fit, contrast = "female", by = "public")
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 The sex difference is significant in *public* but not in *private* schools.
 :::
 
-## Interpretation Part 1 {.fsmaller}
+## Interpretation Part 1 {.fs80}
 
 - Last week, we regressed math on female with random slopes.
     + `math ~ 1 + female + (1 + female | school)`
@@ -405,7 +405,7 @@ The sex difference is significant in *public* but not in *private* schools.
 
 :::
 
-## Interpretation Part 2 {.fsmaller}
+## Interpretation Part 2 {.fs80}
 
 - This week, we tested whether a school's sex difference in math scores was significantly related to its public vs private status.
 

@@ -184,7 +184,7 @@ theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
 
 # Specifications
 
-## Multilevel Equation {.fsmaller}
+## Multilevel Equation {.fs80}
 
 :::{.tc}
 [Level One (Observation)]{.b}
@@ -210,7 +210,7 @@ $$
 - $\color{#4daf4a}{u_{0j}}$ is the **Cluster Deviation** (Random Effect)
 - $\color{#e41a1c}{e_{ij}}$ is the **Observation Deviation** (Residual Error)
 
-## Reading the Equation {.fsmaller}
+## Reading the Equation {.fs80}
 
 $$
 y_{ij} = \beta_{0j} + \color{#e41a1c}{e_{ij}},
@@ -235,7 +235,7 @@ $$
 
 :::
 
-## Notation Cheat Sheet {.smaller}
+## Notation Cheat Sheet {.fs60}
 
 | Symbol | Name | Meaning |
 | :--- | :--- | :--- |
@@ -245,7 +245,7 @@ $$
 | $\tau_{00}$ | Random Intercept SD | The standard deviation of the $u_{0j}$ deviations <br> *(Between-cluster variation)* |
 | $\sigma$ | Residual SD | The standard deviation of the $e_{ij}$ residuals <br> *(Within-cluster variation)* |
 
-## Parameter Interpretations {.fsmaller}
+## Parameter Interpretations {.fs80}
 
 - **Manifest (Observed) Variables**
     + $y_{ij}$ is the outcome for observation $i$ from cluster $j$
@@ -293,7 +293,7 @@ $$
 
 ![](../../diagrams/random_intercepts.png)
 
-## Mixed (or Reduced) Equation {.fsmaller}
+## Mixed (or Reduced) Equation {.fs80}
 
 $$
 \begin{alignat}{2}
@@ -375,7 +375,7 @@ fit_null <- lmer(
 model_parameters(fit_null)
 ```
 
-## Interpreting the Table {.fsmaller}
+## Interpreting the Table {.fs80}
 
 ```{r}
 #| echo: false
@@ -406,7 +406,7 @@ sigma <- get_sigma(fit_null)
 
 ## The Cost of Ignoring Clustering
 
-:::{.fsmaller}
+:::{.fs80}
 We can compare the fixed intercept point estimates and standard errors (SEs) between our MLM and a standard OLS model that ignores clustering.
 :::
 
@@ -418,12 +418,12 @@ fit_ols <- lm(math ~ 1, data = dat)
 compare_parameters(fit_ols, fit_null, select = "se")
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 **Note:** The point estimates are similar, but the **SE is larger** in the MLM.
 The OLS model was *too confident* because it assumed all students were independent.
 :::
 
-## Why are the estimates different? {.fsmaller}
+## Why are the estimates different? {.fs80}
 
 You might notice the intercept point estimates are slightly different.
 
@@ -445,7 +445,7 @@ If your clusters are different sizes, OLS is biased toward the larger clusters, 
 
 ## Estimating the ICC (Manual)
 
-:::{.fsmaller}
+:::{.fs80}
 To calculate the ICC, we first need to extract the **Variances** (not SDs!)
 :::
 
@@ -458,7 +458,7 @@ sigma2 <- vars$var.residual # within-school variance
 ```
 
 :::{.fragment}
-:::{.fsmaller}
+:::{.fs80}
 $$\rho = \frac{\tau_{00}^2}{\tau_{00}^2+\sigma^2}$$
 :::
 
@@ -490,7 +490,7 @@ pct_within  <- round((1 - rho) * 100)
     - `r pct_between`% of the variance in math scores is between schools
     - `r pct_within`% of the variance is within schools (among students)
 
-## Deriving L1 Residuals {.fsmaller}
+## Deriving L1 Residuals {.fs80}
 
 What is each observation's deviation from its cluster mean?
 
@@ -501,7 +501,7 @@ get_residuals(fit_null)
 ```
 
 
-## Deriving Cluster Deviations {.fsmaller}
+## Deriving Cluster Deviations {.fs80}
 
 What is each cluster's deviation from the fixed intercept?
 
@@ -511,7 +511,7 @@ In other words, derive estimates of $u_{0j}$ for every cluster $j$
 estimate_grouplevel(fit_null, type = "random")
 ```
 
-## Deriving Cluster Intercepts {.fsmaller}
+## Deriving Cluster Intercepts {.fs80}
 
 What is each cluster's intercept (best linear unbiased prediction)?
 

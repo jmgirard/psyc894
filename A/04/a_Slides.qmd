@@ -123,7 +123,7 @@ p1 +
   geom_point(data = tibble(x = 3, y = 0.5), size = 5)
 ```
 
-## The OLS Solution {.fsmaller}
+## The OLS Solution {.fs80}
 
 - Because OLS makes simple assumptions, we don't need to guess.
 - Calculus gives us a direct "closed-form" solution.
@@ -166,7 +166,7 @@ $$Slope = \frac{\text{Covariance}(X,Y)}{\text{Variance}(X)}$$
     + [Result:]{.b .red} Drastically inflated Type I Error (False Positives).
 :::
 
-## Goals {.fsmaller}
+## Goals {.fs70}
 
 - Because of this, ***OLS cannot be used*** for multilevel models
 
@@ -183,7 +183,7 @@ $$Slope = \frac{\text{Covariance}(X,Y)}{\text{Variance}(X)}$$
 
 :::
 
-## MLE Versions {.fsmaller}
+## MLE Versions {.fs80}
 
 - [Full Maximum Likelihood]{.b .blue} (ML) includes both the regression<br />coefficients and the variance components in the likelihood
     + &#9989; Can compare models with different (fixed) predictors
@@ -209,7 +209,7 @@ $$Slope = \frac{\text{Covariance}(X,Y)}{\text{Variance}(X)}$$
 
 :::
 
-## How to optimize it? {.fsmaller}
+## How to optimize it? {.fs70}
 
 - Unlike OLS, there is no **closed-form solution**
     + We cannot simply solve for the answer with algebra
@@ -230,7 +230,7 @@ $$Slope = \frac{\text{Covariance}(X,Y)}{\text{Variance}(X)}$$
 
 :::
 
-## Hill Climbing Analogy {.fsmaller}
+## Hill Climbing Analogy {.fs80}
 
 a. I am blindfolded in a thick fog and dropped on a hill
 b. I can win a great prize if I find the summit without looking
@@ -248,7 +248,7 @@ e. I repeat (d) until stepping in any direction decreases my elevation
     
 :::
 
-## Hill Climbing Challenges {.fsmaller}
+## Hill Climbing Challenges {.fs80}
 
 - What if I walk for days and never reach a peak of the hill?
 
@@ -268,7 +268,7 @@ e. I repeat (d) until stepping in any direction decreases my elevation
     
 :::
 
-## Optimization as Hill Climbing {.fsmaller}
+## Optimization as Hill Climbing {.fs80}
 
 a. Select a random or "best guess" starting value^[We can optionally use a "multi-start" strategy (for multiple climbers)]
 b. Estimate the likelihood of the current value^[Technically, we try to minimize the negative log-likelihood]
@@ -453,7 +453,7 @@ ggplot() +
   theme_bw(base_size = 36)
 ```
 
-## Optimization Algorithms {.fsmaller}
+## Optimization Algorithms {.fs80}
 
 - **Quadratic Approximation** (lme4) 
     + Does not require derivative information (Gradient/Hessian)
@@ -681,7 +681,7 @@ ggplot(
     
 :::
 
-## Estimation Comparisons {.fsmaller}
+## Estimation Comparisons {.fs80}
 
 - [Maximum Likelihood Estimation]{.b .blue}
     + **Goal:** Find the single best Frequentist estimate (the peak)
@@ -696,7 +696,7 @@ ggplot(
 
 :::
 
-## Using the Posterior {.fsmaller}
+## Using the Posterior {.fs80}
 
 ::: {.columns .pv4}
 

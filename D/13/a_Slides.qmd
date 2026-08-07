@@ -59,7 +59,7 @@ options(width = 75)
 
 # Troubleshooting
 
-## Convergence Problems {.fsmaller}
+## Convergence Problems {.fs80}
 
 :::{.columns}
 :::{.column width="60%"}
@@ -73,7 +73,7 @@ options(width = 75)
 :::
 :::
 
-## The Likelihood Surface {.fsmaller}
+## The Likelihood Surface {.fs80}
 
 Before diving into specific warnings, we must remember back to Lecture 04b.
 
@@ -82,7 +82,7 @@ Before diving into specific warnings, we must remember back to Lecture 04b.
 - **The Map and Compass:** The optimizer uses local derivative information (the Gradient and Hessian) to aid in the search.
 - **The Problem:** If the mountain has a flat ridge, multiple peaks, or a boundary it cannot cross, the optimizer gets confused and either throws a warning or silently stops at an invalid parameter value.
 
-## Optimization as Hill Climbing {.fsmaller}
+## Optimization as Hill Climbing {.fs80}
 
 a. Select a random or "best guess" starting value^[We can optionally use a "multi-start" strategy (for multiple climbers)]
 b. Estimate the likelihood of the current value^[Technically, we try to minimize the negative log-likelihood]
@@ -193,7 +193,7 @@ glimpse(trouble)
 
 ## Problem 1: Extreme Scaling
 
-:::{.fsmaller}
+:::{.fs80}
 A frequent warning in `glmmTMB` is a "non-positive-definite Hessian matrix." This simply means the optimizer cannot mathematically verify it has found a peak. One common cause is a numerical issue resulting from variables living on vastly different mathematical scales.
 :::
 
@@ -210,7 +210,7 @@ fit_scaling <- glmmTMB(
 
 ## Detecting Extreme Scaling
 
-:::{.fsmaller}
+:::{.fs80}
 Look for means/medians or ranges that are on wildly different scales
 :::
 
@@ -219,9 +219,9 @@ trouble |> select(viral_load, dosage_kg) |> summary()
 ```
 
 
-## Addressing Extreme Scaling
+## Addressing Extreme Scaling {.fs90}
 
-::: {.fsmaller}
+::: {.fs80}
 **The Fix:** We need to get the variables on similar scales. It is recommended to *rescale* outcomes (to preserve ICC) and *standardize* predictors. Here, we can divide `viral_load` by 10,000 to get its mean down from \~1M to \~100.
 :::
 
@@ -247,7 +247,7 @@ check_convergence(fit_scaling_fixed)
 
 ## Problem 2: Collinearity
 
-:::{.fsmaller}
+:::{.fs80}
 The Hessian warning can also be triggered when the optimizer gets stuck on a flat likelihood ridge. A second major cause for this is severe collinearity among predictors, which confuses the optimizer because multiple parameter combinations yield the same model fit.
 :::
 
@@ -265,7 +265,7 @@ fit_collin <- glmmTMB(
 
 ## Verifying Collinearity
 
-::: {.fsmaller}
+::: {.fs80}
 We need to remove the redundant information. It is recommended to check Variance Inflation Factors (VIFs) and then drop one of the collinear predictors. Recall that VIFs of 5+ indicate *moderate* and 10+ indicate *high* collinearity.
 :::
 
@@ -296,7 +296,7 @@ check_convergence(fit_collin_fixed)
 
 ## Problem 3: Overparameterization
 
-:::{.fsmaller}
+:::{.fs80}
 A third cause of the Hessian warning is when the optimizer hits a mathematical boundary. However, note that `glmmTMB` will sometimes converge silently despite this issue! This occurs when a variance is estimated near 0 (e.g., e-13) or a correlation between random effects is near +/- 1.00. The problem is that the model is too complex for the data.
 :::
 
@@ -312,7 +312,7 @@ fit_overparam <- glmmTMB(
 
 ## Identifying Overparameterization
 
-::: {.fsmaller}
+::: {.fs80}
 To figure out if overparameterization caused the warning, you must actively inspect your random effect parameters.
 :::
 
@@ -321,13 +321,13 @@ To figure out if overparameterization caused the warning, you must actively insp
 model_parameters(fit_overparam, effects = "random")
 ```
 
-::: {.fsmaller}
+::: {.fs80}
 Notice the "smoking gun" in the output: the random effect correlation is nearly --1 and the random slope standard deviation is essentially zero.
 :::
 
 ## Step 1: Remove Covariances
 
-::: {.fsmaller}
+::: {.fs80}
 We start by simplifying the structure without dropping variables. We force the correlation between the intercept and slope to be zero using `diag()`.
 :::
 
@@ -343,7 +343,7 @@ model_parameters(fit_nocov, effects = "random")
 
 ## The Zero-Correlation Assumption
 
-::: {.fsmaller}
+::: {.fs80}
 Using `diag()` is a significant change to your model. It explicitly assumes that the correlations between your random effects are zero (e.g., $\tau_{01}=0$).
 
 - **Pooling Information:** By allowing $r \neq 0$, the model "pools information" across parameters. Knowing a cluster has a high intercept helps the model estimate its slope. `diag()` places parameters in "silos," preventing the model from "borrowing strength" from these relationships.
@@ -353,7 +353,7 @@ Using `diag()` is a significant change to your model. It explicitly assumes that
 
 ## Step 2: Prune Random Slopes
 
-::: {.fsmaller}
+::: {.fs80}
 In our updated results, the random slope SD was still very close to zero even after setting the RE correlation to zero. The next step may be to drop it (i.e., estimate a fixed slope only, assuming it is the same across all clusters).
 :::
 
@@ -367,20 +367,20 @@ model_parameters(fit_reduced, effects = "random")
 
 ## The Pruning Dilemma
 
-::: {.fsmaller}
+::: {.fs80}
 While we simplify to reach convergence, we must be careful with our tests.
 :::
 
 > **CRITICAL RULE:** Be extremely cautious when dropping the random slope for the specific fixed-effect predictor you are hypothesis testing.
 
-::: {.fsmaller}
+::: {.fs80}
 - **The Risk:** If a true random slope exists but you drop it to force a struggling model to converge, you inflate your Type I error rate. A $p < .05$ in a model with a missing focal random slope is often a false positive.
 - **The Exception:** If the variance is estimated at zero, dropping the slope does not inflate Type I error because the model wasn't using it anyway.
 :::
 
 # Stage 3:<br> Algorithmic Fixes
 
-## Tweak the Algorithm {.fsmaller}
+## Tweak the Algorithm {.fs70}
 
 If your variables are scaled, not perfectly collinear, and your structure is justified, but `glmmTMB` still throws a warning, the algorithm may just need more time or a different search strategy.
 
@@ -409,7 +409,7 @@ fit_algo <- glmmTMB(
 ```
 :::
 
-## Troubleshooting Cheatsheet {.fsmaller}
+## Troubleshooting Cheatsheet {.fs80}
 
 When your model throws a convergence warning (or produces boundary estimates), follow this general order of operations:
 
@@ -423,7 +423,7 @@ When your model throws a convergence warning (or produces boundary estimates), f
 
 # Bayes
 
-## Bayesian Estimation {.fsmaller}
+## Bayesian Estimation {.fs80}
 
 Maximum Likelihood Estimation searches for a single highest peak. When the data lacks information, that peak disappears or becomes impossible to find.
 
@@ -435,7 +435,7 @@ Maximum Likelihood Estimation searches for a single highest peak. When the data 
 - Both use Stan to perform Markov Chain Monte Carlo (MCMC). 
 :::
 
-## MCMC Overview {.fsmaller}
+## MCMC Overview {.fs70}
 
 - **Exploring vs. Climbing:** If MLE is a focused climber racing to find the single highest peak, MCMC is a wanderer exploring the entire mountain range to map its total volume and shape.
 
@@ -463,7 +463,7 @@ bfit <- stan_lmer(
 )
 ```
 
-## Example output of rstanarm {.fsmaller}
+## Example output of rstanarm {.fs70}
 
 ```{r}
 model_parameters(bfit, effects = "all")

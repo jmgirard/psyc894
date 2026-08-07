@@ -119,7 +119,7 @@ p3 <- ggplot() +
 p1 | p2 | p3
 ```
 
-## Which Predictors Can Have Random Slopes? {.fsmaller}
+## Which Predictors Get Random Slopes? {.fs80}
 
 In a two-level model, we can only estimate random slopes for **Level 1 predictors**.
 We cannot estimate random slopes for Level 2 predictors. Why?
@@ -133,7 +133,7 @@ We cannot estimate random slopes for Level 2 predictors. Why?
 
 :::
 
-## The "Constant" Problem for L2 Predictors {.fsmaller}
+## The "Constant" Problem for L2 {.fs70}
 
 Level 2 predictors (like school funding or school type) are measured at the cluster level. 
 
@@ -150,7 +150,7 @@ Level 2 predictors (like school funding or school type) are measured at the clus
 
 :::
 
-## Review: Fixed Slopes for L1 {.fsmaller}
+## Review: Fixed Slopes for L1 {.fs80}
 
 Let's recall our model with a fixed slope of an L1 predictor.
 
@@ -175,7 +175,7 @@ $$
 
 We assumed the slope for $x$ was identical across all clusters.
 
-## Adding a Random Slope {.fsmaller}
+## Adding a Random Slope {.fs80}
 
 Now, we let that slope vary across clusters by adding a Level 2 deviation.
 
@@ -201,7 +201,7 @@ $$
 - $\color{#377eb8}{\gamma_{10}}$ is the **Fixed L1 Slope** (The overall mean slope across all clusters)
 - $\color{#e41a1c}{u_{1j}}$ is the **Random Slope Deviation** (How cluster $j$'s slope differs from $\color{#377eb8}{\gamma_{10}}$)
 
-## Decoding the Gammas {.fsmaller}
+## Decoding the Gammas {.fs80}
 
 1. **The first number** says *which Level 1 parameter* is being predicted.
    * `0` = The Intercept $(\beta_{0j})$
@@ -217,7 +217,7 @@ $$
 
 :::
 
-## Reading the Equations {.fsmaller}
+## Reading the Equations {.fs80}
 
 $$
 y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}}
@@ -236,7 +236,7 @@ $$
 
 :::
 
-## Random Effect Assumptions {.fsmaller}
+## Random Effect Assumptions {.fs80}
 
 - With the random intercepts model, we assumed the random intercept deviations were normally distributed.
 - Once we add in random slopes, we further assume...
@@ -262,7 +262,7 @@ where each variable gets its own $\mu$ and $\sigma$ (as above)<br>
 and also each pair of variables gets a correlation $\rho$
 :::
 
-## Multilevel Equation Part 2 {.fsmaller}
+## Multilevel Equation Part 2 {.fs80}
 
 As we add random effects (e.g., $u_{1j}$), we assume they form a multivariate normal distribution with 0 means and estimated SDs ($\tau_{00}$ and $\tau_{11}$) and correlations ($\tau_{10}$).
 
@@ -283,7 +283,7 @@ $$
 \color{#e41a1c}{\tau_{10}} & \color{#e41a1c}{\tau_{11}}\end{bmatrix}\right)
 $$
 
-## Random Effects Example {.fsmaller}
+## Random Effects Example {.fs80}
 
 $$
 \begin{align}
@@ -307,7 +307,7 @@ This is useful because it represents *any* number of $u$ and $\tau$ terms
 
 ![](../../diagrams/random_slopes.png)
 
-## Mixed (or Reduced) Equation {.fsmaller}
+## Mixed (or Reduced) Equation {.fs80}
 
 $$
 \begin{alignat}{2}
@@ -371,7 +371,7 @@ dat <- read_csv("../../data/heck2011.csv") |>
 glimpse(dat)
 ```
 
-## Fitting the Model {.fsmaller}
+## Fitting the Model {.fs80}
 
 ```{r fit}
 fit <- lmer(
@@ -382,7 +382,7 @@ fit <- lmer(
 model_parameters(fit)
 ```
 
-## Interpreting the Fixed Effects {.fsmaller}
+## Interpreting the Fixed Effects {.fs80}
 
 - The fixed intercept $(\gamma_{00})$ is...
     + The average male student's math score at the average school.
@@ -396,7 +396,7 @@ model_parameters(fit)
     
 :::
 
-## Interpreting the Random Effects 1 {.fsmaller}
+## Interpreting the Random Effects 1 {.fs80}
 
 - The random intercept SD $(\tau_{00})$ is...
     + The spread of the random intercept deviations.
@@ -409,7 +409,7 @@ model_parameters(fit)
     
 :::
 
-## Interpreting the Random Effects 2 {.fsmaller}
+## Interpreting the Random Effects 2 {.fs80}
 
 - The correlation between deviations $(\tau_{10})$ is...
     + The relationship between $u_{0j}$ and $u_{1j}$.
@@ -422,7 +422,7 @@ model_parameters(fit)
     
 :::
 
-## Information Sharing Across Parameters {.fsmaller}
+## Information Sharing {.fs80}
 
 - Partial pooling allows the model to [share information between clusters]{.b .green}
     - Small clusters' estimates are shrunk toward the grand mean
@@ -435,7 +435,7 @@ model_parameters(fit)
 
 :::
 
-## Do We Care About This Correlation? {.fsmaller}
+## Do We Care About This Correlation? {.fs80}
 
 How do applied researchers actually use $\tau_{10}$? It depends on the context.
 
@@ -456,7 +456,7 @@ How do applied researchers actually use $\tau_{10}$? It depends on the context.
 
 :::
 
-## Random Effect Deviations {.fsmaller}
+## Random Effect Deviations {.fs80}
 
 These are called Empirical Bayes (EB) Estimates.
 
@@ -464,7 +464,7 @@ These are called Empirical Bayes (EB) Estimates.
 estimate_grouplevel(fit, type = "random") # u_0j and u_1j
 ```
 
-## Random Effect Predictions {.fsmaller}
+## Random Effect Predictions {.fs80}
 
 These are called Best Linear Unbiased Predictions (BLUPs).
 
@@ -481,7 +481,7 @@ rel <- estimate_relation(fit, by = "female")
 plot(rel)
 ```
 
-## Plotting the Random Effects {.fsmaller}
+## Plotting the Random Effects {.fs80}
 
 Because we estimated a *random intercept* and a *random slope*, our model allows the effect of being female on math scores to vary across schools. <br>Notice how the lines (one per cluster/school) are no longer parallel!
 
@@ -506,7 +506,7 @@ ggplot(dat, aes(x = female, y = math, color = school)) +
   theme(legend.position = "none")
 ```
 
-## Visualizing the Slope Distribution {.fsmaller}
+## Visualizing the Slope Distribution {.fs80}
 
 Sample-based slope distribution (blue)<br>
 Population-level slope estimate (red)
@@ -545,7 +545,7 @@ ggplot() +
   theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
 ```
 
-## The Concept of Shrinkage {.fsmaller}
+## The Concept of Shrinkage {.fs80}
 
 The histogram is narrower than the curve. This is not an error!
 

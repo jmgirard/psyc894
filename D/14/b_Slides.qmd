@@ -59,7 +59,7 @@ options(width = 75)
 
 # The Power Problem
 
-## What is Statistical Power? {.fsmaller}
+## What is Statistical Power? {.fs80}
 
 :::{.columns}
 :::{.column width="60%"}
@@ -73,14 +73,14 @@ options(width = 75)
 :::
 :::
 
-## The Limits of Traditional Tools {.fsmaller}
+## The Limits of Traditional Tools {.fs80}
 
 - Many of you have used programs like G\*Power for simple regressions or ANOVAs.
 - These tools use closed-form mathematical equations to calculate exact sample size needs.
 - **The Problem:** MLMs are too complex for these simple equations.
 - In an MLM, power is not just about the total number of people. It depends on the number of clusters, the number of observations per cluster, the ICC, and the variance of your random slopes.
 
-## The Two Dimensions of N {.fsmaller}
+## The Two Dimensions of N {.fs80}
 
 - If you want to increase your power in an MLM, you have two choices:
   1. Add more Level-1 observations (e.g., recruit more patients per hospital).
@@ -88,7 +88,7 @@ options(width = 75)
 - These two choices do not increase power equally.
 - The most effective strategy depends entirely on the level at which your focal predictor is measured.
 
-## The Simulation Solution {.fsmaller}
+## The Simulation Solution {.fs80}
 
 If we cannot use a simple equation to calculate power, we simulate.
 
@@ -102,14 +102,14 @@ If we cannot use a simple equation to calculate power, we simulate.
 
 # Introduction to simr
 
-## The simr Package {.fsmaller}
+## The simr Package {.fs80}
 
 - \{simr\} is an R package designed specifically to automate power simulations for generalized linear mixed models.
 - It is highly flexible and allows you to test power for fixed effects, random effects, and interactions.
 - **One important note:** `simr` was built to work with the `lme4` package. 
 - While we used `glmmTMB` in previous lectures, we will need to use `lme4` syntax (like `lmer()` and `glmer()`) for our simulations today. The math is identical for our purposes.
 
-## The Workflow Template {.fsmaller}
+## The Workflow Template {.fs80}
 
 We are going to learn a highly adaptable template that you can reuse for your own research. It involves four main steps:
 
@@ -122,7 +122,7 @@ We are going to learn a highly adaptable template that you can reuse for your ow
 
 ## Step 1: Design the Data
 
-:::{.fsmaller}
+:::{.fs80}
 Let us imagine we are planning a cluster-randomized trial. We want to test a new training program for nurses across 30 hospitals. We plan to survey 10 patients per hospital. We start by creating our planned data structure.
 :::
 
@@ -146,7 +146,7 @@ planned_data <-
 
 ## Viewing the Planned Data
 
-:::{.fsmaller}
+:::{.fs80}
 We now have an empty shell of a dataset with 300 rows. It contains our clustering structure and our predictors, but no outcome variable yet.
 :::
 
@@ -156,7 +156,7 @@ planned_data
 
 ## Step 2: Set the Fixed Effects
 
-:::{.fsmaller}
+:::{.fs80}
 Next, we tell `simr` what we believe the "true" effect sizes are. These are our Betas (fixed effects). 
 We need a value for the Intercept and a value for our `treatment` slope. 
 :::
@@ -167,13 +167,13 @@ We need a value for the Intercept and a value for our `treatment` slope.
 my_fixed_effects <- c(5.0, 0.8) 
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 *Tip: Where do these numbers come from? You should pull them from pilot data, previous literature, or by defining the smallest effect size of clinical interest.*
 :::
 
 ## Step 3: Set the Random Effects
 
-:::{.fsmaller}
+:::{.fs80}
 - Now we define our variance components. How much do the hospital baselines differ from one another?
 We provide the variance for our random intercepts.
 :::
@@ -184,7 +184,7 @@ my_random_variance <- 0.5
 ```
 
 :::{.fragment .mt4}
-:::{.fsmaller}
+:::{.fs80}
 - Finally, we must define the Level-1 residual variance. How much do patients within the same hospital differ from one another?
 :::
 
@@ -193,14 +193,14 @@ my_random_variance <- 0.5
 my_residual_variance <- 2.0 
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 *(Note: An intercept variance of 0.5 and a residual variance of 2.0 gives us an ICC of 0.20, which is very typical for organizational data).*
 :::
 :::
 
 ## Step 4: Assemble the Model
 
-:::{.fsmaller}
+:::{.fs80}
 We now use the `makeLmer()` function from \{simr\} to smash all these pieces together. We provide a model formula, our fixed effects, our random effects, and our residual variance.
 :::
 
@@ -216,9 +216,9 @@ dummy_model <- makeLmer(
 
 # Running the Simulation
 
-## A Single Power Test
+## A Single Power Test {.fs90}
 
-:::{.fsmaller}
+:::{.fs80}
 Now we ask the critical question: With 30 hospitals and 10 patients per hospital, do we have enough power to detect our 0.8 point treatment effect?
 :::
 
@@ -232,7 +232,7 @@ sim_result <- powerSim(dummy_model, test = fixed("treatment"),
 print(sim_result)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 - The result is 71.3% power, 95% CI: (68.4, 74.1). We are underpowered!
 :::
 
@@ -247,7 +247,7 @@ Instead of guessing and re-running the simulation manually, \{simr\} allows us t
 
 ## Step 5: Extending L2 (Hospitals)
 
-:::{.fsmaller}
+:::{.fs80}
 Let us first see what happens if we increase our study to 40 hospitals. We use the `extend()` function to add more hospitals.
 :::
 
@@ -256,13 +256,13 @@ Let us first see what happens if we increase our study to 40 hospitals. We use t
 extended_model_l2 <- extend(dummy_model, along = "hospital", n = 42)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 This automatically generates new hospital IDs and populates them with the correct ratio of patients and treatments, maintaining our data structure.
 :::
 
 ## Step 6: The L2 Power Curve
 
-:::{.fsmaller}
+:::{.fs80}
 Now we use `powerCurve()` to test a sequence of hospital sample sizes.
 
 Let us test power at 30, 34, 38, 42 hospitals.
@@ -303,7 +303,7 @@ curve_result_l2 <- powerCurve(
 print(curve_result_l2)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 We can now see exactly when we cross the 80% threshold. 
 
 We need at least 42 hospitals to do so (at 10 patients each).
@@ -317,7 +317,7 @@ plot(curve_result_l2)
 
 ## Step 7: Extending L1 (Patients)
 
-:::{.fsmaller}
+:::{.fs80}
 What if we cannot recruit more hospitals? Let us see what happens if we keep our study at 30 hospitals, but try to recruit more patients per hospital instead.
 
 We use `extend()` again, but we change the `along` argument to target our Level-1 ID.
@@ -330,7 +330,7 @@ extended_model_l1 <- extend(dummy_model, along = "patient", n = 20)
 
 ## Step 8: The L1 Power Curve
 
-:::{.fsmaller}
+:::{.fs80}
 We test this new extended model across a sequence of patient sample sizes. Let us test power at 10, 15, and 20 patients per hospital.
 :::
 
@@ -368,7 +368,7 @@ curve_result_l1 <- powerCurve(
 print(curve_result_l1)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 Notice the diminishing returns. Even with 20 patients per hospital, our power is only about 78%. At 30 hospitals, we never reach 80%.
 :::
 
@@ -378,7 +378,7 @@ Notice the diminishing returns. Even with 20 patients per hospital, our power is
 plot(curve_result_l1)
 ```
 
-## The Lesson: Match the Level {.fsmaller}
+## The Lesson: Match the Level {.fs80}
 
 Why did adding hospitals work, but adding patients failed? 
 
@@ -389,7 +389,7 @@ Why did adding hospitals work, but adding patients failed?
 
 # Sensitivity Analysis
 
-## Beyond Sample Size {.fsmaller}
+## Beyond Sample Size {.fs80}
 
 - We have spent all our time manipulating sample size ($N$) to reach 80% power.
 - However, power is equally dependent on the **effect size**.
@@ -399,7 +399,7 @@ Why did adding hospitals work, but adding patients failed?
 
 ## Modifying the Dummy Model
 
-:::{.fsmaller}
+:::{.fs80}
 We do not have to rebuild our entire dataset and model from scratch. We can modify the fixed effects of our existing `dummy_model` directly using the `fixef()` function.
 :::
 
@@ -410,7 +410,7 @@ fixef(dummy_model)["treatment"] <- 0.5
 
 ## Re-Testing Power
 
-:::{.fsmaller}
+:::{.fs80}
 Now we can re-run our power simulation on the modified model. Let us see what happens to our power (at 30 hospitals and 10 patients) when the effect size shrinks.
 :::
 
@@ -435,7 +435,7 @@ sens_result <- powerSim(dummy_model, test = fixed("treatment"),
 print(sens_result)
 ```
 
-## The Value of Sensitivity {.fsmaller}
+## The Value of Sensitivity {.fs80}
 
 - By dropping the effect size from 0.8 to 0.5, our power plummeted from 71% to roughly 35%.
 - **The Takeaway:** When writing a grant or a pre-registration, it is highly recommended to report power across a *range* of plausible effect sizes. 
@@ -443,14 +443,14 @@ print(sens_result)
 
 # Practical Tips
 
-## Start Small {.fsmaller}
+## Start Small {.fs80}
 
 - Power simulations are computationally heavy.
 - When you are writing your code and testing to see if things work, keep `nsim` low (e.g., 10 or 50).
 - Once you are sure your code is error-free and your model is specified correctly, increase `nsim` to 1000 for your final, official power estimate.
 - Run the 1000-simulation version before you go to bed and let your computer work overnight.
 
-## Where to get the parameters? {.fsmaller}
+## Where to get the parameters? {.fs80}
 
 The hardest part of simulation is knowing what numbers to plug in.
 
@@ -458,14 +458,14 @@ The hardest part of simulation is knowing what numbers to plug in.
 - **Literature Review:** Find a similar study and extract their effect sizes, variances, and ICCs.
 - **The "Smallest Meaningful" Approach:** If no data exists, ask yourself: "What is the smallest effect size that would actually matter in the real world?" Power your study to detect that.
 
-## Be Pessimistic {.fsmaller}
+## Be Pessimistic {.fs80}
 
 - Simulations assume perfect conditions: perfect reliability, no missing data, and perfect compliance.
 - The real world is messy.
 - If your simulation says you need 25 clusters to achieve 80% power, you should aim to recruit 28 to 30 clusters. 
 - Always build a buffer into your sample size justifications to account for attrition and messy data.
 
-## Handling Unbalanced Data {.fsmaller}
+## Handling Unbalanced Data {.fs80}
 
 - In our example, we used `expand_grid()` to create a perfectly balanced design (exactly 10 patients per hospital).
 - Real-world data is rarely this clean. You might have 5 patients in one hospital and 40 in another.

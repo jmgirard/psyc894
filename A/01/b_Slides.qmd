@@ -41,7 +41,7 @@ Course Overview and Workflow Recap
 
 # Syllabus Review
 
-## Instructor Information {.smaller}
+## Instructor Information {.fs70}
 
 ::: {.columns}
 ::: {.column width="30%"}
@@ -83,7 +83,7 @@ Office Hours: T 3-4pm, F 12-1pm (odd weeks) or 1-2pm (even weeks)
 :::
 
 
-## Learning Outcomes {.smaller}
+## Learning Outcomes {.fs70}
 
 1. Learn fundamental concepts underlying multilevel modeling
 
@@ -126,7 +126,7 @@ Office Hours: T 3-4pm, F 12-1pm (odd weeks) or 1-2pm (even weeks)
 :::
 
 
-## Course Materials {.smaller}
+## Course Materials {.fs70}
 
 #### Textbooks
 - **Introduction to Multilevel Modeling** \[S\&F\]\*<br />
@@ -144,7 +144,7 @@ Office Hours: T 3-4pm, F 12-1pm (odd weeks) or 1-2pm (even weeks)
 - Utilities and Visualization: [easystats](https://easystats.github.io/easystats)\*, [ggeffects](https://strengejacke.github.io/ggeffects/)\*
   
 
-## Grading Policies {.smaller}
+## Grading Policies {.fs70}
 
 #### Graded Components
 
@@ -163,7 +163,7 @@ Office Hours: T 3-4pm, F 12-1pm (odd weeks) or 1-2pm (even weeks)
 
 I don't round or curve grades, but will give points back if a question was poorly designed.
 
-## Course Policies {.smaller}
+## Course Policies {.fs70}
 #### Attendance
 - In-person attendance is [strongly encouraged]{.b .green} but not required
 
@@ -240,7 +240,7 @@ I don't round or curve grades, but will give points back if a question was poorl
 
 # Workflow Recap
 
-## The R Ecosystem {.smaller}
+## The R Ecosystem {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -268,7 +268,7 @@ I don't round or curve grades, but will give points back if a question was poorl
 :::
 :::
 
-## Communicating with R {.smaller}
+## Communicating with R {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -297,7 +297,7 @@ I don't round or curve grades, but will give points back if a question was poorl
 
 # Projects
 
-## File Management {.smaller}
+## File Management {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -328,7 +328,7 @@ I don't round or curve grades, but will give points back if a question was poorl
 :::
 
 
-## Create a new Project {.fsmaller}
+## Create a new Project {.fs80}
 
 - Open the "File" menu in RStudio
 - Select the "New Project..." option
@@ -337,7 +337,7 @@ I don't round or curve grades, but will give points back if a question was poorl
 - Name the directory "PSYC 894" or "MLM" (or whatever)
 - Browse to where to create your Project folder
 
-## Create a new File {.fsmaller}
+## Create a new File {.fs80}
 
 - Explore the Files tab in the Extras pane
 - Create a New File (e.g., a script) as an example
@@ -347,7 +347,7 @@ I don't round or curve grades, but will give points back if a question was poorl
 - Close the script with the "x" icon
 - Reopen the script from the Files tab
 
-## Close and Open Projects {.fsmaller}
+## Close and Open Projects {.fs80}
 
 - Open the "File" menu in RStudio
 - Select the "Close Project" option
@@ -358,7 +358,7 @@ I don't round or curve grades, but will give points back if a question was poorl
 - Open the .Rproj file (e.g., PSYC 399.Rproj)
 - Notice that your work is now back!
 
-## Quarto {.smaller}
+## Quarto {.fs70}
 
 ::: {.columns .pv4}
 ::: {.column width="60%"}
@@ -382,7 +382,7 @@ I don't round or curve grades, but will give points back if a question was poorl
 :::
 :::
 
-## Create an Quarto Document {.smaller}
+## Create an Quarto Document {.fs70}
   - Open the "File" menu in RStudio
   - Select the "New File" option
   - Select the "Quarto Document..." option
@@ -393,7 +393,7 @@ I don't round or curve grades, but will give points back if a question was poorl
   - Give it a name like "Lecture 02c" (or whatever)
   - Note that the file extension is .qmd
 
-## Render the boilerplate content {.smaller}
+## Render the boilerplate content {.fs70}
   - To see how it works, read the boilerplate content
   - Now click the "Render" button to create the output file
   - A preview of the output will appear in the Viewer tab
@@ -401,19 +401,19 @@ I don't round or curve grades, but will give points back if a question was poorl
   - We can share this .html file with others
   - It includes all the formatted text, code, and R results
 
-## Remove the boilerplate content {.smaller}
+## Remove the boilerplate content {.fs70}
   - The top part of the document is called the "Header"
   - You can change the title but keep it in quotes
   - Highlight and delete everything below the header
   - In the future, you can click "Create Empty Document"
   - Add `embed-resources: true` to the Header for assignments!
     
-## Add an R Chunk {.smaller}
+## Add an R Chunk {.fs70}
   - Option 1: Click the green box with C and a plus sign icon (top-right)
   - Option 2: Ctrl+Alt+I (Win) or Cmd+Option+I (Mac)
   - Option 3: Type out \`\`\`\{r\} then new line and \`\`\` yourself
     
-## Adding code to the chunk {.smaller}
+## Adding code to the chunk {.fs70}
   - Anything you put inside the "fences" (i.e., \`\`\`) will be treated as R code
   - The chunk operates like a mini console
   - Try doing some calculations in the chunk and hit the green arrow
@@ -445,7 +445,7 @@ I don't round or curve grades, but will give points back if a question was poorl
 :::
 :::
 
-## Formatting {.fsmaller}
+## Formatting {.fs80}
 
 +-----------------------------------------+-----------------------------------------+
 | Markdown                                | Output                                  |
@@ -467,7 +467,7 @@ I don't round or curve grades, but will give points back if a question was poorl
 | ```                                     |                                         |
 +-----------------------------------------+-----------------------------------------+
 
-## Headings {.fsmaller}
+## Headings {.fs80}
 
 +------------------+-----------------------------------+
 | Markdown         | Output                            |
@@ -505,7 +505,7 @@ I don't round or curve grades, but will give points back if a question was poorl
 ```
 
 
-## R Refresher {.smaller}
+## R Refresher {.fs70}
 1. Mathematical Operations: `+ - * / ^ ( )`
 1. Assignment and Naming: `<-`
 1. Storing Text in Strings: `"text data"`

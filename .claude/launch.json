@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "psyc894-site",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4201", "--directory", "_site"],
+      "port": 4201
+    }
+  ]
+}

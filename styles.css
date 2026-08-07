@@ -192,8 +192,186 @@ iframe.slide-deck {
 .dark-blue { color: #00449E; }
 .blue { color: #357EDD; }
 
-.f3 { font-size: 20px !important; }
-.fsmaller { font-size: 80%; }
+/* ==========================================================================
+   FONT-SIZE SCALE
+   --------------------------------------------------------------------------
+   One system, replacing the four that used to coexist here (Quarto's built-in
+   `.smaller`, a percentage `.fsmaller`/`.f90` pair, and an absolute-pixel
+   `.f3`-`.f6` set carried over from the archive stylesheets).
+
+   Each stop is a fraction of the 40px revealjs root, written in `em`:
+
+     .fs90   0.9em   36px
+     .fs80   0.8em   32px
+     .fs70   0.7em   28px    <- same ratio as Quarto's built-in `.smaller`
+     .fs60   0.6em   24px
+     .fs50   0.5em   20px
+
+   Two things the old `.f3`-`.f6` set got wrong, both fixed by using `em`:
+
+   1. They were absolute px, so they did not compose. A `.f5` inside a
+      `.smaller` slide rendered at a flat 30px, ignoring the 0.7 reduction it
+      was nested in.
+   2. They carried `!important`, so they beat anything they were nested in
+      even when that was not the intent. Nothing here needs `!important`;
+      the `.reveal .slides section.*` selectors below are already more
+      specific than the theme rules they override.
+
+   HEADINGS. When a stop is applied to a slide (`## Title {.fs70}`) the body
+   text shrinks but the heading does not: the calc() rules cancel the
+   reduction exactly, which is the trick Quarto's `.smaller` uses. That keeps
+   every normal slide's title the same size regardless of how much its body
+   had to be squeezed -- before this, titles rendered at 48px, 57.6px or 64px
+   depending on which class the slide happened to carry.
+
+   The heading ems (h1 2.5, h2 1.6, h3 1.3) come from --r-heading{1,2,3}-size
+   in the compiled reveal theme. h4 is 1em -- the same as body text -- and
+   Quarto deliberately leaves it scaled, so it is left scaled here too.
+
+   Applied to anything that is not a slide (a div, a span, a table cell) a
+   stop is just a plain relative shrink with no heading to cancel.
+   ========================================================================== */
+
+/* 0.9 = 36px  (legacy: .f6, .f90, .f36) */
+.fs90, .f6, .f90, .f36 {
+  font-size: 0.9em;
+}
+.reveal .slides section.fs90, .reveal .slides section.f6, .reveal .slides section.f90, .reveal .slides section.f36 {
+  font-size: 0.9em;
+}
+.reveal .slides section.fs90 section, .reveal .slides section.f6 section, .reveal .slides section.f90 section, .reveal .slides section.f36 section {
+  font-size: inherit;
+}
+.reveal .slides section.fs90 h1, .reveal .slides section.f6 h1, .reveal .slides section.f90 h1, .reveal .slides section.f36 h1 {
+  font-size: calc(2.5em / 0.9);
+}
+.reveal .slides section.fs90 h2, .reveal .slides section.f6 h2, .reveal .slides section.f90 h2, .reveal .slides section.f36 h2 {
+  font-size: calc(1.6em / 0.9);
+}
+.reveal .slides section.fs90 h3, .reveal .slides section.f6 h3, .reveal .slides section.f90 h3, .reveal .slides section.f36 h3 {
+  font-size: calc(1.3em / 0.9);
+}
+
+/* 0.8 = 32px  (legacy: .fsmaller) */
+.fs80, .fsmaller {
+  font-size: 0.8em;
+}
+.reveal .slides section.fs80, .reveal .slides section.fsmaller {
+  font-size: 0.8em;
+}
+.reveal .slides section.fs80 section, .reveal .slides section.fsmaller section {
+  font-size: inherit;
+}
+.reveal .slides section.fs80 h1, .reveal .slides section.fsmaller h1 {
+  font-size: calc(2.5em / 0.8);
+}
+.reveal .slides section.fs80 h2, .reveal .slides section.fsmaller h2 {
+  font-size: calc(1.6em / 0.8);
+}
+.reveal .slides section.fs80 h3, .reveal .slides section.fsmaller h3 {
+  font-size: calc(1.3em / 0.8);
+}
+
+/* 0.7 = 28px  (legacy: .f5) */
+.fs70, .f5 {
+  font-size: 0.7em;
+}
+.reveal .slides section.fs70, .reveal .slides section.f5 {
+  font-size: 0.7em;
+}
+.reveal .slides section.fs70 section, .reveal .slides section.f5 section {
+  font-size: inherit;
+}
+.reveal .slides section.fs70 h1, .reveal .slides section.f5 h1 {
+  font-size: calc(2.5em / 0.7);
+}
+.reveal .slides section.fs70 h2, .reveal .slides section.f5 h2 {
+  font-size: calc(1.6em / 0.7);
+}
+.reveal .slides section.fs70 h3, .reveal .slides section.f5 h3 {
+  font-size: calc(1.3em / 0.7);
+}
+
+/* 0.6 = 24px  (legacy: .f4) */
+.fs60, .f4 {
+  font-size: 0.6em;
+}
+.reveal .slides section.fs60, .reveal .slides section.f4 {
+  font-size: 0.6em;
+}
+.reveal .slides section.fs60 section, .reveal .slides section.f4 section {
+  font-size: inherit;
+}
+.reveal .slides section.fs60 h1, .reveal .slides section.f4 h1 {
+  font-size: calc(2.5em / 0.6);
+}
+.reveal .slides section.fs60 h2, .reveal .slides section.f4 h2 {
+  font-size: calc(1.6em / 0.6);
+}
+.reveal .slides section.fs60 h3, .reveal .slides section.f4 h3 {
+  font-size: calc(1.3em / 0.6);
+}
+
+/* 0.5 = 20px  (legacy: .f3) */
+.fs50, .f3 {
+  font-size: 0.5em;
+}
+.reveal .slides section.fs50, .reveal .slides section.f3 {
+  font-size: 0.5em;
+}
+.reveal .slides section.fs50 section, .reveal .slides section.f3 section {
+  font-size: inherit;
+}
+.reveal .slides section.fs50 h1, .reveal .slides section.f3 h1 {
+  font-size: calc(2.5em / 0.5);
+}
+.reveal .slides section.fs50 h2, .reveal .slides section.f3 h2 {
+  font-size: calc(1.6em / 0.5);
+}
+.reveal .slides section.fs50 h3, .reveal .slides section.f3 h3 {
+  font-size: calc(1.3em / 0.5);
+}
+
+/* The legacy names above (.f3-.f6, .f90, .f36, .fsmaller) are aliases, not
+   separate stops -- every call site in psyc790, psyc894 and data2 now uses
+   .fs*. They are kept deliberately so that an un-migrated directive renders at
+   the right size instead of becoming a silent no-op. That failure mode is not
+   hypothetical: 132 dead .f4/.f5/.f6/.f90 directives went unnoticed in psyc790
+   and caused a 55-slide overflow regression (psyc790/SLIDE-OVERFLOW.md).
+
+   This block is the one part of styles.css that is intentionally byte-identical
+   across all three course repos. The rest is NOT interchangeable -- the h2/h4
+   margins and sourceCode padding differ on purpose, because psyc790's decks are
+   much denser than data2's. Do not sync the whole file between repos. */
+
+/* ==========================================================================
+   FIGURE FIT
+   --------------------------------------------------------------------------
+   `.figfit` caps how tall a slide's figures may be. It is the companion lever
+   to the font-size scale above, for slides whose height is dominated by an
+   image rather than by text.
+
+   Font stops do not help those slides. Measured examples: data2's "Aesthetic
+   Mappings" is a 439px-tall PNG on a 700px canvas, and dropping it two whole
+   stops (.fs80 -> .fs60) recovered only 7px, because almost nothing on the
+   slide is text. Capping the figure recovers 59px in one move.
+
+   Reveal lays every slide out on a fixed 960x700 canvas and then scales the
+   whole deck to the window, so a px cap here is deterministic -- 380px always
+   means the same fraction of the slide, on any screen.
+
+   Width follows from `width: auto`, so aspect ratio is preserved and the
+   figure simply gets smaller rather than squashed. Applies to both static
+   images and figures generated by R chunks, which is why it is a slide-level
+   class rather than a per-image attribute -- a chunk figure has no markdown
+   image to annotate.
+   ========================================================================== */
+.reveal .slides section.figfit img {
+  max-height: 380px;
+  width: auto;
+  height: auto;
+}
+
 
 .reveal .slide-number {
   position: absolute;

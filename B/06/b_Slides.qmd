@@ -54,7 +54,7 @@ set_theme(theme_gray(base_size = 20))
 
 # Fixed Slopes for L2
 
-## L2 Predictors {.fsmaller}
+## L2 Predictors {.fs80}
 
 - Random intercepts partition the $y$ variance by level
     + By adding predictor variables to MLMs, we can<br>try to explain/predict those variance partitions
@@ -70,7 +70,7 @@ set_theme(theme_gray(base_size = 20))
 - **Crucial Concept:** Because $z$ is measured at the cluster level, it has no variance *within* a cluster. Therefore, it has a single, fixed effect across the entire population.
 :::
 
-## Review: The Null Model {.fsmaller}
+## Review: The Null Model {.fs80}
 
 Before we add complexity, let's recall our baseline null model.
 
@@ -94,7 +94,7 @@ $$
 \color{#e41a1c}{u_{0j}} \sim \text{Normal}(0, \color{#e41a1c}{\tau_{00}})
 $$
 
-## Adding a Level 2 Predictor {.fsmaller}
+## Adding a Level 2 Predictor {.fs80}
 
 :::{.tc .b}
 Level One (Observation)
@@ -121,7 +121,7 @@ $$
 
 - Notice that $z_j$ is in the L2 equation and predicts the cluster average $(\beta_{0j})$
 
-## Decoding the Gammas {.fsmaller}
+## Decoding the Gammas {.fs70}
 
 Why $\gamma_{00}$ and $\gamma_{01}$? The subscripts follow a specific rule:
 
@@ -142,7 +142,7 @@ Why $\gamma_{00}$ and $\gamma_{01}$? The subscripts follow a specific rule:
 
 ## Reading the Level 2 Equation
 
-::: {.fsmaller}
+::: {.fs80}
 $$
 \beta_{0j} = \color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{01}} z_j + \color{#e41a1c}{u_{0j}},
 \qquad
@@ -173,7 +173,7 @@ $$
 
 ![](../../diagrams/fixed_slopes_L2.png)
 
-## Mixed (or Reduced) Equation {.fsmaller}
+## Mixed (or Reduced) Equation {.fs80}
 
 $$
 \begin{alignat}{2}
@@ -239,7 +239,7 @@ dat <-
 glimpse(dat)
 ```
 
-## Fitting the Model {.fsmaller}
+## Fitting the Model {.fs80}
 
 ```{r}
 fit <- lmer(
@@ -250,7 +250,7 @@ fit <- lmer(
 model_parameters(fit)
 ```
 
-## Interpreting the Fixed Effects {.fsmaller}
+## Interpreting the Fixed Effects {.fs80}
 
 - The fixed intercept $(\color{#377eb8}{\gamma_{00}})$ is the **Conditional Base Rate**
     + The expected average math score when our predictor equals zero.
@@ -262,7 +262,7 @@ model_parameters(fit)
     + **Significance:** Because $p > .05$, this difference is not statistically significant. We lack evidence to say public and private schools differ in their population averages.
 :::
 
-## Interpreting the Random Effects {.fsmaller}
+## Interpreting the Random Effects {.fs80}
 
 - The random intercept SD $(\color{#e41a1c}{\tau_{00}})$ is the **Conditional Between-Cluster Spread**
     + The spread of average math scores *between* schools (specifically, the spread of the **intercepts**).
@@ -274,7 +274,7 @@ model_parameters(fit)
     + This represents how much individual students deviate from their school's conditional average.
 :::
 
-## Deriving More Information  {.fsmaller}
+## Deriving More Information  {.fs80}
 
 We can extract the residuals and group-level estimates from our fitted model
 
@@ -291,7 +291,7 @@ head(u)
 
 ## The Conditional ICC 
 
-:::{.fsmaller}
+:::{.fs80}
 - The **Unconditional ICC** (from the null model) tells us the proportion of *total* variance situated between clusters. Usually this is what you want to report.
 - The **Conditional ICC** (from this model) tells us the proportion of *remaining* variance situated between clusters, after accounting for our predictors.
 :::
@@ -306,7 +306,7 @@ icc(fit, ci = 0.95)
 Adding predictors changes the variance components! If we add a strong L2 predictor, the L2 variance drops, and the conditional ICC shrinks. This can be misleading!
 :::
 
-## Which ICC Should You Report? {.fsmaller}
+## Which ICC Should You Report? {.fs80}
 
 If you are only going to report one, report the [Unconditional ICC]{.b .blue}.
 
@@ -330,7 +330,7 @@ rel <- estimate_relation(fit, by = "public")
 plot(rel)
 ```
 
-## Why not just a t-test? {.fsmaller}
+## Why not just a t-test? {.fs70}
 
 Looking at that plot, you might wonder: *Couldn't we just run a simple t-test comparing math scores of public vs. private school students?*
 
@@ -346,7 +346,7 @@ compare_parameters(fit0, fit, select = "se")
 
 # Fixed Slopes for L1
 
-## L1 Predictors {.fsmaller}
+## L1 Predictors {.fs80}
 
 - Just like L2 predictors explain variance between clusters, L1 predictors try to explain variance *within* clusters.
 - For now, we are focusing on adding a **fixed slope** at Level 1.
@@ -356,7 +356,7 @@ compare_parameters(fit0, fit, select = "se")
     + *Pragmatically:* As a baseline model-building step before testing random slopes, or when a random slopes model fails to converge.
     + e.g., *Does a student's sex predict their math score, assuming this relationship is identical at every school?*
 
-## Adding a Level 1 Predictor {.fsmaller}
+## Adding a Level 1 Predictor {.fs80}
 
 Let $x_{ij}$ be the value of L1 predictor $x$ for observation $i$ in cluster $j$.
 
@@ -387,7 +387,7 @@ $$
 - $\beta_{1j}$ is the **L1 Slope** for predictor $x$ in cluster $j$
 - $\color{#377eb8}{\gamma_{10}}$ is the **Fixed L1 Slope** (The overall main effect of $x$)
 
-## Decoding the Gammas {.fsmaller}
+## Decoding the Gammas {.fs70}
 
 Let's use our rule again for the new fixed effect:
 
@@ -403,7 +403,7 @@ Let's use our rule again for the new fixed effect:
 * $\gamma_{10}$ is the baseline effect of our Level 1 predictor.
 :::
 
-## Reading the Equations {.fsmaller}
+## Reading the Equations {.fs80}
 
 $$
 y_{ij} = \beta_{0j} + \beta_{1j} x_{ij} + \color{#4daf4a}{e_{ij}},
@@ -445,7 +445,7 @@ $$
 
 ![](../../diagrams/fixed_slopes_L1.png)
 
-## Mixed (or Reduced) Equation {.fsmaller}
+## Mixed (or Reduced) Equation {.fs80}
 
 $$
 \begin{alignat}{2}
@@ -492,7 +492,7 @@ for and the rest is the same as the null model
 :::
 :::
 
-## Fitting the Model {.fsmaller}
+## Fitting the Model {.fs80}
 
 ```{r}
 #| echo: true
@@ -505,7 +505,7 @@ fit <- lmer(
 model_parameters(fit)
 ```
 
-## Interpreting the Fixed Effects {.fsmaller}
+## Interpreting the Fixed Effects {.fs80}
 
 - The fixed intercept $(\color{#377eb8}{\gamma_{00}})$ 
     + The expected math score for a male student (female = 0) in a typical school.
@@ -517,7 +517,7 @@ model_parameters(fit)
 :::
 
 
-## Interpreting the Random Effects {.fsmaller}
+## Interpreting the Random Effects {.fs80}
 
 - The random intercept SD $(\color{#e41a1c}{\tau_{00}})$ is the **Conditional Between-Cluster Spread**
     + The spread of average math scores *between* schools (specifically, the spread of the **intercepts**).
@@ -529,7 +529,7 @@ model_parameters(fit)
     + This represents how much individual students deviate from their expected score after accounting for their gender.
 :::
 
-## Deriving More Information {.fsmaller}
+## Deriving More Information {.fs80}
 
 We can extract the individual residuals and cluster deviations as before.
 ```{r}
@@ -552,7 +552,7 @@ rel <- estimate_relation(fit, by = "female")
 plot(rel)
 ```
 
-## Visualizing a Fixed Slope {.fsmaller}
+## Visualizing a Fixed Slope {.fs80}
 
 Because we only estimated a *random intercept* and a *fixed slope*, our model assumes the effect of being female on math scores is identical across all schools. Notice how the lines (one per cluster/school) are parallel!
 
@@ -576,7 +576,7 @@ ggplot(dat, aes(x = factor(female), y = math, color = school)) +
   theme(legend.position = "none")
 ```
 
-## Putting It All Together {.fsmaller}
+## Putting It All Together {.fs70}
 
 In practice, applied researchers usually include both L1 and L2 predictors in the same model. We can combine our previous equations into one full model.
 $$
@@ -600,7 +600,7 @@ $$
 
 ![](../../diagrams/fixed_slopes_L1L2.png)
 
-## Fitting the Combined Model {.fsmaller}
+## Fitting the Combined Model {.fs80}
 
 ```{r}
 #| echo: true
@@ -613,7 +613,7 @@ fit_combined <- lmer(
 model_parameters(fit_combined)
 ```
 
-## Interpreting the Combined Model {.fsmaller}
+## Interpreting the Combined Model {.fs70}
 
 - **The Fixed Effects (Gammas)**
     + The intercept is now the expected math score for a male student in a private school.

@@ -119,7 +119,7 @@ p_fluct + p_growth
 
 ## Modeling the Trajectory
 
-:::{.fsmaller}
+:::{.fs80}
 - In Week 11, we treated the baseline as stable. We were most interested in the observation-specific fluctuations around that baseline.
 - Moving forward with longitudinal change models, we are now most interested in the **shape of change** over the entire assessment period.
 - We want to know the *starting point*, the overall *trajectory*, and the overall *shape* (e.g., linear, quadratic, or logarithmic). 
@@ -129,7 +129,7 @@ p_fluct + p_growth
 
 ## Centering Time
 
-:::{.fsmaller}
+:::{.fs80}
 - The **intercept** represents the expected outcome when all predictors equal zero. Therefore, we need to be mindful about what zero represents for *time*.
 - *If we study grades 9 through 12, then using the numbers `9` to `12` will result in an intercept corresponding to grade 0, which isn't very meaningful here.*
 
@@ -141,7 +141,7 @@ p_fluct + p_growth
 
 ## Scaling Time
 
-:::{.fsmaller}
+:::{.fs80}
 - The **slope** of a predictor represents the expected change in the outcome for a 1-unit increase in that predictor. Therefore, we need to be mindful about what a 1-unit increase actually represents for *time*.
 - *If a 10-year study records time in days (from `0` to `3650`), the slope will represent daily growth. This coefficient might be uninterpretable or confusingly small (e.g., a gain of 0.002).*
 
@@ -162,13 +162,13 @@ vocab_raw <- read_csv("../../data/vocab_sim.csv")
 glimpse(vocab_raw)
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 Each of 150 subjects was assessed for vocabulary size annually. Notice that our time variable is `age_months`, starting at 120 months (10 years old). 
 :::
 
 ## Preparing the Time Variable
 
-:::{.fsmaller}
+:::{.fs80}
 If we use `age_months` as our predictor, our intercept will represent vocabulary at an age of 0 months, and our slope will represent month-to-month growth. We need to fix this!
 :::
 
@@ -198,11 +198,11 @@ $$\begin{align}
 \beta_{1i} &= \color{#377eb8}{\gamma_{10}} + \color{#e41a1c}{u_{1i}}
 \end{align}$$
 
-:::{.fsmaller .mt4}
+:::{.fs80 .mt4}
 Notice that time is the only predictor in the model. We are just defining the average starting point ($\color{#377eb8}{\gamma_{00}}$) and the average rate of linear change ($\color{#377eb8}{\gamma_{10}}$), along with how much different people vary around those averages.
 :::
 
-## Multilevel Equation Part 2 {.fsmaller}
+## Multilevel Equation Part 2 {.fs80}
 
 :::{.tc .b}
 Level One (Observation)
@@ -233,7 +233,7 @@ $$
 
 ## Formula
 
-:::{.fsmaller}
+:::{.fs80}
 $$y_{ti} = \underbrace{\color{#377eb8}{\gamma_{00}} + \color{#377eb8}{\gamma_{10}} T_{ti}}_{\text{Fixed}} + \underbrace{\color{#e41a1c}{u_{0i}} + \color{#e41a1c}{u_{1i}} T_{ti}}_{\text{(Random)}} + \color{#4daf4a}{e_{ti}}$$
 
 **Generic**
@@ -268,7 +268,7 @@ fit_linear <- glmmTMB(
 model_parameters(fit_linear, effects = "fixed")
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 - `(Intercept)` ($\gamma_{00}$): The average expected vocabulary score at Baseline.
 - `time` ($\gamma_{10}$): The average expected annual change in vocabulary score.
 :::
@@ -280,7 +280,7 @@ model_parameters(fit_linear, effects = "fixed")
 model_parameters(fit_linear, effects = "random")
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 - `SD (Intercept)` ($\tau_{00}$): The variation in starting scores among subjects.
 - `SD (time)` ($\tau_{11}$): The variation in the rate of linear growth among subjects.
 - `Cor (Intercept~time)` ($\tau_{10}$): A negative correlation suggests that those who start lower tend to grow faster.
@@ -302,7 +302,7 @@ estimate_relation(fit_linear, by = c("time", "subject=[sample 6]")) |> plot()
 
 ## Linear Slopes
 
-:::{.fsmaller}
+:::{.fs80}
 In a linear model, the growth rate stays constant over time. Here, vocab growth is always 8.06 per year with no acceleration or deceleration possible.
 :::
 
@@ -315,7 +315,7 @@ estimate_slopes(fit_linear, trend = "time", by = "time")
 
 ## Beyond Linear Growth
 
-:::{.fsmaller}
+:::{.fs80}
 - Linear models assume a constant rate of change. They force a straight line through the data.
 - However, human behavior, learning, and biological processes rarely grow at exactly the same speed forever.
 - To allow our trajectories to bend and take on nonlinear shapes, we simply apply **mathematical transformations** to our time variable.
@@ -385,7 +385,7 @@ p_exp <- ggplot(sim_shapes, aes(x = time)) +
 p_quad + p_log + p_exp
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 - **Quadratic:** acceleration, deceleration, or reversal (e.g., marital satisfaction)
 - **Logarithmic:** rapid early growth that plateaus (e.g., therapy response)
 - **Exponential:** slow early growth that compounds (e.g., viral outbreak)
@@ -393,7 +393,7 @@ p_quad + p_log + p_exp
 
 ## Returning to Our Data
 
-:::{.fsmaller}
+:::{.fs80}
 - Let's apply this theory to our `vocab` dataset. We are modeling vocabulary growth in children from Baseline (Age 10) to Year 5 (Age 15).
 - Before we just test every math function in R, we should ask:<br>
 [*Which shapes make theoretical sense for this process?*]{.b .blue}
@@ -407,7 +407,7 @@ p_quad + p_log + p_exp
 
 ## Our Testing Plan
 
-:::{.fsmaller}
+:::{.fs80}
 - Based on our developmental theory, we will drop the Exponential model.
 - We will formally test a **Quadratic** model and a **Logarithmic** model against our standard **Linear** baseline to see which shape best fits the actual data.
 - Let's start by building the Quadratic model. We need to add a new predictor to our equation: **Time-Squared**.
@@ -453,7 +453,7 @@ fit_quad <- glmmTMB(
 model_parameters(fit_quad, effects = "fixed")
 ```
 
-:::{.fsmaller .fragment}
+:::{.fs80 .fragment}
 The intercept is the overall average vocabulary score across all time points (due to centering). The significant and positive 1st degree term indicates the overall average growth trend is increasing. The significant and negative 2nd degree term indicates the trajectory is curved downwards (growth is slowing).
 :::
 
@@ -473,7 +473,7 @@ estimate_relation(fit_quad, by = c("time", "subject=[sample 6]")) |> plot()
 
 ## Quadratic Slopes
 
-:::{.fsmaller}
+:::{.fs80}
 In a quadratic model, the growth rate is accelerating or decelerating by a fixed, constant amount per one-unit increase in time. Here, vocab growth is always decelerating by 2.87 per year (see the diff column).
 :::
 
@@ -513,7 +513,7 @@ fit_log <- glmmTMB(
 model_parameters(fit_log, effects = "fixed")
 ```
 
-:::{.fsmaller .fragment}
+:::{.fs80 .fragment}
 The intercept represents the expected vocabulary score exactly at Baseline (Age 10). The significant and positive logarithmic term indicates that vocabulary size increases over time. This growth is modeled as fastest at the beginning and gradually slowing down over time.
 :::
 
@@ -533,7 +533,7 @@ estimate_relation(fit_log, by = c("time", "subject=[sample 6]")) |> plot()
 
 ## Logarithmic Slopes
 
-:::{.fsmaller}
+:::{.fs80}
 In a logarithmic model, the growth rate changes non-uniformly over time, following a pattern of diminishing returns. Here, vocab growth decelerates rapidly at first and then more gradually over time (see the diff column).
 :::
 
@@ -551,7 +551,7 @@ estimate_slopes(fit_log, trend = "time", by = "time") |>
 compare_performance(fit_linear, fit_quad, fit_log, metrics = c("AIC", "BIC"))
 ```
 
-:::{.fsmaller .pv4}
+:::{.fs80 .pv4}
 In our simulated data, the Logarithmic change model has the lowest AIC and BIC, suggesting it provides the best fit for this specific process. Note as well that the weights for both metrics are overwhelmingly in favor of this model.
 :::
 

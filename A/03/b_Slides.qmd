@@ -56,7 +56,7 @@ theme_set(theme_bw(base_size = 30))
 
 # Complete Pooling
 
-## Overview of Complete Pooling {.fsmaller}
+## Overview of Complete Pooling {.fs80}
 
 1. Analyze all the clusters together in a single-level model
 2. Correct for violated assumption using [cluster-robust SEs]{.b .blue}
@@ -76,7 +76,7 @@ theme_set(theme_bw(base_size = 30))
 - &#10060; Requires around 40+ clusters for accurate estimation
 :::
 
-## OLS Residual Covariance {.smaller}
+## OLS Residual Covariance {.fs70}
 
 - When we assume that the residuals are IID, we assume they are...
     + **Independent:** all residuals have $0$ covariance (and correlation)
@@ -97,7 +97,7 @@ $$
 $$
 
 
-## Cluster-Robust Residual Covariance {.smaller}
+## Cluster-Robust Residual Covariance {.fs70}
 
 - If we know the cluster structure of our data, we can instead assume...
     + Residuals have non-zero covariance **within** the same cluster
@@ -117,7 +117,7 @@ $$
 \end{bmatrix}
 $$
 
-## The "Sandwich" Estimator {.fsmaller}
+## The "Sandwich" Estimator {.fs70}
 
 - How do we get standard errors from that block matrix?
 - We use a [Sandwich Estimator]{.b .blue}: **Bread** $\times$ **Meat** $\times$ **Bread**
@@ -136,7 +136,7 @@ $$
 - If there is clustering, the meat "inflates" the SEs appropriately
 :::
 
-## Example Dataset {.fsmaller}
+## Example Dataset {.fs80}
 
 ```{r}
 dat$gender <- factor(dat$female, levels = c(0, 1), labels = c("M", "F"))
@@ -156,7 +156,7 @@ model_parameters(ols)
 model_parameters(ols, vcov = "vcovCL", vcov_args = list(cluster = dat$school))
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 Note that the SEs increased from 0.20 to 0.21 and 0.13 to 0.15.
 :::
 
@@ -171,7 +171,7 @@ plot(pred) + labs(y = "math")
 
 # No Pooling
 
-## Overview of No Pooling {.fsmaller}
+## Overview of No Pooling {.fs80}
 
 1. Add cluster dummy codes and interactions ("[fixed effect]{.b .blue} method")
 2. **Or** split the data and run separate models ("[idiographic]{.b .green} method")
@@ -259,7 +259,7 @@ plot(lines_int, line = list(color = "blue", alpha = 1/10), ribbon = "none") +
   theme(legend.position = "none") + labs(y = "math")
 ```
 
-## The Inference Dilemma {.fsmaller}
+## The Inference Dilemma {.fs70}
 
 We just conducted **419** hypothesis tests. We are now stuck in a trap:
 
@@ -275,7 +275,7 @@ We just conducted **419** hypothesis tests. We are now stuck in a trap:
 
 :::
 
-## [Activity] The Small Sample Dilemma {background-color="#34495e" .fsmaller}
+## [Activity] The Small Sample Dilemma {background-color="#34495e" .fs80}
 
 ::: {.white-text}
 Imagine you are comparing two schools' math scores:
@@ -293,7 +293,7 @@ Imagine you are comparing two schools' math scores:
 
 # Partial Pooling
 
-## Overview of Partial Pooling {.fsmaller}
+## Overview of Partial Pooling {.fs80}
 
 1. Partition the variance by level of clustering
 2. Build submodels to explain sources of dependence
@@ -324,7 +324,7 @@ Imagine you are comparing two schools' math scores:
 
 - Higher-level predictors can also moderate the effects<br> of lower-level predictors (cross-level questions)
 
-## The Conceptual Leap: Fixed vs. Random {.fsmaller}
+## Conceptual Leap: Fixed vs. Random {.fs80}
 
 The choice between No Pooling and Partial Pooling connects back to our earlier definitions of **Clusters**.
 
@@ -346,7 +346,7 @@ The choice between No Pooling and Partial Pooling connects back to our earlier d
 :::
 :::
 
-## Multilevel Modeling {.fsmaller}
+## Multilevel Modeling {.fs80}
 
 - Rather than fitting one line to all clusters (complete pooling)<br> or fitting a separate line to each cluster (no pooling), we can<br> instead [fit a distribution of lines]{.b .blue} across clusters (partial pooling)
 
@@ -358,7 +358,7 @@ The choice between No Pooling and Partial Pooling connects back to our earlier d
 - When estimating each line, clusters with less data will have their lines "pulled" toward the center of the distribution in a process called [shrinkage]{.b .green}, which combats overfitting in small subsamples
 :::
 
-## Visualizing Shrinkage {.fsmaller}
+## Visualizing Shrinkage {.fs80}
 
 The **Fixed Effects** (No Pooling) estimates are noisy.<br>
 The **Multilevel** (Partial Pooling) estimates "shrink" toward Complete Pooling.
@@ -435,7 +435,7 @@ ggplot(df_shrink) +
   )
 ```
 
-## The Mechanics of Shrinkage {.smaller}
+## The Mechanics of Shrinkage {.fs70}
 
 The Partial Pooling estimate is a weighted average of the **Cluster Mean** and the<br />
 **Grand Mean**, where the weight ($\lambda_j$) represents the **reliability** of that cluster.
@@ -454,7 +454,7 @@ $$ \lambda_j = \frac{\tau^2_{00}}{\tau^2_{00} + \frac{\sigma^2}{n_j}} $$
 :::
 
 
-## [Activity] You are the Consultant {background-color="#34495e" .smaller}
+## [Activity] You are the Consultant {background-color="#34495e" .fs70}
 
 ::: {.white-text}
 **Scenario:** A colleague comes to you with clustered data. Which approach do you recommend?
@@ -475,7 +475,7 @@ $$ \lambda_j = \frac{\tau^2_{00}}{\tau^2_{00} + \frac{\sigma^2}{n_j}} $$
 
 :::
 
-## Next Steps {.fsmaller}
+## Next Steps {.fs80}
 
 - **Lab this week:**
     - We will practice applying **Cluster-Robust SEs** (Complete Pooling) and the **Fixed Effect approaches** (No Pooling) to real data.

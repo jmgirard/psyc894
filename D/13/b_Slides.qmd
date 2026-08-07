@@ -110,7 +110,7 @@ We assume Level 1 errors and Level 2 deviations follow a normal curve. If the re
 
 Homoscedasticity means "constant variance."
 
-:::{.fsmaller}
+:::{.fs80}
 $$
 \color{#4daf4a}{e_{ij}} \sim \text{Normal}(0, \color{#4daf4a}{\sigma}) \qquad \begin{bmatrix}\color{#e41a1c}{u_{0j}}\\ \color{#e41a1c}{u_{1j}}\end{bmatrix} \sim \text{MVN}\left(\begin{bmatrix}0\\0\end{bmatrix}, \begin{bmatrix}\color{#e41a1c}{\tau_{00}} & \\ \color{#e41a1c}{\tau_{10}} & \color{#e41a1c}{\tau_{11}}\end{bmatrix}\right)
 $$
@@ -140,7 +140,7 @@ Yes! We explicitly model the correlation between a cluster's intercept and its s
 
 # Part 2:<br> Workflow \& Data
 
-## Prepping the Data {.fsmaller}
+## Prepping the Data {.fs80}
 
 ```{r}
 #| message: false
@@ -204,7 +204,7 @@ fit_fixed <- glmmTMB(score_ideal ~ effort + (1 | school), data = dat)
 check_predictions(fit_fixed)
 ```
 
-## Diagnosing Predictive Misfit {.fsmaller}
+## Diagnosing Predictive Misfit {.fs80}
 
 What if the model predictions do not align with the raw data? This indicates fundamental **misspecification**. No amount of residual tweaking will fix a model that cannot replicate the basic shape of your outcome.
 
@@ -304,7 +304,7 @@ fit_disp <- glmmTMB(
 
 # Part 6: Outliers
 
-## Outliers in MLMs {.fsmaller}
+## Outliers in MLMs {.fs80}
 
 - In standard regression, an outlier just pulls the line
 - In MLMs, outliers distort our system of variances
@@ -314,7 +314,7 @@ fit_disp <- glmmTMB(
 - **L2 Outlier ($\color{#e41a1c}{u_j}$)**: A cluster that is extreme among clusters.
   - *Impact*: Distorts the main fixed effects (slopes) and inflates cluster variance ($\color{#e41a1c}{\tau}$), making groups look more different than they actually are.
 
-## Why DHARMa for Outliers? {.fsmaller}
+## Why DHARMa for Outliers? {.fs80}
 
 - **The Problem with Traditional Outlier Metrics**: Tools like Cook's Distance struggle in MLMs because the model intentionally "shrinks" extreme cluster estimates toward the mean.
 - Thus, `check_outliers()` does not yet support `glmmTMB` models.
@@ -343,7 +343,7 @@ testOutliers(res_out)
 testOutliers(res_out)
 ```
 
-## Interpreting DHARMa Outliers {.fsmaller}
+## Interpreting DHARMa Outliers {.fs80}
 
 - **The Histogram**: This plots your residuals as percentiles, not raw mathematical errors. Because a perfect model means a data point is equally likely to fall into any percentile, we want to see a flat, uniform block from 0.0 to 1.0, *not* a traditional bell curve.
 - **The Red Bars**: DHARMa assigns a value of exactly 0 or 1 to any data point that falls completely outside the simulated boundaries. These extreme outliers are grouped and highlighted in red at the very edges.

@@ -59,7 +59,7 @@ options(width = 75)
 
 # Effect Sizes in MLMs
 
-## Beyond *p*-Values {.fsmaller}
+## Beyond *p*-Values {.fs80}
 
 :::{.columns}
 :::{.column width="60%"}
@@ -73,7 +73,7 @@ options(width = 75)
 :::
 :::
 
-## Two Types of Effect Sizes {.fsmaller}
+## Two Types of Effect Sizes {.fs80}
 
 **Unstandardized Effect Sizes**
 
@@ -87,7 +87,7 @@ options(width = 75)
 - *e.g., The model explains 24 percent of the variance in patient satisfaction*
 - Useful when the original metrics are abstract
 
-## The R-squared Metric {.fsmaller}
+## The R-squared Metric {.fs80}
 
 - The most common standardized effect size is R²
 - It represents the proportion of variance in the outcome variable explained by the model and all its included effects
@@ -97,7 +97,7 @@ $$R^2 = \frac{\text{Explained Variance}}{\text{Total Variance}}$$
 0 (nothing explained) to 1 (everything explained)
 - However, applying this to Multilevel Models is notoriously difficult
 
-## The Multilevel Variance Problem {.fsmaller}
+## The Multilevel Variance Problem {.fs80}
 
 Why can't we just use a single R² for an MLM?
 
@@ -107,7 +107,7 @@ Total variance is partitioned. Do we want to explain total outcome variance, wit
 We have multiple sources of explained variance. We have fixed effects at Level-1, fixed effects at Level-2, random intercepts, and random slopes.
 - Summing these up into a single neat number obscures the complexity of the data structure and can be misleading.
 
-## The Rights & Sterba Framework {.fsmaller}
+## The Rights & Sterba Framework {.fs80}
 
 - Rights \& Sterba (2019) developed a complex framework for R² in MLMs.
 - Because there are so many combinations of numerators and denominators, their framework yields **12 different R-squared measures** for a single model.
@@ -116,14 +116,14 @@ We have multiple sources of explained variance. We have fixed effects at Level-1
   - Proportion of within-cluster variance explained by random slopes.
   - Proportion of between-cluster variance explained by random intercepts.
 
-## Practical Constraints {.fsmaller}
+## Practical Constraints {.fs80}
 
 - This framework is academically rigorous and statistically exact.
 - If your research question relies on isolating exactly how much Level-2 variance is explained by a Level-1 random slope, it is the tool to use.
 - However, for most applied researchers, reporting 12 effect sizes per model is overwhelming for both the author and the reader.
 - Most journals expect a simpler, two-part summary of model performance.
 
-## The Nakagawa Framework {.fsmaller}
+## The Nakagawa Framework {.fs80}
 
 - The widely accepted standard for applied MLMs is the framework developed by Nakagawa \& Schielzeth (2013).
 - It simplifies the problem by providing two metrics:
@@ -153,7 +153,7 @@ glimpse(hospital)
 
 ## Preparing the Data
 
-:::{.fsmaller}
+:::{.fs80}
 To calculate accurate R-squared values, we do not need to standardize or center our Level-2 predictors. However, we **must** decompose our Level-1 predictors to properly isolate the within-cluster and between-cluster variance.
 :::
 
@@ -168,7 +168,7 @@ dat_unstd <- hospital |>
 
 ## Fitting the Baseline Model
 
-:::{.fsmaller}
+:::{.fs80}
 Now we fit our model using our unstandardized, centered predictors.
 :::
 
@@ -183,7 +183,7 @@ fit_unstd <- glmmTMB(
 
 ## Extracting R-squared
 
-:::{.fsmaller}
+:::{.fs80}
 We can extract our Nakagawa R² values cleanly using the \{performance\} package from the \{easystats\} ecosystem.
 :::
 
@@ -191,7 +191,7 @@ We can extract our Nakagawa R² values cleanly using the \{performance\} package
 r2(fit_unstd)
 ```
 
-## Interpreting R-squared {.fsmaller}
+## Interpreting R-squared {.fs80}
 
 - **Marginal R² (0.176):** Fixed effects explain ~17.6% of the variance.
   - *Prediction Framing:* How well we predict a new observation from a **new, unseen cluster**. We must rely solely on the population averages.
@@ -203,7 +203,7 @@ r2(fit_unstd)
 
 ## To Standardize Y or Not? 
 
-:::{.fsmaller}
+:::{.fs80}
 Before we standardize our slopes, we must ask a theoretical question about our outcome variable (Y).
 
 - **Meaningful Outcomes:** If Y has a well understood and intuitive metric (e.g., dollars, days, blood pressure), we leave it in its raw units. We only standardize the predictors, yielding [StdX]{.b .blue} slopes.
@@ -212,7 +212,7 @@ Before we standardize our slopes, we must ask a theoretical question about our o
 
 ## The Predictor Trap 
 
-:::{.fsmaller}
+:::{.fs80}
 Regardless of using StdX or StdYX, we must be incredibly careful about how we standardize our multilevel predictors (X).
 
 - **The "Global" Trap:** Standard software defaults to standardizing based on the total sample's mean and SD. Here is why that fails:
@@ -223,7 +223,7 @@ Regardless of using StdX or StdYX, we must be incredibly careful about how we st
 
 ## StdX: Data Preparation (L2)
 
-:::{.fsmaller}
+:::{.fs80}
 To avoid mixing levels, we create a distinct Level-2 dataset using summarize. Standardizing within this dataset uses the correct means and SDs.
 :::
 
@@ -244,7 +244,7 @@ l2_std <- hospital |>
 
 ## StdX: Data Preparation (L1)
 
-:::{.fsmaller}
+:::{.fs80}
 Next, we join those standardized L2 variables back to our L1 data and strictly standardize the within-cluster variance.
 :::
 
@@ -259,7 +259,7 @@ dat_stdx <- hospital |>
   )
 ```
 
-## StdX: Model & Interpretation
+## StdX: Model & Interpretation {.fs90}
 
 ```{r}
 fit_stdx <- glmmTMB(
@@ -271,11 +271,11 @@ fit_stdx <- glmmTMB(
 model_parameters(fit_stdx, effects = "fixed")
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 - A one *SD* increase in a patient's wait time (relative to their hospital's average) significantly decreases their satisfaction by 0.37 *raw points*.
 :::
 
-## The Problem with Global StdYX {.fsmaller}
+## The Problem with Global StdYX {.fs80}
 
 If Y is an arbitrary scale, you might be tempted to standardize Y globally before fitting your model (like you would for OLS). [Do not do this for multilevel data!]{.b .dark-red} 
 
@@ -286,7 +286,7 @@ If Y is an arbitrary scale, you might be tempted to standardize Y globally befor
 
 ## Level-Specific StdYX 
 
-:::{.fsmaller}
+:::{.fs80}
 There is no automated R package for this (yet). We manually take the coefficients from our **StdX model** (where X is standardized but Y is raw) and divide them by the level-specific standard deviations of Y.
 :::
 
@@ -305,7 +305,7 @@ sd_y_w <- hospital |>
 
 ## Calculating & Interpreting StdYX
 
-:::{.fsmaller}
+:::{.fs80}
 We divide the slopes from our `fit_stdx` model by the matching SD of Y.
 :::
 
@@ -314,7 +314,7 @@ We divide the slopes from our `fit_stdx` model by the matching SD of Y.
 0.19 / 0.700 # nurse_z
 ```
 
-:::{.fsmaller}
+:::{.fs80}
 - A one *between-hospital* SD increase in nurse ratio was associated with a non-significant increase in satisfaction of 0.27 *between-hospital* SDs.
 :::
 
@@ -323,19 +323,19 @@ We divide the slopes from our `fit_stdx` model by the matching SD of Y.
 -0.37 / 0.722 # wait_w_z
 ``` 
 
-:::{.fsmaller}
+:::{.fs80}
 - A one *within-hospital* SD increase in wait time was associated with a significant decrease in satisfaction of 0.51 *within-hospital* SDs.
 :::
 
 # The Reporting<br> Checklist
 
-## The Goal of Reporting {.fsmaller}
+## The Goal of Reporting {.fs80}
 
 - Multilevel modeling involves dozens of minor analytical decisions. 
 - Centering, random effect structures, and estimation algorithms all drastically change your results.
 - Your goal in a manuscript is not just to report the p-values, but to provide enough transparent detail that another researcher could perfectly replicate your model from your raw data.
 
-## IMRD: Introduction {.fsmaller}
+## IMRD: Introduction {.fs80}
 
 The justification for an MLM should begin before the Methods section.
 
@@ -345,7 +345,7 @@ The justification for an MLM should begin before the Methods section.
 - Clearly state the levels of analysis (e.g., L1 is patients, L2 is hospitals).
 - Distinguish between within-cluster and between-cluster hypotheses. Do not hypothesize a generic "effect of wait time" if you specifically mean "when a patient waits longer than their hospital's average."
 
-## IMRD: Methods (Data) {.fsmaller}
+## IMRD: Methods (Data) {.fs80}
 
 The participants section must describe the sample sizes at all levels.
 
@@ -355,7 +355,7 @@ The participants section must describe the sample sizes at all levels.
 - Total number of Level-2 clusters (e.g., J = 40 hospitals).
 - The average cluster size, minimum cluster size, and maximum cluster size (e.g., an average of 50 patients per hospital, ranging from 12 to 89).
 
-## IMRD: Methods (Variables) {.fsmaller}
+## IMRD: Methods (Variables) {.fs80}
 
 You must explicitly state how every variable was handled.
 
@@ -365,7 +365,7 @@ You must explicitly state how every variable was handled.
 - Explicitly state your centering decisions. Did you grand-mean center? Did you group-mean center (cluster-mean center)? 
 - State why you chose that centering method. Did you want to isolate the purely within-cluster effect, or were you aiming for a blended effect?
 
-## IMRD: Methods (Modeling) {.fsmaller}
+## IMRD: Methods (Modeling) {.fs80}
 
 Clearly identify the mathematical tools you used.
 
@@ -375,7 +375,7 @@ Clearly identify the mathematical tools you used.
 - The estimation method used. Did you use Restricted Maximum Likelihood (REML) or standard Maximum Likelihood (ML)? 
 - Mention the specific optimizer if you had to change it from the default to achieve convergence.
 
-## IMRD: Methods (Structure) {.fsmaller}
+## IMRD: Methods (Structure) {.fs80}
 
 Explain how you built your equations.
 
@@ -385,7 +385,7 @@ Explain how you built your equations.
 - State whether you allowed the random intercepts and slopes to correlate.
 - If you had to simplify your random effects structure due to singular fits or convergence issues, document that process here. Explain what was dropped and why.
 
-## IMRD: Methods (Descriptives & Reliability) {.fsmaller}
+## IMRD: Methods (Reliability) {.fs80}
 
 You cannot simply present a correlation matrix for a multilevel dataset.
 
@@ -395,7 +395,7 @@ You cannot simply present a correlation matrix for a multilevel dataset.
 - A completely separate table of descriptives and correlations for all Level-2 variables, calculated at the cluster level.
 - Evidence of reliability for your continuous predictors. Predictors measured with high error will bias your regression coefficients.
 
-## IMRD: Methods (Missing Data) {.fsmaller}
+## IMRD: Methods (Missing Data) {.fs80}
 
 Missing data is especially dangerous in MLMs. Deleting one Level-2 cluster due to a missing covariate takes all of its Level-1 observations down with it.
 
@@ -405,7 +405,7 @@ Missing data is especially dangerous in MLMs. Deleting one Level-2 cluster due t
 - The method used to handle missingness (e.g., Full Information Maximum Likelihood or Multiple Imputation).
 - If using listwise deletion, explicitly state the final analytical sample size and justify why deletion was acceptable.
 
-## IMRD: Results (The Null Model) {.fsmaller}
+## IMRD: Results (The Null Model) {.fs80}
 
 Always report the baseline before adding predictors.
 
@@ -415,7 +415,7 @@ Always report the baseline before adding predictors.
 - Provide a plain language interpretation: "The ICC was 0.22, indicating that 22 percent of the variance in patient satisfaction is attributable to differences between hospitals."
 - This justifies the need for multilevel modeling in the first place.
 
-## IMRD: Results (Fixed Effects) {.fsmaller}
+## IMRD: Results (Fixed Effects) {.fs80}
 
 Report the focal tests of your hypotheses.
 
@@ -427,7 +427,7 @@ Report the focal tests of your hypotheses.
 - The exact p-value.
 - A plain language interpretation of the direction and magnitude of the effect.
 
-## IMRD: Results (Random Effects) {.fsmaller}
+## IMRD: Results (Random Effects) {.fs80}
 
 Do not ignore the random portion of the model.
 
@@ -438,7 +438,7 @@ Do not ignore the random portion of the model.
 - The correlation between random intercepts and random slopes.
 - The residual (Level-1) variance.
 
-## IMRD: Results (Effect Sizes) {.fsmaller}
+## IMRD: Results (Effect Sizes) {.fs80}
 
 Provide the big picture summary of model performance.
 
@@ -449,7 +449,7 @@ Provide the big picture summary of model performance.
 - If comparing multiple models (e.g., a baseline model vs a full model), report the change in R2 (Delta R2) or use AIC/BIC to discuss relative model fit.
 - Clearly state whether you are reporting raw, StdX, or StdYX slopes.
 
-## IMRD: Results (Model Building Sequence) {.fsmaller}
+## IMRD: Results (Model Building) {.fs80}
 
 Reviewers want to see the sequence of models you estimated.
 
@@ -459,7 +459,7 @@ Reviewers want to see the sequence of models you estimated.
 - **Step 2:** The Random Coefficients Model containing only Level-1 predictors to see if those slopes vary significantly across clusters.
 - **Step 3:** The Full Contextual Model containing Level-1 and Level-2 predictors, including any cross-level interactions.
 
-## IMRD: Discussion (Language) {.fsmaller}
+## IMRD: Discussion (Language) {.fs80}
 
 Multilevel modeling uses the word "effect" constantly (e.g., fixed effects, random effects). This can create a semantic trap.
 

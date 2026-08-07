@@ -40,7 +40,7 @@ Issues with Clustered Data
 
 # Multilevel Data and Multilevel Questions
 
-## What is multilevel data? {.smaller}
+## What is multilevel data? {.fs70}
 
 - Data are [hierarchically clustered]{.b .blue} when there are groups of observations<br> that are more similar *within* groups than they are *between* groups
     + We say that observations are **nested within** clusters
@@ -56,7 +56,7 @@ Issues with Clustered Data
 
 :::
 
-## What is and isn't a cluster? {.smaller}
+## What is and isn't a cluster? {.fs70}
 
 ::: {.columns}
 ::: {.column width="50%"}
@@ -93,7 +93,7 @@ Issues with Clustered Data
 :::
 :::
 
-## Types of Multilevel Variables {.smaller}
+## Types of Multilevel Variables {.fs70}
 
 - [Global]{.b .blue} variables describe their own level
     + *e.g., the **motivation** of a student (L1) or the **size** of a class (L2)*
@@ -114,7 +114,7 @@ Issues with Clustered Data
 
 :::
 
-## Practice: Classify that Variable {.smaller}
+## Practice: Classify that Variable {.fs70}
 
 **Scenario:** We are studying **employees (L1)** nested within **companies (L2)**.
 
@@ -134,7 +134,7 @@ For each variable below, is it **Global**, **Structural**, or **Disaggregated**?
     - *It describes the higher level (L2) but is "aggregated up" from the lower level (L1).*
 :::
 
-## Multilevel Research Questions {.smaller}
+## Multilevel Research Questions {.fs70}
 
 - [Within-Cluster]{.b .blue} Questions
     + *e.g., how does student motivation (L1) relate to student achievement (L1)?*
@@ -178,7 +178,7 @@ For each variable below, is it **Global**, **Structural**, or **Disaggregated**?
 - Relationships may actually reverse at different levels
 :::
 
-## Visualizing the Paradox {.smaller}
+## Visualizing the Paradox {.fs70}
 
 ```{r}
 #| echo: false
@@ -241,7 +241,7 @@ ggplot(df_simpson, aes(x, y)) +
 
 # Statistical Issues
 
-## Forcing a Single Level {.smaller}
+## Forcing a Single Level {.fs70}
 
 - If we [disaggregate to the lowest level]{.b .blue} and run a single-level model...
     + We treat 10 students in 20 classrooms as 200 IID students
@@ -263,7 +263,7 @@ ggplot(df_simpson, aes(x, y)) +
 
 :::
 
-## The Danger of Ignoring Clustering {.smaller}
+## The Danger of Ignoring Clustering {.fs70}
 
 **Simulation:** We simulate 500 datasets where **no effect exists** ($\beta=0$). We analyze *the exact same data* two ways: ignoring clustering (LM) and accounting for it (MLM). Because H0 is true, only ~5\% of slope p-values should be $<.05$. This is true for MLM but not for LM.
 
@@ -342,7 +342,7 @@ ggplot(sim_df, aes(x = p_value, fill = Model)) +
   )
 ```
 
-## Why is the SE too low? {.smaller}
+## Why is the SE too low? {.fs70}
 
 - If we disaggregate to the lowest level, $N$ will be too high
     + We are pretending that we have 200 IID observations
@@ -366,7 +366,7 @@ $$
 SE_{\beta_p}=\frac{SD_Y}{SD_{X_p}} \sqrt{\frac{1-R^2}{(n-k-1)(1-R_p^2)}}
 $$
 
-:::{.tc .f1}
+:::{.tc}
 $n$ is the sample size (assuming IID)<br>
 $k$ is the number of predictor ($X$) variables<br>
 $R^2$ is the variance in $Y$ explained by all $X$<br>
@@ -378,7 +378,7 @@ $R_p^2$ is the variance in $X_p$ explained by all other $X$
 If $n$ is too large, then $SE_{\beta_p}$ will be too small.
 :::
 
-## The Intraclass Correlation (ICC)
+## The Intraclass Correlation (ICC) {.fs80}
 
 - How strong is the clustering or interdependency?
 - How correlated are observations from the same cluster?
@@ -387,7 +387,7 @@ $$
 ICC = \rho = \frac{\tau_{00}^2}{\tau_{00}^2+\sigma^2}
 $$
 
-::: {.fsmaller}
+::: {.fs80}
 - $\sigma^2$ is the **Within-Cluster Variance** (Residual Variance)
 - $\tau_{00}^2$ is the **Between-Cluster Variance** (Intercept Variance)
 - *Note: `easystats` usually reports the SDs ($\sigma$ and $\tau_{00}$), so you must square them to get the variances for this formula.*
@@ -468,7 +468,7 @@ $$
 - [Important:]{.b} $n^*$ applies primarily to **Level 1** effects. Power for **Level 2** effects depends mainly on the number of clusters ($J$), not the total $N$.
 :::
 
-## Brief Activity {background-color="#34495e" .fsmaller .white-text}
+## Brief Activity {background-color="#34495e" .fs80 .white-text}
 
 I recruited 30 participants to each complete 100 trials of a behavioral experiment; thus, my data has 3000 observations. I ran a linear regression and my hypothesized effect was significant! However, my annoying friend told me that I am ignoring "clustering" or something and that my effect might not be significant after all. My other, nice friend explained how to calculate the necessary information, but the software output only gave me Standard Deviations (SDs).
 

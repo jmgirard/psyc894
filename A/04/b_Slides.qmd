@@ -56,7 +56,7 @@ options(tibble.print_max = 6, tibble.print_min = 6)
 
 # Data Tidying Recap
 
-## The Tidyverse Toolkit
+## The Tidyverse Toolkit {.fs90}
 
 - **`dplyr`** is our primary tool for data manipulation.
 - It uses a set of "verbs" to describe actions on data:
@@ -109,7 +109,7 @@ heck_transformed <-
 
 # Reshaping Data
 
-## The Shape of MLM Data {.fsmaller}
+## The Shape of MLM Data {.fs80}
 
 - [Wide Format]{.b .red}
     + One Row = One **Cluster** (e.g., a subject in longitudinal study)
@@ -126,7 +126,7 @@ heck_transformed <-
 
 :::
 
-## Scenario 1: Simple {.fsmaller}
+## Scenario 1: Simple {.fs70}
 
 ```{r}
 #| echo: false
@@ -155,7 +155,7 @@ wide_simple
     
 :::
 
-## Scenario 1: Simple {.fsmaller}
+## Scenario 1: Simple {.fs70}
 
 ```{r}
 # Pivot the data longer (from wide-format to long-format)
@@ -173,7 +173,7 @@ long_simple <-
 - We move the old 2x3 block of **values** into a new column ("score")
 
 
-## Scenario 2: Realistic {.fsmaller}
+## Scenario 2: Realistic {.fs80}
 
 ```{r}
 #| echo: false
@@ -198,7 +198,7 @@ wide_real
     + Luckily, they are named consistently as "variable_time"
     + We can leverage this using `names_sep` and `names_to`
 
-## Scenario 2: Realistic {.fsmaller}
+## Scenario 2: Realistic {.fs80}
 
 ```{r}
 # Pivot the data longer (from very-wide-format to long-format)
@@ -215,7 +215,7 @@ long_real <-
   print()
 ```
 
-## Why .value is Magic {.fsmaller}
+## Why .value is Magic {.fs80}
 
 Notice what happened:
 
@@ -229,7 +229,7 @@ Notice what happened:
 This creates a perfectly formatted MLM dataset with one row per observation, and separate columns for your predictors ($X$) and outcomes ($Y$).
 :::
 
-## Parsing Numbers {.fsmaller}
+## Parsing Numbers {.fs80}
 
 ```{r}
 # What if we want to extract the numeric part of time ("T2" -> 2)?
@@ -246,7 +246,7 @@ long_real <-
 ```
 :::
 
-## The Payoff: Visualizing Change {.fsmaller}
+## The Payoff: Visualizing Change {.fs80}
 
 ```{r}
 # Now that our data is in long-format, we can easily plot it by participant!
@@ -275,7 +275,7 @@ In MLM, we often need to calculate statistics *per cluster*<br>
 - `mutate(.by)` will prepare the data for MLM
 :::
 
-## Aggregating (Summarize) {.fsmaller}
+## Aggregating (Summarize) {.fs80}
 
 ```{r}
 # To create a L2 dataset (e.g., summaries per school), we use summarize(.by)
@@ -289,7 +289,7 @@ school_means <-
   print()
 ```
 
-## Annotating (Mutate) {.fsmaller}
+## Annotating (Mutate) {.fs80}
 
 ```{r}
 # To simply add L2 summaries to the L1 dataset, we use mutate(.by)
@@ -306,7 +306,7 @@ heck_with_means <-
 Note that `school_math_mean` is repeated for every student in the same school. This is what MLM wants!
 :::
 
-## Merging: The Setup {.fsmaller}
+## Merging: The Setup {.fs80}
 
 ```{r}
 #| echo: false
@@ -351,7 +351,7 @@ L2_countries
 :::
 :::
 
-## Merging: The Join {.fsmaller}
+## Merging: The Join {.fs80}
 
 ```{r}
 merged_data <- 
